@@ -7,12 +7,119 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		946318E11CBC3242001CD859 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318E01CBC3242001CD859 /* AppDelegate.m */; };
+		94041C011CBEC937003BD343 /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
+		94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
+		94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
+		94041C161CBECAD6003BD343 /* XTGlobal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C091CBECAD6003BD343 /* XTGlobal.mm */; };
+		94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
+		94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
+		94041C191CBECAD6003BD343 /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
+		94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */; };
+		94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
+		94041C201CBECAE6003BD343 /* XTErrors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1D1CBECAE6003BD343 /* XTErrors.mm */; };
+		94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
+		94041C221CBECB40003BD343 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08B1CBC45B50004D687 /* Amplitude.cc */; };
+		94041C231CBECB40003BD343 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08C1CBC45B50004D687 /* Angle.cc */; };
+		94041C241CBECB40003BD343 /* Banner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08D1CBC45B50004D687 /* Banner.cc */; };
+		94041C251CBECB40003BD343 /* Calendar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08E1CBC45B50004D687 /* Calendar.cc */; };
+		94041C261CBECB40003BD343 /* CalendarFormC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08F1CBC45B50004D687 /* CalendarFormC.cc */; };
+		94041C271CBECB40003BD343 /* CalendarFormH.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0901CBC45B50004D687 /* CalendarFormH.cc */; };
+		94041C281CBECB40003BD343 /* CalendarFormL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0911CBC45B50004D687 /* CalendarFormL.cc */; };
+		94041C291CBECB40003BD343 /* CalendarFormNotC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0921CBC45B50004D687 /* CalendarFormNotC.cc */; };
+		94041C2A1CBECB40003BD343 /* CalendarFormT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0931CBC45B50004D687 /* CalendarFormT.cc */; };
+		94041C2B1CBECB40003BD343 /* ClientSideFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0941CBC45B50004D687 /* ClientSideFont.cc */; };
+		94041C2C1CBECB40003BD343 /* Colors.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0951CBC45B50004D687 /* Colors.cc */; };
+		94041C2D1CBECB40003BD343 /* Constituent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0961CBC45B50004D687 /* Constituent.cc */; };
+		94041C2E1CBECB40003BD343 /* ConstituentSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0971CBC45B50004D687 /* ConstituentSet.cc */; };
+		94041C2F1CBECB40003BD343 /* Coordinates.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0981CBC45B50004D687 /* Coordinates.cc */; };
+		94041C301CBECB40003BD343 /* CurrentBearing.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0991CBC45B50004D687 /* CurrentBearing.cc */; };
+		94041C311CBECB40003BD343 /* Date.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09A1CBC45B50004D687 /* Date.cc */; };
+		94041C321CBECB40003BD343 /* Dstr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09B1CBC45B50004D687 /* Dstr.cc */; };
+		94041C341CBECB40003BD343 /* Graph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09D1CBC45B50004D687 /* Graph.cc */; };
+		94041C351CBECB40003BD343 /* HarmonicsFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09E1CBC45B50004D687 /* HarmonicsFile.cc */; };
+		94041C361CBECB40003BD343 /* HarmonicsPath.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09F1CBC45B50004D687 /* HarmonicsPath.cc */; };
+		94041C371CBECB40003BD343 /* Interval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A01CBC45B50004D687 /* Interval.cc */; };
+		94041C381CBECB40003BD343 /* MetaField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A11CBC45B50004D687 /* MetaField.cc */; };
+		94041C391CBECB40003BD343 /* Nullable.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A21CBC45B50004D687 /* Nullable.cc */; };
+		94041C3A1CBECB40003BD343 /* NullableInterval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A31CBC45B50004D687 /* NullableInterval.cc */; };
+		94041C3B1CBECB40003BD343 /* NullablePredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A41CBC45B50004D687 /* NullablePredictionValue.cc */; };
+		94041C3C1CBECB40003BD343 /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A51CBC45B50004D687 /* Offsets.cc */; };
+		94041C3D1CBECB40003BD343 /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A61CBC45B50004D687 /* PixelatedGraph.cc */; };
+		94041C3E1CBECB40003BD343 /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A71CBC45B50004D687 /* PredictionValue.cc */; };
+		94041C3F1CBECB40003BD343 /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A81CBC45B50004D687 /* RGBGraph.cc */; };
+		94041C401CBECB40003BD343 /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A91CBC45B50004D687 /* Settings.cc */; };
+		94041C411CBECB40003BD343 /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AA1CBC45B50004D687 /* Skycal.cc */; };
+		94041C421CBECB40003BD343 /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AB1CBC45B50004D687 /* Speed.cc */; };
+		94041C431CBECB40003BD343 /* Station.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AC1CBC45B50004D687 /* Station.cc */; };
+		94041C441CBECB40003BD343 /* StationIndex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AD1CBC45B50004D687 /* StationIndex.cc */; };
+		94041C451CBECB40003BD343 /* StationRef.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AE1CBC45B50004D687 /* StationRef.cc */; };
+		94041C461CBECB40003BD343 /* SubordinateStation.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AF1CBC45B50004D687 /* SubordinateStation.cc */; };
+		94041C471CBECB40003BD343 /* SVGGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B01CBC45B50004D687 /* SVGGraph.cc */; };
+		94041C481CBECB40003BD343 /* TideEvent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B11CBC45B50004D687 /* TideEvent.cc */; };
+		94041C491CBECB40003BD343 /* TideEventsOrganizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B21CBC45B50004D687 /* TideEventsOrganizer.cc */; };
+		94041C4A1CBECB40003BD343 /* Timestamp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B31CBC45B50004D687 /* Timestamp.cc */; };
+		94041C4B1CBECB40003BD343 /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B41CBC45B50004D687 /* TTYGraph.cc */; };
+		94041C4C1CBECB40003BD343 /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B51CBC45B50004D687 /* Units.cc */; };
+		94041C4F1CBECDE2003BD343 /* PreferenceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C4E1CBECDE2003BD343 /* PreferenceController.mm */; };
+		94041C521CBEE6BF003BD343 /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 94041C501CBEE6BF003BD343 /* Global.cc */; };
+		94041C531CBF14FD003BD343 /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B81CBC45B50004D687 /* Year.cc */; };
+		94041C5D1CBF173A003BD343 /* TideDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C581CBF173A003BD343 /* TideDocument.mm */; };
+		94041C5E1CBF173A003BD343 /* TideDataDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5A1CBF173A003BD343 /* TideDataDocument.mm */; };
+		94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */; };
+		94041C721CBF1768003BD343 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C611CBF1768003BD343 /* sunrise.png */; };
+		94041C731CBF1768003BD343 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C621CBF1768003BD343 /* sunset.png */; };
+		94041C741CBF1768003BD343 /* newmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C631CBF1768003BD343 /* newmoon.png */; };
+		94041C751CBF1768003BD343 /* moonrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C641CBF1768003BD343 /* moonrise.png */; };
+		94041C761CBF1768003BD343 /* moonset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C651CBF1768003BD343 /* moonset.png */; };
+		94041C771CBF1768003BD343 /* firstquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C661CBF1768003BD343 /* firstquarter.png */; };
+		94041C781CBF1768003BD343 /* fullmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C671CBF1768003BD343 /* fullmoon.png */; };
+		94041C791CBF1768003BD343 /* lastquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C681CBF1768003BD343 /* lastquarter.png */; };
+		94041C7A1CBF1768003BD343 /* hightide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C691CBF1768003BD343 /* hightide.png */; };
+		94041C7B1CBF1768003BD343 /* lowtide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6A1CBF1768003BD343 /* lowtide.png */; };
+		94041C7C1CBF1768003BD343 /* falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6B1CBF1768003BD343 /* falling.png */; };
+		94041C7D1CBF1768003BD343 /* rising.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6C1CBF1768003BD343 /* rising.png */; };
+		94041C7E1CBF1768003BD343 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
+		94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
+		94041C801CBF1768003BD343 /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
+		94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C701CBF1768003BD343 /* toolbar-calendar.png */; };
+		94041C821CBF1768003BD343 /* lh128.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94041C711CBF1768003BD343 /* lh128.icns */; };
+		94041C851CBF1906003BD343 /* TideController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C841CBF1906003BD343 /* TideController.mm */; };
+		94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C871CBF190F003BD343 /* TideGraphController.mm */; };
+		94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8A1CBF1938003BD343 /* GraphView.mm */; };
+		94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8D1CBF1967003BD343 /* TideTextViewController.m */; };
+		94041C911CBF1967003BD343 /* TideDataController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8F1CBF1967003BD343 /* TideDataController.mm */; };
+		94041C9C1CC040DB003BD343 /* XTMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041C9B1CC040DB003BD343 /* XTMapView.xib */; };
+		94041C9E1CC0432F003BD343 /* XTMapWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041C9D1CC0432F003BD343 /* XTMapWindow.xib */; };
+		94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CA01CC043D6003BD343 /* XTMapWindowController.m */; };
+		94041CA41CC04969003BD343 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
+		94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
+		94041CAF1CC06B56003BD343 /* TideGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041CAD1CC06B56003BD343 /* TideGraph.xib */; };
+		94041CB51CC1943C003BD343 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041CB31CC1943C003BD343 /* Preferences.xib */; };
+		94041CB71CC1AD70003BD343 /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
+		94041D301CC1CDF1003BD343 /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
+		94041D321CC1CE3E003BD343 /* tide_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D311CC1CE3E003BD343 /* tide_db.c */; };
+		94041D351CC6D804003BD343 /* DisclaimerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D341CC6D804003BD343 /* DisclaimerController.m */; };
+		94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D391CC6D92D003BD343 /* Disclaimer.xib */; };
+		94041D411CC6EBF0003BD343 /* TideData.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D3F1CC6EBF0003BD343 /* TideData.xib */; };
+		94041D441CC6EE20003BD343 /* TideTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D431CC6EE20003BD343 /* TideTableView.m */; };
+		94041D4B1CC7ED5F003BD343 /* SuggestionsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D461CC7ED5F003BD343 /* SuggestionsWindowController.m */; };
+		94041D4C1CC7ED5F003BD343 /* RoundedCornersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D481CC7ED5F003BD343 /* RoundedCornersView.m */; };
+		94041D4D1CC7ED5F003BD343 /* SuggestionsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D4A1CC7ED5F003BD343 /* SuggestionsWindow.m */; };
+		94041D4F1CC7ED6E003BD343 /* suggestionprototype.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D4E1CC7ED6E003BD343 /* suggestionprototype.xib */; };
+		94041D521CC7ED9D003BD343 /* HighlightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D511CC7ED9D003BD343 /* HighlightingView.m */; };
+		94041D551CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D541CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m */; };
+		94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */; };
+		94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */; };
+		94041D661CC94E51003BD343 /* CalendarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041D651CC94E51003BD343 /* CalendarController.mm */; };
+		94041D6C1CC95069003BD343 /* TideCalendar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D6A1CC95069003BD343 /* TideCalendar.xib */; };
+		94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D6E1CC98A71003BD343 /* XTApplication.m */; };
+		946318E11CBC3242001CD859 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 946318E01CBC3242001CD859 /* AppDelegate.mm */; };
 		946318E41CBC3242001CD859 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318E31CBC3242001CD859 /* main.m */; };
 		946318E61CBC3242001CD859 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946318E51CBC3242001CD859 /* Assets.xcassets */; };
 		946318E91CBC3242001CD859 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946318E71CBC3242001CD859 /* MainMenu.xib */; };
 		946318F41CBC3242001CD859 /* XTideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318F31CBC3242001CD859 /* XTideTests.m */; };
 		946318FF1CBC3242001CD859 /* XTideUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318FE1CBC3242001CD859 /* XTideUITests.m */; };
+		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,9 +140,111 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		94041BFF1CBEC937003BD343 /* XTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTGraph.h; sourceTree = "<group>"; };
+		94041C001CBEC937003BD343 /* XTGraph.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTGraph.mm; sourceTree = "<group>"; };
+		94041C041CBECAD6003BD343 /* XTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTCalendar.h; sourceTree = "<group>"; };
+		94041C051CBECAD6003BD343 /* XTCalendar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTCalendar.mm; sourceTree = "<group>"; };
+		94041C061CBECAD6003BD343 /* XTSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSettings.h; sourceTree = "<group>"; };
+		94041C071CBECAD6003BD343 /* XTSettings.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTSettings.mm; sourceTree = "<group>"; };
+		94041C081CBECAD6003BD343 /* XTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTGlobal.h; sourceTree = "<group>"; };
+		94041C091CBECAD6003BD343 /* XTGlobal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTGlobal.mm; sourceTree = "<group>"; };
+		94041C0A1CBECAD6003BD343 /* XTStationIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationIndex.h; sourceTree = "<group>"; };
+		94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStationIndex.mm; sourceTree = "<group>"; };
+		94041C0C1CBECAD6003BD343 /* XTStationRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationRef.h; sourceTree = "<group>"; };
+		94041C0D1CBECAD6003BD343 /* XTStationRef.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStationRef.mm; sourceTree = "<group>"; };
+		94041C0E1CBECAD6003BD343 /* XTStationInt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationInt.h; sourceTree = "<group>"; };
+		94041C0F1CBECAD6003BD343 /* XTStation.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStation.mm; sourceTree = "<group>"; };
+		94041C101CBECAD6003BD343 /* XTTideEventsOrganizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTideEventsOrganizer.h; sourceTree = "<group>"; };
+		94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEventsOrganizer.mm; sourceTree = "<group>"; };
+		94041C121CBECAD6003BD343 /* XTTideEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTideEvent.h; sourceTree = "<group>"; };
+		94041C131CBECAD6003BD343 /* XTTideEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEvent.mm; sourceTree = "<group>"; };
+		94041C1C1CBECAE6003BD343 /* XTErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTErrors.h; sourceTree = "<group>"; };
+		94041C1D1CBECAE6003BD343 /* XTErrors.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTErrors.mm; sourceTree = "<group>"; };
+		94041C1E1CBECAE6003BD343 /* XTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUtils.h; sourceTree = "<group>"; };
+		94041C1F1CBECAE6003BD343 /* XTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUtils.mm; sourceTree = "<group>"; };
+		94041C4D1CBECDE2003BD343 /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
+		94041C4E1CBECDE2003BD343 /* PreferenceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PreferenceController.mm; sourceTree = "<group>"; };
+		94041C501CBEE6BF003BD343 /* Global.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Global.cc; sourceTree = "<group>"; };
+		94041C511CBEE6BF003BD343 /* Global.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Global.hh; sourceTree = "<group>"; };
+		94041C571CBF173A003BD343 /* TideDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideDocument.h; sourceTree = "<group>"; };
+		94041C581CBF173A003BD343 /* TideDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDocument.mm; sourceTree = "<group>"; };
+		94041C591CBF173A003BD343 /* TideDataDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideDataDocument.h; sourceTree = "<group>"; };
+		94041C5A1CBF173A003BD343 /* TideDataDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataDocument.mm; sourceTree = "<group>"; };
+		94041C5B1CBF173A003BD343 /* TideGraphDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideGraphDocument.h; sourceTree = "<group>"; };
+		94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideGraphDocument.mm; sourceTree = "<group>"; };
+		94041C611CBF1768003BD343 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
+		94041C621CBF1768003BD343 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
+		94041C631CBF1768003BD343 /* newmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newmoon.png; sourceTree = "<group>"; };
+		94041C641CBF1768003BD343 /* moonrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moonrise.png; sourceTree = "<group>"; };
+		94041C651CBF1768003BD343 /* moonset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moonset.png; sourceTree = "<group>"; };
+		94041C661CBF1768003BD343 /* firstquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firstquarter.png; sourceTree = "<group>"; };
+		94041C671CBF1768003BD343 /* fullmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullmoon.png; sourceTree = "<group>"; };
+		94041C681CBF1768003BD343 /* lastquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lastquarter.png; sourceTree = "<group>"; };
+		94041C691CBF1768003BD343 /* hightide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hightide.png; sourceTree = "<group>"; };
+		94041C6A1CBF1768003BD343 /* lowtide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowtide.png; sourceTree = "<group>"; };
+		94041C6B1CBF1768003BD343 /* falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = falling.png; sourceTree = "<group>"; };
+		94041C6C1CBF1768003BD343 /* rising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rising.png; sourceTree = "<group>"; };
+		94041C6D1CBF1768003BD343 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
+		94041C6E1CBF1768003BD343 /* toolbar-graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-graph.png"; sourceTree = "<group>"; };
+		94041C6F1CBF1768003BD343 /* toolbar-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-list.png"; sourceTree = "<group>"; };
+		94041C701CBF1768003BD343 /* toolbar-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-calendar.png"; sourceTree = "<group>"; };
+		94041C711CBF1768003BD343 /* lh128.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = lh128.icns; sourceTree = "<group>"; };
+		94041C831CBF1906003BD343 /* TideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideController.h; sourceTree = "<group>"; };
+		94041C841CBF1906003BD343 /* TideController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideController.mm; sourceTree = "<group>"; };
+		94041C861CBF190F003BD343 /* TideGraphController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideGraphController.h; sourceTree = "<group>"; };
+		94041C871CBF190F003BD343 /* TideGraphController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideGraphController.mm; sourceTree = "<group>"; };
+		94041C891CBF1938003BD343 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
+		94041C8A1CBF1938003BD343 /* GraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphView.mm; sourceTree = "<group>"; };
+		94041C8C1CBF1967003BD343 /* TideTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideTextViewController.h; sourceTree = "<group>"; };
+		94041C8D1CBF1967003BD343 /* TideTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TideTextViewController.m; sourceTree = "<group>"; };
+		94041C8E1CBF1967003BD343 /* TideDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideDataController.h; sourceTree = "<group>"; };
+		94041C8F1CBF1967003BD343 /* TideDataController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataController.mm; sourceTree = "<group>"; };
+		94041C921CBF1A4E003BD343 /* XTStation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStation.h; sourceTree = "<group>"; };
+		94041C931CBF1B16003BD343 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		94041C9B1CC040DB003BD343 /* XTMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTMapView.xib; sourceTree = "<group>"; };
+		94041C9D1CC0432F003BD343 /* XTMapWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTMapWindow.xib; sourceTree = "<group>"; };
+		94041C9F1CC043D6003BD343 /* XTMapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTMapWindowController.h; sourceTree = "<group>"; };
+		94041CA01CC043D6003BD343 /* XTMapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTMapWindowController.m; sourceTree = "<group>"; };
+		94041CA21CC047FC003BD343 /* XTStationRefInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStationRefInt.h; sourceTree = "<group>"; };
+		94041CA31CC04969003BD343 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "harmonics-dwf-20151227-free.tcd"; sourceTree = "<group>"; };
+		94041CA91CC05A80003BD343 /* XTGraphInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTGraphInt.h; sourceTree = "<group>"; };
+		94041CAE1CC06B56003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideGraph.xib; sourceTree = "<group>"; };
+		94041CB41CC1943C003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
+		94041CB61CC1AD70003BD343 /* XTColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTColorUtils.m; sourceTree = "<group>"; };
+		94041CB81CC1AD7C003BD343 /* XTColorUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTColorUtils.h; sourceTree = "<group>"; };
+		94041D2B1CC1CA8D003BD343 /* libtcd-2.2.7.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "libtcd-2.2.7.xcodeproj"; path = "../libtcd-2.2.7/libtcd-2.2.7.xcodeproj"; sourceTree = "<group>"; };
+		94041D2F1CC1CDF1003BD343 /* bit_pack.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = bit_pack.c; path = "../libtcd-2.2.7/bit_pack.c"; sourceTree = "<group>"; };
+		94041D311CC1CE3E003BD343 /* tide_db.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = tide_db.c; path = "../libtcd-2.2.7/tide_db.c"; sourceTree = "<group>"; };
+		94041D331CC6D804003BD343 /* DisclaimerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisclaimerController.h; sourceTree = "<group>"; };
+		94041D341CC6D804003BD343 /* DisclaimerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisclaimerController.m; sourceTree = "<group>"; };
+		94041D3A1CC6D92D003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Disclaimer.xib; sourceTree = "<group>"; };
+		94041D401CC6EBF0003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideData.xib; sourceTree = "<group>"; };
+		94041D421CC6EE20003BD343 /* TideTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideTableView.h; sourceTree = "<group>"; };
+		94041D431CC6EE20003BD343 /* TideTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TideTableView.m; sourceTree = "<group>"; };
+		94041D451CC7ED5F003BD343 /* SuggestionsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionsWindowController.h; sourceTree = "<group>"; };
+		94041D461CC7ED5F003BD343 /* SuggestionsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionsWindowController.m; sourceTree = "<group>"; };
+		94041D471CC7ED5F003BD343 /* RoundedCornersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoundedCornersView.h; sourceTree = "<group>"; };
+		94041D481CC7ED5F003BD343 /* RoundedCornersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoundedCornersView.m; sourceTree = "<group>"; };
+		94041D491CC7ED5F003BD343 /* SuggestionsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestionsWindow.h; sourceTree = "<group>"; };
+		94041D4A1CC7ED5F003BD343 /* SuggestionsWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestionsWindow.m; sourceTree = "<group>"; };
+		94041D4E1CC7ED6E003BD343 /* suggestionprototype.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = suggestionprototype.xib; sourceTree = "<group>"; };
+		94041D501CC7ED9D003BD343 /* HighlightingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightingView.h; sourceTree = "<group>"; };
+		94041D511CC7ED9D003BD343 /* HighlightingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightingView.m; sourceTree = "<group>"; };
+		94041D531CC7EDC6003BD343 /* SuggestibleSearchFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuggestibleSearchFieldCell.h; sourceTree = "<group>"; };
+		94041D541CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuggestibleSearchFieldCell.m; sourceTree = "<group>"; };
+		94041D561CC8425C003BD343 /* XTSettingsInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTSettingsInt.h; sourceTree = "<group>"; };
+		94041D571CC93BB7003BD343 /* XTPrefFlagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTPrefFlagsViewController.h; sourceTree = "<group>"; };
+		94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTPrefFlagsViewController.m; sourceTree = "<group>"; };
+		94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTPrefFlagsViewController.xib; sourceTree = "<group>"; };
+		94041D641CC94E51003BD343 /* CalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarController.h; sourceTree = "<group>"; };
+		94041D651CC94E51003BD343 /* CalendarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarController.mm; sourceTree = "<group>"; };
+		94041D6B1CC95069003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideCalendar.xib; sourceTree = "<group>"; };
+		94041D6D1CC98A71003BD343 /* XTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTApplication.h; sourceTree = "<group>"; };
+		94041D6E1CC98A71003BD343 /* XTApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTApplication.m; sourceTree = "<group>"; };
 		946318DC1CBC3242001CD859 /* XTide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTide.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		946318DF1CBC3242001CD859 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		946318E01CBC3242001CD859 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		946318DF1CBC3242001CD859 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = XTide/AppDelegate.h; sourceTree = "<group>"; };
+		946318E01CBC3242001CD859 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = XTide/AppDelegate.mm; sourceTree = "<group>"; };
 		946318E31CBC3242001CD859 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		946318E51CBC3242001CD859 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		946318E81CBC3242001CD859 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -46,6 +255,107 @@
 		946318FA1CBC3242001CD859 /* XTideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XTideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		946318FE1CBC3242001CD859 /* XTideUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTideUITests.m; sourceTree = "<group>"; };
 		946319001CBC3242001CD859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		948353BB1CBC42FB0026F08A /* libxtide */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libxtide; path = "/Users/lrucker/Microcode/XTideCocoa_2.15/libpng-1.6.21/../xtide-2.15.1/libxtide"; sourceTree = "<absolute>"; };
+		948355031CBC44660026F08A /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-1.6.21/png.h"; sourceTree = "<group>"; };
+		948355051CBC448F0026F08A /* tcd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tcd.h; path = "../libtcd-2.2.7/tcd.h"; sourceTree = "<group>"; };
+		9497B0551CBC45B50004D687 /* xml_y.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xml_y.h; path = "../xtide-2.15.1/libxtide/xml_y.h"; sourceTree = "<group>"; };
+		9497B0561CBC45B50004D687 /* Amplitude.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Amplitude.hh; path = "../xtide-2.15.1/libxtide/Amplitude.hh"; sourceTree = "<group>"; };
+		9497B0571CBC45B50004D687 /* Angle.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Angle.hh; path = "../xtide-2.15.1/libxtide/Angle.hh"; sourceTree = "<group>"; };
+		9497B0581CBC45B50004D687 /* Banner.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Banner.hh; path = "../xtide-2.15.1/libxtide/Banner.hh"; sourceTree = "<group>"; };
+		9497B0591CBC45B50004D687 /* BetterMap.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BetterMap.hh; path = "../xtide-2.15.1/libxtide/BetterMap.hh"; sourceTree = "<group>"; };
+		9497B05A1CBC45B50004D687 /* Calendar.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Calendar.hh; path = "../xtide-2.15.1/libxtide/Calendar.hh"; sourceTree = "<group>"; };
+		9497B05B1CBC45B50004D687 /* CalendarFormC.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalendarFormC.hh; path = "../xtide-2.15.1/libxtide/CalendarFormC.hh"; sourceTree = "<group>"; };
+		9497B05C1CBC45B50004D687 /* CalendarFormH.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalendarFormH.hh; path = "../xtide-2.15.1/libxtide/CalendarFormH.hh"; sourceTree = "<group>"; };
+		9497B05D1CBC45B50004D687 /* CalendarFormL.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalendarFormL.hh; path = "../xtide-2.15.1/libxtide/CalendarFormL.hh"; sourceTree = "<group>"; };
+		9497B05E1CBC45B50004D687 /* CalendarFormNotC.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalendarFormNotC.hh; path = "../xtide-2.15.1/libxtide/CalendarFormNotC.hh"; sourceTree = "<group>"; };
+		9497B05F1CBC45B50004D687 /* CalendarFormT.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CalendarFormT.hh; path = "../xtide-2.15.1/libxtide/CalendarFormT.hh"; sourceTree = "<group>"; };
+		9497B0601CBC45B50004D687 /* ClientSideFont.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ClientSideFont.hh; path = "../xtide-2.15.1/libxtide/ClientSideFont.hh"; sourceTree = "<group>"; };
+		9497B0611CBC45B50004D687 /* Colors.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Colors.hh; path = "../xtide-2.15.1/libxtide/Colors.hh"; sourceTree = "<group>"; };
+		9497B0621CBC45B50004D687 /* config.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = config.hh; path = "../xtide-2.15.1/libxtide/config.hh"; sourceTree = "<group>"; };
+		9497B0631CBC45B50004D687 /* Configurable.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Configurable.hh; path = "../xtide-2.15.1/libxtide/Configurable.hh"; sourceTree = "<group>"; };
+		9497B0641CBC45B50004D687 /* Constituent.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Constituent.hh; path = "../xtide-2.15.1/libxtide/Constituent.hh"; sourceTree = "<group>"; };
+		9497B0651CBC45B50004D687 /* ConstituentSet.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConstituentSet.hh; path = "../xtide-2.15.1/libxtide/ConstituentSet.hh"; sourceTree = "<group>"; };
+		9497B0661CBC45B50004D687 /* Coordinates.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Coordinates.hh; path = "../xtide-2.15.1/libxtide/Coordinates.hh"; sourceTree = "<group>"; };
+		9497B0671CBC45B50004D687 /* CurrentBearing.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CurrentBearing.hh; path = "../xtide-2.15.1/libxtide/CurrentBearing.hh"; sourceTree = "<group>"; };
+		9497B0681CBC45B50004D687 /* Date.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Date.hh; path = "../xtide-2.15.1/libxtide/Date.hh"; sourceTree = "<group>"; };
+		9497B0691CBC45B50004D687 /* Dstr.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Dstr.hh; path = "../xtide-2.15.1/libxtide/Dstr.hh"; sourceTree = "<group>"; };
+		9497B06A1CBC45B50004D687 /* Errors.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Errors.hh; path = "../xtide-2.15.1/libxtide/Errors.hh"; sourceTree = "<group>"; };
+		9497B06C1CBC45B50004D687 /* Graph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Graph.hh; path = "../xtide-2.15.1/libxtide/Graph.hh"; sourceTree = "<group>"; };
+		9497B06D1CBC45B50004D687 /* HarmonicsFile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HarmonicsFile.hh; path = "../xtide-2.15.1/libxtide/HarmonicsFile.hh"; sourceTree = "<group>"; };
+		9497B06E1CBC45B50004D687 /* HarmonicsPath.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HarmonicsPath.hh; path = "../xtide-2.15.1/libxtide/HarmonicsPath.hh"; sourceTree = "<group>"; };
+		9497B06F1CBC45B50004D687 /* Interval.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Interval.hh; path = "../xtide-2.15.1/libxtide/Interval.hh"; sourceTree = "<group>"; };
+		9497B0701CBC45B50004D687 /* libxtide.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = libxtide.hh; path = "../xtide-2.15.1/libxtide/libxtide.hh"; sourceTree = "<group>"; };
+		9497B0711CBC45B50004D687 /* MetaField.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MetaField.hh; path = "../xtide-2.15.1/libxtide/MetaField.hh"; sourceTree = "<group>"; };
+		9497B0721CBC45B50004D687 /* ModeFormat.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ModeFormat.hh; path = "../xtide-2.15.1/libxtide/ModeFormat.hh"; sourceTree = "<group>"; };
+		9497B0731CBC45B50004D687 /* Nullable.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Nullable.hh; path = "../xtide-2.15.1/libxtide/Nullable.hh"; sourceTree = "<group>"; };
+		9497B0741CBC45B50004D687 /* NullableInterval.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NullableInterval.hh; path = "../xtide-2.15.1/libxtide/NullableInterval.hh"; sourceTree = "<group>"; };
+		9497B0751CBC45B50004D687 /* NullablePredictionValue.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NullablePredictionValue.hh; path = "../xtide-2.15.1/libxtide/NullablePredictionValue.hh"; sourceTree = "<group>"; };
+		9497B0761CBC45B50004D687 /* Offsets.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Offsets.hh; path = "../xtide-2.15.1/libxtide/Offsets.hh"; sourceTree = "<group>"; };
+		9497B0771CBC45B50004D687 /* PixelatedGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PixelatedGraph.hh; path = "../xtide-2.15.1/libxtide/PixelatedGraph.hh"; sourceTree = "<group>"; };
+		9497B0781CBC45B50004D687 /* PredictionValue.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PredictionValue.hh; path = "../xtide-2.15.1/libxtide/PredictionValue.hh"; sourceTree = "<group>"; };
+		9497B0791CBC45B50004D687 /* rgb.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = rgb.hh; path = "../xtide-2.15.1/libxtide/rgb.hh"; sourceTree = "<group>"; };
+		9497B07A1CBC45B50004D687 /* RGBGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RGBGraph.hh; path = "../xtide-2.15.1/libxtide/RGBGraph.hh"; sourceTree = "<group>"; };
+		9497B07B1CBC45B50004D687 /* SafeVector.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeVector.hh; path = "../xtide-2.15.1/libxtide/SafeVector.hh"; sourceTree = "<group>"; };
+		9497B07C1CBC45B50004D687 /* Settings.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Settings.hh; path = "../xtide-2.15.1/libxtide/Settings.hh"; sourceTree = "<group>"; };
+		9497B07D1CBC45B50004D687 /* Skycal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Skycal.hh; path = "../xtide-2.15.1/libxtide/Skycal.hh"; sourceTree = "<group>"; };
+		9497B07E1CBC45B50004D687 /* Speed.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Speed.hh; path = "../xtide-2.15.1/libxtide/Speed.hh"; sourceTree = "<group>"; };
+		9497B07F1CBC45B50004D687 /* Station.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Station.hh; path = "../xtide-2.15.1/libxtide/Station.hh"; sourceTree = "<group>"; };
+		9497B0801CBC45B50004D687 /* StationIndex.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationIndex.hh; path = "../xtide-2.15.1/libxtide/StationIndex.hh"; sourceTree = "<group>"; };
+		9497B0811CBC45B50004D687 /* StationRef.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationRef.hh; path = "../xtide-2.15.1/libxtide/StationRef.hh"; sourceTree = "<group>"; };
+		9497B0821CBC45B50004D687 /* SubordinateStation.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubordinateStation.hh; path = "../xtide-2.15.1/libxtide/SubordinateStation.hh"; sourceTree = "<group>"; };
+		9497B0831CBC45B50004D687 /* SVGGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SVGGraph.hh; path = "../xtide-2.15.1/libxtide/SVGGraph.hh"; sourceTree = "<group>"; };
+		9497B0841CBC45B50004D687 /* TideEvent.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TideEvent.hh; path = "../xtide-2.15.1/libxtide/TideEvent.hh"; sourceTree = "<group>"; };
+		9497B0851CBC45B50004D687 /* TideEventsOrganizer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TideEventsOrganizer.hh; path = "../xtide-2.15.1/libxtide/TideEventsOrganizer.hh"; sourceTree = "<group>"; };
+		9497B0861CBC45B50004D687 /* Timestamp.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Timestamp.hh; path = "../xtide-2.15.1/libxtide/Timestamp.hh"; sourceTree = "<group>"; };
+		9497B0871CBC45B50004D687 /* TTYGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TTYGraph.hh; path = "../xtide-2.15.1/libxtide/TTYGraph.hh"; sourceTree = "<group>"; };
+		9497B0881CBC45B50004D687 /* Units.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Units.hh; path = "../xtide-2.15.1/libxtide/Units.hh"; sourceTree = "<group>"; };
+		9497B0891CBC45B50004D687 /* xmlparser.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = xmlparser.hh; path = "../xtide-2.15.1/libxtide/xmlparser.hh"; sourceTree = "<group>"; };
+		9497B08A1CBC45B50004D687 /* Year.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Year.hh; path = "../xtide-2.15.1/libxtide/Year.hh"; sourceTree = "<group>"; };
+		9497B08B1CBC45B50004D687 /* Amplitude.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Amplitude.cc; path = "../xtide-2.15.1/libxtide/Amplitude.cc"; sourceTree = "<group>"; };
+		9497B08C1CBC45B50004D687 /* Angle.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Angle.cc; path = "../xtide-2.15.1/libxtide/Angle.cc"; sourceTree = "<group>"; };
+		9497B08D1CBC45B50004D687 /* Banner.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Banner.cc; path = "../xtide-2.15.1/libxtide/Banner.cc"; sourceTree = "<group>"; };
+		9497B08E1CBC45B50004D687 /* Calendar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Calendar.cc; path = "../xtide-2.15.1/libxtide/Calendar.cc"; sourceTree = "<group>"; };
+		9497B08F1CBC45B50004D687 /* CalendarFormC.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalendarFormC.cc; path = "../xtide-2.15.1/libxtide/CalendarFormC.cc"; sourceTree = "<group>"; };
+		9497B0901CBC45B50004D687 /* CalendarFormH.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalendarFormH.cc; path = "../xtide-2.15.1/libxtide/CalendarFormH.cc"; sourceTree = "<group>"; };
+		9497B0911CBC45B50004D687 /* CalendarFormL.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalendarFormL.cc; path = "../xtide-2.15.1/libxtide/CalendarFormL.cc"; sourceTree = "<group>"; };
+		9497B0921CBC45B50004D687 /* CalendarFormNotC.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalendarFormNotC.cc; path = "../xtide-2.15.1/libxtide/CalendarFormNotC.cc"; sourceTree = "<group>"; };
+		9497B0931CBC45B50004D687 /* CalendarFormT.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalendarFormT.cc; path = "../xtide-2.15.1/libxtide/CalendarFormT.cc"; sourceTree = "<group>"; };
+		9497B0941CBC45B50004D687 /* ClientSideFont.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientSideFont.cc; path = "../xtide-2.15.1/libxtide/ClientSideFont.cc"; sourceTree = "<group>"; };
+		9497B0951CBC45B50004D687 /* Colors.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Colors.cc; path = "../xtide-2.15.1/libxtide/Colors.cc"; sourceTree = "<group>"; };
+		9497B0961CBC45B50004D687 /* Constituent.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Constituent.cc; path = "../xtide-2.15.1/libxtide/Constituent.cc"; sourceTree = "<group>"; };
+		9497B0971CBC45B50004D687 /* ConstituentSet.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConstituentSet.cc; path = "../xtide-2.15.1/libxtide/ConstituentSet.cc"; sourceTree = "<group>"; };
+		9497B0981CBC45B50004D687 /* Coordinates.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Coordinates.cc; path = "../xtide-2.15.1/libxtide/Coordinates.cc"; sourceTree = "<group>"; };
+		9497B0991CBC45B50004D687 /* CurrentBearing.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CurrentBearing.cc; path = "../xtide-2.15.1/libxtide/CurrentBearing.cc"; sourceTree = "<group>"; };
+		9497B09A1CBC45B50004D687 /* Date.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Date.cc; path = "../xtide-2.15.1/libxtide/Date.cc"; sourceTree = "<group>"; };
+		9497B09B1CBC45B50004D687 /* Dstr.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Dstr.cc; path = "../xtide-2.15.1/libxtide/Dstr.cc"; sourceTree = "<group>"; };
+		9497B09D1CBC45B50004D687 /* Graph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cc; path = "../xtide-2.15.1/libxtide/Graph.cc"; sourceTree = "<group>"; };
+		9497B09E1CBC45B50004D687 /* HarmonicsFile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HarmonicsFile.cc; path = "../xtide-2.15.1/libxtide/HarmonicsFile.cc"; sourceTree = "<group>"; };
+		9497B09F1CBC45B50004D687 /* HarmonicsPath.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HarmonicsPath.cc; path = "../xtide-2.15.1/libxtide/HarmonicsPath.cc"; sourceTree = "<group>"; };
+		9497B0A01CBC45B50004D687 /* Interval.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Interval.cc; path = "../xtide-2.15.1/libxtide/Interval.cc"; sourceTree = "<group>"; };
+		9497B0A11CBC45B50004D687 /* MetaField.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MetaField.cc; path = "../xtide-2.15.1/libxtide/MetaField.cc"; sourceTree = "<group>"; };
+		9497B0A21CBC45B50004D687 /* Nullable.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Nullable.cc; path = "../xtide-2.15.1/libxtide/Nullable.cc"; sourceTree = "<group>"; };
+		9497B0A31CBC45B50004D687 /* NullableInterval.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NullableInterval.cc; path = "../xtide-2.15.1/libxtide/NullableInterval.cc"; sourceTree = "<group>"; };
+		9497B0A41CBC45B50004D687 /* NullablePredictionValue.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = NullablePredictionValue.cc; path = "../xtide-2.15.1/libxtide/NullablePredictionValue.cc"; sourceTree = "<group>"; };
+		9497B0A51CBC45B50004D687 /* Offsets.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Offsets.cc; path = "../xtide-2.15.1/libxtide/Offsets.cc"; sourceTree = "<group>"; };
+		9497B0A61CBC45B50004D687 /* PixelatedGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PixelatedGraph.cc; path = "../xtide-2.15.1/libxtide/PixelatedGraph.cc"; sourceTree = "<group>"; };
+		9497B0A71CBC45B50004D687 /* PredictionValue.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PredictionValue.cc; path = "../xtide-2.15.1/libxtide/PredictionValue.cc"; sourceTree = "<group>"; };
+		9497B0A81CBC45B50004D687 /* RGBGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RGBGraph.cc; path = "../xtide-2.15.1/libxtide/RGBGraph.cc"; sourceTree = "<group>"; };
+		9497B0A91CBC45B50004D687 /* Settings.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Settings.cc; path = "../xtide-2.15.1/libxtide/Settings.cc"; sourceTree = "<group>"; };
+		9497B0AA1CBC45B50004D687 /* Skycal.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skycal.cc; path = "../xtide-2.15.1/libxtide/Skycal.cc"; sourceTree = "<group>"; };
+		9497B0AB1CBC45B50004D687 /* Speed.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Speed.cc; path = "../xtide-2.15.1/libxtide/Speed.cc"; sourceTree = "<group>"; };
+		9497B0AC1CBC45B50004D687 /* Station.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Station.cc; path = "../xtide-2.15.1/libxtide/Station.cc"; sourceTree = "<group>"; };
+		9497B0AD1CBC45B50004D687 /* StationIndex.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StationIndex.cc; path = "../xtide-2.15.1/libxtide/StationIndex.cc"; sourceTree = "<group>"; };
+		9497B0AE1CBC45B50004D687 /* StationRef.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StationRef.cc; path = "../xtide-2.15.1/libxtide/StationRef.cc"; sourceTree = "<group>"; };
+		9497B0AF1CBC45B50004D687 /* SubordinateStation.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubordinateStation.cc; path = "../xtide-2.15.1/libxtide/SubordinateStation.cc"; sourceTree = "<group>"; };
+		9497B0B01CBC45B50004D687 /* SVGGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SVGGraph.cc; path = "../xtide-2.15.1/libxtide/SVGGraph.cc"; sourceTree = "<group>"; };
+		9497B0B11CBC45B50004D687 /* TideEvent.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TideEvent.cc; path = "../xtide-2.15.1/libxtide/TideEvent.cc"; sourceTree = "<group>"; };
+		9497B0B21CBC45B50004D687 /* TideEventsOrganizer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TideEventsOrganizer.cc; path = "../xtide-2.15.1/libxtide/TideEventsOrganizer.cc"; sourceTree = "<group>"; };
+		9497B0B31CBC45B50004D687 /* Timestamp.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Timestamp.cc; path = "../xtide-2.15.1/libxtide/Timestamp.cc"; sourceTree = "<group>"; };
+		9497B0B41CBC45B50004D687 /* TTYGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TTYGraph.cc; path = "../xtide-2.15.1/libxtide/TTYGraph.cc"; sourceTree = "<group>"; };
+		9497B0B51CBC45B50004D687 /* Units.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Units.cc; path = "../xtide-2.15.1/libxtide/Units.cc"; sourceTree = "<group>"; };
+		9497B0B61CBC45B50004D687 /* xml_l.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_l.cc; path = "../xtide-2.15.1/libxtide/xml_l.cc"; sourceTree = "<group>"; };
+		9497B0B71CBC45B50004D687 /* xml_y.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_y.cc; path = "../xtide-2.15.1/libxtide/xml_y.cc"; sourceTree = "<group>"; };
+		9497B0B81CBC45B50004D687 /* Year.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Year.cc; path = "../xtide-2.15.1/libxtide/Year.cc"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,10 +383,108 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		94041C561CBF172C003BD343 /* Cocoa */ = {
+			isa = PBXGroup;
+			children = (
+				94041C931CBF1B16003BD343 /* config.h */,
+				94041D571CC93BB7003BD343 /* XTPrefFlagsViewController.h */,
+				94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */,
+				94041C4D1CBECDE2003BD343 /* PreferenceController.h */,
+				94041C4E1CBECDE2003BD343 /* PreferenceController.mm */,
+				94041D331CC6D804003BD343 /* DisclaimerController.h */,
+				94041D341CC6D804003BD343 /* DisclaimerController.m */,
+				94041D641CC94E51003BD343 /* CalendarController.h */,
+				94041D651CC94E51003BD343 /* CalendarController.mm */,
+				94041C571CBF173A003BD343 /* TideDocument.h */,
+				94041C581CBF173A003BD343 /* TideDocument.mm */,
+				94041C591CBF173A003BD343 /* TideDataDocument.h */,
+				94041C5A1CBF173A003BD343 /* TideDataDocument.mm */,
+				94041C5B1CBF173A003BD343 /* TideGraphDocument.h */,
+				94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */,
+				94041C831CBF1906003BD343 /* TideController.h */,
+				94041C841CBF1906003BD343 /* TideController.mm */,
+				94041C861CBF190F003BD343 /* TideGraphController.h */,
+				94041C871CBF190F003BD343 /* TideGraphController.mm */,
+				94041C8C1CBF1967003BD343 /* TideTextViewController.h */,
+				94041C8D1CBF1967003BD343 /* TideTextViewController.m */,
+				94041C8E1CBF1967003BD343 /* TideDataController.h */,
+				94041C8F1CBF1967003BD343 /* TideDataController.mm */,
+				94041D421CC6EE20003BD343 /* TideTableView.h */,
+				94041D431CC6EE20003BD343 /* TideTableView.m */,
+				94041C891CBF1938003BD343 /* GraphView.h */,
+				94041C8A1CBF1938003BD343 /* GraphView.mm */,
+			);
+			name = Cocoa;
+			sourceTree = "<group>";
+		};
+		94041C601CBF174F003BD343 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				94041D4E1CC7ED6E003BD343 /* suggestionprototype.xib */,
+				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
+				94041CA31CC04969003BD343 /* Images.xcassets */,
+				94041C9D1CC0432F003BD343 /* XTMapWindow.xib */,
+				94041C9B1CC040DB003BD343 /* XTMapView.xib */,
+				94041C611CBF1768003BD343 /* sunrise.png */,
+				94041C621CBF1768003BD343 /* sunset.png */,
+				94041C631CBF1768003BD343 /* newmoon.png */,
+				94041C641CBF1768003BD343 /* moonrise.png */,
+				94041C651CBF1768003BD343 /* moonset.png */,
+				94041C661CBF1768003BD343 /* firstquarter.png */,
+				94041C671CBF1768003BD343 /* fullmoon.png */,
+				94041C681CBF1768003BD343 /* lastquarter.png */,
+				94041C691CBF1768003BD343 /* hightide.png */,
+				94041C6A1CBF1768003BD343 /* lowtide.png */,
+				94041C6B1CBF1768003BD343 /* falling.png */,
+				94041C6C1CBF1768003BD343 /* rising.png */,
+				94041C6D1CBF1768003BD343 /* blank.png */,
+				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
+				94041C6F1CBF1768003BD343 /* toolbar-list.png */,
+				94041C701CBF1768003BD343 /* toolbar-calendar.png */,
+				94041C711CBF1768003BD343 /* lh128.icns */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		94041C941CC04016003BD343 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				94041C9F1CC043D6003BD343 /* XTMapWindowController.h */,
+				94041CA01CC043D6003BD343 /* XTMapWindowController.m */,
+				94041D451CC7ED5F003BD343 /* SuggestionsWindowController.h */,
+				94041D461CC7ED5F003BD343 /* SuggestionsWindowController.m */,
+				94041D471CC7ED5F003BD343 /* RoundedCornersView.h */,
+				94041D481CC7ED5F003BD343 /* RoundedCornersView.m */,
+				94041D491CC7ED5F003BD343 /* SuggestionsWindow.h */,
+				94041D4A1CC7ED5F003BD343 /* SuggestionsWindow.m */,
+				94041D501CC7ED9D003BD343 /* HighlightingView.h */,
+				94041D511CC7ED9D003BD343 /* HighlightingView.m */,
+				94041D531CC7EDC6003BD343 /* SuggestibleSearchFieldCell.h */,
+				94041D541CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		94041D2C1CC1CA8D003BD343 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
+				94041D311CC1CE3E003BD343 /* tide_db.c */,
+				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
+				948355051CBC448F0026F08A /* tcd.h */,
+				948355031CBC44660026F08A /* png.h */,
+				94041D6D1CC98A71003BD343 /* XTApplication.h */,
+				94041D6E1CC98A71003BD343 /* XTApplication.m */,
+				946318DF1CBC3242001CD859 /* AppDelegate.h */,
+				946318E01CBC3242001CD859 /* AppDelegate.mm */,
 				946318DE1CBC3242001CD859 /* XTide */,
+				94041D2B1CC1CA8D003BD343 /* libtcd-2.2.7.xcodeproj */,
 				946318F21CBC3242001CD859 /* XTideTests */,
 				946318FD1CBC3242001CD859 /* XTideUITests */,
 				946318DD1CBC3242001CD859 /* Products */,
@@ -96,11 +504,20 @@
 		946318DE1CBC3242001CD859 /* XTide */ = {
 			isa = PBXGroup;
 			children = (
-				946318DF1CBC3242001CD859 /* AppDelegate.h */,
-				946318E01CBC3242001CD859 /* AppDelegate.m */,
+				94041C941CC04016003BD343 /* Map */,
+				94041C561CBF172C003BD343 /* Cocoa */,
+				9497B0EB1CBC4E910004D687 /* xtideMac */,
+				948355021CBC44270026F08A /* xtideCore */,
 				946318E51CBC3242001CD859 /* Assets.xcassets */,
 				946318E71CBC3242001CD859 /* MainMenu.xib */,
+				94041D6A1CC95069003BD343 /* TideCalendar.xib */,
+				94041CAD1CC06B56003BD343 /* TideGraph.xib */,
+				94041D3F1CC6EBF0003BD343 /* TideData.xib */,
+				94041CB31CC1943C003BD343 /* Preferences.xib */,
+				94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */,
+				94041D391CC6D92D003BD343 /* Disclaimer.xib */,
 				946318EA1CBC3242001CD859 /* Info.plist */,
+				94041C601CBF174F003BD343 /* Resources */,
 				946318E21CBC3242001CD859 /* Supporting Files */,
 			);
 			path = XTide;
@@ -130,6 +547,149 @@
 				946319001CBC3242001CD859 /* Info.plist */,
 			);
 			path = XTideUITests;
+			sourceTree = "<group>";
+		};
+		948355021CBC44270026F08A /* xtideCore */ = {
+			isa = PBXGroup;
+			children = (
+				9497B0551CBC45B50004D687 /* xml_y.h */,
+				9497B0561CBC45B50004D687 /* Amplitude.hh */,
+				9497B0571CBC45B50004D687 /* Angle.hh */,
+				9497B0581CBC45B50004D687 /* Banner.hh */,
+				9497B0591CBC45B50004D687 /* BetterMap.hh */,
+				9497B05A1CBC45B50004D687 /* Calendar.hh */,
+				9497B05B1CBC45B50004D687 /* CalendarFormC.hh */,
+				9497B05C1CBC45B50004D687 /* CalendarFormH.hh */,
+				9497B05D1CBC45B50004D687 /* CalendarFormL.hh */,
+				9497B05E1CBC45B50004D687 /* CalendarFormNotC.hh */,
+				9497B05F1CBC45B50004D687 /* CalendarFormT.hh */,
+				9497B0601CBC45B50004D687 /* ClientSideFont.hh */,
+				9497B0611CBC45B50004D687 /* Colors.hh */,
+				9497B0621CBC45B50004D687 /* config.hh */,
+				9497B0631CBC45B50004D687 /* Configurable.hh */,
+				9497B0641CBC45B50004D687 /* Constituent.hh */,
+				9497B0651CBC45B50004D687 /* ConstituentSet.hh */,
+				9497B0661CBC45B50004D687 /* Coordinates.hh */,
+				9497B0671CBC45B50004D687 /* CurrentBearing.hh */,
+				9497B0681CBC45B50004D687 /* Date.hh */,
+				9497B0691CBC45B50004D687 /* Dstr.hh */,
+				9497B06A1CBC45B50004D687 /* Errors.hh */,
+				94041C511CBEE6BF003BD343 /* Global.hh */,
+				94041C501CBEE6BF003BD343 /* Global.cc */,
+				9497B06D1CBC45B50004D687 /* HarmonicsFile.hh */,
+				9497B06E1CBC45B50004D687 /* HarmonicsPath.hh */,
+				9497B06F1CBC45B50004D687 /* Interval.hh */,
+				9497B0701CBC45B50004D687 /* libxtide.hh */,
+				9497B0711CBC45B50004D687 /* MetaField.hh */,
+				9497B0721CBC45B50004D687 /* ModeFormat.hh */,
+				9497B0731CBC45B50004D687 /* Nullable.hh */,
+				9497B0741CBC45B50004D687 /* NullableInterval.hh */,
+				9497B0751CBC45B50004D687 /* NullablePredictionValue.hh */,
+				9497B0761CBC45B50004D687 /* Offsets.hh */,
+				9497B0771CBC45B50004D687 /* PixelatedGraph.hh */,
+				9497B0781CBC45B50004D687 /* PredictionValue.hh */,
+				9497B0791CBC45B50004D687 /* rgb.hh */,
+				9497B07A1CBC45B50004D687 /* RGBGraph.hh */,
+				9497B07B1CBC45B50004D687 /* SafeVector.hh */,
+				9497B07C1CBC45B50004D687 /* Settings.hh */,
+				9497B07D1CBC45B50004D687 /* Skycal.hh */,
+				9497B07E1CBC45B50004D687 /* Speed.hh */,
+				9497B0801CBC45B50004D687 /* StationIndex.hh */,
+				9497B0811CBC45B50004D687 /* StationRef.hh */,
+				9497B0821CBC45B50004D687 /* SubordinateStation.hh */,
+				9497B0831CBC45B50004D687 /* SVGGraph.hh */,
+				9497B0841CBC45B50004D687 /* TideEvent.hh */,
+				9497B0851CBC45B50004D687 /* TideEventsOrganizer.hh */,
+				9497B0861CBC45B50004D687 /* Timestamp.hh */,
+				9497B0871CBC45B50004D687 /* TTYGraph.hh */,
+				9497B0881CBC45B50004D687 /* Units.hh */,
+				9497B0891CBC45B50004D687 /* xmlparser.hh */,
+				9497B08A1CBC45B50004D687 /* Year.hh */,
+				9497B08B1CBC45B50004D687 /* Amplitude.cc */,
+				9497B08C1CBC45B50004D687 /* Angle.cc */,
+				9497B08D1CBC45B50004D687 /* Banner.cc */,
+				9497B08E1CBC45B50004D687 /* Calendar.cc */,
+				9497B08F1CBC45B50004D687 /* CalendarFormC.cc */,
+				9497B0901CBC45B50004D687 /* CalendarFormH.cc */,
+				9497B0911CBC45B50004D687 /* CalendarFormL.cc */,
+				9497B0921CBC45B50004D687 /* CalendarFormNotC.cc */,
+				9497B0931CBC45B50004D687 /* CalendarFormT.cc */,
+				9497B0941CBC45B50004D687 /* ClientSideFont.cc */,
+				9497B0951CBC45B50004D687 /* Colors.cc */,
+				9497B0961CBC45B50004D687 /* Constituent.cc */,
+				9497B0971CBC45B50004D687 /* ConstituentSet.cc */,
+				9497B0981CBC45B50004D687 /* Coordinates.cc */,
+				9497B0991CBC45B50004D687 /* CurrentBearing.cc */,
+				9497B09A1CBC45B50004D687 /* Date.cc */,
+				9497B09B1CBC45B50004D687 /* Dstr.cc */,
+				9497B06C1CBC45B50004D687 /* Graph.hh */,
+				9497B09D1CBC45B50004D687 /* Graph.cc */,
+				9497B09E1CBC45B50004D687 /* HarmonicsFile.cc */,
+				9497B09F1CBC45B50004D687 /* HarmonicsPath.cc */,
+				9497B0A01CBC45B50004D687 /* Interval.cc */,
+				9497B0A11CBC45B50004D687 /* MetaField.cc */,
+				9497B0A21CBC45B50004D687 /* Nullable.cc */,
+				9497B0A31CBC45B50004D687 /* NullableInterval.cc */,
+				9497B0A41CBC45B50004D687 /* NullablePredictionValue.cc */,
+				9497B0A51CBC45B50004D687 /* Offsets.cc */,
+				9497B0A61CBC45B50004D687 /* PixelatedGraph.cc */,
+				9497B0A71CBC45B50004D687 /* PredictionValue.cc */,
+				9497B0A81CBC45B50004D687 /* RGBGraph.cc */,
+				9497B0A91CBC45B50004D687 /* Settings.cc */,
+				9497B0AA1CBC45B50004D687 /* Skycal.cc */,
+				9497B0AB1CBC45B50004D687 /* Speed.cc */,
+				9497B07F1CBC45B50004D687 /* Station.hh */,
+				9497B0AC1CBC45B50004D687 /* Station.cc */,
+				9497B0AD1CBC45B50004D687 /* StationIndex.cc */,
+				9497B0AE1CBC45B50004D687 /* StationRef.cc */,
+				9497B0AF1CBC45B50004D687 /* SubordinateStation.cc */,
+				9497B0B01CBC45B50004D687 /* SVGGraph.cc */,
+				9497B0B11CBC45B50004D687 /* TideEvent.cc */,
+				9497B0B21CBC45B50004D687 /* TideEventsOrganizer.cc */,
+				9497B0B31CBC45B50004D687 /* Timestamp.cc */,
+				9497B0B41CBC45B50004D687 /* TTYGraph.cc */,
+				9497B0B51CBC45B50004D687 /* Units.cc */,
+				9497B0B61CBC45B50004D687 /* xml_l.cc */,
+				9497B0B71CBC45B50004D687 /* xml_y.cc */,
+				9497B0B81CBC45B50004D687 /* Year.cc */,
+			);
+			name = xtideCore;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		9497B0EB1CBC4E910004D687 /* xtideMac */ = {
+			isa = PBXGroup;
+			children = (
+				94041C041CBECAD6003BD343 /* XTCalendar.h */,
+				94041C051CBECAD6003BD343 /* XTCalendar.mm */,
+				94041C061CBECAD6003BD343 /* XTSettings.h */,
+				94041D561CC8425C003BD343 /* XTSettingsInt.h */,
+				94041C071CBECAD6003BD343 /* XTSettings.mm */,
+				94041C081CBECAD6003BD343 /* XTGlobal.h */,
+				94041C091CBECAD6003BD343 /* XTGlobal.mm */,
+				94041BFF1CBEC937003BD343 /* XTGraph.h */,
+				94041CA91CC05A80003BD343 /* XTGraphInt.h */,
+				94041C001CBEC937003BD343 /* XTGraph.mm */,
+				94041C0A1CBECAD6003BD343 /* XTStationIndex.h */,
+				94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */,
+				94041C0C1CBECAD6003BD343 /* XTStationRef.h */,
+				94041CA21CC047FC003BD343 /* XTStationRefInt.h */,
+				94041C0D1CBECAD6003BD343 /* XTStationRef.mm */,
+				94041C921CBF1A4E003BD343 /* XTStation.h */,
+				94041C0E1CBECAD6003BD343 /* XTStationInt.h */,
+				94041C0F1CBECAD6003BD343 /* XTStation.mm */,
+				94041C101CBECAD6003BD343 /* XTTideEventsOrganizer.h */,
+				94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */,
+				94041C121CBECAD6003BD343 /* XTTideEvent.h */,
+				94041C131CBECAD6003BD343 /* XTTideEvent.mm */,
+				94041C1C1CBECAE6003BD343 /* XTErrors.h */,
+				94041C1D1CBECAE6003BD343 /* XTErrors.mm */,
+				94041C1E1CBECAE6003BD343 /* XTUtils.h */,
+				94041C1F1CBECAE6003BD343 /* XTUtils.mm */,
+				94041CB81CC1AD7C003BD343 /* XTColorUtils.h */,
+				94041CB61CC1AD70003BD343 /* XTColorUtils.m */,
+			);
+			name = xtideMac;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +781,12 @@
 			mainGroup = 946318D31CBC3242001CD859;
 			productRefGroup = 946318DD1CBC3242001CD859 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 94041D2C1CC1CA8D003BD343 /* Products */;
+					ProjectRef = 94041D2B1CC1CA8D003BD343 /* libtcd-2.2.7.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				946318DB1CBC3242001CD859 /* XTide */,
@@ -235,8 +801,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94041C821CBF1768003BD343 /* lh128.icns in Resources */,
+				94041CA41CC04969003BD343 /* Images.xcassets in Resources */,
+				94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */,
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
+				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
+				94041C7A1CBF1768003BD343 /* hightide.png in Resources */,
+				94041C741CBF1768003BD343 /* newmoon.png in Resources */,
+				94041C771CBF1768003BD343 /* firstquarter.png in Resources */,
+				94041C7E1CBF1768003BD343 /* blank.png in Resources */,
+				94041D411CC6EBF0003BD343 /* TideData.xib in Resources */,
+				94041D6C1CC95069003BD343 /* TideCalendar.xib in Resources */,
+				94041CAF1CC06B56003BD343 /* TideGraph.xib in Resources */,
+				94041C751CBF1768003BD343 /* moonrise.png in Resources */,
+				94041C7B1CBF1768003BD343 /* lowtide.png in Resources */,
+				94041D4F1CC7ED6E003BD343 /* suggestionprototype.xib in Resources */,
+				94041C761CBF1768003BD343 /* moonset.png in Resources */,
+				94041C801CBF1768003BD343 /* toolbar-list.png in Resources */,
+				94041C791CBF1768003BD343 /* lastquarter.png in Resources */,
+				94041CB51CC1943C003BD343 /* Preferences.xib in Resources */,
+				94041C9C1CC040DB003BD343 /* XTMapView.xib in Resources */,
+				94041C7D1CBF1768003BD343 /* rising.png in Resources */,
 				946318E91CBC3242001CD859 /* MainMenu.xib in Resources */,
+				94041C731CBF1768003BD343 /* sunset.png in Resources */,
+				94041C9E1CC0432F003BD343 /* XTMapWindow.xib in Resources */,
+				94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */,
+				94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */,
+				948353BC1CBC42FB0026F08A /* libxtide in Resources */,
+				94041C721CBF1768003BD343 /* sunrise.png in Resources */,
+				94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */,
+				94041C781CBF1768003BD343 /* fullmoon.png in Resources */,
+				94041C7C1CBF1768003BD343 /* falling.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,8 +856,86 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */,
+				94041C201CBECAE6003BD343 /* XTErrors.mm in Sources */,
+				94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */,
+				94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */,
+				94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */,
+				94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */,
 				946318E41CBC3242001CD859 /* main.m in Sources */,
-				946318E11CBC3242001CD859 /* AppDelegate.m in Sources */,
+				94041C161CBECAD6003BD343 /* XTGlobal.mm in Sources */,
+				94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */,
+				94041C191CBECAD6003BD343 /* XTStation.mm in Sources */,
+				946318E11CBC3242001CD859 /* AppDelegate.mm in Sources */,
+				94041D441CC6EE20003BD343 /* TideTableView.m in Sources */,
+				94041D4B1CC7ED5F003BD343 /* SuggestionsWindowController.m in Sources */,
+				94041D4D1CC7ED5F003BD343 /* SuggestionsWindow.m in Sources */,
+				94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */,
+				94041C011CBEC937003BD343 /* XTGraph.mm in Sources */,
+				94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */,
+				94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */,
+				94041C221CBECB40003BD343 /* Amplitude.cc in Sources */,
+				94041C231CBECB40003BD343 /* Angle.cc in Sources */,
+				94041C241CBECB40003BD343 /* Banner.cc in Sources */,
+				94041C251CBECB40003BD343 /* Calendar.cc in Sources */,
+				94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */,
+				94041C5D1CBF173A003BD343 /* TideDocument.mm in Sources */,
+				94041C261CBECB40003BD343 /* CalendarFormC.cc in Sources */,
+				94041C911CBF1967003BD343 /* TideDataController.mm in Sources */,
+				94041D4C1CC7ED5F003BD343 /* RoundedCornersView.m in Sources */,
+				94041C271CBECB40003BD343 /* CalendarFormH.cc in Sources */,
+				94041D351CC6D804003BD343 /* DisclaimerController.m in Sources */,
+				94041C281CBECB40003BD343 /* CalendarFormL.cc in Sources */,
+				94041C291CBECB40003BD343 /* CalendarFormNotC.cc in Sources */,
+				94041C2A1CBECB40003BD343 /* CalendarFormT.cc in Sources */,
+				94041C2B1CBECB40003BD343 /* ClientSideFont.cc in Sources */,
+				94041C2C1CBECB40003BD343 /* Colors.cc in Sources */,
+				94041C2D1CBECB40003BD343 /* Constituent.cc in Sources */,
+				94041C2E1CBECB40003BD343 /* ConstituentSet.cc in Sources */,
+				94041C2F1CBECB40003BD343 /* Coordinates.cc in Sources */,
+				94041C301CBECB40003BD343 /* CurrentBearing.cc in Sources */,
+				94041C311CBECB40003BD343 /* Date.cc in Sources */,
+				94041C321CBECB40003BD343 /* Dstr.cc in Sources */,
+				94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */,
+				94041C341CBECB40003BD343 /* Graph.cc in Sources */,
+				94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */,
+				94041C351CBECB40003BD343 /* HarmonicsFile.cc in Sources */,
+				94041C361CBECB40003BD343 /* HarmonicsPath.cc in Sources */,
+				94041C371CBECB40003BD343 /* Interval.cc in Sources */,
+				94041D551CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m in Sources */,
+				94041CB71CC1AD70003BD343 /* XTColorUtils.m in Sources */,
+				94041C381CBECB40003BD343 /* MetaField.cc in Sources */,
+				94041C391CBECB40003BD343 /* Nullable.cc in Sources */,
+				94041C3A1CBECB40003BD343 /* NullableInterval.cc in Sources */,
+				94041C3B1CBECB40003BD343 /* NullablePredictionValue.cc in Sources */,
+				94041C3C1CBECB40003BD343 /* Offsets.cc in Sources */,
+				94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */,
+				94041C3D1CBECB40003BD343 /* PixelatedGraph.cc in Sources */,
+				94041C3E1CBECB40003BD343 /* PredictionValue.cc in Sources */,
+				94041C3F1CBECB40003BD343 /* RGBGraph.cc in Sources */,
+				94041C401CBECB40003BD343 /* Settings.cc in Sources */,
+				94041C851CBF1906003BD343 /* TideController.mm in Sources */,
+				94041C411CBECB40003BD343 /* Skycal.cc in Sources */,
+				94041C421CBECB40003BD343 /* Speed.cc in Sources */,
+				94041C431CBECB40003BD343 /* Station.cc in Sources */,
+				94041C521CBEE6BF003BD343 /* Global.cc in Sources */,
+				94041C441CBECB40003BD343 /* StationIndex.cc in Sources */,
+				94041D521CC7ED9D003BD343 /* HighlightingView.m in Sources */,
+				94041C451CBECB40003BD343 /* StationRef.cc in Sources */,
+				94041D661CC94E51003BD343 /* CalendarController.mm in Sources */,
+				94041C461CBECB40003BD343 /* SubordinateStation.cc in Sources */,
+				94041C471CBECB40003BD343 /* SVGGraph.cc in Sources */,
+				94041C4F1CBECDE2003BD343 /* PreferenceController.mm in Sources */,
+				94041C481CBECB40003BD343 /* TideEvent.cc in Sources */,
+				94041C491CBECB40003BD343 /* TideEventsOrganizer.cc in Sources */,
+				94041C4A1CBECB40003BD343 /* Timestamp.cc in Sources */,
+				94041C4B1CBECB40003BD343 /* TTYGraph.cc in Sources */,
+				94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */,
+				94041C4C1CBECB40003BD343 /* Units.cc in Sources */,
+				94041C5E1CBF173A003BD343 /* TideDataDocument.mm in Sources */,
+				94041C531CBF14FD003BD343 /* Year.cc in Sources */,
+				94041D301CC1CDF1003BD343 /* bit_pack.c in Sources */,
+				94041D321CC1CE3E003BD343 /* tide_db.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +971,46 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		94041CAD1CC06B56003BD343 /* TideGraph.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94041CAE1CC06B56003BD343 /* Base */,
+			);
+			name = TideGraph.xib;
+			sourceTree = "<group>";
+		};
+		94041CB31CC1943C003BD343 /* Preferences.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94041CB41CC1943C003BD343 /* Base */,
+			);
+			name = Preferences.xib;
+			sourceTree = "<group>";
+		};
+		94041D391CC6D92D003BD343 /* Disclaimer.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94041D3A1CC6D92D003BD343 /* Base */,
+			);
+			name = Disclaimer.xib;
+			sourceTree = "<group>";
+		};
+		94041D3F1CC6EBF0003BD343 /* TideData.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94041D401CC6EBF0003BD343 /* Base */,
+			);
+			name = TideData.xib;
+			sourceTree = "<group>";
+		};
+		94041D6A1CC95069003BD343 /* TideCalendar.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94041D6B1CC95069003BD343 /* Base */,
+			);
+			name = TideCalendar.xib;
+			sourceTree = "<group>";
+		};
 		946318E71CBC3242001CD859 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -346,7 +1059,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -384,7 +1097,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -397,6 +1110,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -409,6 +1127,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -483,6 +1206,7 @@
 				946319051CBC3242001CD859 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		946319061CBC3242001CD859 /* Build configuration list for PBXNativeTarget "XTideTests" */ = {
 			isa = XCConfigurationList;
@@ -491,6 +1215,7 @@
 				946319081CBC3242001CD859 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		946319091CBC3242001CD859 /* Build configuration list for PBXNativeTarget "XTideUITests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +1224,7 @@
 				9463190B1CBC3242001CD859 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,288 @@
+//
+//  TideGraphController.m
+//  XTideCocoa
+//
+//  Created by Lee Ann Rucker on 7/15/06.
+//  Copyright 2006 .
+//
+/*
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+#import "TideController.h"
+#import "TideGraphController.h"
+#import "XTSettings.h"
+#import "XTStationRef.h"
+#import "XTStationInt.h"
+#import "PredictionValue.hh"
+#import "XTGraph.h"
+#import "XTUtils.h"
+#import "GraphView.h"
+
+static TideGraphController *selfContext;
+
+static NSArray *prefsKeysOfInterest;
+static NSString * const TideGraph_graphdate = @"graphView.graphdate";
+static NSString * const TideGraph_displayDate = @"displayDate";
+
+@interface TideGraphController ()
+
+@property BOOL customDate;
+
+- (void)startNowTimer;
+- (void)stopNowTimer:(BOOL)isUserAction;
+
+@end
+
+@implementation TideGraphController
+
+@synthesize nowTimer;
+
++ (void)initialize
+{
+    // If any of these prefs change, redisplay the graph
+    prefsKeysOfInterest = [[XTGraph colorsOfInterest] arrayByAddingObjectsFromArray:
+                           @[XTide_extralines, XTide_toplines, XTide_nofill, XTide_eventmask,
+                            XTide_deflwidth, XTide_units]];
+}
+
+- (id)initWith:(XTStationRef*)in_stationRef
+{
+    self = [super initWithWindowNibName:@"TideGraph" stationRef:in_stationRef];
+//    self = [super initWithWindowNibName:@"TideCalendar" stationRef:in_stationRef];
+    
+    if (!self) {
+        return nil;
+    }
+    for (NSString *keyPath in prefsKeysOfInterest) {
+        [[NSUserDefaults standardUserDefaults] addObserver:self
+                                                forKeyPath:keyPath
+                                                   options:NSKeyValueObservingOptionNew
+                                                   context:&selfContext];
+    }
+    return self;
+}
+
+- (void)windowWillClose:(NSNotification*)note
+{
+    [self removeObserver:self forKeyPath:TideGraph_graphdate context:&selfContext];
+    for (NSString *keyPath in prefsKeysOfInterest) {
+        [[NSUserDefaults standardUserDefaults] removeObserver:self
+                                                   forKeyPath:keyPath
+                                                      context:&selfContext];
+    }
+    [super windowWillClose:note];
+}
+
+- (BOOL)windowShouldClose:(id)sender
+{
+    [self stopNowTimer:NO];
+    return YES;
+}
+
+
+- (void)encodeRestorableStateWithCoder:(NSCoder *)coder
+{
+    // If it's showing a modified date, save it.
+    if (self.customDate) {
+        [coder encodeObject:self.graphView.graphdate forKey:TideGraph_displayDate];
+    }
+    [super encodeRestorableStateWithCoder:coder];
+}
+
+- (void)restoreStateWithCoder:(NSCoder *)coder
+{
+    // If it's nil, use current time.
+    NSDate *displayDate = [coder decodeObjectForKey:TideGraph_displayDate];
+    if (displayDate) {
+        [graphView setGraphdate:displayDate];
+        [dateFromPicker setDateValue:displayDate];
+        self.customDate = YES;
+        [self updateLabels];
+    }
+    [super restoreStateWithCoder:coder];
+}
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [dateFromPicker setDateValue:[graphView graphdate]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(tideViewStartedTouches:)
+                                                 name:TideViewTouchesBeganNotification
+                                               object:graphView];
+    [self addObserver:self forKeyPath:TideGraph_graphdate options:0 context:&selfContext];
+    [self updateLabels];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+    SEL action = [menuItem action];
+
+    if (action == @selector(showGraphForSelection:)) {
+        return NO;
+    }
+    return YES;
+}
+
+// Time changed by user action.
+- (IBAction)updateStartTime:(id)sender
+{
+    [self stopNowTimer:YES];
+    [graphView stopMotion];
+    [graphView setGraphdate:[dateFromPicker dateValue]];
+    self.customDate = YES;
+    [self updateLabels];
+    [self invalidateRestorableState];
+}
+
+- (GraphView *)graphView
+{
+    return graphView;
+}
+
+- (IBAction)copy:(id)sender
+{
+    [graphView copy:sender];
+}
+
+- (void)nowTimerFireMethod:(NSTimer *)timer
+{
+    NSDate *now = [NSDate date];
+    [graphView setGraphdate:now];
+    [dateFromPicker setDateValue:now];
+}
+
+- (void)startNowTimer
+{
+    [graphView stopMotion];
+    [self nowTimerFireMethod:nil];
+    [nowButton setState:NSOnState];
+    self.nowTimer =
+        [NSTimer scheduledTimerWithTimeInterval:60
+                                         target:self
+                                       selector:@selector(nowTimerFireMethod:)
+                                       userInfo:nil
+                                        repeats:YES];
+}
+
+- (void)tideViewStartedTouches:(NSNotification *)note
+{
+    [self stopNowTimer:YES];
+}
+
+- (void)stopNowTimer:(BOOL)isUserAction
+{
+    if (nowTimer) {
+        [nowTimer invalidate];
+        self.nowTimer = nil;
+    }
+    [nowButton setState:NSOffState];
+}
+
+- (IBAction)returnToNow:(id)sender
+{
+    self.customDate = NO;
+    [self invalidateRestorableState];
+    if (nowTimer) {
+        [self stopNowTimer:YES];
+    } else {
+        [self startNowTimer];
+    }
+}
+
+- (IBAction)showOptionSheet:(id)sender
+{
+    [aspectValueText setDoubleValue:[station aspect]];
+    if ([station hasMarkLevel]) {
+        libxtide::NullablePredictionValue mark = [station markLevel];
+        [markValueText setDoubleValue:mark.val()];
+        if (![station isCurrent] && mark.Units() != libxtide::Units::zulu) {
+            // @lar units in prefs
+            NSString *markString = DstrToNSString(libxtide::Units::shortName(mark.Units()));
+            NSInteger index = [[XTStation unitsPrefMap] indexOfObject:markString];
+            if (index < 0 || index >= 3) {
+                index = 0;
+            }
+            [markUnitsCombo selectItemAtIndex:index];
+        }
+        [showMarkCheckbox setState:NSOnState];
+    }
+    else {
+        [showMarkCheckbox setState:NSOffState];
+    }
+    [[self window] beginSheet:markSheet completionHandler:nil];
+}
+
+- (IBAction)hideOptionSheet:(id)sender
+{
+    double val;
+    
+    // Hide the sheet
+    [markSheet orderOut:sender];
+    
+    // Return to normal event handling
+    [NSApp endSheet:markSheet returnCode:1];
+    
+    // Get the options
+    if ([showMarkCheckbox state] == NSOnState) {
+        NSInteger index = [markUnitsCombo indexOfSelectedItem];
+        if (index < 0 || index >= 3) {
+            index = 0;
+        }
+        val = [markValueText doubleValue];
+        libxtide::Units::PredictionUnits units = [station predictUnits];
+        libxtide::PredictionValue pv;
+        if (index != 0 && ![station isCurrent]) {
+            libxtide::Units::PredictionUnits altUnits = libxtide::Units::parse([[[XTStation unitsPrefMap] objectAtIndex:index] UTF8String]);
+            pv = libxtide::PredictionValue(altUnits, val);
+            if (units != altUnits) {
+                pv.Units(units);
+            }
+        } else {
+            pv = libxtide::PredictionValue(units, val);
+        }
+        [station markLevel:pv];
+    }
+    else {
+        [station clearMarkLevel];
+    }
+    val = [aspectValueText doubleValue];
+    [station aspect:val];
+    [graphView display];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
+{
+    if (context != &selfContext) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    } else if ([prefsKeysOfInterest containsObject:keyPath]) {
+        // TODO: set all Cpp settings before NSUserDefaults (except color, cpp doesn't care)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [graphView display];
+        });
+    } else if ([keyPath isEqualToString:TideGraph_graphdate]) {
+        [dateFromPicker setDateValue:graphView.graphdate];
+    } else {
+        NSAssert(0, @"Unhandled key %@ in %@", keyPath, [self className]);
+    }
+}
+
+
+@end

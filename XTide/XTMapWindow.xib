@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.MapKitIBPlugin" version="10116"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="XTMapWindowController">
+            <connections>
+                <outlet property="mapView" destination="hGL-xZ-hWR" id="5MN-1m-wab"/>
+                <outlet property="searchField" destination="ITR-Vb-S8C" id="tyk-16-VQr"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="kx3-WY-s0O"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="Stations" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="196" y="240" width="476" height="294"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <value key="minSize" type="size" width="476" height="294"/>
+            <view key="contentView" id="EiT-Mj-1SZ">
+                <rect key="frame" x="0.0" y="0.0" width="476" height="294"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <mapView mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-xZ-hWR">
+                        <rect key="frame" x="0.0" y="0.0" width="476" height="294"/>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="qEb-7S-2JG"/>
+                        </connections>
+                    </mapView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="hGL-xZ-hWR" secondAttribute="bottom" id="MD9-cP-WkT"/>
+                    <constraint firstItem="hGL-xZ-hWR" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="jBL-ad-Aig"/>
+                    <constraint firstAttribute="trailing" secondItem="hGL-xZ-hWR" secondAttribute="trailing" id="llZ-34-fqP"/>
+                    <constraint firstItem="hGL-xZ-hWR" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="omR-AW-3Ps"/>
+                </constraints>
+            </view>
+            <toolbar key="toolbar" implicitIdentifier="9BDE8081-2084-48B0-AF46-7260F8F61929" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="sBD-vz-TP1">
+                <allowedToolbarItems>
+                    <toolbarItem implicitItemIdentifier="8277903F-F499-4E4B-BF22-EAFD4B6CF372" label="Custom View" paletteLabel="Custom View" id="4rZ-7E-2H3" userLabel="Search">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="96" height="22"/>
+                        <size key="maxSize" width="800" height="22"/>
+                        <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="ITR-Vb-S8C">
+                            <rect key="frame" x="0.0" y="14" width="563" height="22"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" id="qws-G6-54f">
+                                <font key="font" metaFont="system"/>
+                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            </searchFieldCell>
+                            <connections>
+                                <action selector="selectSuggestedAnnotation:" target="-2" id="1Bb-Xh-33F"/>
+                                <outlet property="delegate" destination="-2" id="nVC-1m-tFR"/>
+                            </connections>
+                        </searchField>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="vuP-Xi-nad"/>
+                    <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Q7z-iL-1Fe"/>
+                    <toolbarItem implicitItemIdentifier="017486C8-4491-4206-9C81-4C582B19577B" label="Home" paletteLabel="Home" image="location-arrow" id="FXO-Qn-fkQ">
+                        <nil key="toolTip"/>
+                        <size key="minSize" width="32" height="32"/>
+                        <size key="maxSize" width="32" height="32"/>
+                        <button key="view" verticalHuggingPriority="750" id="wRm-UR-4bc">
+                            <rect key="frame" x="3" y="14" width="32" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="location-arrow" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="LId-5t-bRq">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="goHome:" target="-2" id="9al-V9-hBR"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                </allowedToolbarItems>
+                <defaultToolbarItems>
+                    <toolbarItem reference="4rZ-7E-2H3"/>
+                    <toolbarItem reference="Q7z-iL-1Fe"/>
+                    <toolbarItem reference="FXO-Qn-fkQ"/>
+                </defaultToolbarItems>
+            </toolbar>
+            <connections>
+                <outlet property="delegate" destination="-2" id="yb6-6b-J3D"/>
+            </connections>
+            <point key="canvasLocation" x="314" y="384"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="location-arrow" width="24" height="24"/>
+    </resources>
+</document>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="XTPrefFlagsViewController">
+            <connections>
+                <outlet property="view" destination="6dN-1x-qhw" id="KgQ-kL-0pG"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <view id="6dN-1x-qhw">
+            <rect key="frame" x="0.0" y="0.0" width="235" height="134"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="VuW-6Y-VUs">
+                    <rect key="frame" x="13" y="98" width="204" height="18"/>
+                    <buttonCell key="cell" type="check" title="Display phase of moon events" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="s5Z-ly-ap8">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateEventMask:" target="-2" id="btG-cT-2nb"/>
+                        <binding destination="-2" name="value" keyPath="phaseOfMoon" id="qGd-0C-bOj"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="RzL-1i-3Dg">
+                    <rect key="frame" x="13" y="78" width="204" height="18"/>
+                    <buttonCell key="cell" type="check" title="Display sunrise events" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="PU1-vJ-Okh">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateEventMask:" target="-2" id="kTm-VD-GtP"/>
+                        <binding destination="-2" name="value" keyPath="sunrise" id="aev-LZ-fWZ"/>
+                    </connections>
+                </button>
+                <button horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="9gK-CN-laN">
+                    <rect key="frame" x="13" y="58" width="204" height="18"/>
+                    <buttonCell key="cell" type="check" title="Display sunset events" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="UWz-JB-okD">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateEventMask:" target="-2" id="7OJ-Tc-cCa"/>
+                        <binding destination="-2" name="value" keyPath="sunset" id="fen-Ft-kce"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="DyZ-dN-k4b">
+                    <rect key="frame" x="13" y="38" width="204" height="18"/>
+                    <buttonCell key="cell" type="check" title="Display moonrise events" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="1Fq-Ma-I7W">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateEventMask:" target="-2" id="40V-xi-drh"/>
+                        <binding destination="-2" name="value" keyPath="moonrise" id="3MR-ql-cpg"/>
+                    </connections>
+                </button>
+                <button translatesAutoresizingMaskIntoConstraints="NO" id="UYP-dd-4dR">
+                    <rect key="frame" x="13" y="18" width="204" height="18"/>
+                    <buttonCell key="cell" type="check" title="Display moonset events" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="vAx-5f-fRl">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="updateEventMask:" target="-2" id="ysI-SM-fq2"/>
+                        <binding destination="-2" name="value" keyPath="moonset" id="qht-I9-wFm"/>
+                    </connections>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="9gK-CN-laN" firstAttribute="trailing" secondItem="VuW-6Y-VUs" secondAttribute="trailing" id="2s0-Gb-Bk7"/>
+                <constraint firstItem="9gK-CN-laN" firstAttribute="leading" secondItem="VuW-6Y-VUs" secondAttribute="leading" id="H2M-EA-Daa"/>
+                <constraint firstItem="UYP-dd-4dR" firstAttribute="leading" secondItem="VuW-6Y-VUs" secondAttribute="leading" id="IVQ-Zo-pkV"/>
+                <constraint firstItem="RzL-1i-3Dg" firstAttribute="leading" secondItem="VuW-6Y-VUs" secondAttribute="leading" id="NYX-Zv-q9h"/>
+                <constraint firstItem="VuW-6Y-VUs" firstAttribute="top" secondItem="6dN-1x-qhw" secondAttribute="top" constant="20" symbolic="YES" id="OCc-Z1-Uoi"/>
+                <constraint firstItem="DyZ-dN-k4b" firstAttribute="top" secondItem="9gK-CN-laN" secondAttribute="bottom" constant="6" symbolic="YES" id="Sd7-BT-cMG"/>
+                <constraint firstItem="DyZ-dN-k4b" firstAttribute="leading" secondItem="VuW-6Y-VUs" secondAttribute="leading" id="XuR-LT-Mxi"/>
+                <constraint firstItem="DyZ-dN-k4b" firstAttribute="trailing" secondItem="VuW-6Y-VUs" secondAttribute="trailing" id="aXT-A4-bpw"/>
+                <constraint firstAttribute="bottom" secondItem="UYP-dd-4dR" secondAttribute="bottom" constant="20" symbolic="YES" id="cYm-PY-54b"/>
+                <constraint firstItem="UYP-dd-4dR" firstAttribute="top" secondItem="DyZ-dN-k4b" secondAttribute="bottom" constant="6" symbolic="YES" id="gqs-Q1-Gqj"/>
+                <constraint firstItem="RzL-1i-3Dg" firstAttribute="trailing" secondItem="VuW-6Y-VUs" secondAttribute="trailing" id="jMC-MN-2l1"/>
+                <constraint firstItem="UYP-dd-4dR" firstAttribute="trailing" secondItem="VuW-6Y-VUs" secondAttribute="trailing" id="ni0-Yx-eSo"/>
+                <constraint firstItem="9gK-CN-laN" firstAttribute="top" secondItem="RzL-1i-3Dg" secondAttribute="bottom" constant="6" symbolic="YES" id="oGP-Al-Mk2"/>
+                <constraint firstAttribute="trailing" secondItem="VuW-6Y-VUs" secondAttribute="trailing" constant="20" symbolic="YES" id="peX-q6-PNx"/>
+                <constraint firstItem="RzL-1i-3Dg" firstAttribute="top" secondItem="VuW-6Y-VUs" secondAttribute="bottom" constant="6" symbolic="YES" id="xEg-oA-RKq"/>
+            </constraints>
+            <point key="canvasLocation" x="276.5" y="229"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>BOGUS_COORDINATES
+A latitude and longitude pair was found to be out of range.</string>
+	<string>ABSURD_OFFSETS
+A subordinate station's offsets were so nonsensical as to cause
+operational failures in XTide.</string>
+	<string>CORRUPT_HARMONICS_FILE
+Your harmonics file does not conform to the required format.  This can be
+caused by:
+   --  updates to the harmonics file while xtide is running;
+   --  a corrupt harmonics file;
+   --  libtcd errors (which would have been reported to stderr).
+If the harmonics file has been updated, just restart xtide and it will be fine.</string>
+	<string>CANT_OPEN_FILE
+Unable to open a file.</string>
+	<string>BADHHMM
+XTide was expecting an interval specification of the form [-]HH:MM where HH
+is hours and MM is minutes.  What it got did not parse.  This indicates a
+problem with an offset, meridian, or step value specification.</string>
+	<string>UNRECOGNIZED_UNITS
+The units of a prediction value (e.g., feet, meters, knots) were not one of
+the recognized alternatives.</string>
+	<string>IMPOSSIBLE_CONVERSION
+An attempt was made to convert between units of fundamentally different types,
+e.g., to convert from units of velocity to units of length.</string>
+	<string>YEAR_NOT_IN_TABLE
+Some operation has been initiated that needs data for a year that is
+not supported by the harmonics file being used.</string>
+	<string>NO_CONVERSION
+An attempt was made to convert a measure with units to the same units.  This
+may indicate a fault in the program logic.</string>
+</array>
+</plist>

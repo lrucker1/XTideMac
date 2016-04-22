@@ -7,9 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "XTStationIndex.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
+@property (readonly, retain) NSArray *stationRefArray;
+
+- (IBAction)showStationMap: (id)sender;
+- (IBAction)showDisclaimer:(id)sender;
+
+- (NSWindow *)showTideGraphForStation:(XTStationRef *)ref;
+- (NSWindow *)showTideDataForStation:(XTStationRef *)ref;
+- (NSWindow *)showTideCalendarForStation:(XTStationRef *)ref;
 
 @end
 
