@@ -77,6 +77,7 @@ static NSString *versionKey = @"version";
     [checkBox_toplines setState:tl];
     
     [textfield_deflwidth setFloatValue:[settings floatForKey:XTide_deflwidth]]; // "lw"
+    [slider_opacity setFloatValue:[settings floatForKey:XTide_tideopacity]]; // "to"
     
     NSString *unitPref = [settings objectForKey:XTide_units];
     NSInteger index = 0;
@@ -142,6 +143,11 @@ static NSString *versionKey = @"version";
 - (IBAction)changeLinewidth:(id)sender
 {
     XTSettings_SetShortcutToValue("lw", @([sender floatValue]));
+}
+
+- (IBAction)changeOpacity:(id)sender
+{
+    XTSettings_SetShortcutToValue("to", @([sender floatValue]));
 }
 
 - (IBAction)changeUnits:(id)sender

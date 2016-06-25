@@ -36,7 +36,6 @@ typedef struct TouchInfo {
 
 @interface GraphView : NSView
 {
-    IBOutlet TideController *dataSource;
     NSDate *graphdate;
     
     TouchInfo *history;
@@ -51,8 +50,12 @@ typedef struct TouchInfo {
     double motionMultiplier;
     double motionMinimum;
     NSTimer *flickTimer;
+
+    NSTouch *_initialTouches[2];
+    NSTouch *_currentTouches[2];
 }
 
+@property (readwrite, assign, nonatomic) IBOutlet TideController *dataSource;
 @property (readwrite, retain, nonatomic) NSDate *graphdate;
 
 - (id)initWithFrame:(NSRect)frameRect date:(NSDate*)date;

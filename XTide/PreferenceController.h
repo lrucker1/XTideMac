@@ -47,6 +47,7 @@
 	IBOutlet NSArrayController *harmonicsFileArray;
 	
 	IBOutlet NSComboBox *popup_combo;
+	IBOutlet NSSlider *slider_opacity;
 }
 
 @property BOOL useStandardHarmonics;

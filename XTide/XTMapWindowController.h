@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <MapKit/MapKit.h>
 
-@interface XTMapWindowController : NSWindowController
+@interface XTMapWindowController : NSWindowController <NSPopoverDelegate>
 
 @property (strong) IBOutlet MKMapView *mapView;
 @property (strong) IBOutlet NSTextField *searchField;

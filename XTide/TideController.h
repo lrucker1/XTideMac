@@ -53,4 +53,7 @@
 
 // Generate a text representation, even for graphic views
 - (NSString*)stringWithIndexes:(NSIndexSet *)rowIndexes form:(char)form mode:(char)mode;
+
+- (void)removeObservers;
+
 @end

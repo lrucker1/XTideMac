@@ -27,7 +27,6 @@
 
 @interface TideGraphController : TideController
 {
-	IBOutlet GraphView *graphView;
 	IBOutlet NSButton *nowButton;
 	
 	// Sheet
@@ -39,6 +38,8 @@
 
     NSTimer *nowTimer;
 }
+
+@property IBOutlet GraphView *graphView;
 
 @property (readwrite, retain) NSTimer *nowTimer;
 

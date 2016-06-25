@@ -143,10 +143,37 @@ namespace libxtide {
  *-----------------------------------------------------------------------------
  */
 
-- (void)drawTides:(XTStation*)sr now:(NSDate*)now
+- (void)drawTides:(XTStation *)sr
+              now:(NSDate *)now
 {
     libxtide::Timestamp t = libxtide::Timestamp((time_t)[now timeIntervalSince1970]);
     mGraph->drawTides([sr adaptedStation], t);
+}
+
+
+/*
+ *-----------------------------------------------------------------------------
+ *
+ * -[XTGraph offsetStationTime:now:deltaX:] --
+ *
+ *      Computes the date shift for the coordinate shift.
+ *
+ * Result:
+ *      The new date
+ *
+ * Side effects:
+ *      None
+ *
+ *-----------------------------------------------------------------------------
+ */
+
+- (NSDate*)offsetStationTime:(XTStation*)sr
+                         now:(NSDate *)now
+                      deltaX:(double *)deltaX
+{
+   libxtide::Timestamp t = libxtide::Timestamp((time_t)[now timeIntervalSince1970]);
+   t = mGraph->offsetTimeByDeltaX([sr adaptedStation], t, deltaX);
+   return TimestampToNSDate(t);
 }
 
 @end
@@ -221,150 +248,66 @@ CocoaGraph::UpdateColors()
                    forKey:NSForegroundColorAttributeName];
 }
 
-void
-CocoaGraph::clearGraph (Timestamp startTime,
-                        Timestamp endTime,
-                        Interval increment,
-                        Station *station,
-                        TideEventsOrganizer &organizer) {
-    assert (station);
-    
-    // True if event mask is set to suppress sunrises *or* sunsets
-    bool ns (Global::settings["em"].s.contains("s"));
-    
-    // Clear the graph by laying down a background of days and nights.
-    bool sunIsUp = true;
-    if (!(station->coordinates.isNull()) && !ns)
-        sunIsUp = Skycal::sunIsUp (startTime, station->coordinates);
-    
-    Timestamp loopTime (startTime);
-    Timestamp nextSunEventTime;
-    TideEventsIterator it (organizer.begin());
-    findNextSunEvent (it, organizer, loopTime, endTime, nextSunEventTime);
-    NSPoint p1, p2;
-    Colors::Colorchoice lastcolor = (Colors::Colorchoice)-1;
-    Colors::Colorchoice c = lastcolor;
-    unsigned x, x1;
-    double yTop = _ySize - 1;
-    NSBezierPath *tidePath = [NSBezierPath bezierPath];
-    for (x=0, x1=0; x<_xSize; ++x, loopTime += increment) {
-        p1 = NSMakePoint(x, 0);
-        if (loopTime >= nextSunEventTime && !ns) {
-            findNextSunEvent (it, organizer, loopTime, endTime, nextSunEventTime);
-            assert (loopTime < nextSunEventTime);
-            if (it != organizer.end()) {
-                switch (it->second.eventType) {
-                    case TideEvent::sunrise:
-                        sunIsUp = false;
-                        break;
-                    case TideEvent::sunset:
-                        sunIsUp = true;
-                        break;
-                    default:
-                        assert (false);
-                }
-            } else
-                sunIsUp = !sunIsUp;
-        }
-        lastcolor = c;
-        c = (sunIsUp ? Colors::daytime : Colors::nighttime);
-        if (c != lastcolor) {
-            if (lastcolor >= 0) {
-                [tidePath lineToPoint:p1];
-                p2 = NSMakePoint(x, yTop);
-                [tidePath lineToPoint:p2];
-                p2 = NSMakePoint(x1, yTop);
-                [tidePath lineToPoint:p2];
-                [tidePath closePath];
-                [mycolors[lastcolor] set];
-                [tidePath fill];
-                [tidePath removeAllPoints];
-                x1 = x;
-            }
-            [tidePath moveToPoint:p1];
-        }
-    }
-    // and the final bit at the end
-    if (lastcolor >= 0) {
-        [tidePath lineToPoint:p1];
-        p2 = NSMakePoint(x,yTop);
-        [tidePath lineToPoint:p2];
-        p2 = NSMakePoint(x1,yTop);
-        [tidePath lineToPoint:p2];
-        [tidePath closePath];
-        [mycolors[lastcolor] set];
-        [tidePath fill];
-    }
-}
-
-void
-CocoaGraph::drawTideSegments (Timestamp startTime,
-                              Timestamp endTime,
-                              Interval increment,
-                              Station *station,
-                              const double ymin,
-                              const double ymax)
+void CocoaGraph::drawLevels(const SafeVector<double> &val,
+                            const SafeVector<double> &y,
+                            double yzulu,
+                            bool isCurrent
+#ifdef blendingTest
+                            , const SafeVector<BlendBlob> &blendBlobs
+#endif
+)
 {
-    const double valmin (station->minLevelHeuristic().val());
-    const double valmax (station->maxLevelHeuristic().val());
-    double prevval, prevytide;
-    double val (station->predictTideLevel(startTime-increment).val());
-    double ytide = xlate(val);
-    double nextval (station->predictTideLevel(startTime).val());
-    double nextytide (xlate (nextval));
-    Timestamp loopt;
-    int x, x1;
-    startPixelCache();
-    NSPoint p1;
+    const char gs (Global::settings["gs"].c);
+    const double opacity (gs == 'l' ? 1.0 : Global::settings["to"].d);
     Colors::Colorchoice lastcolor = (Colors::Colorchoice)-1;
     Colors::Colorchoice c = lastcolor;
-    
-    double slw (Global::settings["lw"].d);
+
     NSBezierPath *tidePath = [NSBezierPath bezierPath];
-    [tidePath setLineWidth:slw];
+    NSPoint p1;
     
-    // loopt is actually 1 step ahead of x.
-    for (x=0, x1=0, loopt=startTime+increment;
-         x<(int)_xSize;
-         ++x, loopt += increment) {
-        
-        prevval = val;
-        prevytide = ytide;
-        val = nextval;
-        ytide = nextytide;
-        nextval = station->predictTideLevel(loopt).val();
-        nextytide = xlate(nextval);
-        lastcolor = c;
+    // Harmonize this with the quantized y coordinate of the 0 kt line to avoid
+    // anomalies like a gap between the flood curve and the line.
+    yzulu = Global::ifloor(yzulu);
+    CGFloat ybase = isCurrent ? yzulu : _ySize;
+    BOOL fill = (gs != 'l');
+    
+    if (_xSize == 0) {
+        return;
+    }
+    for (int x=0; x<(int)_xSize; ++x) {
         
         // Coloration is determined from the predicted heights, not from
         // the eventTypes of surrounding tide events.  Ideally the two
         // would never disagree, but for pathological sub stations they
         // can.
-        if (station->isCurrent) {
-            c = (val > 0.0 ? Colors::flood : Colors::ebb);
+        if (isCurrent) {
+            c = (val[x+1] > 0.0 ? Colors::flood : Colors::ebb);
         } else {
-            c = (prevval < val ? Colors::flood : Colors::ebb);
+            c = (val[x] < val[x+1] ? Colors::flood : Colors::ebb);
         }
-        p1 = NSMakePoint(x, ytide);
+        p1 = NSMakePoint(x, y[x+1]);
         if (c != lastcolor) {
             if (lastcolor >= 0) {
-                [mycolors[lastcolor] set];
-                [tidePath stroke];
+                p1 = NSMakePoint(x+1, y[x+2]);
+                [tidePath lineToPoint:p1];
+                [tidePath lineToPoint:NSMakePoint(x+1, ybase)];
+                [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
+                fill ? [tidePath fill] : [tidePath stroke];
                 [tidePath removeAllPoints];
-                x1 = x;
             }
-            [tidePath moveToPoint:p1];
-        }
-        else
+            [tidePath moveToPoint:NSMakePoint(x, ybase)];
+            lastcolor = c;
+       }
+        else {
             [tidePath lineToPoint:p1];
+        }
     }
     // and the final bit at the end
-    [mycolors[lastcolor] set];
-    [tidePath stroke];
-    stopPixelCache();
+    [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
+    [tidePath lineToPoint:NSMakePoint(_xSize, ybase)];
+    fill ? [tidePath fill] : [tidePath stroke];
 }
 
-// Unlike X11, the versions with doubles are the preferred ones
 
 void
 CocoaGraph::drawVerticalLineP(int x,
@@ -394,6 +337,23 @@ CocoaGraph::drawHorizontalLineP(int xlo,
     [NSBezierPath strokeLineFromPoint:NSMakePoint(xlo, y)
                               toPoint:NSMakePoint(xhi, y)];
 }
+
+
+
+void CocoaGraph::drawBoxS (double x1, double x2, double y1, double y2,
+                               Colors::Colorchoice c)
+{
+    int ix1 (Global::ifloor (x1)), ix2 (Global::ifloor (x2));
+    int iy1 (Global::ifloor (y1)), iy2 (Global::ifloor (y2));
+    if (ix1 > ix2)
+        std::swap (ix1, ix2);
+    if (iy1 > iy2)
+        std::swap (iy1, iy2);
+    NSRect fillRect = NSMakeRect(ix1, iy1, ix2 - ix1, iy2 - iy1);
+    [mycolors[c] set];
+    NSRectFill(fillRect);
+}
+
 
 void
 CocoaGraph::drawStringP (int x, int y, const Dstr &s)
@@ -439,9 +399,9 @@ CocoaGraph::setPixel(int x,
                      Colors::Colorchoice c,
                      double opacity)
 {
-    if (opacity == 1.0)
+    if (opacity == 1.0) {
         [mycolors[c] set];
-    else {
+    } else {
         [[mycolors[c] colorWithAlphaComponent:opacity] set];
     }
     NSPoint p1 = NSMakePoint(x, y);

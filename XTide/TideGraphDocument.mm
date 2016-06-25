@@ -41,7 +41,7 @@
 - (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
 {
 	NSData *data = nil;
-	GraphView *graphView = [mycontroller graphView];
+	GraphView *graphView = [self.self.mycontroller graphView];
 	if ([typeName isEqualToString:NSPDFPboardType])
 		data = [graphView PDFRepresentation];
 	else if ([typeName isEqualToString:NSTIFFPboardType])
@@ -62,7 +62,7 @@
     
     // Create a view that will be used just for printing.
     NSSize documentSize = [self documentSize];
-	GraphView *graphView = [mycontroller graphView];
+	GraphView *graphView = [self.mycontroller graphView];
 	
 	// Make sure the proportions are in the same ratio as current view @lar
 //	NSSize viewSize = [graphView visibleRect].size;

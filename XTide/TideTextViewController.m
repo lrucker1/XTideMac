@@ -82,15 +82,6 @@ static NSString * const TideData_hourRange = @"hourRange";
 {
 	[super awakeFromNib];
 //#define DEBUG_PREDICTIONS 1
-#ifdef DEBUG_PREDICTIONS
-    // @lar - simplify debugging by always starting at same date (Year(2006, 0.5) in C version)
-    NSDate *timeFrom = [[NSDate dateWithYear:2006 
-			month:1 day:1 hour:0 minute:0 second:0 
-			timeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]] addTimeInterval:15768060];
-#else
-	NSCalendarDate *timeFrom = [NSCalendarDate calendarDate];
-	[timeFrom setTimeZone:[station timeZone]];
-#endif
 
     for (NSString *keyPath in prefsKeysOfInterest) {
         [[NSUserDefaults standardUserDefaults] addObserver:self
@@ -103,11 +94,9 @@ static NSString * const TideData_hourRange = @"hourRange";
 	[hourStepper setIntValue:0];
 	[dayField takeIntValueFrom:dayStepper];
 	[hourField takeIntValueFrom:hourStepper];
-	
-	[dateFromPicker setDateValue:timeFrom];
-	[self setWindowTitleDate:timeFrom];
-	[self computeEvents];
-	[self updateLabels];
+
+    [dateFromPicker setTimeZone:[station timeZone]];
+    [self returnToNow:nil];
 }
 
 // Events and display
@@ -120,7 +109,7 @@ static NSString * const TideData_hourRange = @"hourRange";
 - (IBAction)returnToNow:(id)sender
 {
     self.customDate = NO;
-	NSCalendarDate *timeFrom = [NSCalendarDate calendarDate];
+	NSDate *timeFrom = [NSDate date];
 	[dateFromPicker setDateValue:timeFrom];
 	[self setWindowTitleDate:timeFrom];
 	[self computeEvents];

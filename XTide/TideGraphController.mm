@@ -55,17 +55,17 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     // If any of these prefs change, redisplay the graph
     prefsKeysOfInterest = [[XTGraph colorsOfInterest] arrayByAddingObjectsFromArray:
                            @[XTide_extralines, XTide_toplines, XTide_nofill, XTide_eventmask,
-                            XTide_deflwidth, XTide_units]];
+                            XTide_deflwidth, XTide_tideopacity, XTide_units]];
 }
 
 - (id)initWith:(XTStationRef*)in_stationRef
 {
     self = [super initWithWindowNibName:@"TideGraph" stationRef:in_stationRef];
-//    self = [super initWithWindowNibName:@"TideCalendar" stationRef:in_stationRef];
     
     if (!self) {
         return nil;
     }
+    [self addObserver:self forKeyPath:TideGraph_graphdate options:0 context:&selfContext];
     for (NSString *keyPath in prefsKeysOfInterest) {
         [[NSUserDefaults standardUserDefaults] addObserver:self
                                                 forKeyPath:keyPath
@@ -75,7 +75,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     return self;
 }
 
-- (void)windowWillClose:(NSNotification*)note
+- (void)removeObservers
 {
     [self removeObserver:self forKeyPath:TideGraph_graphdate context:&selfContext];
     for (NSString *keyPath in prefsKeysOfInterest) {
@@ -83,6 +83,12 @@ static NSString * const TideGraph_displayDate = @"displayDate";
                                                    forKeyPath:keyPath
                                                       context:&selfContext];
     }
+    [super removeObservers];
+}
+
+- (void)windowWillClose:(NSNotification*)note
+{
+    self.graphView.dataSource = nil;
     [super windowWillClose:note];
 }
 
@@ -107,7 +113,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     // If it's nil, use current time.
     NSDate *displayDate = [coder decodeObjectForKey:TideGraph_displayDate];
     if (displayDate) {
-        [graphView setGraphdate:displayDate];
+        [self.graphView setGraphdate:displayDate];
         [dateFromPicker setDateValue:displayDate];
         self.customDate = YES;
         [self updateLabels];
@@ -119,12 +125,11 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    [dateFromPicker setDateValue:[graphView graphdate]];
+    [dateFromPicker setDateValue:[self.graphView graphdate]];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(tideViewStartedTouches:)
                                                  name:TideViewTouchesBeganNotification
-                                               object:graphView];
-    [self addObserver:self forKeyPath:TideGraph_graphdate options:0 context:&selfContext];
+                                               object:self.graphView];
     [self updateLabels];
 }
 
@@ -142,33 +147,28 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 - (IBAction)updateStartTime:(id)sender
 {
     [self stopNowTimer:YES];
-    [graphView stopMotion];
-    [graphView setGraphdate:[dateFromPicker dateValue]];
+    [self.graphView stopMotion];
+    [self.graphView setGraphdate:[dateFromPicker dateValue]];
     self.customDate = YES;
     [self updateLabels];
     [self invalidateRestorableState];
 }
 
-- (GraphView *)graphView
-{
-    return graphView;
-}
-
 - (IBAction)copy:(id)sender
 {
-    [graphView copy:sender];
+    [self.graphView copy:sender];
 }
 
 - (void)nowTimerFireMethod:(NSTimer *)timer
 {
     NSDate *now = [NSDate date];
-    [graphView setGraphdate:now];
+    [self.graphView setGraphdate:now];
     [dateFromPicker setDateValue:now];
 }
 
 - (void)startNowTimer
 {
-    [graphView stopMotion];
+    [self.graphView stopMotion];
     [self nowTimerFireMethod:nil];
     [nowButton setState:NSOnState];
     self.nowTimer =
@@ -262,7 +262,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     }
     val = [aspectValueText doubleValue];
     [station aspect:val];
-    [graphView display];
+    [self.graphView display];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -275,10 +275,10 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     } else if ([prefsKeysOfInterest containsObject:keyPath]) {
         // TODO: set all Cpp settings before NSUserDefaults (except color, cpp doesn't care)
         dispatch_async(dispatch_get_main_queue(), ^{
-            [graphView display];
+            [self.graphView display];
         });
     } else if ([keyPath isEqualToString:TideGraph_graphdate]) {
-        [dateFromPicker setDateValue:graphView.graphdate];
+        [dateFromPicker setDateValue:self.graphView.graphdate];
     } else {
         NSAssert(0, @"Unhandled key %@ in %@", keyPath, [self className]);
     }

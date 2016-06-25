@@ -21,4 +21,9 @@
 // This is where it all starts
 - (void)drawTides:(XTStation*)sr now:(NSDate*)now;
 
+// Custom method for drag events.
+- (NSDate*)offsetStationTime:(XTStation*)sr
+                         now:(NSDate *)now
+                      deltaX:(double *)deltaX;
+
 @end

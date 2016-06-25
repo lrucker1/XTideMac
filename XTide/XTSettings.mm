@@ -24,6 +24,7 @@ NSString *XTide_toplines = @"XTide_toplines";
 NSString *XTide_nofill = @"XTide_nofill";
 NSString *XTide_infer = @"XTide_infer";
 NSString *XTide_deflwidth = @"XTide_deflwidth";
+NSString *XTide_tideopacity = @"XTide_tideopacity";
 NSString *XTide_units = @"XTide_units";
 NSString *XTide_zulu = @"XTide_zulu";
 NSString *XTide_showdisclaimer = @"XTide_showdisclaimer";
@@ -318,25 +319,25 @@ NSMutableDictionary *XTSettingsDefaultValues()
 {
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     
-    // Colors (graphing)
+    // Colors (graphing). Overrides config.hh
     [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor redColor]]
                       forKey:XTide_ColorKeys[markcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:@"skyBlue"]
+    [defaultValues setObject:@"skyBlue"
                       forKey:XTide_ColorKeys[daycolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:@"deepSkyBlue"]
+    [defaultValues setObject:@"deepSkyBlue"
                       forKey:XTide_ColorKeys[nightcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor blueColor]]
+    [defaultValues setObject:@"darkSeaGreen"
                       forKey:XTide_ColorKeys[floodcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:@"seaGreen"]
+    [defaultValues setObject:@"seaGreen"
                       forKey:XTide_ColorKeys[ebbcolor]];
     [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor whiteColor]]
                       forKey:XTide_ColorKeys[datumcolor]];
     [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor yellowColor]]
                       forKey:XTide_ColorKeys[mslcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor blackColor]]
+    [defaultValues setObject:@"gray80"
                       forKey:XTide_ColorKeys[fgcolor]];
     
-    // Colors (stations)
+    // Colors (stations) - standard pin colors
     [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor redColor]]
                       forKey:XTide_ColorKeys[refcolor]];
     [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor greenColor]]
@@ -368,11 +369,14 @@ void libxtide::XTSettings::setMacDefaults()
     for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
         Configurable &cfbl = it->second;
         if (cfbl.kind == Configurable::settingKind) {
-            id value = valueForConfigurable(cfbl);
-            if (value) {
-                [defaultValues setObject:value
-                                  forKey:configurablePrefKey(cfbl)];
-            };
+            NSString *key = configurablePrefKey(cfbl);
+            if (![defaultValues objectForKey:key]) {
+                id value = valueForConfigurable(cfbl);
+                if (value) {
+                    [defaultValues setObject:value
+                                      forKey:key];
+                };
+            }
         }
     }
     

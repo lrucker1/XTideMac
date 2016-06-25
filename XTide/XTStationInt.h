@@ -23,7 +23,7 @@
 	NSDateFormatter *dayFormatter;
 }
 
-- (id)initUsingStationRef: (libxtide::StationRef *)aStationRef;
+- (instancetype)initUsingStationRef: (libxtide::StationRef *)aStationRef;
 
 - (libxtide::Station *)adaptedStation;
 
@@ -43,8 +43,6 @@
 - (void)setUnits: (libxtide::Units::PredictionUnits)units;
 - (void)updateUnits;
 
-- (NSString *)stationInfoAsHTML;
-- (NSDictionary *)stationInfoDictionary;
 - (NSString *)stationCalendarInfoFromDate:(NSDate *)startTime
                                    toDate:(NSDate *)endTime;
 - (NSDictionary *)stationCalendarDataFromDate:(NSDate *)startTime

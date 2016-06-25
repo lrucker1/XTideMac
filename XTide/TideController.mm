@@ -40,6 +40,7 @@ static TideController *selfContext;
 @property (strong) XTPrefFlagsViewController *popoverViewController;
 @property (strong) XTStationRef *stationRef;
 @property (nonatomic, strong) XTStation *station;
+@property BOOL isObserving;
 
 @end
 
@@ -57,6 +58,7 @@ static TideController *selfContext;
     }
     self.stationRef = in_stationRef;
     self.station = [stationRef loadStation];
+    _isObserving = YES;
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:XTide_units
@@ -79,11 +81,20 @@ static TideController *selfContext;
     [super encodeRestorableStateWithCoder:coder];
 }
 
-- (void)windowWillClose:(NSNotification*)note
+- (void)removeObservers
 {
-    [[NSUserDefaults standardUserDefaults] removeObserver:self
+   [[NSUserDefaults standardUserDefaults] removeObserver:self
                                                forKeyPath:XTide_units
                                                   context:&selfContext];
+}
+
+- (void)windowWillClose:(NSNotification*)note
+{
+    // TODO: Find out why this is called a second time at termination.
+    if (self.isObserving) {
+        [self removeObservers];
+        self.isObserving = NO;
+    }
 }
 
 - (void)awakeFromNib

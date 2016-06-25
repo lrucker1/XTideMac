@@ -7,7 +7,9 @@
 //
 
 #import "XTMapWindowController.h"
+#import "XTStationInfoViewController.h"
 #import "AppDelegate.h"
+#import "XTStation.h"
 #import "XTStationIndex.h"
 #import "XTStationRef.h"
 #import "XTGraph.h"
@@ -29,6 +31,8 @@ static XTMapWindowController *selfContext;
 @property (retain, nonatomic) SuggestionsWindowController *suggestionsController;
 @property (retain) id<MKAnnotation> suggestion;
 @property (assign) BOOL editing;
+@property (strong) IBOutlet NSPopover *stationPopover;    // popover to display station info
+@property (strong) IBOutlet XTStationInfoViewController *stationInfoViewController;
 
 
 @end
@@ -286,8 +290,10 @@ regionDidChangeAnimated:(BOOL)animated
 {
     // Remove subs on deselect if we aren't showing subs at this zoom level.
     XTStationRef *station = (XTStationRef *)view.annotation;
-    if (!self.showingSubStations && !station.isReferenceStation) {
-        [self.mapView removeAnnotation:station];
+    if ([station isKindOfClass:[XTStationRef class]]) {
+        if (!self.showingSubStations && !station.isReferenceStation) {
+            [self.mapView removeAnnotation:station];
+        }
     }
 }
 
@@ -303,6 +309,7 @@ regionDidChangeAnimated:(BOOL)animated
     }
     MKAnnotationView *returnedAnnotationView =
         [mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([XTStationRef class])];
+    // TODO: Use views from a nib, where we can tweak the layout? The leftButton is too close to the edge.
     if (returnedAnnotationView == nil) {
         returnedAnnotationView =
             [[MKPinAnnotationView alloc] initWithAnnotation:annotation
@@ -323,6 +330,16 @@ regionDidChangeAnimated:(BOOL)animated
         [rightButton setTarget:self];
         [rightButton setAction:@selector(tideInfoAction:)];
         returnedAnnotationView.rightCalloutAccessoryView = rightButton;
+
+        // add a detail disclosure button to the callout which will open an info popover
+        NSButton *leftButton = [[NSButton alloc] initWithFrame:NSMakeRect(0.0, 0.0, 16.0, 16.0)];
+        //[leftButton setTitle:@"Info"];
+        [leftButton setImage:[NSImage imageNamed:@"StationInfoIcon"]]; //NSImageNameInfo
+        [leftButton setTarget:self];
+        [leftButton setAction:@selector(stationInfoAction:)];
+        [leftButton setBordered:NO];
+        [leftButton setButtonType:NSMomentaryChangeButton];
+        returnedAnnotationView.leftCalloutAccessoryView = leftButton;
     }
     else {
         returnedAnnotationView.annotation = annotation;
@@ -330,6 +347,8 @@ regionDidChangeAnimated:(BOOL)animated
     XTStationRef *ref = (XTStationRef *)annotation;
     NSSegmentedControl *rightButton = (NSSegmentedControl *)returnedAnnotationView.rightCalloutAccessoryView;
     [[rightButton cell] setRepresentedObject:annotation];
+    NSButton *leftButton = (NSButton *)returnedAnnotationView.leftCalloutAccessoryView;
+    [[leftButton cell] setRepresentedObject:annotation];
     // 10_11: pinTintColor
     if ([returnedAnnotationView respondsToSelector:@selector(pinTintColor)]) {
         ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor =
@@ -341,6 +360,36 @@ regionDidChangeAnimated:(BOOL)animated
                                        : MKPinAnnotationColorGreen;
     }
     return returnedAnnotationView;
+}
+
+#pragma mark stationInfo
+
+- (IBAction)stationInfoAction:(id)sender
+{
+    // user clicked the Info button inside the StationAnnotation
+    //
+    if (![sender isKindOfClass:[NSButton class]]) {
+        NSBeep();
+        return;
+    }
+    if ([self.stationPopover isShown]) {
+        [self.stationPopover close];
+        return;
+    }
+    NSButton *button = (NSButton *)sender;
+    
+    // configure the preferred position of the popover
+    NSRectEdge prefEdge = NSRectEdgeMaxY;
+    
+    XTStationRef *ref = (XTStationRef *)[[button cell] representedObject];
+    self.stationInfoViewController.representedObject = ref;
+    [self.stationInfoViewController reloadData];
+    [self.stationPopover showRelativeToRect:[button bounds] ofView:sender preferredEdge:prefEdge];
+}
+
+- (IBAction)closePopover:(id)sender
+{
+    [self.stationPopover close];
 }
 
 #pragma mark search

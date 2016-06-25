@@ -180,7 +180,6 @@ static NSString * const XTWindow_restorationName = @"name";
         return nil;
     }
 	TideGraphController *tideController = [[TideGraphController alloc] initWith:ref];
-//    TideGraphController *tideController = [[TideGraphController alloc] initWithWindowNibName:@"TideGraph" stationRef:ref];
     [self configureRestorableWindowController:tideController
                                    identifier:XTWindow_graph];
 	[tideController showWindow:self];

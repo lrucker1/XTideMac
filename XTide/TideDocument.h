@@ -27,9 +27,9 @@ extern NSString *NSICalPboardType;
 extern NSString *NSCSVPboardType;
 
 @interface TideDocument : NSDocument
-{
-	IBOutlet id mycontroller;
-}
+
+@property (weak) IBOutlet id mycontroller;
+
 // Makes an error object and returns NO for write failures
 - (BOOL)errorID:(int)err error:(NSError **)outError;
 

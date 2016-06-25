@@ -58,6 +58,7 @@
 - (void)windowWillClose:(NSNotification*)note
 {
     tideTableView.delegate = nil;
+    tideTableView.dataSource = nil;
     [super windowWillClose:note];
 }
 

@@ -27,7 +27,6 @@
 {
     if ((self = [super init])) {
         mStationRef = aStationRef;
-        // Name is used as tooltip so it must be retained.
         self.title = DstrToNSString(mStationRef->name);
     }
     return self;
@@ -55,7 +54,6 @@
 
 - (NSString *)subtitle
 {
-    // TODO
     return @"";
 }
 

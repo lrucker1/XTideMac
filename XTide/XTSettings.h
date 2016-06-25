@@ -31,6 +31,7 @@ extern NSString *XTide_nofill;		// nf
 extern NSString *XTide_eventmask;	// em
 extern NSString *XTide_infer;		// in
 extern NSString *XTide_deflwidth;	// lw
+extern NSString *XTide_tideopacity; // to
 extern NSString *XTide_units;		// u
 extern NSString *XTide_zulu;		// z
 

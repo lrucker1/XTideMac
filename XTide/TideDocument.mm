@@ -55,7 +55,7 @@ NSString *NSCSVPboardType = @"Comma-separated value (CSV) file";
 		return [self errorID:1 error:outError];
 	
 	// Set the form and mode based on typeName
-	NSString *str = [mycontroller stringWithIndexes:nil form:form mode:'p'];
+	NSString *str = [self.mycontroller stringWithIndexes:nil form:form mode:'p'];
 	if (str == nil)
 		return [self errorID:1 error:outError];
 	

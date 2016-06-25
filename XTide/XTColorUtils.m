@@ -25,40 +25,72 @@ NSString *XTide_ColorKeys[colorindexmax] = {
 };
 
 
+// This would be a category extension but we only need it here.
+static NSColor *
+ColorForHex(NSUInteger hex)
+{
+    NSUInteger red = (hex & 0xFF0000) >> 16;
+    NSUInteger green = (hex & 0x00FF00) >> 8;
+    NSUInteger blue = (hex & 0x0000FF);
+    return [NSColor colorWithCalibratedRed:red / 255.0
+                                     green:green / 255.0
+                                      blue:blue / 255.0
+                                     alpha:1.0];
+}
+
+static NSColor *
+ColorFromRGBString(NSString *colorName)
+{
+  NSInteger r, g, b;
+  r = g = b = 0;
+  const char *fmt1 = "rgb:%" SCNx8 "/%" SCNx8 "/%" SCNx8;
+
+  if (sscanf ([colorName UTF8String], fmt1, &r, &g, &b) == 3) {
+      return [NSColor colorWithCalibratedRed:r / 255.0
+                                       green:g / 255.0
+                                        blue:b / 255.0
+                                       alpha:1.0];
+  }
+  return nil;
+}
+
+
 // Dearchive a color object or name, using xtide's names.
 NSColor *
 ColorForKey(NSString *key)
 {
-    NSColor *skyBlue = [NSColor colorWithDeviceRed:0.0
-                                             green:0.5
-                                              blue:1.0
-                                             alpha:1.0];
-    NSColor *deepSkyBlue = [NSColor colorWithDeviceRed:0.0
-                                                 green:0.25
-                                                  blue:0.5
-                                                 alpha:1.0];
-    NSColor *seaGreen = [NSColor colorWithDeviceRed:0.0
-                                              green:1.0
-                                               blue:0.5
-                                              alpha:1.0];
+    // Colors from http://www.colourlovers.com/palette/1838545/Evening_Tide
+    NSColor *skyBlue = ColorForHex(0x1EB2F7);
+    NSColor *deepSkyBlue = ColorForHex(0x041233);
+    NSColor *seaGreen = ColorForHex(0x4CFCB3);
+    NSColor *darkSeaGreen = ColorForHex(0x28A9E);
+
     // Map colors used in libxtide::Settings.
     NSDictionary *colorMap =
         @{@"red"        : [NSColor redColor],
-          @"blue"       : [NSColor blueColor],
-          @"white"      : [NSColor whiteColor],
-          @"black"      : [NSColor blackColor],
-          @"gray80"     : [NSColor lightGrayColor], // 2/3 instead of 80%d
-          @"yellow"     : [NSColor yellowColor],
-          @"skyblue"    : skyBlue,
-          @"seagreen"   : seaGreen,
-          @"deepskyblue": deepSkyBlue,
+          @"blue"        : [NSColor blueColor],
+          @"white"       : [NSColor whiteColor],
+          @"black"       : [NSColor blackColor],
+          @"gray80"      : [NSColor colorWithWhite:0.80 alpha:1.0],
+          @"yellow"      : [NSColor yellowColor],
+          @"skyblue"     : skyBlue,
+          @"seagreen"    : seaGreen,
+          @"deepskyblue" : deepSkyBlue,
+          @"darkseagreen": darkSeaGreen,
          };
 	NSData *colorAsData = [[NSUserDefaults standardUserDefaults]
 						objectForKey:key];
+    if (!colorAsData) {
+        return nil;
+    }
     if ([colorAsData isKindOfClass:[NSString class]]) {
-        NSColor *color = [colorMap objectForKey:[(NSString *)colorAsData lowercaseString]];
+        NSString *colorAsString = (NSString *)colorAsData;
+        NSColor *color = [colorMap objectForKey:[colorAsString lowercaseString]];
         if (!color) {
-            NSLog(@"ColorForKey: No colorMap value %@ %@", key, colorAsData);
+            color = ColorFromRGBString(colorAsString);
+        }
+        if (!color) {
+            NSLog(@"ColorForKey: No colorMap value %@ %@", key, colorAsString);
             return [NSColor redColor];
         }
         return color;
@@ -69,5 +101,5 @@ ColorForKey(NSString *key)
     }
     NSColor *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData];
    
-	return [color colorUsingColorSpaceName:NSCalibratedRGBColorSpace];
+	return color;
 }

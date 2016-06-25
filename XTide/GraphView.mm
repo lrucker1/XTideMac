@@ -43,6 +43,13 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
 @property (readwrite, retain) NSTimer *flickTimer;
 @property (readwrite, retain) NSEvent *lastEvent;
+@property (strong) NSMutableDictionary *twoFingersTouches;
+@property NSPoint initialPoint;
+@property(readwrite) NSUInteger modifiers;
+@property BOOL isTracking;
+@property(readonly) NSPoint deltaOrigin;
+@property(readonly) NSSize deltaSize;
+@property CGFloat threshold;
 
 -(void)clearHistory;
 -(void)addToHistory:(TouchInfo)info;
@@ -94,10 +101,16 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
 - (void)awakeFromNib
 {
-    [dataSource setWindowTitleDate:graphdate];
+    self.threshold = 30.0;
+    [self.dataSource setWindowTitleDate:graphdate];
 }
 
 - (BOOL)isFlipped
+{
+    return YES;
+}
+
+- (BOOL)isOpaque
 {
     return YES;
 }
@@ -110,23 +123,23 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 - (void)setGraphdate:(NSDate*)newdate
 {
     graphdate = newdate;
-    [dataSource setWindowTitleDate:graphdate];
-    [self display];
+    [self.dataSource setWindowTitleDate:graphdate];
+    self.needsDisplay = YES;
 }
 
+// Not part of standard XTide; this is here for dragging.
 - (double)offsetTimeForDeltaX: (double)deltaX
 {
-    if ([dataSource station]) {
-//        NSRect frameRect = [self bounds];
-//        XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width
-//                                                    ysize:frameRect.size.height];
+    if ([self.dataSource station]) {
+        NSRect frameRect = [self bounds];
+        XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width
+                                                    ysize:frameRect.size.height];
         double localDelta = deltaX;
-        // TODO: ???
-//        self.graphdate = [mygraph offsetStationTime:[dataSource station]
-//                                                now:graphdate
-//                                             deltaX:&localDelta];
+        self.graphdate = [mygraph offsetStationTime:[self.dataSource station]
+                                                now:graphdate
+                                             deltaX:&localDelta];
         if (localDelta != deltaX) {
-            //NSLog(@"time to bounce %f %f %f", deltaX, localDelta, deltaX - localDelta);
+            NSLog(@"time to bounce %f %f %f", deltaX, localDelta, deltaX - localDelta);
         }
         [self setNeedsDisplay:YES];
         return localDelta;
@@ -161,10 +174,16 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
 - (void)drawRect:(NSRect)rect
 {
-    NSRect frameRect = [self visibleRect];
-    XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width + 1
-                                                ysize:frameRect.size.height + 1];
-    [mygraph drawTides:[dataSource station] now:graphdate];
+    if ([self.dataSource station]) {
+        NSRect frameRect = [self visibleRect];
+        //[ColorForKey(XTide_ColorKeys[nightcolor]) set];
+        [[NSColor whiteColor] set];
+        NSRectFill(frameRect);
+        XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width + 1
+                                                    ysize:frameRect.size.height + 1];
+        
+        [mygraph drawTides:[self.dataSource station] now:graphdate];
+    }
 }
 
 
@@ -197,7 +216,6 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
                                    fromView:nil];
     double deltaX = lastTouch.x - movedTouch.x;
     [self offsetTimeForDeltaX:deltaX];
-    [self display];
     
     TouchInfo old = [self getRecentHistory];
     
@@ -371,6 +389,152 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     return [self getHistoryAtIndex:(historyCount-1)];
 }
 
+- (BOOL)acceptsTouchEvents
+{
+    return YES;
+}
+
+
+- (void)releaseTouches
+{
+    _initialTouches[0] = nil;
+    _initialTouches[1] = nil;
+    _currentTouches[0] = nil;
+    _currentTouches[1] = nil;
+}
+
+- (void)cancelTracking {
+    if (self.isTracking) {
+//        if (self.endTrackingAction) [NSApp sendAction:self.endTrackingAction to:self.view from:self];
+        self.isTracking = NO;
+        [self releaseTouches];
+    }
+}
+
+- (void)touchesBeganWithEvent:(NSEvent *)event
+{
+    NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
+    if (touches.count == 2) {
+        self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+        NSArray *array = [touches allObjects];
+        _initialTouches[0] = [array objectAtIndex:0];
+        _initialTouches[1] = [array objectAtIndex:1];
+        _currentTouches[0] = _initialTouches[0];
+        _currentTouches[1] = _initialTouches[1];
+    } else if (touches.count > 2) {
+        // More than 2 touches. Only track 2.
+        if (self.isTracking) {
+            [self cancelTracking];
+        } else {
+            [self releaseTouches];
+        }
+    }
+}
+
+// Overkill because we only want dX.
+- (NSPoint)deltaOrigin {
+    if (!(_initialTouches[0] && _initialTouches[1] && _currentTouches[0] && _currentTouches[1])) return NSZeroPoint;
+    
+    CGFloat x1 = MIN(_initialTouches[0].normalizedPosition.x, _initialTouches[1].normalizedPosition.x);
+    CGFloat x2 = MIN(_currentTouches[0].normalizedPosition.x, _currentTouches[1].normalizedPosition.x);
+    CGFloat y1 = MIN(_initialTouches[0].normalizedPosition.y, _initialTouches[1].normalizedPosition.y);
+    CGFloat y2 = MIN(_currentTouches[0].normalizedPosition.y, _currentTouches[1].normalizedPosition.y);
+    
+    NSSize deviceSize = _initialTouches[0].deviceSize;
+    NSPoint delta;
+    delta.x = (x2 - x1) * deviceSize.width;
+    delta.y = (y2 - y1) * deviceSize.height;
+    return delta;
+}
+
+- (NSSize)deltaSize {
+    if (!(_initialTouches[0] && _initialTouches[1] && _currentTouches[0] && _currentTouches[1])) return NSZeroSize;
+    
+    CGFloat x1,x2,y1,y2,width1,width2,height1,height2;
+    
+    x1 = MIN(_initialTouches[0].normalizedPosition.x, _initialTouches[1].normalizedPosition.x);
+    x2 = MAX(_initialTouches[0].normalizedPosition.x, _initialTouches[1].normalizedPosition.x);
+    width1 = x2 - x1;
+    
+    y1 = MIN(_initialTouches[0].normalizedPosition.y, _initialTouches[1].normalizedPosition.y);
+    y2 = MAX(_initialTouches[0].normalizedPosition.y, _initialTouches[1].normalizedPosition.y);
+    height1 = y2 - y1;
+    
+    x1 = MIN(_currentTouches[0].normalizedPosition.x, _currentTouches[1].normalizedPosition.x);
+    x2 = MAX(_currentTouches[0].normalizedPosition.x, _currentTouches[1].normalizedPosition.x);
+    width2 = x2 - x1;
+    
+    y1 = MIN(_currentTouches[0].normalizedPosition.y, _currentTouches[1].normalizedPosition.y);
+    y2 = MAX(_currentTouches[0].normalizedPosition.y, _currentTouches[1].normalizedPosition.y);
+    height2 = y2 - y1;
+    
+    NSSize deviceSize = _initialTouches[0].deviceSize;
+    NSSize delta;
+    delta.width = (width2 - width1) * deviceSize.width;
+    delta.height = (height2 - height1) * deviceSize.height;
+    return delta;
+}
+
+
+- (void)touchesMovedWithEvent:(NSEvent *)event
+{
+    self.modifiers = [event modifierFlags];
+    NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
+    if (touches.count == 2 && _initialTouches[0]) {
+        NSArray *array = [touches allObjects];
+        _currentTouches[0] = nil;
+        _currentTouches[1] = nil;
+
+        NSTouch *touch;
+        touch = [array objectAtIndex:0];
+        if (touch.phase == NSTouchPhaseStationary) {
+            self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+           return;
+        }
+        if ([touch.identity isEqual:_initialTouches[0].identity]) {
+            _currentTouches[0] = touch;
+        } else {
+            _currentTouches[1] = touch;
+        }
+        touch = [array objectAtIndex:1];
+        if (touch.phase == NSTouchPhaseStationary) {
+            self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+            return;
+        }
+        if ([touch.identity isEqual:_initialTouches[0].identity]) {
+            _currentTouches[0] = touch;
+        } else {
+            _currentTouches[1] = touch;
+        }
+        if (!self.isTracking) {
+            NSPoint deltaOrigin = self.deltaOrigin;
+            NSSize  deltaSize = self.deltaSize;
+            if (fabs(deltaOrigin.x) > _threshold ||
+                fabs(deltaOrigin.y) > _threshold ||
+                fabs(deltaSize.width) > _threshold ||
+                fabs(deltaSize.height) > _threshold) {
+                self.isTracking = YES;
+            }
+        } else {
+            NSPoint deltaOrigin = self.deltaOrigin;
+            if (fabs(deltaOrigin.x) > _threshold) {
+                [self offsetTimeForDeltaX:-deltaOrigin.x];
+            }
+        }
+    }
+    // Always reset initial point.
+    self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+}
+- (void)touchesEndedWithEvent:(NSEvent *)event
+{
+    self.modifiers = [event modifierFlags];
+    [self cancelTracking];
+}
+ 
+- (void)touchesCancelledWithEvent:(NSEvent *)event
+{
+    [self cancelTracking];
+}
 -(double)linearMap:(double)value
           valueMin:(double)valueMin
           valueMax:(double)valueMax

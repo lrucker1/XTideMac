@@ -174,6 +174,13 @@ static NSArray *unitsPrefMap = nil;
 }
 
 
+- (NSAttributedString *)stationInfo
+{
+	return [[NSAttributedString alloc] initWithHTML:[[self stationInfoAsHTML] dataUsingEncoding:NSASCIIStringEncoding]
+								 documentAttributes:NULL];
+}
+
+
 - (NSString *)stationCalendarInfoFromDate: (NSDate *)startTime
 											  toDate: (NSDate *)endTime
 {
@@ -194,7 +201,20 @@ static NSArray *unitsPrefMap = nil;
                                        endTime:endTime];
 }
 
-- (NSDictionary *)stationInfoDictionary
+- (NSArray *)stationMetadata
+{
+	NSMutableArray *array = [NSMutableArray array];
+	const libxtide::MetaFieldVector metadata = mStation->metadata();
+	libxtide::MetaFieldVector::const_iterator it = metadata.begin();
+    while (it != metadata.end()) {
+        Dstr name (it->name), value (it->value);
+        [array addObject:@{@"name" : DstrToNSString(name), @"value" : DstrToNSString(value)}];
+		++it;
+	}
+	return array;
+}
+
+- (NSDictionary *)stationInfoDictionarys
 {
 	NSMutableDictionary *infoDict = [NSMutableDictionary dictionary];
 	const libxtide::MetaFieldVector metadata = mStation->metadata();
