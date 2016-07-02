@@ -10,7 +10,7 @@
 
 // Cleanup2006 Done
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 #ifdef  __cplusplus
 extern "C" {

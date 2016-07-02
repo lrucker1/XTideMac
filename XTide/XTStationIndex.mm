@@ -16,6 +16,8 @@
 #import "XTUtils.h"
 
 static XTStationIndex *gStationIndex = NULL;
+static NSString *XTStationFavoritesKey = @"stationFavorites";
+
 NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexStationsReloadedNotification";
 
 @interface XTStationIndex ()
@@ -106,6 +108,59 @@ NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexSt
     }
     return self;
 }
+
+#pragma mark favorites
+
+- (void)addFavorite:(XTStationRef *)ref
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *favoritesLoaded = [defaults objectForKey:XTStationFavoritesKey];
+    NSMutableArray *favorites = nil;
+
+    if (favoritesLoaded) {
+        favorites = [NSMutableArray arrayWithArray:favoritesLoaded];
+    } else {
+        favorites = [NSMutableArray array];
+    }
+
+    [favorites addObject:[ref title]];
+
+    [defaults setObject:favorites forKey:XTStationFavoritesKey];
+    [defaults synchronize];
+}
+
+- (void)removeFavoriteByName:(NSString *)name
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *favoritesLoaded = [defaults objectForKey:XTStationFavoritesKey];
+
+    if (!favoritesLoaded) {
+        return;
+    }
+    NSMutableArray *favorites = [NSMutableArray arrayWithArray:favoritesLoaded];
+
+    [favorites removeObject:name];
+
+    [defaults setObject:favorites forKey:XTStationFavoritesKey];
+    [defaults synchronize];
+}
+
+- (void)removeFavorite:(XTStationRef *)ref
+{
+    [self removeFavoriteByName:[ref title]];
+}
+
+- (BOOL)isFavorite:(XTStationRef *)ref
+{
+    return [[self favoriteNames] containsObject:[ref title]];
+}
+
+- (NSArray *)favoriteNames
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:XTStationFavoritesKey];
+}
+
+#pragma mark adaptation
 
 - (NSString *)versionFromHarmonicsFile:(NSString *)filePath
 {

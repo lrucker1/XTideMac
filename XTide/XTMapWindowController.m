@@ -33,6 +33,7 @@ static XTMapWindowController *selfContext;
 @property (assign) BOOL editing;
 @property (strong) IBOutlet NSPopover *stationPopover;    // popover to display station info
 @property (strong) IBOutlet XTStationInfoViewController *stationInfoViewController;
+@property (retain) id mapsLoadObserver;
 
 
 @end
@@ -78,7 +79,13 @@ static XTMapWindowController *selfContext;
 
 - (void)loadStations
 {
+    if (self.refStations) {
+        return;
+    }
     NSArray *stationRefArray = [(AppDelegate *)[NSApp delegate] stationRefArray];
+    if (!stationRefArray) {
+        return;
+    }
     NSMutableArray *refs = [NSMutableArray array];
     NSMutableArray *subs = [NSMutableArray array];
     for (XTStationRef *station in stationRefArray) {
@@ -92,6 +99,10 @@ static XTMapWindowController *selfContext;
     self.subStations = subs;
     [self.mapView addAnnotations:refs];
     [self updateSubStations];
+    if (self.mapsLoadObserver) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self.mapsLoadObserver];
+        self.mapsLoadObserver = nil;
+    }
 }
 
 - (void)windowDidLoad
@@ -104,7 +115,12 @@ static XTMapWindowController *selfContext;
     
     [self updateColors];
     [self loadStations];
-    
+    if (!self.refStations) {
+        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:@"XTideMapsLoadedNotification" object:nil queue:nil usingBlock:^(NSNotification *note) {
+            [self loadStations];
+        }];
+    }
+   
     self.mapView.showsZoomControls = YES;
     self.mapView.showsUserLocation = YES;
     self.mapView.mapType = MKMapTypeHybrid;
@@ -301,6 +317,7 @@ regionDidChangeAnimated:(BOOL)animated
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
+        // TODO: see if we can call goHome: when this is clicked.
         return nil;
     }
     if (![annotation isKindOfClass:[XTStationRef class]]) {
@@ -309,7 +326,7 @@ regionDidChangeAnimated:(BOOL)animated
     }
     MKAnnotationView *returnedAnnotationView =
         [mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([XTStationRef class])];
-    // TODO: Use views from a nib, where we can tweak the layout? The leftButton is too close to the edge.
+    // The leftButton is too close to the edge but we have no control over it :(
     if (returnedAnnotationView == nil) {
         returnedAnnotationView =
             [[MKPinAnnotationView alloc] initWithAnnotation:annotation
@@ -424,7 +441,7 @@ We don't want to use the text from the search field as it could be a substring. 
     }
 }
 
-- (NSArray *)suggestionsForText:(NSString*)text
+- (NSArray *)suggestionsForText:(NSString *)text
 {
     // Wait until there are > 3 characters because the search is slow. TODO: dispatch_async?
     if ([text length] < 3) {

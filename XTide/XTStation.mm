@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "XTStationInt.h"
 #import "XTCalendar.h"
 #import "XTSettings.h"
@@ -171,13 +171,6 @@ static NSArray *unitsPrefMap = nil;
 	Dstr text_out;
 	mStation->aboutMode(text_out, libxtide::Format::HTML, libxtide::Global::codeset);
 	return DstrToNSString(text_out);
-}
-
-
-- (NSAttributedString *)stationInfo
-{
-	return [[NSAttributedString alloc] initWithHTML:[[self stationInfoAsHTML] dataUsingEncoding:NSASCIIStringEncoding]
-								 documentAttributes:NULL];
 }
 
 

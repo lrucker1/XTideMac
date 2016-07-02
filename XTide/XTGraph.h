@@ -6,7 +6,12 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#import "TargetConditionals.h" 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
 #import <Cocoa/Cocoa.h>
+#endif
 #import "XTColorUtils.h"
 
 @class XTStation;

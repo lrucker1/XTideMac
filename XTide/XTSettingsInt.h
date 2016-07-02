@@ -19,7 +19,6 @@
 #ifndef XTSettingsInt_h
 #define XTSettingsInt_h
 
-
 // "STL containers are not intended to be used as base classes (their
 // destructors are deliberately non-virtual).  Deriving from a
 // container is a common mistake made by novices."

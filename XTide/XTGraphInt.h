@@ -68,8 +68,13 @@ public:
     void drawString(int x, double y, const Dstr &s);
     
 protected:
+#if TARGET_OS_IPHONE
+    UIColor *mycolors[Colors::numColors];
+    UIFont *font;
+#else
     NSColor *mycolors[Colors::numColors];
     NSFont *font;
+#endif
     NSMutableDictionary *attributes;
     
     void UpdateColors();

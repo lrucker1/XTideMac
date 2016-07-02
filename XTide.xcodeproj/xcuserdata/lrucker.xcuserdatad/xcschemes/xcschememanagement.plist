@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>XTide-ios.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>XTide.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +17,21 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>945828DB1D248BF300972E1C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>945828F91D248BF300972E1C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>945829041D248BF300972E1C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>946318DB1CBC3242001CD859</key>
 		<dict>
 			<key>primary</key>

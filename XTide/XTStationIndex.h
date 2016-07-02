@@ -6,7 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 extern NSString * const XTStationIndexStationsReloadedNotification;
 
@@ -24,5 +24,11 @@ extern NSString * const XTStationIndexStationsReloadedNotification;
 - (XTStationRef *)stationRefByName: (NSString *)name;
 - (NSString *)harmonicsFileIDs;
 - (NSString *)versionFromHarmonicsFile:(NSString *)filePath;
+
+- (void)addFavorite:(XTStationRef *)ref;
+- (void)removeFavorite:(XTStationRef *)ref;
+- (void)removeFavoriteByName:(NSString *)name;
+- (BOOL)isFavorite:(XTStationRef *)ref;
+- (NSArray *)favoriteNames;
 
 @end

@@ -8,7 +8,7 @@
  */
 
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #include "Units.hh"
 
 class Dstr;
@@ -18,3 +18,5 @@ DstrToNSString(const Dstr &s);
 
 NSDate *
 TimestampToNSDate(const libxtide::Timestamp t);
+
+void DisplayFatalError(NSString *errorString);

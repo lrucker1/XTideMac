@@ -20,7 +20,6 @@
 
 #include "libxtide.hh"
 #include "HarmonicsPath.hh"
-#include "XTErrors.h"
 #include "XTUtils.h"
 #include <locale.h>
 #include <sys/stat.h>
@@ -461,8 +460,7 @@ void Global::barf (Error::TideError err,
   if (fatality == Error::fatal)
     snakeBit = true;
   if (fatality) {
-    XTErrors *errors = [[XTErrors alloc] init];
-    [errors displayError:DstrToNSString(message)];
+    DisplayFatalError(DstrToNSString(message));
   }
 }
 

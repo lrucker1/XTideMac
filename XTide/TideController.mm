@@ -86,6 +86,7 @@ static TideController *selfContext;
    [[NSUserDefaults standardUserDefaults] removeObserver:self
                                                forKeyPath:XTide_units
                                                   context:&selfContext];
+    self.isObserving = NO;
 }
 
 - (void)windowWillClose:(NSNotification*)note
@@ -93,7 +94,6 @@ static TideController *selfContext;
     // TODO: Find out why this is called a second time at termination.
     if (self.isObserving) {
         [self removeObservers];
-        self.isObserving = NO;
     }
 }
 

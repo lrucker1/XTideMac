@@ -12,6 +12,36 @@
 #import "XTStationInt.h"
 #import "XTUtils.h"
 
+/*
+ * Since the parts that need to be different are also the parts that would
+ * be hardest to keep in sync - the actual bezier path creation - and the
+ * only real difference is which BezierPath class we use, we use the same
+ * code with a few conditionals and compatibility additions.
+ *
+ * Since we don't care about 32-bit macOS, we can just use CGPoint/Rect.
+ */
+#if TARGET_OS_IPHONE
+#define BEZIER_CLASS UIBezierPath
+
+@implementation UIBezierPath (NSCompatibilityAdditions)
+
++ (void)strokeLineFromPoint:(CGPoint)p1 toPoint:(CGPoint)p2
+{
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:p1];
+    [path addLineToPoint:p2];
+    [path stroke];
+}
+
+- (void)lineToPoint:(CGPoint)aPoint
+{
+    [self addLineToPoint:aPoint];
+}
+@end
+#else
+#define BEZIER_CLASS NSBezierPath
+#endif
+
 
 @interface XTGraph ()
 {
@@ -19,8 +49,6 @@
 }
 
 @end
-
-
 
 namespace libxtide {
     int colormap[Colors::numColors] = {-1, fgcolor, markcolor, -1,
@@ -46,7 +74,7 @@ namespace libxtide {
  *-----------------------------------------------------------------------------
  */
 
-+ (BOOL)isColorOfInterest:(NSString*)key
++ (BOOL)isColorOfInterest:(NSString *)key
 {
     int i, keyID;
     BOOL result = false;
@@ -201,7 +229,11 @@ libxtide::CocoaGraph::CocoaGraph(unsigned xSize,
                                  GraphStyle style):
 PixelatedGraph(xSize, ySize, style)
 {
+#if TARGET_OS_IPHONE
+    font = [UIFont systemFontOfSize:(float)12.0];
+#else
     font = [NSFont userFontOfSize:(float)12.0];
+#endif
     attributes = [NSMutableDictionary dictionary];
     [attributes setObject:font forKey:NSFontAttributeName];
     
@@ -262,8 +294,8 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
     Colors::Colorchoice lastcolor = (Colors::Colorchoice)-1;
     Colors::Colorchoice c = lastcolor;
 
-    NSBezierPath *tidePath = [NSBezierPath bezierPath];
-    NSPoint p1;
+    BEZIER_CLASS *tidePath = [BEZIER_CLASS bezierPath];
+    CGPoint p1;
     
     // Harmonize this with the quantized y coordinate of the 0 kt line to avoid
     // anomalies like a gap between the flood curve and the line.
@@ -285,17 +317,17 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
         } else {
             c = (val[x] < val[x+1] ? Colors::flood : Colors::ebb);
         }
-        p1 = NSMakePoint(x, y[x+1]);
+        p1 = CGPointMake(x, y[x+1]);
         if (c != lastcolor) {
             if (lastcolor >= 0) {
-                p1 = NSMakePoint(x+1, y[x+2]);
+                p1 = CGPointMake(x+1, y[x+2]);
                 [tidePath lineToPoint:p1];
-                [tidePath lineToPoint:NSMakePoint(x+1, ybase)];
+                [tidePath lineToPoint:CGPointMake(x+1, ybase)];
                 [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
                 fill ? [tidePath fill] : [tidePath stroke];
                 [tidePath removeAllPoints];
             }
-            [tidePath moveToPoint:NSMakePoint(x, ybase)];
+            [tidePath moveToPoint:CGPointMake(x, ybase)];
             lastcolor = c;
        }
         else {
@@ -304,7 +336,7 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
     }
     // and the final bit at the end
     [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
-    [tidePath lineToPoint:NSMakePoint(_xSize, ybase)];
+    [tidePath lineToPoint:CGPointMake(_xSize, ybase)];
     fill ? [tidePath fill] : [tidePath stroke];
 }
 
@@ -316,15 +348,15 @@ CocoaGraph::drawVerticalLineP(int x,
                               Colors::Colorchoice c,
                               double opacity)
 {
-    NSPoint p1, p2;
-    p1 = NSMakePoint(x, y1);
-    p2 = NSMakePoint(x, y2);
+    CGPoint p1, p2;
+    p1 = CGPointMake(x, y1);
+    p2 = CGPointMake(x, y2);
     if (opacity == 1.0) {
         [mycolors[c] set];
     } else {
         [[mycolors[c] colorWithAlphaComponent:opacity] set];
     }
-    [NSBezierPath strokeLineFromPoint:p1 toPoint:p2];
+    [BEZIER_CLASS strokeLineFromPoint:p1 toPoint:p2];
 }
 
 void
@@ -334,8 +366,8 @@ CocoaGraph::drawHorizontalLineP(int xlo,
                                 Colors::Colorchoice c)
 {
     [mycolors[c] set];
-    [NSBezierPath strokeLineFromPoint:NSMakePoint(xlo, y)
-                              toPoint:NSMakePoint(xhi, y)];
+    [BEZIER_CLASS strokeLineFromPoint:CGPointMake(xlo, y)
+                              toPoint:CGPointMake(xhi, y)];
 }
 
 
@@ -349,9 +381,13 @@ void CocoaGraph::drawBoxS (double x1, double x2, double y1, double y2,
         std::swap (ix1, ix2);
     if (iy1 > iy2)
         std::swap (iy1, iy2);
-    NSRect fillRect = NSMakeRect(ix1, iy1, ix2 - ix1, iy2 - iy1);
+    CGRect fillRect = CGRectMake(ix1, iy1, ix2 - ix1, iy2 - iy1);
     [mycolors[c] set];
+#if TARGET_OS_IPHONE
+    UIRectFill(fillRect);
+#else
     NSRectFill(fillRect);
+#endif
 }
 
 
@@ -359,7 +395,7 @@ void
 CocoaGraph::drawStringP (int x, int y, const Dstr &s)
 {
     // Strings should be drawn downwards from the y coordinate provided.
-    [DstrToNSString(s) drawAtPoint:NSMakePoint(x,y) withAttributes:attributes];
+    [DstrToNSString(s) drawAtPoint:CGPointMake(x,y) withAttributes:attributes];
 }
 
 const unsigned int
@@ -376,7 +412,7 @@ CocoaGraph::fontHeight() const
 
 const unsigned CocoaGraph::oughtHeight() const
 {
-    return [font pointSize] - 3; // TODO: ???
+    return [font pointSize] - 3; // TODO: I don't know what this does.
 }
 
 
@@ -388,9 +424,9 @@ const unsigned CocoaGraph::oughtVerticalMargin() const
 void
 CocoaGraph::setPixel (int x, int y, Colors::Colorchoice c)
 {
-    NSPoint p1 = NSMakePoint(x, y);
+    CGPoint p1 = CGPointMake(x, y);
     [mycolors[c] set];
-    [NSBezierPath strokeLineFromPoint:p1 toPoint:p1];
+    [BEZIER_CLASS strokeLineFromPoint:p1 toPoint:p1];
 }
 
 void
@@ -404,8 +440,8 @@ CocoaGraph::setPixel(int x,
     } else {
         [[mycolors[c] colorWithAlphaComponent:opacity] set];
     }
-    NSPoint p1 = NSMakePoint(x, y);
-    [NSBezierPath strokeLineFromPoint:p1 toPoint:p1];
+    CGPoint p1 = CGPointMake(x, y);
+    [BEZIER_CLASS strokeLineFromPoint:p1 toPoint:p1];
 }
 
 void

@@ -13,6 +13,13 @@
 extern "C" {
 #endif
 
+#import "TargetConditionals.h" 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
 #define colorbase	1001	// Add to get tag id
 #define daycolor	0	// Daytime background	// dc
 #define nightcolor	1	// Nighttime background	// nc
@@ -32,8 +39,11 @@ extern "C" {
 // Colors
 extern NSString *XTide_ColorKeys[colorindexmax];
 
-NSColor *
-ColorForKey(NSString *key);
+#if TARGET_OS_IPHONE
+UIColor *ColorForKey(NSString *key);
+#else
+NSColor *ColorForKey(NSString *key);
+#endif
 
 #ifdef __cplusplus
 }

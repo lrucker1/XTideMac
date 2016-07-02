@@ -9,7 +9,6 @@
 #import "XTStationRefInt.h"
 #import "XTStationInt.h"
 #import "XTUtils.h"
-#import "XTColorUtils.h"
 
 @interface XTStationRef ()
 {
@@ -39,10 +38,35 @@
     self.title = nil;
 }
 
+- (libxtide::StationRef *)adaptedStationRef
+{
+    return mStationRef;
+}
+
 - (XTStation *)loadStation
 {
     return [[XTStation alloc] initUsingStationRef:mStationRef];
 }
+
+- (BOOL)isEqual:(id)object
+{
+    // harmonicsFileName + recordNumber uniquely identify a station.
+    if (object == nil || ![object isKindOfClass:[self class]]) {
+        return NO;
+    }
+    if (object == self) {
+        return YES;
+    }
+    XTStationRef *objRef = (XTStationRef *)object;
+    return objRef.adaptedStationRef->harmonicsFileName == mStationRef->harmonicsFileName
+           && objRef.adaptedStationRef->recordNumber == mStationRef->recordNumber;
+}
+
+- (NSUInteger)hash
+{
+    return [DstrToNSString(mStationRef->harmonicsFileName) hash] + mStationRef->recordNumber;
+}
+
 
 #pragma mark MKAnnotation
 
@@ -55,19 +79,6 @@
 - (NSString *)subtitle
 {
     return @"";
-}
-
-- (NSImage *)stationDot
-{
-    return [NSImage imageWithSize:NSMakeSize(12, 12) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        if (self.isReferenceStation) {
-            [ColorForKey(XTide_ColorKeys[refcolor]) set];
-        } else {
-            [ColorForKey(XTide_ColorKeys[subcolor]) set];
-        }
-        [[NSBezierPath bezierPathWithOvalInRect:dstRect] fill];
-        return YES;
-    }];
 }
 
 

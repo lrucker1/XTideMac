@@ -15,8 +15,6 @@
 
 - (NSTimeZone *)timeZone;
 - (NSString *)stationInfoAsHTML;
-- (NSAttributedString *)stationInfo;
-- (NSDictionary *)stationInfoDictionary;
 - (NSArray *)stationMetadata;
 
 @end

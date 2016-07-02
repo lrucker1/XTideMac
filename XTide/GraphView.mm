@@ -20,6 +20,10 @@
  along with this program; if not, write to the Free Software
  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+//  Some parts adapted from FlickDynamics:
+//  (c) 2009 Dave Peck <davepeck [at] davepeck [dot] org>
+//  This code is released under the BSD license. If you use my code in your product,
+//  please put my name somewhere in the credits.
 
 #import "GraphView.h"
 #import "XTGraph.h"
@@ -28,22 +32,22 @@
 
 // these constants were determined by experimentation
 const double DEFAULT_MOTION_DAMP = 0.95;
-const double DEFAULT_MOTION_MINIMUM = 0.0001;
+//const double DEFAULT_MOTION_MINIMUM = 0.0001;
 const double DEFAULT_FLICK_THRESHOLD = 0.01;
 const double DEFAULT_ANIMATION_RATE = 1.0f / 60.0f;
 const double DEFAULT_MOTION_MULTIPLIER = 0.75f;
 
-const double MOTION_MAX = 3.0f; //0.165f;
+//const double MOTION_MAX = 3.0f; //0.165f;
 const NSTimeInterval FLICK_TIME_BACK = 0.07;
 const NSUInteger DEFAULT_CAPACITY = 20;
 
 NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
+
 @interface GraphView () // FlickDynamics
 
 @property (readwrite, retain) NSTimer *flickTimer;
 @property (readwrite, retain) NSEvent *lastEvent;
-@property (strong) NSMutableDictionary *twoFingersTouches;
 @property NSPoint initialPoint;
 @property(readwrite) NSUInteger modifiers;
 @property BOOL isTracking;
@@ -176,7 +180,6 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 {
     if ([self.dataSource station]) {
         NSRect frameRect = [self visibleRect];
-        //[ColorForKey(XTide_ColorKeys[nightcolor]) set];
         [[NSColor whiteColor] set];
         NSRectFill(frameRect);
         XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width + 1
@@ -186,11 +189,10 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     }
 }
 
-
-- (void)mouseDown: (NSEvent *)theEvent
+- (void)startAtPoint:(CGPoint)firstTouch
+           withEvent:(NSEvent *)theEvent
 {
-    NSPoint firstTouch = [self convertPoint:[theEvent locationInWindow]
-                                   fromView:nil];
+    [self setFlickValuesForFrame:[self bounds]];
     [self stopMotion];
     [self clearHistory];
     
@@ -203,22 +205,13 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     
     self.lastEvent = theEvent;
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:TideViewTouchesBeganNotification
-     object:self];
+      postNotificationName:TideViewTouchesBeganNotification
+                    object:self];
 }
 
-// Handles the continuation of a touch.
--(void)mouseDragged: (NSEvent *)theEvent
+- (void)moveToPoint:(CGPoint)movedTouch
+          withEvent:(NSEvent *)theEvent
 {
-    NSPoint lastTouch = [self convertPoint:[lastEvent locationInWindow]
-                                  fromView:nil];
-    NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
-                                   fromView:nil];
-    double deltaX = lastTouch.x - movedTouch.x;
-    [self offsetTimeForDeltaX:deltaX];
-    
-    TouchInfo old = [self getRecentHistory];
-    
     TouchInfo info;
     info.x = movedTouch.x;
     info.y = movedTouch.y;
@@ -228,15 +221,8 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     self.lastEvent = theEvent;
 }
 
-- (void)mouseUp: (NSEvent *)theEvent
+- (void)releaseAtPoint:(CGPoint)movedTouch
 {
-    NSPoint lastTouch = [self convertPoint:[lastEvent locationInWindow]
-                                  fromView:nil];
-    NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
-                                   fromView:nil];
-    double deltaX = lastTouch.x - movedTouch.x;
-    [self offsetTimeForDeltaX:deltaX];
-    TouchInfo old = [self getRecentHistory];
     TouchInfo last;
     last.x = movedTouch.x;
     last.y = movedTouch.y;
@@ -303,6 +289,38 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
                                        userInfo:nil
                                         repeats:YES];
     }
+}
+
+- (void)mouseDown: (NSEvent *)theEvent
+{
+    NSPoint firstTouch = [self convertPoint:[theEvent locationInWindow]
+                                   fromView:nil];
+    [self startAtPoint:firstTouch withEvent:theEvent];
+}
+
+// Handles the continuation of a touch.
+-(void)mouseDragged: (NSEvent *)theEvent
+{
+    NSPoint lastTouch = [self convertPoint:[self.lastEvent locationInWindow]
+                                  fromView:nil];
+    NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
+                                   fromView:nil];
+    double deltaX = lastTouch.x - movedTouch.x;
+    [self offsetTimeForDeltaX:deltaX];
+    
+    [self moveToPoint:movedTouch withEvent:theEvent];
+}
+
+// Uses the motion history to determine if there should be additional motion.
+- (void)mouseUp: (NSEvent *)theEvent
+{
+    NSPoint lastTouch = [self convertPoint:[self.lastEvent locationInWindow]
+                                  fromView:nil];
+    NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
+                                   fromView:nil];
+    double deltaX = lastTouch.x - movedTouch.x;
+    [self offsetTimeForDeltaX:deltaX];
+    [self releaseAtPoint:movedTouch];
 }
 
 - (void)timerFireMethod:(NSTimer*)theTimer
@@ -403,35 +421,33 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     _currentTouches[1] = nil;
 }
 
-- (void)cancelTracking {
-    if (self.isTracking) {
-//        if (self.endTrackingAction) [NSApp sendAction:self.endTrackingAction to:self.view from:self];
-        self.isTracking = NO;
-        [self releaseTouches];
-    }
+- (void)cancelTracking
+{
+    [self stopMotion];
+    [self clearHistory];
+    [self releaseTouches];
 }
 
 - (void)touchesBeganWithEvent:(NSEvent *)event
 {
     NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
     if (touches.count == 2) {
-        self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+        self.initialPoint = [self convertPoint:[event locationInWindow]
+                                      fromView:nil];
         NSArray *array = [touches allObjects];
         _initialTouches[0] = [array objectAtIndex:0];
         _initialTouches[1] = [array objectAtIndex:1];
         _currentTouches[0] = _initialTouches[0];
         _currentTouches[1] = _initialTouches[1];
+        [self startAtPoint:self.initialPoint withEvent:event];
     } else if (touches.count > 2) {
-        // More than 2 touches. Only track 2.
-        if (self.isTracking) {
-            [self cancelTracking];
-        } else {
-            [self releaseTouches];
-        }
+        [self stopMotion];
+        [self clearHistory];
+        [self releaseTouches];
     }
 }
 
-// Overkill because we only want dX.
+// Overkill for this view because we only want dX.
 - (NSPoint)deltaOrigin {
     if (!(_initialTouches[0] && _initialTouches[1] && _currentTouches[0] && _currentTouches[1])) return NSZeroPoint;
     
@@ -479,6 +495,8 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 - (void)touchesMovedWithEvent:(NSEvent *)event
 {
     self.modifiers = [event modifierFlags];
+    NSPoint eventPoint = [self convertPoint:[event locationInWindow]
+                                   fromView:nil];
     NSSet *touches = [event touchesMatchingPhase:NSTouchPhaseTouching inView:self];
     if (touches.count == 2 && _initialTouches[0]) {
         NSArray *array = [touches allObjects];
@@ -488,7 +506,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
         NSTouch *touch;
         touch = [array objectAtIndex:0];
         if (touch.phase == NSTouchPhaseStationary) {
-            self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+            self.initialPoint = eventPoint;
            return;
         }
         if ([touch.identity isEqual:_initialTouches[0].identity]) {
@@ -498,7 +516,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
         }
         touch = [array objectAtIndex:1];
         if (touch.phase == NSTouchPhaseStationary) {
-            self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+            self.initialPoint = eventPoint;
             return;
         }
         if ([touch.identity isEqual:_initialTouches[0].identity]) {
@@ -506,35 +524,32 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
         } else {
             _currentTouches[1] = touch;
         }
-        if (!self.isTracking) {
-            NSPoint deltaOrigin = self.deltaOrigin;
-            NSSize  deltaSize = self.deltaSize;
-            if (fabs(deltaOrigin.x) > _threshold ||
-                fabs(deltaOrigin.y) > _threshold ||
-                fabs(deltaSize.width) > _threshold ||
-                fabs(deltaSize.height) > _threshold) {
-                self.isTracking = YES;
-            }
-        } else {
-            NSPoint deltaOrigin = self.deltaOrigin;
-            if (fabs(deltaOrigin.x) > _threshold) {
-                [self offsetTimeForDeltaX:-deltaOrigin.x];
-            }
+        NSPoint deltaOrigin = self.deltaOrigin;
+        if (fabs(deltaOrigin.x) > _threshold) {
+            NSPoint movePoint = self.initialPoint;
+            movePoint.x += deltaOrigin.x;
+            movePoint.y += deltaOrigin.y;
+            [self offsetTimeForDeltaX:deltaOrigin.x];
+            [self moveToPoint:movePoint withEvent:event];
         }
     }
     // Always reset initial point.
-    self.initialPoint = [self convertPointFromBacking:[event locationInWindow]];
+    self.initialPoint = eventPoint;
 }
+
+// Uses the motion history to determine if there should be additional motion.
 - (void)touchesEndedWithEvent:(NSEvent *)event
 {
-    self.modifiers = [event modifierFlags];
-    [self cancelTracking];
+    NSPoint eventPoint = [self convertPoint:[event locationInWindow]
+                                   fromView:nil];
+    [self releaseAtPoint:eventPoint];
 }
  
 - (void)touchesCancelledWithEvent:(NSEvent *)event
 {
     [self cancelTracking];
 }
+
 -(double)linearMap:(double)value
           valueMin:(double)valueMin
           valueMax:(double)valueMax

@@ -84,8 +84,14 @@ static NSString * const XTWindow_restorationName = @"name";
 - (void)applicationWillFinishLaunching:(NSNotification *)aNotification
 {
     self.windowControllers = [NSMutableSet set];
-    // Insert code here to initialize your application
-   self.stationRefArray = [[XTStationIndex sharedStationIndex] stationRefArray];
+    // loading/processing stations might take a while -- do it asynchronously
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        self.stationRefArray = [[XTStationIndex sharedStationIndex] stationRefArray];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"XTideMapsLoadedNotification" object:self];
+        });
+    });
 }
 
 

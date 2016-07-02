@@ -7,11 +7,11 @@
  *
  */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #include "libxtide.hh" // Includes XTSettingsInt and all sorts of things that are incompatible with cocoa.
 #include "config.hh"
 #include "XTUtils.h"
-#include "XTGraph.h"
+#include "XTColorUtils.h"
 #include "XTSettings.h"
 
 static NSString * const PVUnitsKey = @"units";
@@ -320,7 +320,7 @@ NSMutableDictionary *XTSettingsDefaultValues()
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     
     // Colors (graphing). Overrides config.hh
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor redColor]]
+    [defaultValues setObject:@"red"
                       forKey:XTide_ColorKeys[markcolor]];
     [defaultValues setObject:@"skyBlue"
                       forKey:XTide_ColorKeys[daycolor]];
@@ -330,22 +330,21 @@ NSMutableDictionary *XTSettingsDefaultValues()
                       forKey:XTide_ColorKeys[floodcolor]];
     [defaultValues setObject:@"seaGreen"
                       forKey:XTide_ColorKeys[ebbcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor whiteColor]]
+    [defaultValues setObject:@"white"
                       forKey:XTide_ColorKeys[datumcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor yellowColor]]
+    [defaultValues setObject:@"yellow"
                       forKey:XTide_ColorKeys[mslcolor]];
     [defaultValues setObject:@"gray80"
                       forKey:XTide_ColorKeys[fgcolor]];
     
     // Colors (stations) - standard pin colors
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor redColor]]
+    [defaultValues setObject:@"red"
                       forKey:XTide_ColorKeys[refcolor]];
-    [defaultValues setObject:[NSKeyedArchiver archivedDataWithRootObject:[NSColor greenColor]]
+    [defaultValues setObject:@"green"
                       forKey:XTide_ColorKeys[subcolor]];
     
     return defaultValues;
 }
-
 
 /*
  *------------------------------------------------------------------------------
@@ -438,7 +437,6 @@ void libxtide::XTSettings::applyMacResources()
         }
     }
 }
-
 
 void XTSettings_SetShortcutToValue(const char *shortcut, id value)
 {

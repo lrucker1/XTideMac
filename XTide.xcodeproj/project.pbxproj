@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		94041C011CBEC937003BD343 /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
 		94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
 		94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
 		94041C161CBECAD6003BD343 /* XTGlobal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C091CBECAD6003BD343 /* XTGlobal.mm */; };
@@ -16,7 +15,6 @@
 		94041C191CBECAD6003BD343 /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
 		94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */; };
 		94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
-		94041C201CBECAE6003BD343 /* XTErrors.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1D1CBECAE6003BD343 /* XTErrors.mm */; };
 		94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
 		94041C221CBECB40003BD343 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08B1CBC45B50004D687 /* Amplitude.cc */; };
 		94041C231CBECB40003BD343 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08C1CBC45B50004D687 /* Angle.cc */; };
@@ -118,6 +116,84 @@
 		94041D791CCC417B003BD343 /* XTStationInfoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */; };
 		94041D7B1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
+		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
+		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
+		945828E61D248BF300972E1C /* XTUIMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828E51D248BF300972E1C /* XTUIMapViewController.m */; };
+		945828EF1D248BF300972E1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945828ED1D248BF300972E1C /* Main.storyboard */; };
+		945828F11D248BF300972E1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 945828F01D248BF300972E1C /* Assets.xcassets */; };
+		945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945828F21D248BF300972E1C /* LaunchScreen.storyboard */; };
+		945828FF1D248BF300972E1C /* XTide_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828FE1D248BF300972E1C /* XTide_iosTests.m */; };
+		9458290A1D248BF300972E1C /* XTide_iosUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945829091D248BF300972E1C /* XTide_iosUITests.m */; };
+		945829151D248D6100972E1C /* SubordinateStation.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AF1CBC45B50004D687 /* SubordinateStation.cc */; };
+		945829161D248D6100972E1C /* SVGGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B01CBC45B50004D687 /* SVGGraph.cc */; };
+		945829171D248D6100972E1C /* TideEvent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B11CBC45B50004D687 /* TideEvent.cc */; };
+		945829181D248D6100972E1C /* TideEventsOrganizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B21CBC45B50004D687 /* TideEventsOrganizer.cc */; };
+		945829191D248D6100972E1C /* Timestamp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B31CBC45B50004D687 /* Timestamp.cc */; };
+		9458291A1D248D6100972E1C /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B41CBC45B50004D687 /* TTYGraph.cc */; };
+		9458291B1D248D6100972E1C /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B51CBC45B50004D687 /* Units.cc */; };
+		9458291E1D248D6100972E1C /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0B81CBC45B50004D687 /* Year.cc */; };
+		9458291F1D248D6900972E1C /* Station.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AC1CBC45B50004D687 /* Station.cc */; };
+		945829201D248D6900972E1C /* StationIndex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AD1CBC45B50004D687 /* StationIndex.cc */; };
+		945829211D248D6900972E1C /* StationRef.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AE1CBC45B50004D687 /* StationRef.cc */; };
+		945829221D248D7100972E1C /* Graph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09D1CBC45B50004D687 /* Graph.cc */; };
+		945829231D248D7100972E1C /* HarmonicsFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09E1CBC45B50004D687 /* HarmonicsFile.cc */; };
+		945829241D248D7100972E1C /* HarmonicsPath.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09F1CBC45B50004D687 /* HarmonicsPath.cc */; };
+		945829251D248D7100972E1C /* Interval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A01CBC45B50004D687 /* Interval.cc */; };
+		945829261D248D7100972E1C /* MetaField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A11CBC45B50004D687 /* MetaField.cc */; };
+		945829271D248D7100972E1C /* Nullable.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A21CBC45B50004D687 /* Nullable.cc */; };
+		945829281D248D7100972E1C /* NullableInterval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A31CBC45B50004D687 /* NullableInterval.cc */; };
+		945829291D248D7100972E1C /* NullablePredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A41CBC45B50004D687 /* NullablePredictionValue.cc */; };
+		9458292A1D248D7100972E1C /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A51CBC45B50004D687 /* Offsets.cc */; };
+		9458292B1D248D7100972E1C /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A61CBC45B50004D687 /* PixelatedGraph.cc */; };
+		9458292C1D248D7100972E1C /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A71CBC45B50004D687 /* PredictionValue.cc */; };
+		9458292D1D248D7100972E1C /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A81CBC45B50004D687 /* RGBGraph.cc */; };
+		9458292E1D248D7100972E1C /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0A91CBC45B50004D687 /* Settings.cc */; };
+		9458292F1D248D7100972E1C /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AA1CBC45B50004D687 /* Skycal.cc */; };
+		945829301D248D7100972E1C /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0AB1CBC45B50004D687 /* Speed.cc */; };
+		945829311D248D7900972E1C /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08B1CBC45B50004D687 /* Amplitude.cc */; };
+		945829321D248D7900972E1C /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08C1CBC45B50004D687 /* Angle.cc */; };
+		945829331D248D7900972E1C /* Banner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08D1CBC45B50004D687 /* Banner.cc */; };
+		945829341D248D7900972E1C /* Calendar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08E1CBC45B50004D687 /* Calendar.cc */; };
+		945829351D248D7900972E1C /* CalendarFormC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B08F1CBC45B50004D687 /* CalendarFormC.cc */; };
+		945829361D248D7900972E1C /* CalendarFormH.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0901CBC45B50004D687 /* CalendarFormH.cc */; };
+		945829371D248D7900972E1C /* CalendarFormL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0911CBC45B50004D687 /* CalendarFormL.cc */; };
+		945829381D248D7900972E1C /* CalendarFormNotC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0921CBC45B50004D687 /* CalendarFormNotC.cc */; };
+		945829391D248D7900972E1C /* CalendarFormT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0931CBC45B50004D687 /* CalendarFormT.cc */; };
+		9458293A1D248D7900972E1C /* ClientSideFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0941CBC45B50004D687 /* ClientSideFont.cc */; };
+		9458293B1D248D7900972E1C /* Colors.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0951CBC45B50004D687 /* Colors.cc */; };
+		9458293C1D248D7900972E1C /* Constituent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0961CBC45B50004D687 /* Constituent.cc */; };
+		9458293D1D248D7900972E1C /* ConstituentSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0971CBC45B50004D687 /* ConstituentSet.cc */; };
+		9458293E1D248D7900972E1C /* Coordinates.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0981CBC45B50004D687 /* Coordinates.cc */; };
+		9458293F1D248D7900972E1C /* CurrentBearing.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B0991CBC45B50004D687 /* CurrentBearing.cc */; };
+		945829401D248D7900972E1C /* Date.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09A1CBC45B50004D687 /* Date.cc */; };
+		945829411D248D7900972E1C /* Dstr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 9497B09B1CBC45B50004D687 /* Dstr.cc */; };
+		945829421D248D8400972E1C /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 94041C501CBEE6BF003BD343 /* Global.cc */; };
+		945829431D248D9A00972E1C /* tide_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D311CC1CE3E003BD343 /* tide_db.c */; };
+		945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
+		945829461D248DD200972E1C /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C611CBF1768003BD343 /* sunrise.png */; };
+		945829471D248DD200972E1C /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C621CBF1768003BD343 /* sunset.png */; };
+		945829481D248DD200972E1C /* newmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C631CBF1768003BD343 /* newmoon.png */; };
+		945829491D248DD200972E1C /* moonrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C641CBF1768003BD343 /* moonrise.png */; };
+		9458294A1D248DD200972E1C /* moonset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C651CBF1768003BD343 /* moonset.png */; };
+		9458294B1D248DD200972E1C /* firstquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C661CBF1768003BD343 /* firstquarter.png */; };
+		9458294C1D248DD200972E1C /* fullmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C671CBF1768003BD343 /* fullmoon.png */; };
+		9458294D1D248DD200972E1C /* lastquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C681CBF1768003BD343 /* lastquarter.png */; };
+		9458294E1D248DD200972E1C /* hightide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C691CBF1768003BD343 /* hightide.png */; };
+		9458294F1D248DD200972E1C /* lowtide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6A1CBF1768003BD343 /* lowtide.png */; };
+		945829501D248DD200972E1C /* falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6B1CBF1768003BD343 /* falling.png */; };
+		945829511D248DD200972E1C /* rising.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6C1CBF1768003BD343 /* rising.png */; };
+		945829521D248DD200972E1C /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
+		945829531D248DD200972E1C /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
+		945829541D248DD200972E1C /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
+		945829551D248DD200972E1C /* toolbar-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C701CBF1768003BD343 /* toolbar-calendar.png */; };
+		945829561D24934D00972E1C /* XTGlobal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C091CBECAD6003BD343 /* XTGlobal.mm */; };
+		945829571D24935A00972E1C /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
+		9458295A1D24935A00972E1C /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
+		9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
+		9458295C1D24935A00972E1C /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
+		9458295D1D24935A00972E1C /* XTTideEventsOrganizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */; };
+		9458295E1D24935A00972E1C /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
+		945829601D24935A00972E1C /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
 		946318E11CBC3242001CD859 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 946318E01CBC3242001CD859 /* AppDelegate.mm */; };
 		946318E41CBC3242001CD859 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318E31CBC3242001CD859 /* main.m */; };
 		946318E61CBC3242001CD859 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946318E51CBC3242001CD859 /* Assets.xcassets */; };
@@ -125,9 +201,38 @@
 		946318F41CBC3242001CD859 /* XTideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318F31CBC3242001CD859 /* XTideTests.m */; };
 		946318FF1CBC3242001CD859 /* XTideUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318FE1CBC3242001CD859 /* XTideUITests.m */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
+		94CE15CE1D249A510088720D /* XTStationAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* XTStationAdditions.mm */; };
+		94CE15D01D249EED0088720D /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
+		94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
+		94CE15D21D24A3CE0088720D /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
+		94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DA1D24A6650088720D /* MapKit.framework */; };
+		94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DC1D24A6810088720D /* UIKit.framework */; };
+		94CE15DF1D24A69E0088720D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DE1D24A69E0088720D /* Foundation.framework */; };
+		94CE15E41D24D9370088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
+		94CE15E71D24DFBD0088720D /* XTUIGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E61D24DFBD0088720D /* XTUIGraphView.m */; };
+		94CE15EB1D24E18A0088720D /* XTUIGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */; };
+		94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */; };
+		94CE15ED1D24F8000088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
+		94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
+		94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */; };
+		94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		945828FB1D248BF300972E1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 945828DB1D248BF300972E1C;
+			remoteInfo = "XTide-ios";
+		};
+		945829061D248BF300972E1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 945828DB1D248BF300972E1C;
+			remoteInfo = "XTide-ios";
+		};
 		946318F01CBC3242001CD859 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
@@ -163,8 +268,6 @@
 		94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEventsOrganizer.mm; sourceTree = "<group>"; };
 		94041C121CBECAD6003BD343 /* XTTideEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTideEvent.h; sourceTree = "<group>"; };
 		94041C131CBECAD6003BD343 /* XTTideEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEvent.mm; sourceTree = "<group>"; };
-		94041C1C1CBECAE6003BD343 /* XTErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTErrors.h; sourceTree = "<group>"; };
-		94041C1D1CBECAE6003BD343 /* XTErrors.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTErrors.mm; sourceTree = "<group>"; };
 		94041C1E1CBECAE6003BD343 /* XTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUtils.h; sourceTree = "<group>"; };
 		94041C1F1CBECAE6003BD343 /* XTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUtils.mm; sourceTree = "<group>"; };
 		94041C4D1CBECDE2003BD343 /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
@@ -177,22 +280,22 @@
 		94041C5A1CBF173A003BD343 /* TideDataDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataDocument.mm; sourceTree = "<group>"; };
 		94041C5B1CBF173A003BD343 /* TideGraphDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideGraphDocument.h; sourceTree = "<group>"; };
 		94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideGraphDocument.mm; sourceTree = "<group>"; };
-		94041C611CBF1768003BD343 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunrise.png; sourceTree = "<group>"; };
-		94041C621CBF1768003BD343 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
-		94041C631CBF1768003BD343 /* newmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newmoon.png; sourceTree = "<group>"; };
-		94041C641CBF1768003BD343 /* moonrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moonrise.png; sourceTree = "<group>"; };
-		94041C651CBF1768003BD343 /* moonset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = moonset.png; sourceTree = "<group>"; };
-		94041C661CBF1768003BD343 /* firstquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = firstquarter.png; sourceTree = "<group>"; };
-		94041C671CBF1768003BD343 /* fullmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fullmoon.png; sourceTree = "<group>"; };
-		94041C681CBF1768003BD343 /* lastquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lastquarter.png; sourceTree = "<group>"; };
-		94041C691CBF1768003BD343 /* hightide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hightide.png; sourceTree = "<group>"; };
-		94041C6A1CBF1768003BD343 /* lowtide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lowtide.png; sourceTree = "<group>"; };
-		94041C6B1CBF1768003BD343 /* falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = falling.png; sourceTree = "<group>"; };
-		94041C6C1CBF1768003BD343 /* rising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rising.png; sourceTree = "<group>"; };
-		94041C6D1CBF1768003BD343 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blank.png; sourceTree = "<group>"; };
-		94041C6E1CBF1768003BD343 /* toolbar-graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-graph.png"; sourceTree = "<group>"; };
-		94041C6F1CBF1768003BD343 /* toolbar-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-list.png"; sourceTree = "<group>"; };
-		94041C701CBF1768003BD343 /* toolbar-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "toolbar-calendar.png"; sourceTree = "<group>"; };
+		94041C611CBF1768003BD343 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunrise.png; path = XTide/sunrise.png; sourceTree = "<group>"; };
+		94041C621CBF1768003BD343 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunset.png; path = XTide/sunset.png; sourceTree = "<group>"; };
+		94041C631CBF1768003BD343 /* newmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newmoon.png; path = XTide/newmoon.png; sourceTree = "<group>"; };
+		94041C641CBF1768003BD343 /* moonrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moonrise.png; path = XTide/moonrise.png; sourceTree = "<group>"; };
+		94041C651CBF1768003BD343 /* moonset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moonset.png; path = XTide/moonset.png; sourceTree = "<group>"; };
+		94041C661CBF1768003BD343 /* firstquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = firstquarter.png; path = XTide/firstquarter.png; sourceTree = "<group>"; };
+		94041C671CBF1768003BD343 /* fullmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullmoon.png; path = XTide/fullmoon.png; sourceTree = "<group>"; };
+		94041C681CBF1768003BD343 /* lastquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lastquarter.png; path = XTide/lastquarter.png; sourceTree = "<group>"; };
+		94041C691CBF1768003BD343 /* hightide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hightide.png; path = XTide/hightide.png; sourceTree = "<group>"; };
+		94041C6A1CBF1768003BD343 /* lowtide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lowtide.png; path = XTide/lowtide.png; sourceTree = "<group>"; };
+		94041C6B1CBF1768003BD343 /* falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = falling.png; path = XTide/falling.png; sourceTree = "<group>"; };
+		94041C6C1CBF1768003BD343 /* rising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rising.png; path = XTide/rising.png; sourceTree = "<group>"; };
+		94041C6D1CBF1768003BD343 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blank.png; path = XTide/blank.png; sourceTree = "<group>"; };
+		94041C6E1CBF1768003BD343 /* toolbar-graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-graph.png"; path = "XTide/toolbar-graph.png"; sourceTree = "<group>"; };
+		94041C6F1CBF1768003BD343 /* toolbar-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-list.png"; path = "XTide/toolbar-list.png"; sourceTree = "<group>"; };
+		94041C701CBF1768003BD343 /* toolbar-calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-calendar.png"; path = "XTide/toolbar-calendar.png"; sourceTree = "<group>"; };
 		94041C711CBF1768003BD343 /* lh128.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = lh128.icns; sourceTree = "<group>"; };
 		94041C831CBF1906003BD343 /* TideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideController.h; sourceTree = "<group>"; };
 		94041C841CBF1906003BD343 /* TideController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideController.mm; sourceTree = "<group>"; };
@@ -210,8 +313,8 @@
 		94041C9F1CC043D6003BD343 /* XTMapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTMapWindowController.h; sourceTree = "<group>"; };
 		94041CA01CC043D6003BD343 /* XTMapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTMapWindowController.m; sourceTree = "<group>"; };
 		94041CA21CC047FC003BD343 /* XTStationRefInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStationRefInt.h; sourceTree = "<group>"; };
-		94041CA31CC04969003BD343 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "harmonics-dwf-20151227-free.tcd"; sourceTree = "<group>"; };
+		94041CA31CC04969003BD343 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = XTide/Images.xcassets; sourceTree = "<group>"; };
+		94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "harmonics-dwf-20151227-free.tcd"; path = "XTide/harmonics-dwf-20151227-free.tcd"; sourceTree = "<group>"; };
 		94041CA91CC05A80003BD343 /* XTGraphInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTGraphInt.h; sourceTree = "<group>"; };
 		94041CAE1CC06B56003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideGraph.xib; sourceTree = "<group>"; };
 		94041CB41CC1943C003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Preferences.xib; sourceTree = "<group>"; };
@@ -244,8 +347,8 @@
 		94041D641CC94E51003BD343 /* CalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarController.h; sourceTree = "<group>"; };
 		94041D651CC94E51003BD343 /* CalendarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarController.mm; sourceTree = "<group>"; };
 		94041D6B1CC95069003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideCalendar.xib; sourceTree = "<group>"; };
-		94041D6D1CC98A71003BD343 /* XTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTApplication.h; sourceTree = "<group>"; };
-		94041D6E1CC98A71003BD343 /* XTApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTApplication.m; sourceTree = "<group>"; };
+		94041D6D1CC98A71003BD343 /* XTApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XTApplication.h; path = ../XTApplication.h; sourceTree = "<group>"; };
+		94041D6E1CC98A71003BD343 /* XTApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XTApplication.m; path = ../XTApplication.m; sourceTree = "<group>"; };
 		94041D711CCABB6A003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideGraphTest.xib; sourceTree = "<group>"; };
 		94041D731CCC2908003BD343 /* XTStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationInfoViewController.h; sourceTree = "<group>"; };
 		94041D741CCC2909003BD343 /* XTStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTStationInfoViewController.m; sourceTree = "<group>"; };
@@ -253,9 +356,25 @@
 		94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewController.xib; sourceTree = "<group>"; };
 		94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewControllerVibrant.xib; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
+		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		945828E11D248BF300972E1C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		945828E21D248BF300972E1C /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		945828E41D248BF300972E1C /* XTUIMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTUIMapViewController.h; sourceTree = "<group>"; };
+		945828E51D248BF300972E1C /* XTUIMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTUIMapViewController.m; sourceTree = "<group>"; };
+		945828EE1D248BF300972E1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		945828F01D248BF300972E1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		945828F31D248BF300972E1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		945828F51D248BF300972E1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		945828FA1D248BF300972E1C /* XTide-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "XTide-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		945828FE1D248BF300972E1C /* XTide_iosTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTide_iosTests.m; sourceTree = "<group>"; };
+		945829001D248BF300972E1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		945829051D248BF300972E1C /* XTide-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "XTide-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		945829091D248BF300972E1C /* XTide_iosUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTide_iosUITests.m; sourceTree = "<group>"; };
+		9458290B1D248BF300972E1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		946318DC1CBC3242001CD859 /* XTide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTide.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		946318DF1CBC3242001CD859 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = XTide/AppDelegate.h; sourceTree = "<group>"; };
-		946318E01CBC3242001CD859 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = XTide/AppDelegate.mm; sourceTree = "<group>"; };
+		946318DF1CBC3242001CD859 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		946318E01CBC3242001CD859 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		946318E31CBC3242001CD859 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		946318E51CBC3242001CD859 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		946318E81CBC3242001CD859 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -367,9 +486,47 @@
 		9497B0B61CBC45B50004D687 /* xml_l.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_l.cc; path = "../xtide-2.15.1/libxtide/xml_l.cc"; sourceTree = "<group>"; };
 		9497B0B71CBC45B50004D687 /* xml_y.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_y.cc; path = "../xtide-2.15.1/libxtide/xml_y.cc"; sourceTree = "<group>"; };
 		9497B0B81CBC45B50004D687 /* Year.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Year.cc; path = "../xtide-2.15.1/libxtide/Year.cc"; sourceTree = "<group>"; };
+		94CE15CB1D249A510088720D /* XTStationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationAdditions.h; sourceTree = "<group>"; };
+		94CE15CC1D249A510088720D /* XTStationAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStationAdditions.mm; sourceTree = "<group>"; };
+		94CE15DA1D24A6650088720D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
+		94CE15DC1D24A6810088720D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		94CE15DE1D24A69E0088720D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		94CE15E51D24DFBD0088720D /* XTUIGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIGraphView.h; sourceTree = "<group>"; };
+		94CE15E61D24DFBD0088720D /* XTUIGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIGraphView.m; sourceTree = "<group>"; };
+		94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIGraphViewController.h; sourceTree = "<group>"; };
+		94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIGraphViewController.m; sourceTree = "<group>"; };
+		94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTUIGraphViewController.xib; sourceTree = "<group>"; };
+		94CE15F21D26E6740088720D /* XTUIStationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIStationTableViewController.h; sourceTree = "<group>"; };
+		94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUIStationTableViewController.mm; sourceTree = "<group>"; };
+		94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIFavoritesTableViewController.h; sourceTree = "<group>"; };
+		94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIFavoritesTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		945828D91D248BF300972E1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94CE15DF1D24A69E0088720D /* Foundation.framework in Frameworks */,
+				94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */,
+				94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945828F71D248BF300972E1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945829021D248BF300972E1C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		946318D91CBC3242001CD859 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -394,9 +551,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		94041C561CBF172C003BD343 /* Cocoa */ = {
+		94041C561CBF172C003BD343 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				94041C941CC04016003BD343 /* Map */,
+				946318E51CBC3242001CD859 /* Assets.xcassets */,
+				946318E71CBC3242001CD859 /* MainMenu.xib */,
+				94041D6A1CC95069003BD343 /* TideCalendar.xib */,
+				94041CAD1CC06B56003BD343 /* TideGraph.xib */,
+				94041D701CCABB6A003BD343 /* TideGraphTest.xib */,
+				94041D3F1CC6EBF0003BD343 /* TideData.xib */,
+				94041CB31CC1943C003BD343 /* Preferences.xib */,
+				94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */,
+				94041D391CC6D92D003BD343 /* Disclaimer.xib */,
+				946318EA1CBC3242001CD859 /* Info.plist */,
+				946318DF1CBC3242001CD859 /* AppDelegate.h */,
+				946318E01CBC3242001CD859 /* AppDelegate.mm */,
+				94041D6D1CC98A71003BD343 /* XTApplication.h */,
+				94041D6E1CC98A71003BD343 /* XTApplication.m */,
 				94041C931CBF1B16003BD343 /* config.h */,
 				94041D571CC93BB7003BD343 /* XTPrefFlagsViewController.h */,
 				94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */,
@@ -426,11 +598,13 @@
 				94041C8A1CBF1938003BD343 /* GraphView.mm */,
 				94041D731CCC2908003BD343 /* XTStationInfoViewController.h */,
 				94041D741CCC2909003BD343 /* XTStationInfoViewController.m */,
+				94CE15CB1D249A510088720D /* XTStationAdditions.h */,
+				94CE15CC1D249A510088720D /* XTStationAdditions.mm */,
 				94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */,
 				94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */,
 				94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */,
 			);
-			name = Cocoa;
+			name = macOS;
 			sourceTree = "<group>";
 		};
 		94041C601CBF174F003BD343 /* Resources */ = {
@@ -438,25 +612,7 @@
 			children = (
 				94041D4E1CC7ED6E003BD343 /* suggestionprototype.xib */,
 				945828D41D1E07C800972E1C /* Credits.html */,
-				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
-				94041CA31CC04969003BD343 /* Images.xcassets */,
 				94041C9D1CC0432F003BD343 /* XTMapWindow.xib */,
-				94041C611CBF1768003BD343 /* sunrise.png */,
-				94041C621CBF1768003BD343 /* sunset.png */,
-				94041C631CBF1768003BD343 /* newmoon.png */,
-				94041C641CBF1768003BD343 /* moonrise.png */,
-				94041C651CBF1768003BD343 /* moonset.png */,
-				94041C661CBF1768003BD343 /* firstquarter.png */,
-				94041C671CBF1768003BD343 /* fullmoon.png */,
-				94041C681CBF1768003BD343 /* lastquarter.png */,
-				94041C691CBF1768003BD343 /* hightide.png */,
-				94041C6A1CBF1768003BD343 /* lowtide.png */,
-				94041C6B1CBF1768003BD343 /* falling.png */,
-				94041C6C1CBF1768003BD343 /* rising.png */,
-				94041C6D1CBF1768003BD343 /* blank.png */,
-				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
-				94041C6F1CBF1768003BD343 /* toolbar-list.png */,
-				94041C701CBF1768003BD343 /* toolbar-calendar.png */,
 				94041C711CBF1768003BD343 /* lh128.icns */,
 			);
 			name = Resources;
@@ -488,21 +644,104 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		945828DD1D248BF300972E1C /* XTide-ios */ = {
+			isa = PBXGroup;
+			children = (
+				945828E11D248BF300972E1C /* AppDelegate.h */,
+				945828E21D248BF300972E1C /* AppDelegate.mm */,
+				945828E41D248BF300972E1C /* XTUIMapViewController.h */,
+				945828E51D248BF300972E1C /* XTUIMapViewController.m */,
+				94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */,
+				94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */,
+				94CE15F21D26E6740088720D /* XTUIStationTableViewController.h */,
+				94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */,
+				94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */,
+				94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */,
+				94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */,
+				94CE15E51D24DFBD0088720D /* XTUIGraphView.h */,
+				94CE15E61D24DFBD0088720D /* XTUIGraphView.m */,
+				945828ED1D248BF300972E1C /* Main.storyboard */,
+				945828F01D248BF300972E1C /* Assets.xcassets */,
+				945828F21D248BF300972E1C /* LaunchScreen.storyboard */,
+				945828F51D248BF300972E1C /* Info.plist */,
+				945828DE1D248BF300972E1C /* Supporting Files */,
+			);
+			path = "XTide-ios";
+			sourceTree = "<group>";
+		};
+		945828DE1D248BF300972E1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				945828DF1D248BF300972E1C /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		945828FD1D248BF300972E1C /* XTide-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				945828FE1D248BF300972E1C /* XTide_iosTests.m */,
+				945829001D248BF300972E1C /* Info.plist */,
+			);
+			path = "XTide-iosTests";
+			sourceTree = "<group>";
+		};
+		945829081D248BF300972E1C /* XTide-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				945829091D248BF300972E1C /* XTide_iosUITests.m */,
+				9458290B1D248BF300972E1C /* Info.plist */,
+			);
+			path = "XTide-iosUITests";
+			sourceTree = "<group>";
+		};
+		945829441D248DB200972E1C /* Resources-Common */ = {
+			isa = PBXGroup;
+			children = (
+				94041CA31CC04969003BD343 /* Images.xcassets */,
+				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
+				94041C611CBF1768003BD343 /* sunrise.png */,
+				94041C621CBF1768003BD343 /* sunset.png */,
+				94041C631CBF1768003BD343 /* newmoon.png */,
+				94041C641CBF1768003BD343 /* moonrise.png */,
+				94041C651CBF1768003BD343 /* moonset.png */,
+				94041C661CBF1768003BD343 /* firstquarter.png */,
+				94041C671CBF1768003BD343 /* fullmoon.png */,
+				94041C681CBF1768003BD343 /* lastquarter.png */,
+				94041C691CBF1768003BD343 /* hightide.png */,
+				94041C6A1CBF1768003BD343 /* lowtide.png */,
+				94041C6B1CBF1768003BD343 /* falling.png */,
+				94041C6C1CBF1768003BD343 /* rising.png */,
+				94041C6D1CBF1768003BD343 /* blank.png */,
+				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
+				94041C6F1CBF1768003BD343 /* toolbar-list.png */,
+				94041C701CBF1768003BD343 /* toolbar-calendar.png */,
+			);
+			name = "Resources-Common";
+			sourceTree = "<group>";
+		};
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
-				94041D311CC1CE3E003BD343 /* tide_db.c */,
-				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
+				94CE15DE1D24A69E0088720D /* Foundation.framework */,
+				94CE15DC1D24A6810088720D /* UIKit.framework */,
+				94CE15DA1D24A6650088720D /* MapKit.framework */,
 				948355051CBC448F0026F08A /* tcd.h */,
 				948355031CBC44660026F08A /* png.h */,
-				94041D6D1CC98A71003BD343 /* XTApplication.h */,
-				94041D6E1CC98A71003BD343 /* XTApplication.m */,
-				946318DF1CBC3242001CD859 /* AppDelegate.h */,
-				946318E01CBC3242001CD859 /* AppDelegate.mm */,
+				94041D311CC1CE3E003BD343 /* tide_db.c */,
+				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
+				94CE15E01D24D3D00088720D /* xtideUIKit */,
+				94CE15CA1D2495B60088720D /* xtideAppKit */,
+				9497B0EB1CBC4E910004D687 /* xtideFoundation */,
+				945829441D248DB200972E1C /* Resources-Common */,
+				948355021CBC44270026F08A /* xtideCore */,
 				946318DE1CBC3242001CD859 /* XTide */,
 				94041D2B1CC1CA8D003BD343 /* libtcd-2.2.7.xcodeproj */,
 				946318F21CBC3242001CD859 /* XTideTests */,
 				946318FD1CBC3242001CD859 /* XTideUITests */,
+				945828DD1D248BF300972E1C /* XTide-ios */,
+				945828FD1D248BF300972E1C /* XTide-iosTests */,
+				945829081D248BF300972E1C /* XTide-iosUITests */,
 				946318DD1CBC3242001CD859 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -513,6 +752,9 @@
 				946318DC1CBC3242001CD859 /* XTide.app */,
 				946318EF1CBC3242001CD859 /* XTideTests.xctest */,
 				946318FA1CBC3242001CD859 /* XTideUITests.xctest */,
+				945828DC1D248BF300972E1C /* XTide-ios.app */,
+				945828FA1D248BF300972E1C /* XTide-iosTests.xctest */,
+				945829051D248BF300972E1C /* XTide-iosUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -520,20 +762,7 @@
 		946318DE1CBC3242001CD859 /* XTide */ = {
 			isa = PBXGroup;
 			children = (
-				94041C941CC04016003BD343 /* Map */,
-				94041C561CBF172C003BD343 /* Cocoa */,
-				9497B0EB1CBC4E910004D687 /* xtideMac */,
-				948355021CBC44270026F08A /* xtideCore */,
-				946318E51CBC3242001CD859 /* Assets.xcassets */,
-				946318E71CBC3242001CD859 /* MainMenu.xib */,
-				94041D6A1CC95069003BD343 /* TideCalendar.xib */,
-				94041CAD1CC06B56003BD343 /* TideGraph.xib */,
-				94041D701CCABB6A003BD343 /* TideGraphTest.xib */,
-				94041D3F1CC6EBF0003BD343 /* TideData.xib */,
-				94041CB31CC1943C003BD343 /* Preferences.xib */,
-				94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */,
-				94041D391CC6D92D003BD343 /* Disclaimer.xib */,
-				946318EA1CBC3242001CD859 /* Info.plist */,
+				94041C561CBF172C003BD343 /* macOS */,
 				94041C601CBF174F003BD343 /* Resources */,
 				946318E21CBC3242001CD859 /* Supporting Files */,
 			);
@@ -671,22 +900,23 @@
 				9497B0B81CBC45B50004D687 /* Year.cc */,
 			);
 			name = xtideCore;
-			path = ..;
 			sourceTree = "<group>";
 		};
-		9497B0EB1CBC4E910004D687 /* xtideMac */ = {
+		9497B0EB1CBC4E910004D687 /* xtideFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				94041C041CBECAD6003BD343 /* XTCalendar.h */,
-				94041C051CBECAD6003BD343 /* XTCalendar.mm */,
-				94041C061CBECAD6003BD343 /* XTSettings.h */,
-				94041D561CC8425C003BD343 /* XTSettingsInt.h */,
-				94041C071CBECAD6003BD343 /* XTSettings.mm */,
-				94041C081CBECAD6003BD343 /* XTGlobal.h */,
-				94041C091CBECAD6003BD343 /* XTGlobal.mm */,
 				94041BFF1CBEC937003BD343 /* XTGraph.h */,
 				94041CA91CC05A80003BD343 /* XTGraphInt.h */,
 				94041C001CBEC937003BD343 /* XTGraph.mm */,
+				94041CB81CC1AD7C003BD343 /* XTColorUtils.h */,
+				94041CB61CC1AD70003BD343 /* XTColorUtils.m */,
+				94041C061CBECAD6003BD343 /* XTSettings.h */,
+				94041D561CC8425C003BD343 /* XTSettingsInt.h */,
+				94041C071CBECAD6003BD343 /* XTSettings.mm */,
+				94041C041CBECAD6003BD343 /* XTCalendar.h */,
+				94041C051CBECAD6003BD343 /* XTCalendar.mm */,
+				94041C081CBECAD6003BD343 /* XTGlobal.h */,
+				94041C091CBECAD6003BD343 /* XTGlobal.mm */,
 				94041C0A1CBECAD6003BD343 /* XTStationIndex.h */,
 				94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */,
 				94041C0C1CBECAD6003BD343 /* XTStationRef.h */,
@@ -699,19 +929,83 @@
 				94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */,
 				94041C121CBECAD6003BD343 /* XTTideEvent.h */,
 				94041C131CBECAD6003BD343 /* XTTideEvent.mm */,
-				94041C1C1CBECAE6003BD343 /* XTErrors.h */,
-				94041C1D1CBECAE6003BD343 /* XTErrors.mm */,
 				94041C1E1CBECAE6003BD343 /* XTUtils.h */,
 				94041C1F1CBECAE6003BD343 /* XTUtils.mm */,
-				94041CB81CC1AD7C003BD343 /* XTColorUtils.h */,
-				94041CB61CC1AD70003BD343 /* XTColorUtils.m */,
 			);
-			name = xtideMac;
+			name = xtideFoundation;
+			path = XTide;
+			sourceTree = "<group>";
+		};
+		94CE15CA1D2495B60088720D /* xtideAppKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = xtideAppKit;
+			sourceTree = "<group>";
+		};
+		94CE15E01D24D3D00088720D /* xtideUIKit */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = xtideUIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		945828DB1D248BF300972E1C /* XTide-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9458290C1D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-ios" */;
+			buildPhases = (
+				945828D81D248BF300972E1C /* Sources */,
+				945828D91D248BF300972E1C /* Frameworks */,
+				945828DA1D248BF300972E1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "XTide-ios";
+			productName = "XTide-ios";
+			productReference = 945828DC1D248BF300972E1C /* XTide-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		945828F91D248BF300972E1C /* XTide-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9458290F1D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-iosTests" */;
+			buildPhases = (
+				945828F61D248BF300972E1C /* Sources */,
+				945828F71D248BF300972E1C /* Frameworks */,
+				945828F81D248BF300972E1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				945828FC1D248BF300972E1C /* PBXTargetDependency */,
+			);
+			name = "XTide-iosTests";
+			productName = "XTide-iosTests";
+			productReference = 945828FA1D248BF300972E1C /* XTide-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		945829041D248BF300972E1C /* XTide-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 945829121D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-iosUITests" */;
+			buildPhases = (
+				945829011D248BF300972E1C /* Sources */,
+				945829021D248BF300972E1C /* Frameworks */,
+				945829031D248BF300972E1C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				945829071D248BF300972E1C /* PBXTargetDependency */,
+			);
+			name = "XTide-iosUITests";
+			productName = "XTide-iosUITests";
+			productReference = 945829051D248BF300972E1C /* XTide-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		946318DB1CBC3242001CD859 /* XTide */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 946319031CBC3242001CD859 /* Build configuration list for PBXNativeTarget "XTide" */;
@@ -774,6 +1068,17 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Lee Ann Rucker";
 				TargetAttributes = {
+					945828DB1D248BF300972E1C = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					945828F91D248BF300972E1C = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 945828DB1D248BF300972E1C;
+					};
+					945829041D248BF300972E1C = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 945828DB1D248BF300972E1C;
+					};
 					946318DB1CBC3242001CD859 = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -809,11 +1114,57 @@
 				946318DB1CBC3242001CD859 /* XTide */,
 				946318EE1CBC3242001CD859 /* XTideTests */,
 				946318F91CBC3242001CD859 /* XTideUITests */,
+				945828DB1D248BF300972E1C /* XTide-ios */,
+				945828F91D248BF300972E1C /* XTide-iosTests */,
+				945829041D248BF300972E1C /* XTide-iosUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		945828DA1D248BF300972E1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				945829531D248DD200972E1C /* toolbar-graph.png in Resources */,
+				9458294A1D248DD200972E1C /* moonset.png in Resources */,
+				9458294B1D248DD200972E1C /* firstquarter.png in Resources */,
+				9458294F1D248DD200972E1C /* lowtide.png in Resources */,
+				9458294C1D248DD200972E1C /* fullmoon.png in Resources */,
+				945829551D248DD200972E1C /* toolbar-calendar.png in Resources */,
+				945829521D248DD200972E1C /* blank.png in Resources */,
+				945829541D248DD200972E1C /* toolbar-list.png in Resources */,
+				94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */,
+				945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */,
+				945829471D248DD200972E1C /* sunset.png in Resources */,
+				945829481D248DD200972E1C /* newmoon.png in Resources */,
+				9458294E1D248DD200972E1C /* hightide.png in Resources */,
+				9458294D1D248DD200972E1C /* lastquarter.png in Resources */,
+				945829511D248DD200972E1C /* rising.png in Resources */,
+				94CE15ED1D24F8000088720D /* Images.xcassets in Resources */,
+				945829491D248DD200972E1C /* moonrise.png in Resources */,
+				945828F11D248BF300972E1C /* Assets.xcassets in Resources */,
+				945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */,
+				945829461D248DD200972E1C /* sunrise.png in Resources */,
+				945828EF1D248BF300972E1C /* Main.storyboard in Resources */,
+				945829501D248DD200972E1C /* falling.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945828F81D248BF300972E1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945829031D248BF300972E1C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		946318DA1CBC3242001CD859 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -873,12 +1224,98 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		945828D81D248BF300972E1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				945829251D248D7100972E1C /* Interval.cc in Sources */,
+				9458291F1D248D6900972E1C /* Station.cc in Sources */,
+				9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */,
+				9458292D1D248D7100972E1C /* RGBGraph.cc in Sources */,
+				945829401D248D7900972E1C /* Date.cc in Sources */,
+				94CE15E71D24DFBD0088720D /* XTUIGraphView.m in Sources */,
+				945829351D248D7900972E1C /* CalendarFormC.cc in Sources */,
+				9458293A1D248D7900972E1C /* ClientSideFont.cc in Sources */,
+				945829171D248D6100972E1C /* TideEvent.cc in Sources */,
+				9458292F1D248D7100972E1C /* Skycal.cc in Sources */,
+				9458293B1D248D7900972E1C /* Colors.cc in Sources */,
+				945829301D248D7100972E1C /* Speed.cc in Sources */,
+				94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */,
+				9458295C1D24935A00972E1C /* XTStation.mm in Sources */,
+				9458291A1D248D6100972E1C /* TTYGraph.cc in Sources */,
+				945829391D248D7900972E1C /* CalendarFormT.cc in Sources */,
+				94CE15D21D24A3CE0088720D /* XTSettings.mm in Sources */,
+				9458293D1D248D7900972E1C /* ConstituentSet.cc in Sources */,
+				945829331D248D7900972E1C /* Banner.cc in Sources */,
+				9458295D1D24935A00972E1C /* XTTideEventsOrganizer.mm in Sources */,
+				945829221D248D7100972E1C /* Graph.cc in Sources */,
+				9458292A1D248D7100972E1C /* Offsets.cc in Sources */,
+				9458293F1D248D7900972E1C /* CurrentBearing.cc in Sources */,
+				9458292C1D248D7100972E1C /* PredictionValue.cc in Sources */,
+				9458292B1D248D7100972E1C /* PixelatedGraph.cc in Sources */,
+				945829271D248D7100972E1C /* Nullable.cc in Sources */,
+				945829201D248D6900972E1C /* StationIndex.cc in Sources */,
+				945829311D248D7900972E1C /* Amplitude.cc in Sources */,
+				945829411D248D7900972E1C /* Dstr.cc in Sources */,
+				945828E31D248BF300972E1C /* AppDelegate.mm in Sources */,
+				945829321D248D7900972E1C /* Angle.cc in Sources */,
+				945829181D248D6100972E1C /* TideEventsOrganizer.cc in Sources */,
+				945829191D248D6100972E1C /* Timestamp.cc in Sources */,
+				9458292E1D248D7100972E1C /* Settings.cc in Sources */,
+				945829161D248D6100972E1C /* SVGGraph.cc in Sources */,
+				94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */,
+				9458293C1D248D7900972E1C /* Constituent.cc in Sources */,
+				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
+				945829241D248D7100972E1C /* HarmonicsPath.cc in Sources */,
+				945829341D248D7900972E1C /* Calendar.cc in Sources */,
+				945829151D248D6100972E1C /* SubordinateStation.cc in Sources */,
+				945829601D24935A00972E1C /* XTUtils.mm in Sources */,
+				945829361D248D7900972E1C /* CalendarFormH.cc in Sources */,
+				945829291D248D7100972E1C /* NullablePredictionValue.cc in Sources */,
+				945828E01D248BF300972E1C /* main.m in Sources */,
+				9458293E1D248D7900972E1C /* Coordinates.cc in Sources */,
+				945829571D24935A00972E1C /* XTCalendar.mm in Sources */,
+				94CE15EB1D24E18A0088720D /* XTUIGraphViewController.m in Sources */,
+				945829431D248D9A00972E1C /* tide_db.c in Sources */,
+				9458291E1D248D6100972E1C /* Year.cc in Sources */,
+				94CE15D01D249EED0088720D /* bit_pack.c in Sources */,
+				945829231D248D7100972E1C /* HarmonicsFile.cc in Sources */,
+				9458295E1D24935A00972E1C /* XTTideEvent.mm in Sources */,
+				945829421D248D8400972E1C /* Global.cc in Sources */,
+				945828E61D248BF300972E1C /* XTUIMapViewController.m in Sources */,
+				945829561D24934D00972E1C /* XTGlobal.mm in Sources */,
+				945829281D248D7100972E1C /* NullableInterval.cc in Sources */,
+				94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */,
+				945829211D248D6900972E1C /* StationRef.cc in Sources */,
+				945829381D248D7900972E1C /* CalendarFormNotC.cc in Sources */,
+				9458291B1D248D6100972E1C /* Units.cc in Sources */,
+				945829371D248D7900972E1C /* CalendarFormL.cc in Sources */,
+				9458295A1D24935A00972E1C /* XTStationIndex.mm in Sources */,
+				945829261D248D7100972E1C /* MetaField.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945828F61D248BF300972E1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				945828FF1D248BF300972E1C /* XTide_iosTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		945829011D248BF300972E1C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9458290A1D248BF300972E1C /* XTide_iosUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		946318D81CBC3242001CD859 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */,
-				94041C201CBECAE6003BD343 /* XTErrors.mm in Sources */,
 				94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */,
 				94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */,
 				94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */,
@@ -892,7 +1329,6 @@
 				94041D4B1CC7ED5F003BD343 /* SuggestionsWindowController.m in Sources */,
 				94041D4D1CC7ED5F003BD343 /* SuggestionsWindow.m in Sources */,
 				94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */,
-				94041C011CBEC937003BD343 /* XTGraph.mm in Sources */,
 				94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */,
 				94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */,
 				94041C221CBECB40003BD343 /* Amplitude.cc in Sources */,
@@ -917,6 +1353,7 @@
 				94041C301CBECB40003BD343 /* CurrentBearing.cc in Sources */,
 				94041C311CBECB40003BD343 /* Date.cc in Sources */,
 				94041C321CBECB40003BD343 /* Dstr.cc in Sources */,
+				94CE15CE1D249A510088720D /* XTStationAdditions.mm in Sources */,
 				94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */,
 				94041C341CBECB40003BD343 /* Graph.cc in Sources */,
 				94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */,
@@ -931,6 +1368,7 @@
 				94041C3A1CBECB40003BD343 /* NullableInterval.cc in Sources */,
 				94041C3B1CBECB40003BD343 /* NullablePredictionValue.cc in Sources */,
 				94041C3C1CBECB40003BD343 /* Offsets.cc in Sources */,
+				94CE15E41D24D9370088720D /* XTGraph.mm in Sources */,
 				94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */,
 				94041C3D1CBECB40003BD343 /* PixelatedGraph.cc in Sources */,
 				94041C3E1CBECB40003BD343 /* PredictionValue.cc in Sources */,
@@ -980,6 +1418,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		945828FC1D248BF300972E1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 945828DB1D248BF300972E1C /* XTide-ios */;
+			targetProxy = 945828FB1D248BF300972E1C /* PBXContainerItemProxy */;
+		};
+		945829071D248BF300972E1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 945828DB1D248BF300972E1C /* XTide-ios */;
+			targetProxy = 945829061D248BF300972E1C /* PBXContainerItemProxy */;
+		};
 		946318F11CBC3242001CD859 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 946318DB1CBC3242001CD859 /* XTide */;
@@ -1041,6 +1489,22 @@
 			name = TideGraphTest.xib;
 			sourceTree = "<group>";
 		};
+		945828ED1D248BF300972E1C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				945828EE1D248BF300972E1C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		945828F21D248BF300972E1C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				945828F31D248BF300972E1C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		946318E71CBC3242001CD859 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1052,6 +1516,105 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		9458290D1D248BF300972E1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XTide-ios",
+				);
+				INFOPLIST_FILE = "XTide-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9458290E1D248BF300972E1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/XTide-ios",
+				);
+				INFOPLIST_FILE = "XTide-ios/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		945829101D248BF300972E1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "XTide-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XTide-ios.app/XTide-ios";
+			};
+			name = Debug;
+		};
+		945829111D248BF300972E1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "XTide-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XTide-ios.app/XTide-ios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		945829131D248BF300972E1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "XTide-iosUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_TARGET_NAME = "XTide-ios";
+			};
+			name = Debug;
+		};
+		945829141D248BF300972E1C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = "XTide-iosUITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_TARGET_NAME = "XTide-ios";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		946319011CBC3242001CD859 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1220,6 +1783,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9458290C1D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9458290D1D248BF300972E1C /* Debug */,
+				9458290E1D248BF300972E1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9458290F1D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				945829101D248BF300972E1C /* Debug */,
+				945829111D248BF300972E1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		945829121D248BF300972E1C /* Build configuration list for PBXNativeTarget "XTide-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				945829131D248BF300972E1C /* Debug */,
+				945829141D248BF300972E1C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		946318D71CBC3242001CD859 /* Build configuration list for PBXProject "XTide" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

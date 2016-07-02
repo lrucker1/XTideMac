@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="1090" identifier="macosx"/>
+        <deployment version="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -93,8 +93,8 @@
                         <rect key="frame" x="20" y="0.0" width="336" height="127"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="31">
-                                <rect key="frame" x="164" y="49" width="50" height="17"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Hours:" id="89">
+                                <rect key="frame" x="164" y="49" width="44" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Hours:" usesSingleLineMode="YES" id="89">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -130,7 +130,7 @@
                                 </connections>
                             </stepper>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                                <rect key="frame" x="219" y="46" width="36" height="22"/>
+                                <rect key="frame" x="213" y="46" width="36" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="GeS-m5-WP2"/>
                                 </constraints>
@@ -159,7 +159,7 @@
                                 </textFieldCell>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="36">
-                                <rect key="frame" x="255" y="43" width="19" height="27"/>
+                                <rect key="frame" x="249" y="43" width="19" height="27"/>
                                 <stepperCell key="cell" continuous="YES" alignment="left" maxValue="24" valueWraps="YES" id="93"/>
                                 <connections>
                                     <action selector="timeStepped:" target="-2" id="53"/>
@@ -197,12 +197,12 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="26">
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="38" translatesAutoresizingMaskIntoConstraints="NO" id="26">
                                 <rect key="frame" x="276" y="88" width="42" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="38" id="fK7-Oh-vD0"/>
                                 </constraints>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="TZF" id="88">
+                                <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="TZF" usesSingleLineMode="YES" id="88">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -247,7 +247,6 @@
                             <constraint firstItem="36" firstAttribute="leading" secondItem="35" secondAttribute="trailing" constant="3" id="Qop-Ty-hhK"/>
                             <constraint firstItem="33" firstAttribute="leading" secondItem="32" secondAttribute="trailing" constant="5" id="WEb-E4-hrl"/>
                             <constraint firstItem="81" firstAttribute="baseline" secondItem="7u1-KG-twq" secondAttribute="baseline" id="YUW-d4-yZD"/>
-                            <constraint firstItem="81" firstAttribute="trailing" secondItem="36" secondAttribute="trailing" id="ZYJ-cf-58t"/>
                             <constraint firstItem="32" firstAttribute="baseline" secondItem="23" secondAttribute="baseline" id="clF-4b-aTr"/>
                             <constraint firstItem="23" firstAttribute="leading" secondItem="22" secondAttribute="leading" id="gH5-wN-5Ph"/>
                             <constraint firstItem="35" firstAttribute="leading" secondItem="31" secondAttribute="trailing" constant="7" id="lSR-Ky-8Sk"/>
