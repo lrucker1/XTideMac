@@ -9,6 +9,7 @@
 #import "ComplicationController.h"
 
 @import WatchConnectivity;
+@import WatchKit;
 
 static NSTimeInterval HOUR = 60 * 60;
 //static NSTimeInterval MINUTE = 60;
@@ -18,22 +19,91 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 @property (strong) NSArray *events;
 @property (nonatomic) WCSession* watchSession;
+@property BOOL isBigWatch;
 
 @end
 
 @implementation ComplicationController
 
+- (instancetype)init
+{
+    self = [super init];
+    _isBigWatch = [self isBigWatchCheck];
+    return self;
+}
+
+
+- (BOOL)isBigWatchCheck
+{
+    CGRect rect = [WKInterfaceDevice currentDevice].screenBounds;
+    if (rect.size.height == 195.0) {
+        return YES;
+    } else if (rect.size.height == 170.0) {
+        return NO;
+    }
+    // Assume it's big. It'll get scaled.
+    NSLog(@"Unexpected Watch Size %f", rect.size.height);
+    return YES;
+}
+
+/*
+ * SmallSimpleImage:
+ *  Modular:  52, 58
+ *  Circular: 32, 36
+ * Utilitarian: 18, 20
+ */
+
+- (UIImage *)utilitarianDot
+{
+    return [self dotWithRectSize:self.isBigWatch ? 20 : 18
+                       lineWidth:2];
+}
+
+- (UIImage *)utilitarianDotWithAngle:(CGFloat)radians
+{
+    return [self dotWithRectSize:self.isBigWatch ? 20 : 18
+                       lineWidth:2
+                           angle:radians];
+}
 
 - (UIImage *)modularSmallDot
 {
-    CGRect rect = CGRectMake(0, 0, 32, 32);
+    return [self dotWithRectSize:self.isBigWatch ? 58 : 52
+                       lineWidth:4];
+}
+
+- (UIImage *)modularSmallDotWithAngle:(CGFloat)radians
+{
+    return [self dotWithRectSize:self.isBigWatch ? 58 : 52
+                       lineWidth:4
+                           angle:radians];
+}
+
+- (UIImage *)circularSmallDot
+{
+    return [self dotWithRectSize:self.isBigWatch ? 36 : 32
+                       lineWidth:2];
+}
+
+- (UIImage *)circularSmallDotWithAngle:(CGFloat)radians
+{
+    return [self dotWithRectSize:self.isBigWatch ? 36 : 32
+                       lineWidth:2
+                           angle:radians];
+}
+
+- (UIImage *)dotWithRectSize:(CGFloat)rectSize
+                   lineWidth:(CGFloat)lineWidth
+{
+    CGRect rect = CGRectMake(0, 0, rectSize, rectSize);
+    CGFloat dotInset = (rectSize - lineWidth * 2) / 2;
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
     CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
 
-    CGRect dotRect = CGRectInset(rect, 14, 14);
+    CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
     CGRect edgeRect = CGRectInset(rect, 2, 2);
@@ -46,25 +116,28 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return image;
 }
 
-
-- (UIImage *)modularSmallDotWithAngle:(CGFloat)radians
+- (UIImage *)dotWithRectSize:(CGFloat)rectSize
+                   lineWidth:(CGFloat)lineWidth
+                       angle:(CGFloat)radians
 {
-    CGRect rect = CGRectMake(0, 0, 32, 32);
+    CGFloat dotInset = (rectSize - lineWidth * 2) / 2;
+    CGRect rect = CGRectMake(0, 0, rectSize, rectSize);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
     CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGFloat radius = rect.size.width / 2;
+    CGFloat radius = rectSize / 2;
     CGPoint center = CGPointMake(radius, radius);
-    CGContextSetLineWidth(context, 2);
+    CGContextSetLineWidth(context, lineWidth);
 
-    CGRect dotRect = CGRectInset(rect, 14, 14);
+    CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
     // TODO: Yes, this is inefficient, and having a line with end caps would be prettier.
     // Debugging it is a pain.
-    UIBezierPath *arm = [UIBezierPath bezierPathWithRect:CGRectMake(-1, 0, 2, radius - 6)];
+    UIBezierPath *arm = [UIBezierPath bezierPathWithRect:
+            CGRectMake(-lineWidth / 2, 0, lineWidth, radius - (lineWidth * 2))];
     CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
     position = CGAffineTransformRotate(position, M_PI + radians);
     [arm applyTransform:position];
@@ -271,7 +344,29 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }];
 }
 
-#pragma mark - Placeholder Templates
+#pragma mark - Entry generator
+
+- (CGFloat)angleForEvent:(NSDictionary *)event
+{
+    NSNumber *angleObj = [event objectForKey:@"angle"];
+    CGFloat angle = 0;
+    if (angleObj) {
+        angle = [angleObj floatValue];
+    } else {
+        NSString *type = [event objectForKey:@"type"];
+        if ([type isEqualToString:@"lowtide"]) {
+            angle = M_PI;
+        }
+    }
+    return angle;
+}
+
+- (CLKSimpleTextProvider *)levelTextProviderForEvent:(NSDictionary *)event
+{
+    NSString *level = [event objectForKey:@"level"];
+    NSString *levelShort = [event objectForKey:@"levelShort"];
+    return [CLKSimpleTextProvider textProviderWithText:level shortText:levelShort];
+}
 
 - (CLKComplicationTimelineEntry *)getEntryforComplication: (CLKComplication *)complication
                                                 withEvent: (NSDictionary *)event
@@ -285,7 +380,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateModularLargeStandardBody alloc] init];
         large.headerTextProvider = [CLKTimeTextProvider textProviderWithDate:date];
         large.body1TextProvider = [CLKSimpleTextProvider textProviderWithText:[event objectForKey:@"desc"]];
-        large.body2TextProvider = [CLKSimpleTextProvider textProviderWithText:[event objectForKey:@"level"]];
+        large.body2TextProvider = [self levelTextProviderForEvent:event];
         template = large;
         }
         break;
@@ -293,28 +388,52 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         {
         CLKComplicationTemplateModularSmallSimpleImage *small =
             [[CLKComplicationTemplateModularSmallSimpleImage alloc] init];
-        NSNumber *angleObj = [event objectForKey:@"angle"];
-        CGFloat angle = 0;
-        if (angleObj) {
-            angle = [angleObj floatValue];
-        } else {
-            NSString *type = [event objectForKey:@"type"];
-            if ([type isEqualToString:@"lowtide"]) {
-                angle = M_PI;
-            }
-        }
+        CGFloat angle = [self angleForEvent:event];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self modularSmallDotWithAngle:angle]];
         template = small;
         }
         break;
     case CLKComplicationFamilyUtilitarianLarge:
+        {
+        CLKComplicationTemplateUtilitarianLargeFlat *large =
+            [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
+        NSString *desc = [event objectForKey:@"desc"];
+        // Level starts with spaces.
+        NSString *level = [event objectForKey:@"level"];
+        NSString *levelShort = [event objectForKey:@"levelShort"];
+        NSString *combo = [NSString stringWithFormat:@"%@%@", desc, level];
+        NSString *comboShort = [NSString stringWithFormat:@"%@%@", desc, levelShort];
+        
+        large.textProvider = [CLKSimpleTextProvider textProviderWithText:combo shortText:comboShort];
+        CGFloat angle = [self angleForEvent:event];
+        large.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self utilitarianDotWithAngle:angle]];
+        template = large;
+        }
+        break;
     case CLKComplicationFamilyUtilitarianSmall:
+         {
+        CLKComplicationTemplateUtilitarianSmallFlat *small =
+            [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
+        CGFloat angle = [self angleForEvent:event];
+        small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self utilitarianDotWithAngle:angle]];
+        small.textProvider = [self levelTextProviderForEvent:event];
+        template = small;
+        }
+       break;
     case CLKComplicationFamilyCircularSmall:
+        {
+        CLKComplicationTemplateCircularSmallSimpleImage *small =
+            [[CLKComplicationTemplateCircularSmallSimpleImage alloc] init];
+        CGFloat angle = [self angleForEvent:event];
+        small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self circularSmallDotWithAngle:angle]];
+        template = small;
+        }
         break;
     }
     return [CLKComplicationTimelineEntry entryWithDate:date complicationTemplate:template];
 }
 
+#pragma mark - Placeholder Templates
 
 - (void)getPlaceholderTemplateForComplication:(CLKComplication *)complication
                                   withHandler:(void(^)(CLKComplicationTemplate * __nullable complicationTemplate))handler
@@ -348,8 +467,30 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }
         break;
     case CLKComplicationFamilyUtilitarianLarge:
+        {
+        CLKComplicationTemplateUtilitarianLargeFlat *large =
+            [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
+        large.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
+        large.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self utilitarianDot]];
+        template = large;
+        }
+        break;
     case CLKComplicationFamilyUtilitarianSmall:
+        {
+        CLKComplicationTemplateUtilitarianSmallFlat *small =
+            [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
+        small.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event" shortText:@"Tide"];
+        small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self utilitarianDot]];
+        template = small;
+        }
+        break;
     case CLKComplicationFamilyCircularSmall:
+        {
+        CLKComplicationTemplateCircularSmallSimpleImage *small =
+            [[CLKComplicationTemplateCircularSmallSimpleImage alloc] init];
+        small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self circularSmallDot]];
+        template = small;
+        }
         break;
     }
     handler(template);

@@ -263,9 +263,14 @@ static NSArray *unitsPrefMap = nil;
                 temp += M_PI;
             Dstr levelPrint;
             mStation->predictTideLevel(currentTime).print(levelPrint);
+            NSString *level = DstrToNSString(levelPrint);
+            mStation->predictTideLevel(currentTime).printnp(levelPrint);
+            NSString *levelShort = DstrToNSString(levelPrint);
+           
             NSDictionary *event = @{@"date"  : TimestampToNSDate(currentTime),
                                     @"angle" : @(temp),
-                                    @"level" : DstrToNSString(levelPrint),
+                                    @"level" : level,
+                                    @"levelShort" : levelShort,
                                     @"desc"  : desc};
             [array addObject:event];
             currentTime += libxtide::Global::hour;

@@ -74,6 +74,7 @@
     return @{@"date" : [self date],
              @"desc" : [self longDescription],
              @"level" : [self displayLevel],
+             @"levelShort" : [self displayLevelShort],
              @"type" : [self eventTypeString]};
 }
 
@@ -147,6 +148,20 @@
     NSString *displayLevel = @"";
     if (!mTideEvent->isSunMoonEvent()) {
         mTideEvent->eventLevel.print(levelPrint);
+        displayLevel = DstrToNSString(levelPrint);
+    }
+   return displayLevel;
+}
+
+- (NSString *)displayLevelShort
+{
+    if (eventDate) {
+        return @"";
+    }
+    Dstr levelPrint;
+    NSString *displayLevel = @"";
+    if (!mTideEvent->isSunMoonEvent()) {
+        mTideEvent->eventLevel.printnp(levelPrint);
         displayLevel = DstrToNSString(levelPrint);
     }
    return displayLevel;
