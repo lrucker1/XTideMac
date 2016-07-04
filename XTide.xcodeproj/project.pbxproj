@@ -201,7 +201,7 @@
 		946318F41CBC3242001CD859 /* XTideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318F31CBC3242001CD859 /* XTideTests.m */; };
 		946318FF1CBC3242001CD859 /* XTideUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318FE1CBC3242001CD859 /* XTideUITests.m */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
-		94CE15CE1D249A510088720D /* XTStationAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* XTStationAdditions.mm */; };
+		94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* AppKitAdditions.mm */; };
 		94CE15D01D249EED0088720D /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
 		94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
 		94CE15D21D24A3CE0088720D /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
@@ -216,6 +216,22 @@
 		94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
 		94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */; };
 		94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */; };
+		94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F81D284BB40088720D /* UIKitAdditions.mm */; };
+		94CE16011D287E690088720D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94CE15FF1D287E690088720D /* Interface.storyboard */; };
+		94CE16031D287E690088720D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE16021D287E690088720D /* Assets.xcassets */; };
+		94CE160A1D287E690088720D /* XTideWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 94CE16091D287E690088720D /* XTideWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		94CE16121D287E690088720D /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE16111D287E690088720D /* InterfaceController.m */; };
+		94CE16151D287E690088720D /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE16141D287E690088720D /* ExtensionDelegate.m */; };
+		94CE16181D287E6A0088720D /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE16171D287E6A0088720D /* NotificationController.m */; };
+		94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE161A1D287E6A0088720D /* ComplicationController.m */; };
+		94CE161D1D287E6A0088720D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
+		94CE16221D287E6A0088720D /* XTideWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 94CE15FD1D287E690088720D /* XTideWatch.app */; };
+		94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE162A1D2882250088720D /* WatchConnectivity.framework */; };
+		94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
+		94CE16301D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
+		94CE16311D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
+		94CE16331D28BF310088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
+		94CE16341D28C3C60088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -247,7 +263,46 @@
 			remoteGlobalIDString = 946318DB1CBC3242001CD859;
 			remoteInfo = XTide;
 		};
+		94CE160B1D287E690088720D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94CE16081D287E690088720D;
+			remoteInfo = "XTideWatch Extension";
+		};
+		94CE161F1D287E6A0088720D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94CE15FC1D287E690088720D;
+			remoteInfo = XTideWatch;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		94CE16211D287E6A0088720D /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				94CE16221D287E6A0088720D /* XTideWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94CE16261D287E6A0088720D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				94CE160A1D287E690088720D /* XTideWatch Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		94041BFF1CBEC937003BD343 /* XTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTGraph.h; sourceTree = "<group>"; };
@@ -486,8 +541,8 @@
 		9497B0B61CBC45B50004D687 /* xml_l.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_l.cc; path = "../xtide-2.15.1/libxtide/xml_l.cc"; sourceTree = "<group>"; };
 		9497B0B71CBC45B50004D687 /* xml_y.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml_y.cc; path = "../xtide-2.15.1/libxtide/xml_y.cc"; sourceTree = "<group>"; };
 		9497B0B81CBC45B50004D687 /* Year.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Year.cc; path = "../xtide-2.15.1/libxtide/Year.cc"; sourceTree = "<group>"; };
-		94CE15CB1D249A510088720D /* XTStationAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationAdditions.h; sourceTree = "<group>"; };
-		94CE15CC1D249A510088720D /* XTStationAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStationAdditions.mm; sourceTree = "<group>"; };
+		94CE15CB1D249A510088720D /* AppKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppKitAdditions.h; path = XTide/AppKitAdditions.h; sourceTree = "<group>"; };
+		94CE15CC1D249A510088720D /* AppKitAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppKitAdditions.mm; path = XTide/AppKitAdditions.mm; sourceTree = "<group>"; };
 		94CE15DA1D24A6650088720D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		94CE15DC1D24A6810088720D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		94CE15DE1D24A69E0088720D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -500,6 +555,26 @@
 		94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUIStationTableViewController.mm; sourceTree = "<group>"; };
 		94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIFavoritesTableViewController.h; sourceTree = "<group>"; };
 		94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIFavoritesTableViewController.m; sourceTree = "<group>"; };
+		94CE15F81D284BB40088720D /* UIKitAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIKitAdditions.mm; sourceTree = "<group>"; };
+		94CE15FA1D284BC70088720D /* UIKitAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIKitAdditions.h; sourceTree = "<group>"; };
+		94CE15FD1D287E690088720D /* XTideWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTideWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		94CE16001D287E690088720D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		94CE16021D287E690088720D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		94CE16041D287E690088720D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94CE16091D287E690088720D /* XTideWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "XTideWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		94CE160F1D287E690088720D /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		94CE16101D287E690088720D /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		94CE16111D287E690088720D /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		94CE16131D287E690088720D /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		94CE16141D287E690088720D /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		94CE16161D287E6A0088720D /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		94CE16171D287E6A0088720D /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		94CE16191D287E6A0088720D /* ComplicationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComplicationController.h; sourceTree = "<group>"; };
+		94CE161A1D287E6A0088720D /* ComplicationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComplicationController.m; sourceTree = "<group>"; };
+		94CE161C1D287E6A0088720D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		94CE161E1D287E6A0088720D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94CE162A1D2882250088720D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		94CE162F1D28B8560088720D /* StateImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = StateImages.xcassets; path = XTide/StateImages.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -507,6 +582,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */,
 				94CE15DF1D24A69E0088720D /* Foundation.framework in Frameworks */,
 				94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */,
 				94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */,
@@ -542,6 +618,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		946318F71CBC3242001CD859 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94CE16061D287E690088720D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -598,8 +681,6 @@
 				94041C8A1CBF1938003BD343 /* GraphView.mm */,
 				94041D731CCC2908003BD343 /* XTStationInfoViewController.h */,
 				94041D741CCC2909003BD343 /* XTStationInfoViewController.m */,
-				94CE15CB1D249A510088720D /* XTStationAdditions.h */,
-				94CE15CC1D249A510088720D /* XTStationAdditions.mm */,
 				94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */,
 				94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */,
 				94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */,
@@ -651,10 +732,10 @@
 				945828E21D248BF300972E1C /* AppDelegate.mm */,
 				945828E41D248BF300972E1C /* XTUIMapViewController.h */,
 				945828E51D248BF300972E1C /* XTUIMapViewController.m */,
-				94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */,
-				94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */,
 				94CE15F21D26E6740088720D /* XTUIStationTableViewController.h */,
 				94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */,
+				94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */,
+				94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */,
 				94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */,
 				94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */,
 				94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */,
@@ -699,6 +780,7 @@
 			isa = PBXGroup;
 			children = (
 				94041CA31CC04969003BD343 /* Images.xcassets */,
+				94CE162F1D28B8560088720D /* StateImages.xcassets */,
 				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
 				94041C611CBF1768003BD343 /* sunrise.png */,
 				94041C621CBF1768003BD343 /* sunset.png */,
@@ -723,6 +805,7 @@
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
+				94CE162A1D2882250088720D /* WatchConnectivity.framework */,
 				94CE15DE1D24A69E0088720D /* Foundation.framework */,
 				94CE15DC1D24A6810088720D /* UIKit.framework */,
 				94CE15DA1D24A6650088720D /* MapKit.framework */,
@@ -742,6 +825,8 @@
 				945828DD1D248BF300972E1C /* XTide-ios */,
 				945828FD1D248BF300972E1C /* XTide-iosTests */,
 				945829081D248BF300972E1C /* XTide-iosUITests */,
+				94CE15FE1D287E690088720D /* XTideWatch */,
+				94CE160D1D287E690088720D /* XTideWatch Extension */,
 				946318DD1CBC3242001CD859 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -755,6 +840,8 @@
 				945828DC1D248BF300972E1C /* XTide-ios.app */,
 				945828FA1D248BF300972E1C /* XTide-iosTests.xctest */,
 				945829051D248BF300972E1C /* XTide-iosUITests.xctest */,
+				94CE15FD1D287E690088720D /* XTideWatch.app */,
+				94CE16091D287E690088720D /* XTideWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -905,9 +992,6 @@
 		9497B0EB1CBC4E910004D687 /* xtideFoundation */ = {
 			isa = PBXGroup;
 			children = (
-				94041BFF1CBEC937003BD343 /* XTGraph.h */,
-				94041CA91CC05A80003BD343 /* XTGraphInt.h */,
-				94041C001CBEC937003BD343 /* XTGraph.mm */,
 				94041CB81CC1AD7C003BD343 /* XTColorUtils.h */,
 				94041CB61CC1AD70003BD343 /* XTColorUtils.m */,
 				94041C061CBECAD6003BD343 /* XTSettings.h */,
@@ -917,6 +1001,9 @@
 				94041C051CBECAD6003BD343 /* XTCalendar.mm */,
 				94041C081CBECAD6003BD343 /* XTGlobal.h */,
 				94041C091CBECAD6003BD343 /* XTGlobal.mm */,
+				94041BFF1CBEC937003BD343 /* XTGraph.h */,
+				94041CA91CC05A80003BD343 /* XTGraphInt.h */,
+				94041C001CBEC937003BD343 /* XTGraph.mm */,
 				94041C0A1CBECAD6003BD343 /* XTStationIndex.h */,
 				94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */,
 				94041C0C1CBECAD6003BD343 /* XTStationRef.h */,
@@ -939,6 +1026,8 @@
 		94CE15CA1D2495B60088720D /* xtideAppKit */ = {
 			isa = PBXGroup;
 			children = (
+				94CE15CB1D249A510088720D /* AppKitAdditions.h */,
+				94CE15CC1D249A510088720D /* AppKitAdditions.mm */,
 			);
 			name = xtideAppKit;
 			sourceTree = "<group>";
@@ -946,8 +1035,46 @@
 		94CE15E01D24D3D00088720D /* xtideUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				94CE15FA1D284BC70088720D /* UIKitAdditions.h */,
+				94CE15F81D284BB40088720D /* UIKitAdditions.mm */,
 			);
 			name = xtideUIKit;
+			sourceTree = "<group>";
+		};
+		94CE15FE1D287E690088720D /* XTideWatch */ = {
+			isa = PBXGroup;
+			children = (
+				94CE15FF1D287E690088720D /* Interface.storyboard */,
+				94CE16021D287E690088720D /* Assets.xcassets */,
+				94CE16041D287E690088720D /* Info.plist */,
+			);
+			path = XTideWatch;
+			sourceTree = "<group>";
+		};
+		94CE160D1D287E690088720D /* XTideWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				94CE16101D287E690088720D /* InterfaceController.h */,
+				94CE16111D287E690088720D /* InterfaceController.m */,
+				94CE16131D287E690088720D /* ExtensionDelegate.h */,
+				94CE16141D287E690088720D /* ExtensionDelegate.m */,
+				94CE16161D287E6A0088720D /* NotificationController.h */,
+				94CE16171D287E6A0088720D /* NotificationController.m */,
+				94CE16191D287E6A0088720D /* ComplicationController.h */,
+				94CE161A1D287E6A0088720D /* ComplicationController.m */,
+				94CE161C1D287E6A0088720D /* Assets.xcassets */,
+				94CE161E1D287E6A0088720D /* Info.plist */,
+				94CE160E1D287E690088720D /* Supporting Files */,
+			);
+			path = "XTideWatch Extension";
+			sourceTree = "<group>";
+		};
+		94CE160E1D287E690088720D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				94CE160F1D287E690088720D /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -960,10 +1087,12 @@
 				945828D81D248BF300972E1C /* Sources */,
 				945828D91D248BF300972E1C /* Frameworks */,
 				945828DA1D248BF300972E1C /* Resources */,
+				94CE16211D287E6A0088720D /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				94CE16201D287E6A0088720D /* PBXTargetDependency */,
 			);
 			name = "XTide-ios";
 			productName = "XTide-ios";
@@ -1059,6 +1188,40 @@
 			productReference = 946318FA1CBC3242001CD859 /* XTideUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		94CE15FC1D287E690088720D /* XTideWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94CE16271D287E6A0088720D /* Build configuration list for PBXNativeTarget "XTideWatch" */;
+			buildPhases = (
+				94CE15FB1D287E690088720D /* Resources */,
+				94CE16261D287E6A0088720D /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				94CE160C1D287E690088720D /* PBXTargetDependency */,
+			);
+			name = XTideWatch;
+			productName = XTideWatch;
+			productReference = 94CE15FD1D287E690088720D /* XTideWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		94CE16081D287E690088720D /* XTideWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94CE16231D287E6A0088720D /* Build configuration list for PBXNativeTarget "XTideWatch Extension" */;
+			buildPhases = (
+				94CE16051D287E690088720D /* Sources */,
+				94CE16061D287E690088720D /* Frameworks */,
+				94CE16071D287E690088720D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "XTideWatch Extension";
+			productName = "XTideWatch Extension";
+			productReference = 94CE16091D287E690088720D /* XTideWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1090,6 +1253,12 @@
 						CreatedOnToolsVersion = 7.3;
 						TestTargetID = 946318DB1CBC3242001CD859;
 					};
+					94CE15FC1D287E690088720D = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					94CE16081D287E690088720D = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 946318D71CBC3242001CD859 /* Build configuration list for PBXProject "XTide" */;
@@ -1117,6 +1286,8 @@
 				945828DB1D248BF300972E1C /* XTide-ios */,
 				945828F91D248BF300972E1C /* XTide-iosTests */,
 				945829041D248BF300972E1C /* XTide-iosUITests */,
+				94CE15FC1D287E690088720D /* XTideWatch */,
+				94CE16081D287E690088720D /* XTideWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -1134,6 +1305,7 @@
 				945829551D248DD200972E1C /* toolbar-calendar.png in Resources */,
 				945829521D248DD200972E1C /* blank.png in Resources */,
 				945829541D248DD200972E1C /* toolbar-list.png in Resources */,
+				94CE16311D28B8560088720D /* StateImages.xcassets in Resources */,
 				94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */,
 				945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */,
 				945829471D248DD200972E1C /* sunset.png in Resources */,
@@ -1204,6 +1376,7 @@
 				94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */,
 				94041C781CBF1768003BD343 /* fullmoon.png in Resources */,
 				94041C7C1CBF1768003BD343 /* falling.png in Resources */,
+				94CE16301D28B8560088720D /* StateImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1218,6 +1391,26 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94CE15FB1D287E690088720D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */,
+				94CE16031D287E690088720D /* Assets.xcassets in Resources */,
+				94CE16011D287E690088720D /* Interface.storyboard in Resources */,
+				94CE16331D28BF310088720D /* StateImages.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94CE16071D287E690088720D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94CE161D1D287E6A0088720D /* Assets.xcassets in Resources */,
+				94CE16341D28C3C60088720D /* StateImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1267,6 +1460,7 @@
 				9458293C1D248D7900972E1C /* Constituent.cc in Sources */,
 				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
 				945829241D248D7100972E1C /* HarmonicsPath.cc in Sources */,
+				94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */,
 				945829341D248D7900972E1C /* Calendar.cc in Sources */,
 				945829151D248D6100972E1C /* SubordinateStation.cc in Sources */,
 				945829601D24935A00972E1C /* XTUtils.mm in Sources */,
@@ -1353,7 +1547,7 @@
 				94041C301CBECB40003BD343 /* CurrentBearing.cc in Sources */,
 				94041C311CBECB40003BD343 /* Date.cc in Sources */,
 				94041C321CBECB40003BD343 /* Dstr.cc in Sources */,
-				94CE15CE1D249A510088720D /* XTStationAdditions.mm in Sources */,
+				94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */,
 				94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */,
 				94041C341CBECB40003BD343 /* Graph.cc in Sources */,
 				94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */,
@@ -1415,6 +1609,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		94CE16051D287E690088720D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94CE16151D287E690088720D /* ExtensionDelegate.m in Sources */,
+				94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */,
+				94CE16121D287E690088720D /* InterfaceController.m in Sources */,
+				94CE16181D287E6A0088720D /* NotificationController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1437,6 +1642,16 @@
 			isa = PBXTargetDependency;
 			target = 946318DB1CBC3242001CD859 /* XTide */;
 			targetProxy = 946318FB1CBC3242001CD859 /* PBXContainerItemProxy */;
+		};
+		94CE160C1D287E690088720D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94CE16081D287E690088720D /* XTideWatch Extension */;
+			targetProxy = 94CE160B1D287E690088720D /* PBXContainerItemProxy */;
+		};
+		94CE16201D287E6A0088720D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94CE15FC1D287E690088720D /* XTideWatch */;
+			targetProxy = 94CE161F1D287E6A0088720D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1511,6 +1726,14 @@
 				946318E81CBC3242001CD859 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		94CE15FF1D287E690088720D /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94CE16001D287E690088720D /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1780,6 +2003,68 @@
 			};
 			name = Release;
 		};
+		94CE16241D287E6A0088720D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		94CE16251D287E6A0088720D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		94CE16281D287E6A0088720D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = XTideWatch_Extension;
+				INFOPLIST_FILE = XTideWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		94CE16291D287E6A0088720D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				IBSC_MODULE = XTideWatch_Extension;
+				INFOPLIST_FILE = XTideWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1845,6 +2130,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		94CE16231D287E6A0088720D /* Build configuration list for PBXNativeTarget "XTideWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94CE16241D287E6A0088720D /* Debug */,
+				94CE16251D287E6A0088720D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94CE16271D287E6A0088720D /* Build configuration list for PBXNativeTarget "XTideWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94CE16281D287E6A0088720D /* Debug */,
+				94CE16291D287E6A0088720D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

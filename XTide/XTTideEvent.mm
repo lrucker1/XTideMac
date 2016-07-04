@@ -64,6 +64,55 @@
     eventDate = nil;
 }
 
+- (libxtide::TideEvent *)adaptedTideEvent
+{
+    return mTideEvent;
+}
+
+- (NSDictionary *)eventDictionary
+{
+    return @{@"date" : [self date],
+             @"desc" : [self longDescription],
+             @"level" : [self displayLevel],
+             @"type" : [self eventTypeString]};
+}
+
+// Used for images and watch complications
+- (NSString *)eventTypeString
+{
+	switch (self.eventType) {
+		case libxtide::TideEvent::sunrise:
+			return @"sunrise";
+		case libxtide::TideEvent::sunset:
+			return @"sunset";
+		case libxtide::TideEvent::moonrise:
+			return @"moonrise";
+		case libxtide::TideEvent::moonset:
+			return @"moonset";
+		case libxtide::TideEvent::newmoon:
+			return @"newmoon";
+		case libxtide::TideEvent::firstquarter:
+			return @"firstquarter";
+		case libxtide::TideEvent::fullmoon:
+			return @"fullmoon";
+		case libxtide::TideEvent::lastquarter:
+			return @"lastquarter";
+		case libxtide::TideEvent::max:
+			return @"hightide";
+		case libxtide::TideEvent::min:
+			return @"lowtide";
+		case libxtide::TideEvent::slackrise:
+		case libxtide::TideEvent::markrise:
+			return @"rising";
+		case libxtide::TideEvent::slackfall:
+		case libxtide::TideEvent::markfall:
+			return @"falling";
+		default:
+			return @"";
+	}
+    return @"";
+}
+
 - (NSDate *)date
 {
     if (eventDate) {
@@ -89,19 +138,26 @@
     return DstrToNSString(mTideEvent->longDescription());
 }
 
-- (NSString *)longDescriptionAndLevel
+- (NSString *)displayLevel
 {
     if (eventDate) {
         return @"";
     }
-    NSString *longDesc = DstrToNSString(mTideEvent->longDescription());
     Dstr levelPrint;
     NSString *displayLevel = @"";
     if (!mTideEvent->isSunMoonEvent()) {
         mTideEvent->eventLevel.print(levelPrint);
         displayLevel = DstrToNSString(levelPrint);
     }
-    return [NSString stringWithFormat:@"%@ %@", longDesc, displayLevel];
+   return displayLevel;
+}
+
+- (NSString *)longDescriptionAndLevel
+{
+    if (eventDate) {
+        return @"";
+    }
+    return [NSString stringWithFormat:@"%@ %@", [self longDescription], [self displayLevel]];
 }
 
 // Generate one line of text output, applying global formatting

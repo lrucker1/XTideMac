@@ -50,7 +50,6 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 @property (readwrite, retain) NSEvent *lastEvent;
 @property NSPoint initialPoint;
 @property(readwrite) NSUInteger modifiers;
-@property BOOL isTracking;
 @property(readonly) NSPoint deltaOrigin;
 @property(readonly) NSSize deltaSize;
 @property CGFloat threshold;

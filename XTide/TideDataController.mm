@@ -73,7 +73,6 @@
                           organizer:tempOrganizer
                              filter:libxtide::Station::noFilter];
 	self.organizer = tempOrganizer;
-    [organizer reloadData];
 	[tideTableView noteNumberOfRowsChanged];
 	[tideTableView reloadData];
 }
@@ -140,51 +139,11 @@
 				attributes:self.detailAttributes]];
 		return text;
 	}
-	NSImage *image = nil;
-	switch (tideEvent.eventType) {
-		case libxtide::TideEvent::sunrise:
-			image = [self imageWithName:@"sunrise"];
-			break;
-		case libxtide::TideEvent::sunset:
-			image = [self imageWithName:@"sunset"];
-			break;
-		case libxtide::TideEvent::moonrise:
-			image = [self imageWithName:@"moonrise"];
-			break;
-		case libxtide::TideEvent::moonset:
-			image = [self imageWithName:@"moonset"];
-			break;
-		case libxtide::TideEvent::newmoon:
-			image = [self imageWithName:@"newmoon"];
-			break;
-		case libxtide::TideEvent::firstquarter:
-			image = [self imageWithName:@"firstquarter"];
-			break;
-		case libxtide::TideEvent::fullmoon:
-			image = [self imageWithName:@"fullmoon"];
-			break;
-		case libxtide::TideEvent::lastquarter:
-			image = [self imageWithName:@"lastquarter"];
-			break;
-		case libxtide::TideEvent::max:
-			image = [self imageWithName:@"hightide"];
-			break;
-		case libxtide::TideEvent::min:
-			image = [self imageWithName:@"lowtide"];
-			break;
-		case libxtide::TideEvent::slackrise:
-		case libxtide::TideEvent::markrise:
-			image = [self imageWithName:@"rising"];
-			break;
-		case libxtide::TideEvent::slackfall:
-		case libxtide::TideEvent::markfall:
-			image = [self imageWithName:@"falling"];
-			break;
-		default:
-			image = [self imageWithName:@"blank"];
-			break;
-	}
-	return image;
+    NSString *imgString = tideEvent.eventTypeString;
+    if ([imgString length] == 0) {
+        imgString = @"blank";
+    }
+	return [self imageWithName:imgString];
 }
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {

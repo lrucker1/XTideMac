@@ -642,7 +642,6 @@ doCommandBySelector:(SEL)commandSelector
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     } else if (   [keyPath isEqualToString:XTide_ColorKeys[refcolor]]
                || [keyPath isEqualToString:XTide_ColorKeys[subcolor]]) {
-        NSLog(@"color kvo");
 		if ([self updateColors]) {
             // Force all the annotation views to reload iff the colors changed.
             NSArray *oldAnnotations = self.mapView.annotations;

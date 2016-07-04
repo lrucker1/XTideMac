@@ -24,5 +24,7 @@
 - (NSInteger)count;
 - (XTTideEvent *)objectAtIndex: (NSInteger)i;
 - (void)reloadData;
+- (NSArray *)eventsAsDictionary;
+- (NSArray *)standardEvents;
 
 @end

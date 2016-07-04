@@ -28,6 +28,7 @@
 + (void)strokeLineFromPoint:(CGPoint)p1 toPoint:(CGPoint)p2
 {
     UIBezierPath *path = [UIBezierPath bezierPath];
+    path.lineWidth = 0.5;
     [path moveToPoint:p1];
     [path addLineToPoint:p2];
     [path stroke];
@@ -105,6 +106,7 @@ namespace libxtide {
  *-----------------------------------------------------------------------------
  *
  * -[XTGraph initWithXSize:ysize:] --
+ * -[XTGraph initClockModeWithXSize:ysize:] --
  *
  *      Initializer.
  *
@@ -117,8 +119,8 @@ namespace libxtide {
  *-----------------------------------------------------------------------------
  */
 
-- (id)initWithXSize:(unsigned)xsize // IN
-              ysize:(unsigned)ysize  // IN
+- (instancetype)initWithXSize:(CGFloat)xsize // IN
+                        ysize:(CGFloat)ysize  // IN
 {
     self = [super init];
     if (!self) {
@@ -130,6 +132,20 @@ namespace libxtide {
     return self;
 }
 
+
+- (instancetype)initClockModeWithXSize:(CGFloat)xsize
+                                 ysize:(CGFloat)ysize
+                                 scale:(CGFloat)scale
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    mGraph = new libxtide::CocoaGraph(xsize, ysize, scale, libxtide::Graph::clock);
+    
+    return self;
+}
 
 
 /*
@@ -226,11 +242,18 @@ namespace libxtide {
 
 libxtide::CocoaGraph::CocoaGraph(unsigned xSize,
                                  unsigned ySize,
+                                 CGFloat scale,
                                  GraphStyle style):
 PixelatedGraph(xSize, ySize, style)
 {
 #if TARGET_OS_IPHONE
-    font = [UIFont systemFontOfSize:(float)12.0];
+    // We use clock mode for the watch.
+    // TODO: either support scale or stop drawing text on clocks.
+    if (style == libxtide::Graph::clock) {
+        font = [UIFont systemFontOfSize:(float)12.0];
+    } else {
+        font = [UIFont systemFontOfSize:(float)12.0];
+    }
 #else
     font = [NSFont userFontOfSize:(float)12.0];
 #endif

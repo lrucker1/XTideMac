@@ -9,8 +9,10 @@
 #import "XTUIStationTableViewController.h"
 
 #import "AppDelegate.h"
+#import "XTStationIndex.h"
 #import "XTStationRef.h"
 #import "XTUIGraphViewController.h"
+#import "UIKitAdditions.h"
 
 @interface XTUIStationTableViewController ()
 
@@ -55,6 +57,12 @@
     // hierarchy until it finds the root view controller or one that defines a presentation context.
     //
     self.definesPresentationContext = YES;  // know where you want UISearchController to be displayed
+}
+
+-(void)dealloc
+{
+    // http://stackoverflow.com/questions/32282401/attempting-to-load-the-view-of-a-view-controller-while-it-is-deallocating-uis
+    [_searchController.view removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,8 +145,35 @@
     XTStationRef *ref = [self.filteredArray objectAtIndex:[indexPath row]];
     cell.textLabel.text = ref.title;
     cell.detailTextLabel.text = ref.subtitle;
-    
+    cell.imageView.image = ref.stationDot;
+ 
+    UIButton *favoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [favoriteButton setFrame:CGRectMake(0, 0, 32, 32)];
+    [favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarOpen"] forState:UIControlStateNormal];
+    [favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarFilled"] forState:UIControlStateSelected];
+    [favoriteButton addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
+    cell.accessoryView = favoriteButton;
+   
     return cell;
+}
+
+- (void)checkButtonTapped:(id)sender event:(id)event
+{
+    NSSet *touches = [event allTouches];
+    UITouch *touch = [touches anyObject];
+    CGPoint currentTouchPosition = [touch locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    if (indexPath != nil){
+        UIButton *button = (UIButton *)sender;
+        button.selected = !button.selected;
+        XTStationRef *ref = [self.filteredArray objectAtIndex:[indexPath row]];
+        if (button.selected) {
+            [[XTStationIndex sharedStationIndex] addFavorite:ref];
+        }
+        else {
+            [[XTStationIndex sharedStationIndex] removeFavorite:ref];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -155,10 +155,43 @@ NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexSt
     return [[self favoriteNames] containsObject:[ref title]];
 }
 
+// Return names for simple lists.
 - (NSArray *)favoriteNames
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:XTStationFavoritesKey];
 }
+
+// Return StationRefs for the current favorites.
+- (NSArray *)favoriteStationRefs
+{
+    NSArray *names = [self favoriteNames];
+    NSMutableArray *refs = [NSMutableArray array];
+    for (NSString *name in names) {
+        XTStationRef *ref = [self stationRefByName:name];
+        if (ref) {
+            [refs addObject:ref];
+        }
+    }
+    return [NSArray arrayWithArray:refs];
+}
+
+- (XTStationRef *)favoriteNearestLocation:(CLLocation *)location
+{
+    CLLocationDistance d = DBL_MAX;
+    XTStationRef *closest = nil;
+    NSArray *refs = [self favoriteStationRefs];
+    for (XTStationRef *ref in refs) {
+        CLLocationCoordinate2D coord = ref.coordinate;
+        CLLocation *loc = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+        CLLocationDistance dTest = [loc distanceFromLocation:location];
+        if (dTest < d) {
+            d = dTest;
+            closest = ref;
+        }
+    }
+    return closest;
+}
+
 
 #pragma mark adaptation
 

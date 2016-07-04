@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 extern NSString * const XTStationIndexStationsReloadedNotification;
 
@@ -30,5 +31,7 @@ extern NSString * const XTStationIndexStationsReloadedNotification;
 - (void)removeFavoriteByName:(NSString *)name;
 - (BOOL)isFavorite:(XTStationRef *)ref;
 - (NSArray *)favoriteNames;
+- (NSArray *)favoriteStationRefs;
+- (XTStationRef *)favoriteNearestLocation:(CLLocation *)location;
 
 @end

@@ -33,5 +33,8 @@ typedef struct TouchInfo {
 
 @property (strong) XTStation *station;
 @property (strong) NSDate *graphdate;
+@property BOOL hasCustomDate;
+
+- (void)returnToNow;
 
 @end

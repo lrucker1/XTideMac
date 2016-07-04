@@ -54,15 +54,6 @@
 - (libxtide::PredictionValue)minLevel;
 - (libxtide::PredictionValue)maxLevel;
 
-- (void)predictTideEventsStart:(NSDate*)startTime
-                           end:(NSDate*)endTime
-                     organizer:(XTTideEventsOrganizer*)organizer
-                        filter:(int)filter;
-
-- (void)predictTideEventsStart:(NSDate*)startTime
-                           end:(NSDate*)endTime
-                     organizer:(XTTideEventsOrganizer*)organizer;
-
 - (libxtide::PredictionValue)predictTideLevel:(NSDate *) predictTime;
 
 @end

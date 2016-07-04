@@ -135,6 +135,8 @@ regionDidChangeAnimated:(BOOL)animated
         NSLog(@"Unexpected annotation %@", annotation);
         return nil;
     }
+
+    
     MKAnnotationView *returnedAnnotationView =
         [mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([XTStationRef class])];
     UIButton *favoriteButton = nil;
@@ -161,15 +163,34 @@ regionDidChangeAnimated:(BOOL)animated
     XTStationRef *ref = (XTStationRef *)annotation;
     favoriteButton.selected = [[XTStationIndex sharedStationIndex] isFavorite:ref];
 
-    ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor =
-            ref.isReferenceStation ? self.refColor
-                                   : self.subColor;
+    /*
+     * TODO: Remove when not debugging: Use another color for favorites. We'd have to add/remove
+     * all pins when favorites change if we wanted that for a user feature.
+     */
+    UIColor *color = ref.isReferenceStation ? self.refColor
+                                            : self.subColor;
+    if ([[XTStationIndex sharedStationIndex] isFavorite:ref]) {
+        color = [UIColor whiteColor];
+        // TODO: Cache this.
+        CLLocation *loc = self.mapView.userLocation.location;
+        XTStationRef *closest = nil;
+        if (loc) {
+            closest = [[XTStationIndex sharedStationIndex] favoriteNearestLocation:loc];
+        }
+        if ([closest isEqual:ref]) {
+            color = [UIColor blackColor];
+        }
+    }
+    ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor = color;
+
     return returnedAnnotationView;
 }
 
 
 // user tapped the call out accessory: star or 'i' button
-- (void)mapView:(MKMapView *)aMapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+- (void)mapView:(MKMapView *)aMapView
+ annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control
 {
     
     XTStationRef *annotation = (XTStationRef *)view.annotation;
@@ -179,7 +200,7 @@ regionDidChangeAnimated:(BOOL)animated
     }
    
     UIButton *button = (UIButton *)control;
-    if (button.buttonType == UIButtonTypeDetailDisclosure) {
+    if (control == view.rightCalloutAccessoryView) {
         XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
         viewController.edgesForExtendedLayout = UIRectEdgeNone;
         [viewController updateStation:[annotation loadStation]];

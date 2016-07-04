@@ -20,7 +20,7 @@ namespace libxtide {
 class CocoaGraph: public PixelatedGraph
 {
 public:
-    CocoaGraph (unsigned xSize, unsigned ySize, GraphStyle style = normal);
+    CocoaGraph (unsigned xSize, unsigned ySize, CGFloat scale = 1, GraphStyle style = normal);
     ~CocoaGraph();
     
     void startPixelCache();
@@ -76,6 +76,7 @@ protected:
     NSFont *font;
 #endif
     NSMutableDictionary *attributes;
+    CGFloat scale;
     
     void UpdateColors();
     

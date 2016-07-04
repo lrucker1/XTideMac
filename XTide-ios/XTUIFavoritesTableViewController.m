@@ -10,6 +10,7 @@
 #import "XTStationIndex.h"
 #import "XTStationRef.h"
 #import "XTUIGraphViewController.h"
+#import "UIKitAdditions.h"
 
 @interface XTUIFavoritesTableViewController ()
 
@@ -21,10 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteNames];
+    self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteStationRefs];
     
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -50,8 +51,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoriteInfo" forIndexPath:indexPath];
-    
-    cell.textLabel.text = [self.favoritesArray objectAtIndex:[indexPath row]];
+
+    XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
+    cell.textLabel.text = ref.title;
+    cell.detailTextLabel.text = ref.subtitle;
+    cell.imageView.image = ref.stationDot;
     
     return cell;
 }
@@ -63,8 +67,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *name = [self.favoritesArray objectAtIndex:[indexPath row]];
-    XTStationRef *ref = [[XTStationIndex sharedStationIndex] stationRefByName:name];
+    XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
     if (ref) {
         XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
         viewController.edgesForExtendedLayout = UIRectEdgeNone;
@@ -87,11 +90,11 @@
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSString *name = [self.favoritesArray objectAtIndex:[indexPath row]];
+        XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
         // Delete the row from the data source
-        [[XTStationIndex sharedStationIndex] removeFavoriteByName:name];
-        self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteNames];
-         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [[XTStationIndex sharedStationIndex] removeFavorite:ref];
+        self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteStationRefs];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 

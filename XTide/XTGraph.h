@@ -21,7 +21,11 @@
 + (BOOL)isColorOfInterest:(NSString*)key;
 + (NSArray *)colorsOfInterest;
 
-- (id)initWithXSize:(unsigned)xsize ysize:(unsigned)ysize;
+
+- (instancetype)initWithXSize:(CGFloat)xsize ysize:(CGFloat)ysize;
+- (instancetype)initClockModeWithXSize:(CGFloat)xsize
+                                 ysize:(CGFloat)ysize
+                                 scale:(CGFloat)scale;
 
 // This is where it all starts
 - (void)drawTides:(XTStation*)sr now:(NSDate*)now;

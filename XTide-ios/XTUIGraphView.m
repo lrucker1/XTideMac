@@ -30,7 +30,6 @@ const NSUInteger DEFAULT_CAPACITY = 20;
 
 @property (readwrite, retain) NSTimer *flickTimer;
 @property CGPoint initialPoint;
-@property BOOL isTracking;
 
 @end
 
@@ -38,7 +37,6 @@ const NSUInteger DEFAULT_CAPACITY = 20;
 @implementation XTUIGraphView
 
 @synthesize flickTimer;
-
 
 - (void)drawRect:(CGRect)rect
 {
@@ -60,6 +58,15 @@ const NSUInteger DEFAULT_CAPACITY = 20;
     }
 }
 
+- (void)returnToNow
+{
+    // TODO: Some intermediate dates so it's not so abrupt.
+    [self stopMotion];
+    self.hasCustomDate = NO;
+    self.graphdate = [NSDate date];
+    [self setNeedsDisplay];
+}
+
 // Not part of standard XTide; this is here for dragging.
 - (double)offsetTimeForDeltaX: (double)deltaX
 {
@@ -74,6 +81,7 @@ const NSUInteger DEFAULT_CAPACITY = 20;
         if (localDelta != deltaX) {
             NSLog(@"time to bounce %f %f %f", deltaX, localDelta, deltaX - localDelta);
         }
+        self.hasCustomDate = YES;
         [self setNeedsDisplay];
         return localDelta;
     }

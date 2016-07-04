@@ -66,17 +66,37 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Sfv-3D-k4s" firstAttribute="leading" secondItem="231-yD-fVU" secondAttribute="leadingMargin" constant="-20" id="3Gv-IE-t0l"/>
+                            <constraint firstItem="wRJ-Zh-FTC" firstAttribute="top" secondItem="Sfv-3D-k4s" secondAttribute="bottom" id="3dE-hO-XsY"/>
                             <constraint firstItem="qFV-mC-Tka" firstAttribute="top" secondItem="Sfv-3D-k4s" secondAttribute="bottom" id="3s1-zJ-DMy"/>
+                            <constraint firstItem="Sfv-3D-k4s" firstAttribute="leading" secondItem="231-yD-fVU" secondAttribute="leadingMargin" constant="-20" id="3wA-ac-GA5"/>
                             <constraint firstItem="Sfv-3D-k4s" firstAttribute="top" secondItem="231-yD-fVU" secondAttribute="topMargin" id="5nw-43-FaG"/>
                             <constraint firstItem="wRJ-Zh-FTC" firstAttribute="top" secondItem="qFV-mC-Tka" secondAttribute="bottom" id="BL6-ym-9hU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qFV-mC-Tka" secondAttribute="trailing" constant="-20" id="D0d-Ba-snW"/>
+                            <constraint firstItem="Sfv-3D-k4s" firstAttribute="top" secondItem="231-yD-fVU" secondAttribute="top" id="E9R-6F-Hbb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Sfv-3D-k4s" secondAttribute="trailing" constant="-20" id="HM1-2D-0Tc"/>
+                            <constraint firstItem="wRJ-Zh-FTC" firstAttribute="top" secondItem="Sfv-3D-k4s" secondAttribute="bottom" priority="750" id="QQj-Vj-9S9"/>
+                            <constraint firstItem="qFV-mC-Tka" firstAttribute="bottom" secondItem="Sfv-3D-k4s" secondAttribute="bottom" id="Tk5-Fy-UIu"/>
+                            <constraint firstItem="wRJ-Zh-FTC" firstAttribute="top" secondItem="qFV-mC-Tka" secondAttribute="bottom" id="V1b-1Y-S6h"/>
+                            <constraint firstItem="Sfv-3D-k4s" firstAttribute="top" secondItem="231-yD-fVU" secondAttribute="topMargin" id="Vum-cN-WUn"/>
                             <constraint firstItem="qFV-mC-Tka" firstAttribute="leading" secondItem="231-yD-fVU" secondAttribute="leadingMargin" constant="-20" id="WfJ-Sj-lvm"/>
                             <constraint firstItem="wRJ-Zh-FTC" firstAttribute="top" secondItem="Sfv-3D-k4s" secondAttribute="bottom" id="XvL-bI-FJV"/>
+                            <constraint firstItem="Sfv-3D-k4s" firstAttribute="leading" secondItem="231-yD-fVU" secondAttribute="leadingMargin" constant="-20" id="bGz-1n-yHT"/>
+                            <constraint firstItem="Sfv-3D-k4s" firstAttribute="bottom" secondItem="wRJ-Zh-FTC" secondAttribute="top" id="eyf-91-Mig"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Sfv-3D-k4s" secondAttribute="trailing" constant="-20" id="kvY-0s-bwu"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="3Gv-IE-t0l"/>
+                                <exclude reference="3wA-ac-GA5"/>
+                                <exclude reference="5nw-43-FaG"/>
+                                <exclude reference="HM1-2D-0Tc"/>
+                                <exclude reference="Vum-cN-WUn"/>
+                                <exclude reference="eyf-91-Mig"/>
                                 <exclude reference="3s1-zJ-DMy"/>
+                                <exclude reference="Tk5-Fy-UIu"/>
+                                <exclude reference="3dE-hO-XsY"/>
+                                <exclude reference="BL6-ym-9hU"/>
+                                <exclude reference="XvL-bI-FJV"/>
                             </mask>
                         </variation>
                     </view>

@@ -19,10 +19,17 @@
 	NSDate *eventDate;
 }
 
-- (NSDate *)date;
 - (id)initWithTideEvent:(libxtide::TideEvent *)aTideEvent;
 - (id)initWithDate:(NSDate *)date;
+
+- (libxtide::TideEvent *)adaptedTideEvent;
+
+- (NSDate *)date;
 - (NSString *)longDescriptionAndLevel;
+- (NSString *)longDescription;
+- (NSString *)displayLevel;
+- (NSDictionary *)eventDictionary;
+- (NSString *)eventTypeString;
 - (NSString *)timeForStation: (XTStation *)station;
 
 - (libxtide::TideEvent::EventType)eventType;

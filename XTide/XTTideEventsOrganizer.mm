@@ -90,6 +90,25 @@
     return [events objectAtIndex:i];
 }
 
+// Tide events as simple dictionaries for IPC.
+- (NSArray *)eventsAsDictionary
+{
+    NSMutableArray *array = [NSMutableArray array];
+    for (XTTideEvent *event in [self standardEvents]) {
+        NSDictionary *dict = [event eventDictionary];
+        [array addObject:dict];
+    }
+    return array;
+}
+
+/*
+ * The cached events are primarily for use in tables, so they add dateEvents.
+ *
+ * We could generate the array on request, but most organizer clients predict once
+ * and then keep reusing it, so adding code to track changes to the C++ contents
+ * would be overkill.
+ * TODO: Cache both table and standard arrays in this method.
+ */
 - (void)reloadData
 {
     // TideEventsOrganizer sorts by timestamp.
@@ -117,6 +136,22 @@
         [tempEvents addObject:xtEvent];
     }
     self.events = tempEvents;
+}
+
+// Only the predicted events, no date events.
+- (NSArray *)standardEvents
+{
+    // TideEventsOrganizer sorts by timestamp.
+    NSMutableArray *tempEvents = [NSMutableArray array];
+    
+    for (libxtide::TideEventsIterator it = mTideEventsOrganizer->begin();
+         it != mTideEventsOrganizer->end();
+         ++it) {
+        libxtide::TideEvent &event (it->second);
+        XTTideEvent *xtEvent = [[XTTideEvent alloc] initWithTideEvent:&event];
+        [tempEvents addObject:xtEvent];
+    }
+    return tempEvents;
 }
 
 @end
