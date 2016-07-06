@@ -95,88 +95,6 @@ static NSArray *unitsPrefMap = nil;
    return [[self dayFormatter] stringFromDate:date];
 }
 
-// Need a max/min pair bracketing current time for tide clock icon
-// angle kludge. See Graph::drawTides.
-
-- (libxtide::Angle)computeAngle:(libxtide::Timestamp)startTime
-{
-    libxtide::TideEvent nextMax, nextMin;
-    libxtide::Timestamp currentTime ((time_t)time(NULL));
-    // First get a list of the relevant tide events.  Need some extra on
-    // either side since text pertaining to events occurring beyond the
-    // margins can still be visible.  We also need to make sure
-    // *something* shows up so that extendRange can work below.
-    
-    libxtide::TideEventsOrganizer organizer;
-    libxtide::Interval delta;
-    libxtide::Timestamp endTime (startTime + libxtide::Global::day);
-
-    for (delta = libxtide::Global::day; organizer.empty(); delta *= 2U)
-        [self adaptedStation]->predictTideEvents (startTime - delta, endTime + delta, organizer);
-
-    bool doneMax = false, doneMin = false;
-    delta = libxtide::Global::day;
-    while (!(doneMax && doneMin)) {
-        libxtide::TideEventsIterator it = organizer.upper_bound(currentTime);
-        while (it != organizer.end() && !(doneMax && doneMin)) {
-            libxtide::TideEvent &te = it->second;
-            if (!doneMax && te.eventType == libxtide::TideEvent::max) {
-                doneMax = true;
-                nextMax = te;
-            } else if (!doneMin && te.eventType == libxtide::TideEvent::min) {
-                doneMin = true;
-                nextMin = te;
-            }
-            ++it;
-        }
-        if (!(doneMax && doneMin)) {
-            [self adaptedStation]->extendRange (organizer, libxtide::Station::forward, delta);
-            delta *= 2U;
-        }
-    }
-
-    libxtide::TideEvent nextMaxOrMin;
-    if (nextMax.eventTime < nextMin.eventTime)
-        nextMaxOrMin = nextMax;
-    else
-        nextMaxOrMin = nextMin;
-    libxtide::TideEvent previousMaxOrMin;
-    {
-        bool done = false;
-        delta = libxtide::Global::day;
-        while (!done) {
-            libxtide::TideEventsIterator it = organizer.upper_bound(currentTime);
-            assert (it != organizer.end());
-            while (it != organizer.begin() && !done)
-                if ((--it)->second.isMaxMinEvent()) {
-                    done = true;
-                    previousMaxOrMin = it->second;
-                }
-            if (!done) {
-                [self adaptedStation]->extendRange (organizer, libxtide::Station::backward, delta);
-                delta *= 2U;
-            }
-        }
-    }
-    
-    // This could blow up on pathological subordinate stations.
-    // Better to let it slide.  (The clock will do something weird
-    // but won't die.)
-    // assert (previousMaxOrMin.eventType != nextMaxOrMin.eventType);
-    
-    assert (previousMaxOrMin.eventTime <= currentTime &&
-            nextMaxOrMin.eventTime > currentTime);
-    assert (previousMaxOrMin.isMaxMinEvent());
-    assert (nextMaxOrMin.isMaxMinEvent());
-    
-    double temp ((currentTime - previousMaxOrMin.eventTime) /
-                 (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime));
-    temp *= 180.0;
-    if (previousMaxOrMin.eventType == libxtide::TideEvent::min)
-        temp += 180.0;
-    return libxtide::Angle (libxtide::Units::degrees, temp);
-}
-
 
 // Generate an organizer with min/max events extending beyond the start/end dates.
 - (XTTideEventsOrganizer *)populateOrganizerForWatchEventsStart:(NSDate *)startTime
@@ -252,7 +170,7 @@ static NSArray *unitsPrefMap = nil;
             break;
         }
         BOOL isRising = previousMaxOrMin->eventType == libxtide::TideEvent::min;
-        // TODO: different strings for currents? Also, TideEvent desc is not L10N.
+        // TODO: Is this right for current? Also localize this and TideEvent description.
         NSString *desc = isRising ? @"Rising" : @"Falling";
         [array addObject:[prev eventDictionary]];
         while (currentTime <= nextMaxOrMin->eventTime) {

@@ -9,6 +9,7 @@
 #import "UIKitAdditions.h"
 #import "XTColorUtils.h"
 #import "XTGraph.h"
+#import "XTTideEvent.h"
 
 @implementation XTStationRef (iOSAdditions)
 
@@ -41,26 +42,30 @@
 
 @implementation XTStation (iOSAdditions)
 
-- (UIImage *)clockImageWithXSize:(CGFloat)xsize
-                           ysize:(CGFloat)ysize
-                           scale:(CGFloat)scale
+- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
+                               ysize:(CGFloat)ysize
+                               scale:(CGFloat)scale
 {
     CGRect rect = CGRectMake(0, 0, xsize, ysize);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
     CGContextFillRect(context, rect);
     [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:6] addClip];
     
-
+    NSString *axString = nil;
     XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];
-    [graph drawTides:self now:[NSDate date]];
+    [graph drawTides:self now:[NSDate date] description:&axString];
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
+    NSData *data = UIImagePNGRepresentation(image);
+    if (axString == nil) {
+        axString = @"";
+    }
 
-    return image;
+    return @{@"clockImage" : data, @"axDescription": axString };
 }
 
 - (NSAttributedString *)stationInfo

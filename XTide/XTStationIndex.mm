@@ -19,6 +19,7 @@ static XTStationIndex *gStationIndex = NULL;
 static NSString *XTStationFavoritesKey = @"stationFavorites";
 
 NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexStationsReloadedNotification";
+NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFavoritesChangedNotification";
 
 @interface XTStationIndex ()
 {
@@ -56,10 +57,11 @@ NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexSt
 
 + (XTStationIndex *)sharedStationIndex
 {
-    if (gStationIndex == nil) {
+	static dispatch_once_t loadMap;
+    dispatch_once(&loadMap, ^{
         gStationIndex = [[XTStationIndex alloc] init];
         [gStationIndex loadHarmonicsFiles];
-    }
+    });
     return gStationIndex;
 }
 
@@ -127,9 +129,13 @@ NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexSt
 
     [defaults setObject:favorites forKey:XTStationFavoritesKey];
     [defaults synchronize];
+    [[NSNotificationCenter defaultCenter]
+                postNotificationName:XTStationIndexFavoritesChangedNotification
+							  object:self
+                            userInfo:@{@"ref":ref, @"isAdd":@(YES)}];
 }
 
-- (void)removeFavoriteByName:(NSString *)name
+- (void)removeFavorite:(XTStationRef *)ref
 {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSArray *favoritesLoaded = [defaults objectForKey:XTStationFavoritesKey];
@@ -139,15 +145,14 @@ NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexSt
     }
     NSMutableArray *favorites = [NSMutableArray arrayWithArray:favoritesLoaded];
 
-    [favorites removeObject:name];
+    [favorites removeObject:[ref title]];
 
     [defaults setObject:favorites forKey:XTStationFavoritesKey];
     [defaults synchronize];
-}
-
-- (void)removeFavorite:(XTStationRef *)ref
-{
-    [self removeFavoriteByName:[ref title]];
+    [[NSNotificationCenter defaultCenter]
+                postNotificationName:XTStationIndexFavoritesChangedNotification
+							  object:self
+                            userInfo:@{@"ref":ref, @"isAdd":@(NO)}];
 }
 
 - (BOOL)isFavorite:(XTStationRef *)ref

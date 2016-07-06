@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <WatchConnectivity/WatchConnectivity.h>
 
-@interface XTUIMapViewController : UIViewController  <MKMapViewDelegate>
+@interface XTUIMapViewController : UIViewController  <CLLocationManagerDelegate, MKMapViewDelegate, WCSessionDelegate>
 
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 

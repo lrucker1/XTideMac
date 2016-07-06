@@ -15,6 +15,7 @@
 #import "XTColorUtils.h"
 
 @class XTStation;
+@class XTTideEvent;
 
 @interface XTGraph : NSObject
 
@@ -34,5 +35,10 @@
 - (NSDate*)offsetStationTime:(XTStation*)sr
                          now:(NSDate *)now
                       deltaX:(double *)deltaX;
+
+// Variation for clocks, so we can make AX labels.
+- (void)drawTides:(XTStation *)sr
+              now:(NSDate *)now
+      description:(NSString **)desc;
 
 @end

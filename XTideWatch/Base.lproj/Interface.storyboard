@@ -10,14 +10,31 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <imageView width="1" height="1" alignment="left" id="3rp-X1-38w"/>
+                        <group width="1" height="1" alignment="left" id="K5x-kA-VLs"/>
                     </items>
                     <connections>
-                        <outlet property="chartImage" destination="3rp-X1-38w" id="N4x-zZ-KeN"/>
+                        <outlet property="group" destination="K5x-kA-VLs" id="4qh-h9-4g9"/>
+                        <segue destination="zqN-mK-pxc" kind="relationship" relationship="nextPage" id="esY-hJ-BcT"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Map Interface Controller-->
+        <scene sceneID="ZMo-Xc-MRn">
+            <objects>
+                <controller id="zqN-mK-pxc" customClass="XTWMapInterfaceController">
+                    <items>
+                        <map width="1" alignment="left" id="nrx-ag-Mp8"/>
+                        <label width="1" alignment="left" verticalAlignment="bottom" text="Label" id="Deh-LK-Nis"/>
+                    </items>
+                    <connections>
+                        <outlet property="map" destination="nrx-ag-Mp8" id="TNv-a9-BA2"/>
+                        <outlet property="mapLabel" destination="Deh-LK-Nis" id="313-BD-g9Y"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="459" y="340"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">

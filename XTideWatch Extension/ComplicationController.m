@@ -7,6 +7,7 @@
 //
 
 #import "ComplicationController.h"
+#import "XTSessionDelegate.h"
 
 @import WatchConnectivity;
 @import WatchKit;
@@ -20,6 +21,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 @property (strong) NSArray *events;
 @property (nonatomic) WCSession* watchSession;
 @property BOOL isBigWatch;
+@property (nonatomic) XTSessionDelegate *sessionDelegate;
 
 @end
 
@@ -29,6 +31,17 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     self = [super init];
     _isBigWatch = [self isBigWatchCheck];
+    _watchSession = [WCSession defaultSession];
+
+    _sessionDelegate = [XTSessionDelegate sharedDelegate];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(reachabilityChanged:)
+                                                 name:XTSessionReachabilityDidChangeNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveUserInfo:)
+                                                 name:XTSessionUserInfoNotification
+                                               object:nil];
     return self;
 }
 
@@ -156,11 +169,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (void)requestComplicationsWithReplyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
 {
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    if (!self.watchSession) {
-        self.watchSession = [WCSession defaultSession];
-        self.watchSession.delegate = self;
-        [self.watchSession activateSession];
-    }
 
     [self.watchSession sendMessage:@{@"kind" : @"requestEvents",
                                      @"first" : [server earliestTimeTravelDate],
@@ -174,17 +182,23 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             self.events = [reply objectForKey:@"events"];
-            NSLog(@"%@", self.events);
             }];
     }
 }
 
 
-- (void)sessionReachabilityDidChange:(WCSession *)session
+- (void)reachabilityChanged:(NSNotification *)note
 {
-    if (session.reachable) {
+    if ([WCSession defaultSession].reachable) {
         [self loadEvents];
     }
+}
+
+- (void)didReceiveUserInfo:(NSNotification *)note
+{
+    NSDictionary *userInfo = [note userInfo];
+    self.events = [userInfo objectForKey:@"events"];
+    [self reloadComplications];
 }
 
 #pragma mark - Timeline Configuration
@@ -344,6 +358,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }];
 }
 
+
+- (void)reloadComplications
+{
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+
+    for (CLKComplication *complication in server.activeComplications) {
+        [server reloadTimelineForComplication:complication];
+    }
+}
+
 #pragma mark - Entry generator
 
 - (CGFloat)angleForEvent:(NSDictionary *)event
@@ -438,13 +462,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (void)getPlaceholderTemplateForComplication:(CLKComplication *)complication
                                   withHandler:(void(^)(CLKComplicationTemplate * __nullable complicationTemplate))handler
 {
-    self.watchSession = [WCSession defaultSession];
-    self.watchSession.delegate = self;
-    [self.watchSession activateSession];
-    if (self.watchSession.reachable) {
-        [self loadEvents];
-    }
-
     // This method will be called once per supported complication, and the results will be cached
     CLKComplicationTemplate *template = nil;
     switch (complication.family) {

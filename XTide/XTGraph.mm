@@ -11,6 +11,7 @@
 #import "XTGraphInt.h"
 #import "XTStationInt.h"
 #import "XTUtils.h"
+#import "XTTideEvent.h"
 
 /*
  * Since the parts that need to be different are also the parts that would
@@ -175,6 +176,7 @@ namespace libxtide {
  *-----------------------------------------------------------------------------
  *
  * -[XTGraph drawTides:now:] --
+ * -[XTGraph drawTides:now:minEvent:maxEvent:] --
  *
  *      Draws tides.
  *
@@ -192,6 +194,19 @@ namespace libxtide {
 {
     libxtide::Timestamp t = libxtide::Timestamp((time_t)[now timeIntervalSince1970]);
     mGraph->drawTides([sr adaptedStation], t);
+}
+
+- (void)drawTides:(XTStation *)sr
+              now:(NSDate *)now
+      description:(NSString **)desc
+{
+    libxtide::Timestamp t = libxtide::Timestamp((time_t)[now timeIntervalSince1970]);
+    Dstr dStr;
+
+    mGraph->drawTides([sr adaptedStation], t, NULL, &dStr);
+    if (desc) {
+        *desc = DstrToNSString(dStr);
+    }
 }
 
 

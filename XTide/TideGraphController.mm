@@ -177,6 +177,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
                                        selector:@selector(nowTimerFireMethod:)
                                        userInfo:nil
                                         repeats:YES];
+    self.nowTimer.tolerance = 10;
 }
 
 - (void)tideViewStartedTouches:(NSNotification *)note

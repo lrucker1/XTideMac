@@ -23,9 +23,9 @@
 @interface XTStation (iOSAdditions)
 
 - (NSAttributedString *)stationInfo;
-- (UIImage *)clockImageWithXSize:(CGFloat)xsize
-                           ysize:(CGFloat)ysize
-                           scale:(CGFloat)scale;
+- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
+                               ysize:(CGFloat)ysize
+                               scale:(CGFloat)scale;
 
 @end
 

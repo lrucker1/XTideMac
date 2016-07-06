@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 extern NSString * const XTStationIndexStationsReloadedNotification;
+extern NSString * const XTStationIndexFavoritesChangedNotification;
 
 @class XTStationRef;
 
@@ -28,7 +29,6 @@ extern NSString * const XTStationIndexStationsReloadedNotification;
 
 - (void)addFavorite:(XTStationRef *)ref;
 - (void)removeFavorite:(XTStationRef *)ref;
-- (void)removeFavoriteByName:(NSString *)name;
 - (BOOL)isFavorite:(XTStationRef *)ref;
 - (NSArray *)favoriteNames;
 - (NSArray *)favoriteStationRefs;

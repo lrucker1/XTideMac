@@ -11,9 +11,15 @@
 #import "XTStationIndex.h"
 #import "XTStationRef.h"
 #import "XTColorUtils.h"
+#import "XTStation.h"
 #import "XTUIGraphViewController.h"
+#import "UIKitAdditions.h"
 
-static const CGFloat deltaLimit = 5;
+#define DEBUG_EVENTS 0
+#define DEBUG_DOTS 0
+
+static const CGFloat deltaLimit = 3;
+static const NSTimeInterval DAY = 60 * 60 * 24;
 static NSString * const XTMap_RegionKey = @"map.region";
 
 @interface XTUIMapViewController ()
@@ -24,6 +30,11 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (retain) UIColor *refColor;
 @property (retain) UIColor *subColor;
 @property (retain) id mapsLoadObserver;
+@property (nonatomic) WCSession *watchSession;
+@property (strong) CLLocationManager *locationManager;
+@property (strong) XTStationRef *stationRefForWatch;
+@property (strong) NSDate *eventStartDate;
+@property (strong) NSDate *eventEndDate;
 
 @end
 
@@ -32,6 +43,10 @@ static NSString * const XTMap_RegionKey = @"map.region";
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.locationManager = [[CLLocationManager alloc] init];
+    [self.locationManager requestWhenInUseAuthorization];
+    [self.locationManager setDelegate:self];
+
     [self loadStations];
     if (!self.refStations) {
         self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XTideMapsLoadedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
@@ -40,6 +55,10 @@ static NSString * const XTMap_RegionKey = @"map.region";
     }
     self.mapView.showsUserLocation = YES;
     self.mapView.mapType = MKMapTypeHybrid;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(defaultsChanged:)
+                                                 name:XTStationIndexFavoritesChangedNotification
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -66,6 +85,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
             [subs addObject:station];
         }
     }
+    self.stationRefForWatch = [self findStationRefForWatch];
     self.refColor = ColorForKey(XTide_ColorKeys[refcolor]);
     self.subColor = ColorForKey(XTide_ColorKeys[subcolor]);
     self.refStations = refs;
@@ -77,6 +97,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
         [[NSNotificationCenter defaultCenter] removeObserver:self.mapsLoadObserver];
         self.mapsLoadObserver = nil;
     }
+    [self configureWatch];
 }
 
 // Only show the substations when we're zoomed in; there are over 4000 stations in the database.
@@ -124,6 +145,27 @@ regionDidChangeAnimated:(BOOL)animated
     [self saveMapState];
 }
 
+- (UIColor *)colorForStationRef:(XTStationRef *)ref
+{
+    /*
+     * We can only change the color if the annotationView is visible,
+     * or when the views all reload, but doing an add/remove does not seem
+     * to trigger that - it may be consolidating the changes.
+     * So the color is only for debugging.
+     */
+    UIColor *color = ref.isReferenceStation ? self.refColor
+                                            : self.subColor;
+#if DEBUG_DOTS
+    if ([[XTStationIndex sharedStationIndex] isFavorite:ref]) {
+        color = [UIColor whiteColor];
+        if ([self.stationRefForWatch isEqual:ref]) {
+            // It'll be purple in the map too.
+            color = [UIColor purpleColor];
+        }
+    }
+#endif
+    return color;
+}
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
             viewForAnnotation:(id<MKAnnotation>)annotation
@@ -135,7 +177,6 @@ regionDidChangeAnimated:(BOOL)animated
         NSLog(@"Unexpected annotation %@", annotation);
         return nil;
     }
-
     
     MKAnnotationView *returnedAnnotationView =
         [mapView dequeueReusableAnnotationViewWithIdentifier:NSStringFromClass([XTStationRef class])];
@@ -163,27 +204,19 @@ regionDidChangeAnimated:(BOOL)animated
     XTStationRef *ref = (XTStationRef *)annotation;
     favoriteButton.selected = [[XTStationIndex sharedStationIndex] isFavorite:ref];
 
-    /*
-     * TODO: Remove when not debugging: Use another color for favorites. We'd have to add/remove
-     * all pins when favorites change if we wanted that for a user feature.
-     */
-    UIColor *color = ref.isReferenceStation ? self.refColor
-                                            : self.subColor;
-    if ([[XTStationIndex sharedStationIndex] isFavorite:ref]) {
-        color = [UIColor whiteColor];
-        // TODO: Cache this.
-        CLLocation *loc = self.mapView.userLocation.location;
-        XTStationRef *closest = nil;
-        if (loc) {
-            closest = [[XTStationIndex sharedStationIndex] favoriteNearestLocation:loc];
-        }
-        if ([closest isEqual:ref]) {
-            color = [UIColor blackColor];
-        }
-    }
-    ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor = color;
+    ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor = [self colorForStationRef:ref];
 
     return returnedAnnotationView;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    // Update the button in case the favorites changed.
+    XTStationRef *ref = [[self.mapView selectedAnnotations] firstObject];
+    if (![ref isKindOfClass:[XTStationRef class]]) {
+        return;
+    }
+    [self updateAnnotation:ref];
 }
 
 
@@ -192,7 +225,6 @@ regionDidChangeAnimated:(BOOL)animated
  annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control
 {
-    
     XTStationRef *annotation = (XTStationRef *)view.annotation;
      if ([annotation isKindOfClass:[MKUserLocation class]]) {
         [self goHome:nil];
@@ -239,6 +271,201 @@ calloutAccessoryControlTapped:(UIControl *)control
         } @catch (NSException *e) {
             // Ignore bad data and continue with restoration.
         }
+    }
+}
+
+#pragma mark watch
+
+- (void)updateWatchState
+{
+    XTStationRef *currentRef = [self findStationRefForWatch];
+    if ([currentRef isEqual:self.stationRefForWatch]) {
+        return;
+    }
+    // Update the old favorite.
+    XTStationRef *oldStation = self.stationRefForWatch;
+    self.stationRefForWatch = currentRef;
+    [self updateAnnotation:oldStation];
+    [self updateAnnotation:self.stationRefForWatch];
+
+    // TODO: Store the last known watch size so it's right when we do an update.
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+    NSDictionary *clock = [self clockInfoWithWidth:156 height:195 scale:2];
+    if (clock) {
+        [dict addEntriesFromDictionary:clock];
+    }
+    CLLocationCoordinate2D coord = currentRef.coordinate;
+    [dict setObject:@[ @(coord.latitude), @(coord.longitude) ] forKey:@"coordinate"];
+    [dict setObject:self.stationRefForWatch.title forKey:@"stationName"];
+    
+    NSError *error = nil;
+    if (![self.watchSession updateApplicationContext:dict
+                                               error:&error]) {
+        NSLog(@"Updating the context failed: %@", error.localizedDescription);
+    }
+    if ([self.watchSession isComplicationEnabled]) {
+        NSDictionary *events = [self complicationEvents];
+        if (events) {
+            [self.watchSession transferCurrentComplicationUserInfo:events];
+        }
+    }
+}
+
+
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    [self updateWatchState];
+}
+
+// Update the dot (if we could) and button after favorites change
+- (void)updateAnnotation:(XTStationRef *)ref
+{
+    MKAnnotationView *view = [self.mapView viewForAnnotation:ref];
+    if (view) {
+        UIButton *favoriteButton = (UIButton *)view.leftCalloutAccessoryView;
+        favoriteButton.selected = [[XTStationIndex sharedStationIndex] isFavorite:ref];
+#if DEBUG_DOTS
+        // This only works if the annotationView is visible :(
+        ((MKPinAnnotationView *)view).pinTintColor = [self colorForStationRef:ref];
+#endif
+    }
+}
+
+- (void)defaultsChanged:(NSNotification *)notification
+{
+    // Update this first in case stationRefForWatch is changing.
+    [self updateWatchState];
+    XTStationRef *ref = [[notification userInfo] objectForKey:@"ref"];
+    if (ref) {
+        // The state just changed on this ref. Update its annotationView dot and button.
+        [self updateAnnotation:ref];
+    }
+}
+
+// TODO: Do something sensible when no favorites.
+- (XTStationRef *)findStationRefForWatch
+{
+    XTStationIndex *stationIndex = [XTStationIndex sharedStationIndex];
+    CLLocation *loc = self.mapView.userLocation.location;
+    XTStationRef *ref = nil;
+    if (loc) {
+        ref = [stationIndex favoriteNearestLocation:loc];
+    }
+    if (!ref) {
+        ref = [[stationIndex favoriteStationRefs] firstObject];
+    }
+    return ref;
+}
+
+- (void)configureWatch
+{
+#if DEBUG_EVENTS
+    XTStation *station = [[self stationRefForWatch] loadStation];
+    if (station) {
+        NSArray *angles = [station generateWatchEventsStart:[NSDate date] end:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
+        NSLog(@"%@", angles);
+    }
+    NSDictionary *dict = [self clockInfoWithXSize:200 height:200 scale:2];
+    NSLog(@"%@", dict);
+#endif
+    if (![WCSession isSupported]) {
+        return;
+    }
+    self.watchSession = [WCSession defaultSession];
+    self.watchSession.delegate = self;
+    [self.watchSession activateSession];
+    [self updateWatchState];
+}
+
+
+- (NSDictionary *)clockInfoWithWidth:(CGFloat)width height:(CGFloat)height scale:(CGFloat)scale
+{
+    if (!self.watchSession) {
+        return nil;
+    }
+    XTStation *station = [[self stationRefForWatch] loadStation];
+    if (!station) {
+        return nil;
+    }
+    return [station clockInfoWithXSize:width
+                                 ysize:height
+                                 scale:scale];
+}
+
+
+/*
+ * Note: Showing the station in the app isn't a great UI because there's no
+ * way to force it to launch the app (a button with no apparent effect is bad),
+ * so it's just for debugging.
+ */
+-    (void)session:(WCSession *)session
+didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIViewController *vc = self.navigationController.visibleViewController;
+        XTStation *station = [[self stationRefForWatch] loadStation];
+        if ([vc isKindOfClass:[XTUIGraphViewController class]]) {
+            [(XTUIGraphViewController *)vc updateStation:station];
+        } else {
+            // Whatever else it is, it supports showing a station.
+            XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
+            viewController.edgesForExtendedLayout = UIRectEdgeNone;
+            [viewController updateStation:station];
+            
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    });
+}
+
+- (NSDictionary *)complicationEvents
+{
+    XTStation *station = [[self stationRefForWatch] loadStation];
+    if (!station) {
+        return nil;
+    }
+    if (!self.eventStartDate) {
+        self.eventStartDate = [NSDate dateWithTimeIntervalSinceNow:-DAY];
+    }
+    if (!self.eventEndDate) {
+        self.eventEndDate = [NSDate dateWithTimeIntervalSinceNow:DAY * 2];
+    }
+    NSArray *events = [station generateWatchEventsStart:self.eventStartDate end:self.eventEndDate];
+    if (events) {
+        return @{@"events":events};
+    }
+    return nil;
+}
+
+
+-   (void)session:(WCSession *)session
+ didReceiveMessage:(NSDictionary<NSString *,id> *)message
+      replyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
+{
+    NSString *kind = [message objectForKey:@"kind"];
+    if ([kind isEqualToString:@"requestImage"]) {
+        CGFloat width = [[message objectForKey:@"width"] floatValue];
+        CGFloat height = [[message objectForKey:@"height"] floatValue];
+        CGFloat scale = [[message objectForKey:@"scale"] floatValue];
+        if (scale == 0) scale = 1;
+        if (width > 0 && height > 0) {
+            NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
+            replyHandler( dict );
+        }
+    } else if ([kind isEqualToString:@"requestEvents"]) {
+        self.eventStartDate = [message objectForKey:@"first"];
+        self.eventEndDate = [message objectForKey:@"last"];
+        NSDictionary *events = [self complicationEvents];
+        if (events) {
+            // TODO: Reply with something to indicate no station/events.
+           replyHandler( events );
+        }
+    } else if ([kind isEqualToString:@"requestCoordinate"]) {
+        CLLocationCoordinate2D coord = self.stationRefForWatch.coordinate;
+        replyHandler( @{@"coordinate":@[ @(coord.latitude), @(coord.longitude) ],
+                        @"stationName": self.stationRefForWatch.title } );
+    } else {
+        replyHandler(nil);
     }
 }
 
