@@ -33,5 +33,7 @@ extern NSString * const XTStationIndexFavoritesChangedNotification;
 - (NSArray *)favoriteNames;
 - (NSArray *)favoriteStationRefs;
 - (XTStationRef *)favoriteNearestLocation:(CLLocation *)location;
+- (XTStationRef *)stationRefNearestLocation:(CLLocation *)location
+                                 inStations:(NSArray *)refs;
 
 @end

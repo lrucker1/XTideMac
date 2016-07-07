@@ -72,6 +72,7 @@ ColorForKey(NSString *key)
           @"black"       : [UIColor blackColor],
           @"green"       : [UIColor greenColor],
           @"gray80"      : [UIColor colorWithWhite:0.80 alpha:1.0],
+          @"gray90"      : [UIColor colorWithWhite:0.90 alpha:1.0],
           @"yellow"      : [UIColor yellowColor],
           @"skyblue"     : skyBlue,
           @"seagreen"    : seaGreen,

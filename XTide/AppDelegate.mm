@@ -10,6 +10,8 @@
 #import "libxtide.hh"
 #import "XTMapWindowController.h"
 #import "XTStationIndex.h"
+#import "XTStationRef.h"
+#import "AppKitAdditions.h"
 #import "XTGraph.h"
 #import "XTSettings.h"
 #import "PreferenceController.h"
@@ -90,10 +92,29 @@ static NSString * const XTWindow_restorationName = @"name";
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:@"XTideMapsLoadedNotification" object:self];
+#if DEBUG_GENERATE_WATCH_IMAGE
+            [self createWatchImage];
+#endif
         });
     });
 }
 
+#if DEBUG_GENERATE_WATCH_IMAGE
+- (void)createWatchImage
+{
+    XTStationRef *ref = [[XTStationIndex sharedStationIndex] stationRefByName:@"San Francisco, San Francisco Bay, California"];
+    if (!ref) {
+        NSLog(@"Couldn't find station");
+        return;
+    }
+    NSString *fileLoc = [@"~/watchBackground.png" stringByExpandingTildeInPath];
+    if (!fileLoc) {
+        NSLog(@"Couldn't make path");
+        return;
+    }
+    [[ref loadStation] createWatchPlaceholderImage:[NSURL fileURLWithPath:fileLoc]];
+}
+#endif
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

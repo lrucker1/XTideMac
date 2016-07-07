@@ -334,7 +334,7 @@ NSMutableDictionary *XTSettingsDefaultValues()
                       forKey:XTide_ColorKeys[datumcolor]];
     [defaultValues setObject:@"yellow"
                       forKey:XTide_ColorKeys[mslcolor]];
-    [defaultValues setObject:@"gray80"
+    [defaultValues setObject:@"gray90"
                       forKey:XTide_ColorKeys[fgcolor]];
     
     // Colors (stations) - standard pin colors

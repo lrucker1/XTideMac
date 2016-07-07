@@ -29,14 +29,14 @@ static NSArray *unitsPrefMap = nil;
 
 - (id)initUsingStationRef: (libxtide::StationRef *)aStationRef
 {
-   if ((self = [super init])) {
-      mStation = aStationRef->load();
-      if (!mStation) {
-         return nil;
-      }
-		[self updateUnits];
-   }
-   return self;
+    if ((self = [super init])) {
+        mStation = aStationRef->load();
+        if (!mStation) {
+            return nil;
+        }
+        [self updateUnits];
+    }
+    return self;
 }
 
 - (void)dealloc
@@ -171,7 +171,12 @@ static NSArray *unitsPrefMap = nil;
         }
         BOOL isRising = previousMaxOrMin->eventType == libxtide::TideEvent::min;
         // TODO: Is this right for current? Also localize this and TideEvent description.
-        NSString *desc = isRising ? @"Rising" : @"Falling";
+        NSString *desc = nil;
+        if (mStation->isCurrent) {
+            desc = isRising ? @"Flood" : @"Ebb";
+        } else {
+            desc = isRising ? @"Rising" : @"Falling";
+        }
         [array addObject:[prev eventDictionary]];
         while (currentTime <= nextMaxOrMin->eventTime) {
             double temp ((currentTime - previousMaxOrMin->eventTime) /
@@ -189,7 +194,8 @@ static NSArray *unitsPrefMap = nil;
                                     @"angle" : @(temp),
                                     @"level" : level,
                                     @"levelShort" : levelShort,
-                                    @"desc"  : desc};
+                                    @"desc"     : desc,
+                                    @"isRising" : @(isRising)};
             [array addObject:event];
             currentTime += libxtide::Global::hour;
         }

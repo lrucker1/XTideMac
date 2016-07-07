@@ -118,6 +118,8 @@
 		940BAA881D2C448F00E1C11B /* XTWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA871D2C448F00E1C11B /* XTWMapInterfaceController.m */; };
 		940BAA8B1D2C4DD700E1C11B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940BAA8A1D2C4DD700E1C11B /* MapKit.framework */; };
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
+		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
+		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		94301D001D2B668C00D4D68A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
@@ -228,7 +230,6 @@
 		94CE16151D287E690088720D /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE16141D287E690088720D /* ExtensionDelegate.m */; };
 		94CE16181D287E6A0088720D /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE16171D287E6A0088720D /* NotificationController.m */; };
 		94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE161A1D287E6A0088720D /* ComplicationController.m */; };
-		94CE161D1D287E6A0088720D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		94CE16221D287E6A0088720D /* XTideWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 94CE15FD1D287E690088720D /* XTideWatch.app */; };
 		94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE162A1D2882250088720D /* WatchConnectivity.framework */; };
 		94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
@@ -417,6 +418,7 @@
 		940BAA8A1D2C4DD700E1C11B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
+		9410B4711D2E10A900B40F43 /* svgTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svgTest.svg; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1055,6 +1057,7 @@
 			children = (
 				94CE15FF1D287E690088720D /* Interface.storyboard */,
 				94CE16021D287E690088720D /* Assets.xcassets */,
+				9410B4711D2E10A900B40F43 /* svgTest.svg */,
 				94CE16041D287E690088720D /* Info.plist */,
 			);
 			path = XTideWatch;
@@ -1271,6 +1274,7 @@
 					};
 					94CE16081D287E690088720D = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 92RP9V4XB5;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
 								enabled = 1;
@@ -1417,6 +1421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */,
+				9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */,
 				94CE16031D287E690088720D /* Assets.xcassets in Resources */,
 				94CE16011D287E690088720D /* Interface.storyboard in Resources */,
 			);
@@ -1426,7 +1431,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94CE161D1D287E6A0088720D /* Assets.xcassets in Resources */,
+				9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */,
 				94301D001D2B668C00D4D68A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1762,7 +1767,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
@@ -1781,7 +1787,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
@@ -1875,7 +1882,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1919,7 +1926,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2026,10 +2033,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2041,10 +2051,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;

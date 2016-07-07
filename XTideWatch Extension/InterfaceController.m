@@ -11,8 +11,6 @@
 
 #define DEBUG 1
 
-NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification";
-
 @interface InterfaceController()
 
 @property (nonatomic) WCSession *watchSession;
@@ -41,6 +39,22 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
                                                  name:XTSessionAppContextNotification
                                                object:nil];
 
+    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastImageData"];
+    if (data) {
+        [self.group setBackgroundImageData:data];
+        NSString *axString = [[NSUserDefaults standardUserDefaults] objectForKey:@"axDescription"];
+        if (axString) {
+            [self.group setAccessibilityLabel:axString];
+        }
+    } else {
+        UIImage *image = [UIImage imageNamed:@"watchBackground"];
+        if (image) {
+            [self.group setBackgroundImage:image];
+        }
+    }
+    BOOL noStation = (!data && !self.watchSession.isReachable);
+    [self.noStationLabel setHidden:!noStation];
+
 #if DEBUG
     [self addMenuItemWithImageNamed:@"ReturnToNow"
                               title:NSLocalizedString(@"Update Chart", @"reload chart with current time")
@@ -61,6 +75,15 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
                                                   object:nil];
 
 }
+
+#if DEBUG
+// Debugging only. There's no way to launch an iPhone app in watchOS 2.
+- (IBAction)showTidesOnPhone
+{
+    NSDictionary *applicationDict = @{@"test":@"test"}; // Create a dict of application data
+    [[WCSession defaultSession] transferUserInfo:applicationDict];
+}
+#endif
 
 - (void)startTimer
 {
@@ -84,6 +107,7 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
 
 - (void)updateImageFromInfo:(NSDictionary *)info
 {
+    [self.noStationLabel setHidden:YES];
     NSData *data = [info objectForKey:@"clockImage"];
     NSString *axString = [info objectForKey:@"axDescription"];
     if (data) {
@@ -92,6 +116,9 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
     if (axString) {
         [self.group setAccessibilityLabel:axString];
     }
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"lastImageData"];
+    [[NSUserDefaults standardUserDefaults] setObject:axString forKey:@"axDescription"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -109,7 +136,10 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
         }
     }
     errorHandler:^(NSError *error){
-        NSLog(@"%@", error);
+        // Ignore timeout errors.
+        if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
+            NSLog(@"requestImage: %@", error);
+        }
     }];
 }
 
@@ -125,20 +155,12 @@ NSString * const XTWatchAppContextNotification = @"XTWatchAppContextNotification
 - (void)didReceiveApplicationContext:(NSNotification *)note
 {
     NSDictionary *applicationContext = [note userInfo];
-    [self updateImageFromInfo:applicationContext];
-    NSArray *coordObj = [applicationContext objectForKey:@"coordinate"];
-    NSString *title = [applicationContext objectForKey:@"stationName"];
-    if (coordObj) {
-        [[NSUserDefaults standardUserDefaults] setObject:coordObj forKey:@"coordinate"];
-        [[NSUserDefaults standardUserDefaults] setObject:title forKey:@"stationName"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+    NSData *data = [applicationContext objectForKey:@"clockImage"];
+    if (data) {
+        [self updateImageFromInfo:applicationContext];
+    } else {
+        [self requestImage];
     }
-}
-
-- (IBAction)showTidesOnPhone
-{
-    NSDictionary *applicationDict = @{@"test":@"test"}; // Create a dict of application data
-    [[WCSession defaultSession] transferUserInfo:applicationDict];
 }
 
 - (void)willActivate

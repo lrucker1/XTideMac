@@ -10,10 +10,15 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <group width="1" height="1" alignment="left" id="K5x-kA-VLs"/>
+                        <group width="1" height="1" alignment="left" id="K5x-kA-VLs">
+                            <items>
+                                <label alignment="center" text="Waiting for iPhone…" textAlignment="center" numberOfLines="3" id="JE5-s4-4ZM"/>
+                            </items>
+                        </group>
                     </items>
                     <connections>
                         <outlet property="group" destination="K5x-kA-VLs" id="4qh-h9-4g9"/>
+                        <outlet property="noStationLabel" destination="JE5-s4-4ZM" id="9J7-dS-EcB"/>
                         <segue destination="zqN-mK-pxc" kind="relationship" relationship="nextPage" id="esY-hJ-BcT"/>
                     </connections>
                 </controller>
@@ -26,7 +31,9 @@
                 <controller id="zqN-mK-pxc" customClass="XTWMapInterfaceController">
                     <items>
                         <map width="1" alignment="left" id="nrx-ag-Mp8"/>
-                        <label width="1" alignment="left" verticalAlignment="bottom" text="Label" id="Deh-LK-Nis"/>
+                        <label width="1" alignment="left" verticalAlignment="bottom" text="Station" numberOfLines="2" id="Deh-LK-Nis">
+                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                        </label>
                     </items>
                     <connections>
                         <outlet property="map" destination="nrx-ag-Mp8" id="TNv-a9-BA2"/>

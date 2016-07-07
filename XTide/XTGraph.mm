@@ -408,6 +408,21 @@ CocoaGraph::drawHorizontalLineP(int xlo,
                               toPoint:CGPointMake(xhi, y)];
 }
 
+// Subclass to draw a bigger X. It's tiny on retina.
+void
+CocoaGraph::drawX(double x, double y)
+{
+    [mycolors[Colors::foreground] set];
+    int ix = Global::ifloor(x);
+    int iy = Global::ifloor(y);
+    BEZIER_CLASS *tidePath = [BEZIER_CLASS bezierPath];
+    [tidePath moveToPoint:CGPointMake(ix, iy-6)];
+    [tidePath lineToPoint:CGPointMake(ix, iy+6)];
+    [tidePath moveToPoint:CGPointMake(ix-6, iy)];
+    [tidePath lineToPoint:CGPointMake(ix+6, iy)];
+    [tidePath setLineWidth:2];
+    [tidePath stroke];
+}
 
 
 void CocoaGraph::drawBoxS (double x1, double x2, double y1, double y2,

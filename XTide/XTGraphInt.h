@@ -31,8 +31,9 @@ public:
     const unsigned oughtHeight() const;
     const unsigned oughtVerticalMargin() const;
 
-
-  void drawLevels (const SafeVector<double> &val,
+    void drawX (double x, double y);
+    
+    void drawLevels (const SafeVector<double> &val,
 		   const SafeVector<double> &y,
 		   double yzulu,
 		   bool isCurrent

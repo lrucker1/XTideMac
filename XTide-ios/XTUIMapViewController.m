@@ -19,6 +19,9 @@
 #define DEBUG_DOTS 0
 
 static const CGFloat deltaLimit = 3;
+static const CGFloat zoomLimit = 0.5;
+static const CLLocationDistance kUserLocMovement = 2000; // meters
+
 static const NSTimeInterval DAY = 60 * 60 * 24;
 static NSString * const XTMap_RegionKey = @"map.region";
 
@@ -46,6 +49,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
     self.locationManager = [[CLLocationManager alloc] init];
     [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager setDelegate:self];
+    [self.locationManager allowDeferredLocationUpdatesUntilTraveled:kUserLocMovement timeout:CLTimeIntervalMax];
 
     [self loadStations];
     if (!self.refStations) {
@@ -125,11 +129,11 @@ static NSString * const XTMap_RegionKey = @"map.region";
     CLLocation *loc = self.mapView.userLocation.location;
     if (loc) {
         MKCoordinateRegion region = [self.mapView region];
-        BOOL shouldZoom =    region.span.latitudeDelta > deltaLimit
-                          && region.span.longitudeDelta > deltaLimit;
+        BOOL shouldZoom =    region.span.latitudeDelta > zoomLimit
+                          && region.span.longitudeDelta > zoomLimit;
         if (shouldZoom) {
             region.center = loc.coordinate;
-            region.span.latitudeDelta = region.span.longitudeDelta = deltaLimit;
+            region.span.latitudeDelta = region.span.longitudeDelta = zoomLimit;
             [self.mapView setRegion:region animated:YES];
         } else {
             [self.mapView setCenterCoordinate:loc.coordinate animated:YES];
@@ -290,10 +294,10 @@ calloutAccessoryControlTapped:(UIControl *)control
 
     // TODO: Store the last known watch size so it's right when we do an update.
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    NSDictionary *clock = [self clockInfoWithWidth:156 height:195 scale:2];
-    if (clock) {
-        [dict addEntriesFromDictionary:clock];
-    }
+//    NSDictionary *clock = [self clockInfoWithWidth:156 height:195 scale:2];
+//    if (clock) {
+//        [dict addEntriesFromDictionary:clock];
+//    }
     CLLocationCoordinate2D coord = currentRef.coordinate;
     [dict setObject:@[ @(coord.latitude), @(coord.longitude) ] forKey:@"coordinate"];
     [dict setObject:self.stationRefForWatch.title forKey:@"stationName"];
@@ -343,17 +347,34 @@ calloutAccessoryControlTapped:(UIControl *)control
     }
 }
 
-// TODO: Do something sensible when no favorites.
+/*
+ * First option: closest favorite station. Update whenever location changes.
+ * Second option: closest ref station. Update when the user location has moved more than
+ *  a distance that's kind of arbitrary.
+ */
 - (XTStationRef *)findStationRefForWatch
 {
     XTStationIndex *stationIndex = [XTStationIndex sharedStationIndex];
-    CLLocation *loc = self.mapView.userLocation.location;
+    CLLocation *userLoc = self.mapView.userLocation.location;
     XTStationRef *ref = nil;
-    if (loc) {
-        ref = [stationIndex favoriteNearestLocation:loc];
+    if (userLoc) {
+        ref = [stationIndex favoriteNearestLocation:userLoc];
     }
+    // TODO: Find out why this does not get updated when userLoc changes.
     if (!ref) {
-        ref = [[stationIndex favoriteStationRefs] firstObject];
+        // If we just de-fav'd it, we might still keep using it if we haven't moved.
+        ref = self.stationRefForWatch;
+        BOOL doUpdate = YES;
+        // If we had one, has the user moved very far from it?
+        if (ref) {
+            CLLocationCoordinate2D coord = ref.coordinate;
+            CLLocation *loc = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
+            CLLocationDistance deltaMeters = [loc distanceFromLocation:userLoc];
+            doUpdate = (deltaMeters > kUserLocMovement);
+        }
+        if (doUpdate) {
+            ref = [stationIndex stationRefNearestLocation:userLoc inStations:self.refStations];
+        }
     }
     return ref;
 }
@@ -451,22 +472,23 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         if (width > 0 && height > 0) {
             NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
             replyHandler( dict );
+            return;
         }
     } else if ([kind isEqualToString:@"requestEvents"]) {
         self.eventStartDate = [message objectForKey:@"first"];
         self.eventEndDate = [message objectForKey:@"last"];
         NSDictionary *events = [self complicationEvents];
         if (events) {
-            // TODO: Reply with something to indicate no station/events.
-           replyHandler( events );
+            replyHandler( events );
+            return;
         }
     } else if ([kind isEqualToString:@"requestCoordinate"]) {
         CLLocationCoordinate2D coord = self.stationRefForWatch.coordinate;
         replyHandler( @{@"coordinate":@[ @(coord.latitude), @(coord.longitude) ],
                         @"stationName": self.stationRefForWatch.title } );
-    } else {
-        replyHandler(nil);
+        return;
     }
+    replyHandler(nil);
 }
 
 @end

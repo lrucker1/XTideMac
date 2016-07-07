@@ -48,6 +48,11 @@
     return [[XTStation alloc] initUsingStationRef:mStationRef];
 }
 
+- (id)copyWithZone:(NSZone *)zone
+{
+    return [[[self class] alloc] initWithStationRef:mStationRef];
+}
+
 - (BOOL)isEqual:(id)object
 {
     // harmonicsFileName + recordNumber uniquely identify a station.

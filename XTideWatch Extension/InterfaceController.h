@@ -9,13 +9,12 @@
 #import <WatchKit/WatchKit.h>
 #import <Foundation/Foundation.h>
 
-extern NSString * const XTWatchAppContextNotification;
-
 @import WatchConnectivity;
 
 @interface InterfaceController : WKInterfaceController <WCSessionDelegate>
 
 @property IBOutlet WKInterfaceGroup *group;
+@property IBOutlet WKInterfaceLabel *noStationLabel;
 
 - (IBAction)showTidesOnPhone;
 

@@ -9,14 +9,13 @@
 #import "UIKitAdditions.h"
 #import "XTColorUtils.h"
 #import "XTGraph.h"
-#import "XTTideEvent.h"
 
 @implementation XTStationRef (iOSAdditions)
 
 - (UIImage *)stationDot
 {
     CGRect rect = CGRectMake(0, 0, 20, 20);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 2);
     rect = CGRectInset(rect, 2, 2);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
@@ -48,11 +47,6 @@
 {
     CGRect rect = CGRectMake(0, 0, xsize, ysize);
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextFillRect(context, rect);
-    [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:6] addClip];
     
     NSString *axString = nil;
     XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];

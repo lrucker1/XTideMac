@@ -28,12 +28,13 @@
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(defaultsChanged:)
-                                                 name:XTWatchAppContextNotification
+                                             selector:@selector(didReceiveApplicationContext:)
+                                                 name:XTSessionAppContextNotification
                                                object:nil];
 }
 
-- (void)defaultsChanged:(NSNotification *)note
+
+- (void)didReceiveApplicationContext:(NSNotification *)note
 {
     [self updateDefaultsFromDictionary:[note userInfo]];
 }
@@ -84,7 +85,8 @@
     [self.mapLabel setText:title];
 }
 
-- (void)willActivate {
+- (void)willActivate
+{
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSArray *coordObj = [[NSUserDefaults standardUserDefaults] objectForKey:@"coordinate"];

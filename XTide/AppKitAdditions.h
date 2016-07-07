@@ -11,6 +11,8 @@
 #import "XTStationRef.h"
 #import "XTStation.h"
 
+#define DEBUG_GENERATE_WATCH_IMAGE 0
+
 @interface XTStationRef (MacOSAdditions)
 
 - (NSImage *)stationDot;
@@ -19,6 +21,11 @@
 
 
 @interface XTStation (MacOSAdditions)
+
+#if DEBUG_GENERATE_WATCH_IMAGE
+// Generate a watch background image.
+- (void)createWatchPlaceholderImage: (NSURL *)fileURL;
+#endif
 
 - (NSAttributedString *)stationInfo;
 

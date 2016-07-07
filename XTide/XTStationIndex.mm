@@ -180,21 +180,26 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
     return [NSArray arrayWithArray:refs];
 }
 
-- (XTStationRef *)favoriteNearestLocation:(CLLocation *)location
+- (XTStationRef *)stationRefNearestLocation:(CLLocation *)location
+                                 inStations:(NSArray *)refs
 {
-    CLLocationDistance d = DBL_MAX;
+    CLLocationDistance d = CLLocationDistanceMax;
     XTStationRef *closest = nil;
-    NSArray *refs = [self favoriteStationRefs];
     for (XTStationRef *ref in refs) {
         CLLocationCoordinate2D coord = ref.coordinate;
         CLLocation *loc = [[CLLocation alloc] initWithLatitude:coord.latitude longitude:coord.longitude];
-        CLLocationDistance dTest = [loc distanceFromLocation:location];
-        if (dTest < d) {
-            d = dTest;
+        CLLocationDistance dMeters = [loc distanceFromLocation:location];
+        if (dMeters < d) {
+            d = dMeters;
             closest = ref;
         }
     }
     return closest;
+}
+
+- (XTStationRef *)favoriteNearestLocation:(CLLocation *)location
+{
+    return [self stationRefNearestLocation:location inStations:[self favoriteStationRefs]];
 }
 
 
