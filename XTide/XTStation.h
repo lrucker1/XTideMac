@@ -15,6 +15,7 @@
 
 + (NSArray *)unitsPrefMap;
 
+- (NSString *)name;
 - (NSTimeZone *)timeZone;
 - (NSString *)stationInfoAsHTML;
 - (NSArray *)stationMetadata;

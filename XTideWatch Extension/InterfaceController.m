@@ -46,6 +46,10 @@
         if (axString) {
             [self.group setAccessibilityLabel:axString];
         }
+        NSString *title = [[NSUserDefaults standardUserDefaults] objectForKey:@"title"];
+        if (title) {
+            [self setTitle:title];
+        }
     } else {
         UIImage *image = [UIImage imageNamed:@"watchBackground"];
         if (image) {
@@ -110,20 +114,29 @@
     [self.noStationLabel setHidden:YES];
     NSData *data = [info objectForKey:@"clockImage"];
     NSString *axString = [info objectForKey:@"axDescription"];
+    NSString *title = [info objectForKey:@"title"];
     if (data) {
         [self.group setBackgroundImageData:data];
     }
     if (axString) {
         [self.group setAccessibilityLabel:axString];
     }
+    if (title) {
+        [self setTitle:title];
+    }
     [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"lastImageData"];
     [[NSUserDefaults standardUserDefaults] setObject:axString forKey:@"axDescription"];
+    [[NSUserDefaults standardUserDefaults] setObject:title forKey:@"title"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
 - (void)requestImage
 {
+    if (!self.watchSession.reachable) {
+        return;
+    }
+
     CGRect bounds = [[WKInterfaceDevice currentDevice] screenBounds];
     CGFloat scale = [[WKInterfaceDevice currentDevice] screenScale];
     [self.watchSession sendMessage:@{@"kind"   : @"requestImage",

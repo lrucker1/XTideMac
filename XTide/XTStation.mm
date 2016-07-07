@@ -45,6 +45,11 @@ static NSArray *unitsPrefMap = nil;
    delete mStation;
 }
 
+- (NSString *)name
+{
+    return DstrToNSString(mStation->name);
+}
+
 - (void)updateUnits
 {
 	NSString *unitType = [[NSUserDefaults standardUserDefaults] objectForKey:XTide_units];

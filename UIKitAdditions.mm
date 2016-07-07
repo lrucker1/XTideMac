@@ -59,7 +59,7 @@
         axString = @"";
     }
 
-    return @{@"clockImage" : data, @"axDescription": axString };
+    return @{@"clockImage" : data, @"axDescription": axString, @"title" : self.name };
 }
 
 - (NSAttributedString *)stationInfo

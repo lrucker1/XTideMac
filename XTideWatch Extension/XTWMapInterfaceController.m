@@ -78,7 +78,7 @@
         coord.longitude = [[coordObj lastObject] floatValue];
         [self.map removeAllAnnotations];
         [self.map addAnnotation:coord withPinColor:WKInterfaceMapPinColorPurple];
-        MKCoordinateSpan coordinateSpan = MKCoordinateSpanMake(0.1, 0.1);
+        MKCoordinateSpan coordinateSpan = MKCoordinateSpanMake(1, 1);
         [self.map setRegion:(MKCoordinateRegionMake(coord, coordinateSpan))];
         self.coordinates = coordObj;
     }
