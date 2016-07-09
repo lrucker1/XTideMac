@@ -9,7 +9,7 @@
 #import "XTUIFavoritesTableViewController.h"
 #import "XTStationIndex.h"
 #import "XTStationRef.h"
-#import "XTUIGraphViewController.h"
+#import "XTUITideTabBarController.h"
 #import "UIKitAdditions.h"
 
 @interface XTUIFavoritesTableViewController ()
@@ -65,27 +65,11 @@
     return UITableViewCellEditingStyleDelete;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
-    if (ref) {
-        XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
-        viewController.edgesForExtendedLayout = UIRectEdgeNone;
-        [viewController updateStation:[ref loadStation]];
-        
-        [self.navigationController pushViewController:viewController animated:YES];
-    }
-}
-
-
-
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
 }
-
-
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,28 +82,16 @@
     }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
+    UIViewController<XTUITideView> *vc = [segue destinationViewController];
+    if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
+        [vc updateStation:[ref loadStation]];
+    }
 }
-*/
 
 @end

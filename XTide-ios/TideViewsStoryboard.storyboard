@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="98Y-kp-qY3">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tide Tab Bar Controller-->
+        <scene sceneID="oSf-Xw-GoU">
+            <objects>
+                <tabBarController id="98Y-kp-qY3" customClass="XTUITideTabBarController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="HgC-kr-gby">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="SFd-AG-GpC" kind="relationship" relationship="viewControllers" id="Yji-hR-hq1"/>
+                        <segue destination="fH8-IZ-LIr" kind="relationship" relationship="viewControllers" id="5EE-nh-eXS"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xel-Yp-AUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2003" y="-80"/>
+        </scene>
+        <!--Chart-->
+        <scene sceneID="nCb-DB-lnj">
+            <objects>
+                <viewController storyboardIdentifier="GraphView" id="SFd-AG-GpC" customClass="XTUIGraphViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZRW-AH-aLB"/>
+                        <viewControllerLayoutGuide type="bottom" id="AzM-gt-pDc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="v31-hN-OmU">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKZ-aW-q9I" customClass="XTUIGraphView">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
+                                        <rect key="frame" x="520" y="451" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="MgA-SB-lfY"/>
+                                            <constraint firstAttribute="width" constant="48" id="ygL-Jx-CJc"/>
+                                        </constraints>
+                                        <state key="normal" image="ReturnToNow" backgroundImage="chartButtonBackgroundTemplate"/>
+                                        <connections>
+                                            <segue destination="fH8-IZ-LIr" kind="show" id="Hzu-nQ-sjh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="9t3-Uv-sho" secondAttribute="bottom" constant="32" id="lju-a2-FGt"/>
+                                    <constraint firstAttribute="trailing" secondItem="9t3-Uv-sho" secondAttribute="trailing" constant="32" id="pVv-Zl-YIu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VKZ-aW-q9I" firstAttribute="top" secondItem="ZRW-AH-aLB" secondAttribute="bottom" id="FV7-6N-BgA"/>
+                            <constraint firstItem="AzM-gt-pDc" firstAttribute="top" secondItem="VKZ-aW-q9I" secondAttribute="bottom" priority="750" id="HQc-T3-2kB"/>
+                            <constraint firstItem="VKZ-aW-q9I" firstAttribute="leading" secondItem="v31-hN-OmU" secondAttribute="leadingMargin" constant="-20" id="d1f-tu-O9i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VKZ-aW-q9I" secondAttribute="trailing" constant="-20" id="zc0-ew-Lfh"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Chart" image="ChartViewTemplate" id="7d2-iJ-LcH"/>
+                    <connections>
+                        <outlet property="graphView" destination="VKZ-aW-q9I" id="GdH-2q-5dY"/>
+                        <outlet property="listButton" destination="9t3-Uv-sho" id="I1V-if-t9D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FJf-0r-neS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="252" y="255"/>
+        </scene>
+        <!--List-->
+        <scene sceneID="eUk-vB-BhK">
+            <objects>
+                <tableViewController storyboardIdentifier="TideListView" id="fH8-IZ-LIr" customClass="XTUITideEventsTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ra1-eO-g58">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TideEvent" textLabel="ffT-SS-nJu" detailTextLabel="ifd-LV-JXe" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="yHZ-cf-OTE">
+                                <rect key="frame" x="0.0" y="28" width="600" height="57"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yHZ-cf-OTE" id="4Ko-gD-eqp">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ffT-SS-nJu">
+                                            <rect key="frame" x="15" y="11" width="32" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ifd-LV-JXe">
+                                            <rect key="frame" x="15" y="31" width="41" height="14"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fH8-IZ-LIr" id="1GC-N2-eje"/>
+                            <outlet property="delegate" destination="fH8-IZ-LIr" id="CUy-aX-a8I"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="List" image="ListViewTemplate" id="rYm-Js-mNV"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gk5-Is-MLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="900" y="233"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ChartViewTemplate" width="16" height="16"/>
+        <image name="ListViewTemplate" width="16" height="16"/>
+        <image name="ReturnToNow" width="32" height="32"/>
+        <image name="chartButtonBackgroundTemplate" width="48" height="48"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5EE-nh-eXS"/>
+    </inferredMetricsTieBreakers>
+</document>

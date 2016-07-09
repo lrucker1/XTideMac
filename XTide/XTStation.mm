@@ -90,6 +90,18 @@ static NSArray *unitsPrefMap = nil;
 	return dayFormatter;
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+	if (!dateFormatter) {
+		dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+		[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+		[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+		[dateFormatter setTimeZone:[self timeZone]];
+	}
+	return dateFormatter;
+}
+
 - (NSString *)timeStringFromDate:(NSDate *)date
 {
    return [[self timeFormatter] stringFromDate:date];
@@ -98,6 +110,11 @@ static NSArray *unitsPrefMap = nil;
 - (NSString *)dayStringFromDate:(NSDate *)date
 {
    return [[self dayFormatter] stringFromDate:date];
+}
+
+- (NSString *)dateStringFromDate:(NSDate *)date
+{
+   return [[self dateFormatter] stringFromDate:date];
 }
 
 

@@ -103,13 +103,16 @@
 		94041D771CCC2909003BD343 /* XTStationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */; };
 		94041D791CCC417B003BD343 /* XTStationInfoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */; };
 		94041D7B1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */; };
-		940BAA881D2C448F00E1C11B /* XTWMapInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA871D2C448F00E1C11B /* XTWMapInterfaceController.m */; };
 		940BAA8B1D2C4DD700E1C11B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940BAA8A1D2C4DD700E1C11B /* MapKit.framework */; };
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		94301D001D2B668C00D4D68A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944501711D305A3C00203863 /* XTWListInterfaceController.m */; };
+		944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944501731D315E3900203863 /* TideViewsStoryboard.storyboard */; };
+		944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */; };
+		944501791D31874C00203863 /* XTUIGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944501781D31874C00203863 /* XTUIGraphViewController.xib */; };
+		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -194,7 +197,6 @@
 		94CE15E41D24D9370088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
 		94CE15E71D24DFBD0088720D /* XTUIGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E61D24DFBD0088720D /* XTUIGraphView.m */; };
 		94CE15EB1D24E18A0088720D /* XTUIGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */; };
-		94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */; };
 		94CE15ED1D24F8000088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
 		94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */; };
@@ -378,14 +380,18 @@
 		94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoViewController.xib; sourceTree = "<group>"; };
 		94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewController.xib; sourceTree = "<group>"; };
 		94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewControllerVibrant.xib; sourceTree = "<group>"; };
-		940BAA861D2C448F00E1C11B /* XTWMapInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWMapInterfaceController.h; sourceTree = "<group>"; };
-		940BAA871D2C448F00E1C11B /* XTWMapInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWMapInterfaceController.m; sourceTree = "<group>"; };
 		940BAA8A1D2C4DD700E1C11B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
 		9410B4711D2E10A900B40F43 /* svgTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svgTest.svg; sourceTree = "<group>"; };
 		944501701D305A3C00203863 /* XTWListInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWListInterfaceController.h; sourceTree = "<group>"; };
 		944501711D305A3C00203863 /* XTWListInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWListInterfaceController.m; sourceTree = "<group>"; };
+		944501731D315E3900203863 /* TideViewsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TideViewsStoryboard.storyboard; sourceTree = "<group>"; };
+		944501751D316F1B00203863 /* XTUITideEventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUITideEventsTableViewController.h; sourceTree = "<group>"; };
+		944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUITideEventsTableViewController.mm; sourceTree = "<group>"; };
+		944501781D31874C00203863 /* XTUIGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTUIGraphViewController.xib; sourceTree = "<group>"; };
+		9445017A1D318FE600203863 /* XTUITideTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUITideTabBarController.h; sourceTree = "<group>"; };
+		9445017B1D318FE600203863 /* XTUITideTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUITideTabBarController.m; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -526,7 +532,6 @@
 		94CE15E61D24DFBD0088720D /* XTUIGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIGraphView.m; sourceTree = "<group>"; };
 		94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIGraphViewController.h; sourceTree = "<group>"; };
 		94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIGraphViewController.m; sourceTree = "<group>"; };
-		94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTUIGraphViewController.xib; sourceTree = "<group>"; };
 		94CE15F21D26E6740088720D /* XTUIStationTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIStationTableViewController.h; sourceTree = "<group>"; };
 		94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUIStationTableViewController.mm; sourceTree = "<group>"; };
 		94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIFavoritesTableViewController.h; sourceTree = "<group>"; };
@@ -713,11 +718,16 @@
 				94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */,
 				94CE15F51D272F2E0088720D /* XTUIFavoritesTableViewController.h */,
 				94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */,
+				944501751D316F1B00203863 /* XTUITideEventsTableViewController.h */,
+				944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */,
 				94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */,
 				94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */,
-				94CE15EA1D24E18A0088720D /* XTUIGraphViewController.xib */,
+				9445017A1D318FE600203863 /* XTUITideTabBarController.h */,
+				9445017B1D318FE600203863 /* XTUITideTabBarController.m */,
 				94CE15E51D24DFBD0088720D /* XTUIGraphView.h */,
 				94CE15E61D24DFBD0088720D /* XTUIGraphView.m */,
+				944501781D31874C00203863 /* XTUIGraphViewController.xib */,
+				944501731D315E3900203863 /* TideViewsStoryboard.storyboard */,
 				945828ED1D248BF300972E1C /* Main.storyboard */,
 				945828F01D248BF300972E1C /* Assets.xcassets */,
 				945828F21D248BF300972E1C /* LaunchScreen.storyboard */,
@@ -1027,8 +1037,6 @@
 				940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */,
 				944501701D305A3C00203863 /* XTWListInterfaceController.h */,
 				944501711D305A3C00203863 /* XTWListInterfaceController.m */,
-				940BAA861D2C448F00E1C11B /* XTWMapInterfaceController.h */,
-				940BAA871D2C448F00E1C11B /* XTWMapInterfaceController.m */,
 				94CE16131D287E690088720D /* ExtensionDelegate.h */,
 				94CE16141D287E690088720D /* ExtensionDelegate.m */,
 				94CE16161D287E6A0088720D /* NotificationController.h */,
@@ -1278,15 +1286,16 @@
 			files = (
 				945829531D248DD200972E1C /* toolbar-graph.png in Resources */,
 				945829551D248DD200972E1C /* toolbar-calendar.png in Resources */,
+				944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */,
 				945829521D248DD200972E1C /* blank.png in Resources */,
 				945829541D248DD200972E1C /* toolbar-list.png in Resources */,
 				94CE16311D28B8560088720D /* StateImages.xcassets in Resources */,
-				94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */,
 				945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */,
 				94CE15ED1D24F8000088720D /* Images.xcassets in Resources */,
 				945828F11D248BF300972E1C /* Assets.xcassets in Resources */,
 				945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */,
 				945828EF1D248BF300972E1C /* Main.storyboard in Resources */,
+				944501791D31874C00203863 /* XTUIGraphViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,6 +1385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */,
 				945829251D248D7100972E1C /* Interval.cc in Sources */,
 				9458291F1D248D6900972E1C /* Station.cc in Sources */,
 				9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */,
@@ -1413,6 +1423,7 @@
 				945829161D248D6100972E1C /* SVGGraph.cc in Sources */,
 				94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */,
 				9458293C1D248D7900972E1C /* Constituent.cc in Sources */,
+				9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */,
 				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
 				945829241D248D7100972E1C /* HarmonicsPath.cc in Sources */,
 				94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */,
@@ -1569,7 +1580,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CE16151D287E690088720D /* ExtensionDelegate.m in Sources */,
-				940BAA881D2C448F00E1C11B /* XTWMapInterfaceController.m in Sources */,
 				944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */,
 				94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */,
 				940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */,

@@ -15,21 +15,20 @@ static NSString * const GraphView_hasCustomDate = @"view.hasCustomDate";
 @interface XTUIGraphViewController ()
 
 @property UIButton *nowButton;
+@property XTStation *station;
 
 @end
 
 @implementation XTUIGraphViewController
-
-
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     
     return UIInterfaceOrientationMaskAll;
 }
 
-
 - (void)updateStation: (XTStation *)station
 {
+    self.station = station;
     XTUIGraphView *gv = self.graphView;
     gv.station = station;
     [gv setNeedsDisplay];
@@ -39,9 +38,10 @@ static NSString * const GraphView_hasCustomDate = @"view.hasCustomDate";
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    XTUIGraphView *gv = (XTUIGraphView *)self.view;
+    XTUIGraphView *gv = self.graphView;
     gv.graphdate = [NSDate date];
     gv.hasCustomDate = NO;
+    gv.station = self.station;
     [gv setContentMode:UIViewContentModeRedraw];
     // Add a "Now" button
     self.nowButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -76,22 +76,7 @@ static NSString * const GraphView_hasCustomDate = @"view.hasCustomDate";
     [self.graphView returnToNow];
 }
 
-- (XTUIGraphView *)graphView
-{
-    return (XTUIGraphView *)self.view;
-}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+#pragma mark observation
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

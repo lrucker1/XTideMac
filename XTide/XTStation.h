@@ -20,6 +20,10 @@
 - (NSString *)stationInfoAsHTML;
 - (NSArray *)stationMetadata;
 
+- (NSString *)timeStringFromDate: (NSDate *)date;
+- (NSString *)dayStringFromDate:(NSDate *)date;
+- (NSString *)dateStringFromDate:(NSDate *)date;
+
 - (void)predictTideEventsStart:(NSDate*)startTime
                            end:(NSDate*)endTime
                      organizer:(XTTideEventsOrganizer*)organizer;

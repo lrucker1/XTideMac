@@ -109,11 +109,20 @@
                     <connections>
                         <outlet property="mapView" destination="Sfv-3D-k4s" id="Ehs-vu-oP4"/>
                         <outlet property="view" destination="231-yD-fVU" id="gWu-u9-ZP0"/>
+                        <segue destination="V05-2w-Ok6" kind="show" identifier="ShowTideViews" id="smC-bX-ltd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbk-5h-RhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="470" y="-227"/>
+        </scene>
+        <!--TideViewsStoryboard-->
+        <scene sceneID="j75-NZ-SqO">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="TIdeViews" storyboardName="TideViewsStoryboard" id="V05-2w-Ok6" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yhT-c8-4Qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1693" y="-78"/>
         </scene>
         <!--Favorites Table View Controller-->
         <scene sceneID="Lf3-xy-3cw">
@@ -131,6 +140,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="V05-2w-Ok6" kind="show" id="CeY-oE-5Yt"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -159,6 +171,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="V05-2w-Ok6" kind="show" id="ELO-VI-bN1"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -176,4 +191,7 @@
         <image name="FavoriteStarOpen" width="32" height="32"/>
         <image name="location-arrow" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="smC-bX-ltd"/>
+    </inferredMetricsTieBreakers>
 </document>

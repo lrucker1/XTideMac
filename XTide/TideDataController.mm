@@ -124,6 +124,7 @@
 	return [[organizer objectAtIndex:rowIndex] isDateEvent];
 }
 
+// TODO: Update to view-based table.
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
 {
 	XTTideEvent *tideEvent = [organizer objectAtIndex:rowIndex];

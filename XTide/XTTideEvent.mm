@@ -131,6 +131,14 @@
     return [station timeStringFromDate:TimestampToNSDate(mTideEvent->eventTime)];
 }
 
+- (NSString *)dateForStation: (XTStation *)station
+{
+    if (eventDate) {
+        return [station dayStringFromDate:eventDate];
+    }
+    return [station dateStringFromDate:TimestampToNSDate(mTideEvent->eventTime)];
+}
+
 - (NSString *)longDescription
 {
     if (eventDate) {

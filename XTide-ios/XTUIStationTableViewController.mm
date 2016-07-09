@@ -13,6 +13,7 @@
 #import "XTStationRef.h"
 #import "XTUIGraphViewController.h"
 #import "UIKitAdditions.h"
+#import "XTUITideTabBarController.h"
 
 @interface XTUIStationTableViewController ()
 
@@ -176,24 +177,16 @@
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    XTStationRef *ref = [self.filteredArray objectAtIndex:[indexPath row]];
-    XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
-    viewController.edgesForExtendedLayout = UIRectEdgeNone;
-    [viewController updateStation:[ref loadStation]];
-    
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+    XTStationRef *ref = [self.filteredArray objectAtIndex:[indexPath row]];
+    UIViewController<XTUITideView> *vc = [segue destinationViewController];
+    if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
+        [vc updateStation:[ref loadStation]];
+    }
 }
-*/
 
 @end

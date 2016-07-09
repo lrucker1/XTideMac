@@ -10,4 +10,5 @@
 
 @interface XTUIFavoritesTableViewController : UITableViewController
 
+
 @end

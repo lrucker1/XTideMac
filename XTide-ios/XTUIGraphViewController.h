@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XTUITideTabBarController.h"
 
 @class XTStation;
+@class XTUIGraphView;
 
-@interface XTUIGraphViewController : UIViewController
+@interface XTUIGraphViewController : UIViewController <XTUITideView>
 
 @property (nonatomic, strong) IBOutlet UIButton *listButton;
+@property (nonatomic, strong) IBOutlet XTUIGraphView *graphView;
 
 - (void)updateStation: (XTStation *)station;
 

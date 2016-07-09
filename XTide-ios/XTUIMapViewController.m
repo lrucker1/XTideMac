@@ -12,10 +12,10 @@
 #import "XTStationRef.h"
 #import "XTColorUtils.h"
 #import "XTStation.h"
-#import "XTUIGraphViewController.h"
+#import "XTUITideTabBarController.h"
 #import "UIKitAdditions.h"
 
-#define DEBUG_EVENTS 1
+#define DEBUG_EVENTS 0
 #define DEBUG_DOTS 0
 
 static const CGFloat deltaLimit = 3;
@@ -38,6 +38,8 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (strong) XTStationRef *stationRefForWatch;
 @property (strong) NSDate *eventStartDate;
 @property (strong) NSDate *eventEndDate;
+@property (strong) XTStationRef *currentAnnotation;
+
 @property BOOL didShowWatchLocationAlert;
 
 @end
@@ -212,6 +214,7 @@ regionDidChangeAnimated:(BOOL)animated
         ((MKPinAnnotationView *)returnedAnnotationView).animatesDrop = NO;
         returnedAnnotationView.canShowCallout = YES;
         UIButton *disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        [disclosureButton setImage:[UIImage imageNamed:@"ChartViewTemplate"] forState:UIControlStateNormal];
         returnedAnnotationView.rightCalloutAccessoryView = disclosureButton;
         favoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [favoriteButton setFrame:CGRectMake(0, 0, 32, 32)];
@@ -255,11 +258,8 @@ calloutAccessoryControlTapped:(UIControl *)control
    
     UIButton *button = (UIButton *)control;
     if (control == view.rightCalloutAccessoryView) {
-        XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
-        viewController.edgesForExtendedLayout = UIRectEdgeNone;
-        [viewController updateStation:[annotation loadStation]];
-        
-        [self.navigationController pushViewController:viewController animated:YES];
+        self.currentAnnotation = annotation;
+        [self performSegueWithIdentifier:@"ShowTideViews" sender:self];
     } else {
         button.selected = !button.selected;
         if (button.selected) {
@@ -340,14 +340,16 @@ calloutAccessoryControlTapped:(UIControl *)control
     [dict setObject:self.stationRefForWatch.title forKey:@"stationName"];
     
     NSError *error = nil;
-    if (![self.watchSession updateApplicationContext:dict
-                                               error:&error]) {
-        NSLog(@"Updating the context failed: %@", error.localizedDescription);
-    }
-    if ([self.watchSession isComplicationEnabled]) {
-        NSDictionary *events = [self complicationEvents];
-        if (events) {
-            [self.watchSession transferCurrentComplicationUserInfo:events];
+    if (self.watchSession) {
+        if (![self.watchSession updateApplicationContext:dict
+                                                   error:&error]) {
+            NSLog(@"Updating the context failed: %@", error.localizedDescription);
+        }
+        if ([self.watchSession isComplicationEnabled]) {
+            NSDictionary *events = [self complicationEvents];
+            if (events) {
+                [self.watchSession transferCurrentComplicationUserInfo:events];
+            }
         }
     }
 }
@@ -389,6 +391,18 @@ calloutAccessoryControlTapped:(UIControl *)control
 #endif
     }
 }
+
+#pragma mark storyboard
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    UIViewController<XTUITideView> *vc = [segue destinationViewController];
+    if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
+        [vc updateStation:[self.currentAnnotation loadStation]];
+    }
+}
+
+#pragma mark watch
 
 - (void)defaultsChanged:(NSNotification *)notification
 {
@@ -496,17 +510,14 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         NSLog(@"No station");
     }
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController *vc = self.navigationController.visibleViewController;
+        UIViewController<XTUITideView> *vc = (UIViewController<XTUITideView> *)self.navigationController.visibleViewController;
         XTStation *station = [self.stationRefForWatch loadStation];
-        if ([vc isKindOfClass:[XTUIGraphViewController class]]) {
-            [(XTUIGraphViewController *)vc updateStation:station];
+        if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
+            [vc updateStation:station];
         } else {
             // Whatever else it is, it supports showing a station.
-            XTUIGraphViewController *viewController = [[XTUIGraphViewController alloc] init];
-            viewController.edgesForExtendedLayout = UIRectEdgeNone;
-            [viewController updateStation:station];
-            
-            [self.navigationController pushViewController:viewController animated:YES];
+            self.currentAnnotation = self.stationRefForWatch;
+            [self performSegueWithIdentifier:@"ShowTideViews" sender:self];
         }
     });
 }

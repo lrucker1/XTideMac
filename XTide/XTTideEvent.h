@@ -31,6 +31,7 @@
 - (NSDictionary *)eventDictionary;
 - (NSString *)eventTypeString;
 - (NSString *)timeForStation: (XTStation *)station;
+- (NSString *)dateForStation: (XTStation *)station;
 
 - (libxtide::TideEvent::EventType)eventType;
 - (BOOL)isDateEvent;

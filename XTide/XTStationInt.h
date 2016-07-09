@@ -21,6 +21,7 @@
 	
 	NSDateFormatter *timeFormatter;
 	NSDateFormatter *dayFormatter;
+	NSDateFormatter *dateFormatter;
 }
 
 - (instancetype)initUsingStationRef: (libxtide::StationRef *)aStationRef;
@@ -30,8 +31,6 @@
 - (XTCalendar *)loadCalendarFromStart: (NSDate *)startDate
 								toEnd: (NSDate *)endDate;
 
-- (NSString *)timeStringFromDate: (NSDate *)date;
-- (NSString *)dayStringFromDate:(NSDate *)date;
 - (double)aspect;
 - (void)aspect: (double)anAspect;
 - (libxtide::PredictionValue)markLevel;
