@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "lowtideWaves.png",
+      "filename" : "sunrise.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "lowtideWaves@2x.png",
+      "filename" : "sunrise@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "lowtideWaves@3x.png",
       "scale" : "3x"
     }
   ],
