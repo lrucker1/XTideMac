@@ -49,7 +49,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UI9-dR-Zjn"/>
-                                    <barButtonItem image="FavoriteStarOpen" id="O8G-fF-WLy">
+                                    <barButtonItem image="FavoriteStarFilled" id="O8G-fF-WLy">
                                         <connections>
                                             <segue destination="AWf-rM-ERa" kind="show" id="DWD-2y-W9C"/>
                                         </connections>
@@ -188,7 +188,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FavoriteStarOpen" width="32" height="32"/>
+        <image name="FavoriteStarFilled" width="32" height="32"/>
         <image name="location-arrow" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -113,6 +113,7 @@
 		944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */; };
 		944501791D31874C00203863 /* XTUIGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944501781D31874C00203863 /* XTUIGraphViewController.xib */; };
 		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
+		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -392,6 +393,8 @@
 		944501781D31874C00203863 /* XTUIGraphViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTUIGraphViewController.xib; sourceTree = "<group>"; };
 		9445017A1D318FE600203863 /* XTUITideTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUITideTabBarController.h; sourceTree = "<group>"; };
 		9445017B1D318FE600203863 /* XTUITideTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUITideTabBarController.m; sourceTree = "<group>"; };
+		9445017D1D31A7DE00203863 /* XTUIStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIStationInfoViewController.h; sourceTree = "<group>"; };
+		9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIStationInfoViewController.m; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -722,6 +725,8 @@
 				944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */,
 				94CE15E81D24E18A0088720D /* XTUIGraphViewController.h */,
 				94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */,
+				9445017D1D31A7DE00203863 /* XTUIStationInfoViewController.h */,
+				9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */,
 				9445017A1D318FE600203863 /* XTUITideTabBarController.h */,
 				9445017B1D318FE600203863 /* XTUITideTabBarController.m */,
 				94CE15E51D24DFBD0088720D /* XTUIGraphView.h */,
@@ -1426,6 +1431,7 @@
 				9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */,
 				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
 				945829241D248D7100972E1C /* HarmonicsPath.cc in Sources */,
+				9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */,
 				94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */,
 				945829341D248D7900972E1C /* Calendar.cc in Sources */,
 				945829151D248D6100972E1C /* SubordinateStation.cc in Sources */,

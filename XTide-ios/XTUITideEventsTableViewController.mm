@@ -38,7 +38,7 @@
 - (void)updateStation:(XTStation *)station
 {
     self.station = station;
-    [self computeEvents];
+    [self reloadContent];
 }
 
 - (NSDate *)startDate
@@ -48,10 +48,11 @@
 
 - (NSDate *)endDate
 {
+    // Show a week.
     return [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 7];
 }
 
-- (void)computeEvents
+- (IBAction)reloadContent
 {
 	XTTideEventsOrganizer *tempOrganizer =
       [[XTTideEventsOrganizer alloc] init];

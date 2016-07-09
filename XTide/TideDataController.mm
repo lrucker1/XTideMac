@@ -124,7 +124,7 @@
 	return [[organizer objectAtIndex:rowIndex] isDateEvent];
 }
 
-// TODO: Update to view-based table.
+// TODO: Update to view-based table. Also the imageWithName is redundant.
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
 {
 	XTTideEvent *tideEvent = [organizer objectAtIndex:rowIndex];

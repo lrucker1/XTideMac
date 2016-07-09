@@ -14,9 +14,11 @@
 
 @interface XTUIGraphViewController : UIViewController <XTUITideView>
 
-@property (nonatomic, strong) IBOutlet UIButton *listButton;
 @property (nonatomic, strong) IBOutlet XTUIGraphView *graphView;
+@property (nonatomic, strong) IBOutlet UIButton *favoriteButton;
 
 - (void)updateStation: (XTStation *)station;
+
+- (IBAction)toggleFavorite;
 
 @end

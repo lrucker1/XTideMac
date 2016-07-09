@@ -13,6 +13,7 @@
 @protocol XTUITideView
 
 - (void)updateStation: (XTStation *)station;
+- (IBAction)reloadContent;
 
 @end
 

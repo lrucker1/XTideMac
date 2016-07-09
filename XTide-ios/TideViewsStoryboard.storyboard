@@ -18,11 +18,46 @@
                     <connections>
                         <segue destination="SFd-AG-GpC" kind="relationship" relationship="viewControllers" id="Yji-hR-hq1"/>
                         <segue destination="fH8-IZ-LIr" kind="relationship" relationship="viewControllers" id="5EE-nh-eXS"/>
+                        <segue destination="mTB-Xe-Z3M" kind="relationship" relationship="viewControllers" id="BrI-33-fAO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xel-Yp-AUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2003" y="-80"/>
+        </scene>
+        <!--Station Info-->
+        <scene sceneID="4Xa-iw-78e">
+            <objects>
+                <viewController id="mTB-Xe-Z3M" customClass="XTUIStationInfoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="P4k-4F-Vxp"/>
+                        <viewControllerLayoutGuide type="bottom" id="456-N0-Oop"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mAA-w9-EdV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
+                                <rect key="frame" x="20" y="20" width="560" height="531"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="P4k-4F-Vxp" secondAttribute="bottom" id="2gd-G0-0bw"/>
+                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="mAA-w9-EdV" secondAttribute="leadingMargin" id="38j-VQ-tKh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="OA5-f2-Hl7" secondAttribute="trailing" id="Dsl-02-4gv"/>
+                            <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="OA5-f2-Hl7" secondAttribute="bottom" id="Jn7-gO-deH"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Station Info" image="StationInfoIcon" id="JbQ-LH-poU"/>
+                    <connections>
+                        <outlet property="webView" destination="OA5-f2-Hl7" id="ovY-aP-QKD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gdV-Wp-Yac" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1635" y="160"/>
         </scene>
         <!--Chart-->
         <scene sceneID="nCb-DB-lnj">
@@ -39,21 +74,22 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKZ-aW-q9I" customClass="XTUIGraphView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
-                                        <rect key="frame" x="520" y="451" width="48" height="48"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
+                                        <rect key="frame" x="520" y="435" width="48" height="48"/>
+                                        <accessibility key="accessibilityConfiguration" hint="Add or remove from favorites list" label="Favorite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgA-SB-lfY"/>
                                             <constraint firstAttribute="width" constant="48" id="ygL-Jx-CJc"/>
                                         </constraints>
-                                        <state key="normal" image="ReturnToNow" backgroundImage="chartButtonBackgroundTemplate"/>
+                                        <state key="normal" image="FavoriteStarOpen" backgroundImage="chartButtonBackgroundTemplate"/>
                                         <connections>
-                                            <segue destination="fH8-IZ-LIr" kind="show" id="Hzu-nQ-sjh"/>
+                                            <action selector="toggleFavorite" destination="SFd-AG-GpC" eventType="touchUpInside" id="Zm0-IE-Dtw"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="9t3-Uv-sho" secondAttribute="bottom" constant="32" id="lju-a2-FGt"/>
+                                    <constraint firstAttribute="bottom" secondItem="9t3-Uv-sho" secondAttribute="bottom" constant="48" id="lju-a2-FGt"/>
                                     <constraint firstAttribute="trailing" secondItem="9t3-Uv-sho" secondAttribute="trailing" constant="32" id="pVv-Zl-YIu"/>
                                 </constraints>
                             </view>
@@ -68,8 +104,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Chart" image="ChartViewTemplate" id="7d2-iJ-LcH"/>
                     <connections>
+                        <outlet property="favoriteButton" destination="9t3-Uv-sho" id="w4b-uo-H7U"/>
                         <outlet property="graphView" destination="VKZ-aW-q9I" id="GdH-2q-5dY"/>
-                        <outlet property="listButton" destination="9t3-Uv-sho" id="I1V-if-t9D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJf-0r-neS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -118,17 +154,27 @@
                     <tabBarItem key="tabBarItem" title="List" image="ListViewTemplate" id="rYm-Js-mNV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk5-Is-MLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-1j-3Sz">
+                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="gsL-AW-oMU"/>
+                        <constraint firstAttribute="width" constant="48" id="p1F-Gt-aeW"/>
+                    </constraints>
+                    <state key="normal" image="ReturnToNow" backgroundImage="chartButtonBackgroundTemplate"/>
+                    <connections>
+                        <action selector="returnToNow" destination="SFd-AG-GpC" eventType="touchUpInside" id="2B3-7n-8Wh"/>
+                    </connections>
+                </button>
             </objects>
             <point key="canvasLocation" x="900" y="233"/>
         </scene>
     </scenes>
     <resources>
         <image name="ChartViewTemplate" width="16" height="16"/>
+        <image name="FavoriteStarOpen" width="32" height="32"/>
         <image name="ListViewTemplate" width="16" height="16"/>
         <image name="ReturnToNow" width="32" height="32"/>
+        <image name="StationInfoIcon" width="16" height="16"/>
         <image name="chartButtonBackgroundTemplate" width="48" height="48"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="5EE-nh-eXS"/>
-    </inferredMetricsTieBreakers>
 </document>
