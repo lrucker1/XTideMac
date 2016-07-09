@@ -16,6 +16,7 @@
 
 @class XTStation;
 @class XTTideEvent;
+@class XTTideEventsOrganizer;
 
 @interface XTGraph : NSObject
 
@@ -39,6 +40,6 @@
 // Variation for clocks, so we can make AX labels.
 - (void)drawTides:(XTStation *)sr
               now:(NSDate *)now
-      description:(NSString **)desc;
+        organizer:(XTTideEventsOrganizer *)organizer;
 
 @end

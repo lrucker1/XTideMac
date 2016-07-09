@@ -43,12 +43,36 @@
 // But it's just a one-shot image generator, not user-facing, so it's good enough.
 
 #if DEBUG_GENERATE_WATCH_IMAGE
-- (void)createWatchPlaceholderImage: (NSURL *)fileURL
+- (void)createWatchPlaceholderImages
 {
-    CGFloat xsize = 136;
-    CGFloat ysize = 170;
     CGFloat scale = 2;
-    CGRect offscreenRect = CGRectMake(0, 0, xsize * scale, ysize * scale);
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.day = 22;
+    dateComponents.month = 1;
+    dateComponents.year = 1984;
+    dateComponents.hour = 12;
+    NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDate *date = [gregorianCalendar dateFromComponents:dateComponents];
+    NSString *fileLoc = [@"~/watchBackground38@2x.png" stringByExpandingTildeInPath];
+    if (fileLoc) {
+        [self createWatchPlaceholderImage:fileLoc
+                                     rect:CGRectMake(0, 0, 136 * scale, 170 * scale)
+                                     date:date];
+    }
+ 
+    fileLoc = [@"~/watchBackground42@2x.png" stringByExpandingTildeInPath];
+    if (fileLoc) {
+        [self createWatchPlaceholderImage:fileLoc
+                                     rect:CGRectMake(0, 0, 156 * scale, 195 * scale)
+                                     date:date];
+    }
+}
+
+- (void)createWatchPlaceholderImage:(NSString *)fileLoc
+                               rect:(CGRect)offscreenRect
+                               date:(NSDate *)date
+{
+    NSURL *fileURL = [NSURL fileURLWithPath:fileLoc];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     NSSize size = offscreenRect.size;
     CGContextRef contextRef = CGBitmapContextCreate(NULL, size.width, size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
@@ -57,10 +81,10 @@
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     [NSGraphicsContext setCurrentContext:graphicsContext];
     XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:offscreenRect.size.width ysize:offscreenRect.size.height scale:1];
-    [graph drawTides:self now:[NSDate date]];
-    [NSGraphicsContext setCurrentContext:currentContext];
+    [graph drawTides:self now:date];
     CGColorSpaceRelease(colorSpace);
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
+    [NSGraphicsContext setCurrentContext:currentContext];
 
     CFURLRef url = (__bridge CFURLRef)fileURL;
     CGImageDestinationRef destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, NULL);

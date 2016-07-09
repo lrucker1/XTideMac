@@ -25,19 +25,44 @@
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
-        <!--Map Interface Controller-->
+        <!--List Interface Controller-->
         <scene sceneID="ZMo-Xc-MRn">
             <objects>
-                <controller id="zqN-mK-pxc" customClass="XTWMapInterfaceController">
+                <controller id="zqN-mK-pxc" customClass="XTWListInterfaceController">
                     <items>
-                        <map width="1" alignment="left" id="nrx-ag-Mp8"/>
-                        <label width="1" alignment="left" verticalAlignment="bottom" text="Station" numberOfLines="2" id="Deh-LK-Nis">
+                        <table alignment="left" spacing="3" id="gV9-b4-bzO">
+                            <items>
+                                <tableRow identifier="listRow" id="EKg-ig-gXp" customClass="XTWListTableRowController">
+                                    <group key="rootItem" width="1" height="52.5" alignment="left" layout="vertical" spacing="1" id="iJB-7n-Ciq">
+                                        <items>
+                                            <label alignment="left" text="Event" id="0zg-gF-Xdg">
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                            </label>
+                                            <label alignment="left" text="Level" id="Dl4-i2-rHh">
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                            <label alignment="left" text="Time" id="Zlh-jQ-I8N">
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                            </label>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <outlet property="descLabel" destination="0zg-gF-Xdg" id="Gez-LW-S9o"/>
+                                        <outlet property="levelLabel" destination="Dl4-i2-rHh" id="cGo-mo-Y0Y"/>
+                                        <outlet property="timeLabel" destination="Zlh-jQ-I8N" id="ICl-cg-wzW"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                        <label width="1" alignment="left" verticalAlignment="bottom" text="Waiting for iPhone…" numberOfLines="2" id="Deh-LK-Nis">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                     </items>
                     <connections>
-                        <outlet property="map" destination="nrx-ag-Mp8" id="TNv-a9-BA2"/>
-                        <outlet property="mapLabel" destination="Deh-LK-Nis" id="313-BD-g9Y"/>
+                        <outlet property="eventTable" destination="gV9-b4-bzO" id="gF6-uL-lKA"/>
+                        <outlet property="stationLabel" destination="Deh-LK-Nis" id="Aoe-8a-ldL"/>
                     </connections>
                 </controller>
             </objects>

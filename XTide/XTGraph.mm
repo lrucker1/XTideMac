@@ -12,6 +12,7 @@
 #import "XTStationInt.h"
 #import "XTUtils.h"
 #import "XTTideEvent.h"
+#import "XTTideEventsOrganizer.h"
 
 /*
  * Since the parts that need to be different are also the parts that would
@@ -198,15 +199,12 @@ namespace libxtide {
 
 - (void)drawTides:(XTStation *)sr
               now:(NSDate *)now
-      description:(NSString **)desc
+        organizer:(XTTideEventsOrganizer *)organizer
 {
     libxtide::Timestamp t = libxtide::Timestamp((time_t)[now timeIntervalSince1970]);
-    Dstr dStr;
 
-    mGraph->drawTides([sr adaptedStation], t, NULL, &dStr);
-    if (desc) {
-        *desc = DstrToNSString(dStr);
-    }
+    mGraph->drawTides([sr adaptedStation], t, NULL, [organizer adaptedOrganizerPtr]);
+    [organizer reloadData];
 }
 
 
@@ -261,19 +259,31 @@ libxtide::CocoaGraph::CocoaGraph(unsigned xSize,
                                  GraphStyle style):
 PixelatedGraph(xSize, ySize, style)
 {
+    NSShadow *shadow = [[NSShadow alloc] init];
+    shadow.shadowBlurRadius = 0.0f;
 #if TARGET_OS_IPHONE
-    // We use clock mode for the watch.
-    // TODO: either support scale or stop drawing text on clocks.
+    font = [UIFont systemFontOfSize:(float)12.0];
     if (style == libxtide::Graph::clock) {
-        font = [UIFont systemFontOfSize:(float)12.0];
+        shadow.shadowColor = [UIColor darkGrayColor];
     } else {
-        font = [UIFont systemFontOfSize:(float)12.0];
+        shadow.shadowColor = [UIColor blackColor];
     }
+    shadow.shadowOffset = CGSizeMake(1.0f, 1.0f);
 #else
     font = [NSFont userFontOfSize:(float)12.0];
+    shadow.shadowColor = [NSColor blackColor];
+    if (style == libxtide::Graph::clock) {
+        // There's something odd about the AppKit clock drawing. See createWatchPlaceholderImages.
+        shadow.shadowOffset = CGSizeMake(1.0f, 1.0f);
+        shadow.shadowColor = [NSColor darkGrayColor];
+    } else {
+        shadow.shadowOffset = CGSizeMake(1.0f, -1.0f);
+        shadow.shadowColor = [NSColor blackColor];
+    }
 #endif
     attributes = [NSMutableDictionary dictionary];
     [attributes setObject:font forKey:NSFontAttributeName];
+    [attributes setObject:shadow forKey:NSShadowAttributeName];
     
     // There are holes. That's OK, they aren't used in Graph
     int i;

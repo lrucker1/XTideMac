@@ -20,6 +20,8 @@
 }
 
 - (libxtide::TideEventsOrganizer &)adaptedOrganizer;
+- (libxtide::TideEventsOrganizer *)adaptedOrganizerPtr;
+
 
 - (NSInteger)count;
 - (XTTideEvent *)objectAtIndex: (NSInteger)i;

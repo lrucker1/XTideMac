@@ -9,6 +9,7 @@
 #import "UIKitAdditions.h"
 #import "XTColorUtils.h"
 #import "XTGraph.h"
+#import "XTTideEventsOrganizer.h"
 
 @implementation XTStationRef (iOSAdditions)
 
@@ -48,18 +49,15 @@
     CGRect rect = CGRectMake(0, 0, xsize, ysize);
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
     
-    NSString *axString = nil;
+    XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
     XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];
-    [graph drawTides:self now:[NSDate date] description:&axString];
+    [graph drawTides:self now:[NSDate date] organizer:organizer];
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     NSData *data = UIImagePNGRepresentation(image);
-    if (axString == nil) {
-        axString = @"";
-    }
 
-    return @{@"clockImage" : data, @"axDescription": axString, @"title" : self.name };
+    return @{@"clockImage" : data, @"clockEvents": [organizer eventsAsDictionary], @"title" : self.name };
 }
 
 - (NSAttributedString *)stationInfo

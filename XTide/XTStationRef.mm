@@ -43,8 +43,16 @@
     return mStationRef;
 }
 
+/*
+ * loadStation creates a HarmonicsFile instance and is not thread safe,
+ * because HarmonicsFile enforces having only one instance at a time.
+ * Theoretically we could load multiple stations in the same file,
+ * but that would break down on the Mac app which supports multiple files.
+ * TODO: Consider dispatch_sync for loadStation.
+ */
 - (XTStation *)loadStation
 {
+    NSAssert([NSThread isMainThread], @"loadStation on non-main thread");
     return [[XTStation alloc] initUsingStationRef:mStationRef];
 }
 

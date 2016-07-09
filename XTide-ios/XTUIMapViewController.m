@@ -15,12 +15,12 @@
 #import "XTUIGraphViewController.h"
 #import "UIKitAdditions.h"
 
-#define DEBUG_EVENTS 0
+#define DEBUG_EVENTS 1
 #define DEBUG_DOTS 0
 
 static const CGFloat deltaLimit = 3;
 static const CGFloat zoomLimit = 0.5;
-static const CLLocationDistance kUserLocMovement = 2000; // meters
+static const CLLocationDistance kUserLocMovement = 5000; // meters
 
 static const NSTimeInterval DAY = 60 * 60 * 24;
 static NSString * const XTMap_RegionKey = @"map.region";
@@ -38,6 +38,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (strong) XTStationRef *stationRefForWatch;
 @property (strong) NSDate *eventStartDate;
 @property (strong) NSDate *eventEndDate;
+@property BOOL didShowWatchLocationAlert;
 
 @end
 
@@ -47,9 +48,19 @@ static NSString * const XTMap_RegionKey = @"map.region";
 {
     [super viewDidLoad];
     self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager requestWhenInUseAuthorization];
     [self.locationManager setDelegate:self];
-    [self.locationManager allowDeferredLocationUpdatesUntilTraveled:kUserLocMovement timeout:CLTimeIntervalMax];
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (status == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+    } else if (  status == kCLAuthorizationStatusAuthorizedWhenInUse
+               || status == kCLAuthorizationStatusAuthorizedAlways) {
+        [self.locationManager startUpdatingLocation];
+    }
+    self.locationManager.distanceFilter = kUserLocMovement;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
+    //[self.locationManager allowDeferredLocationUpdatesUntilTraveled:kUserLocMovement timeout:CLTimeIntervalMax];
+    self.mapView.showsUserLocation = YES;
+    self.mapView.mapType = MKMapTypeHybrid;
 
     [self loadStations];
     if (!self.refStations) {
@@ -57,8 +68,6 @@ static NSString * const XTMap_RegionKey = @"map.region";
             [self loadStations];
         }];
     }
-    self.mapView.showsUserLocation = YES;
-    self.mapView.mapType = MKMapTypeHybrid;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(defaultsChanged:)
                                                  name:XTStationIndexFavoritesChangedNotification
@@ -102,6 +111,15 @@ static NSString * const XTMap_RegionKey = @"map.region";
         self.mapsLoadObserver = nil;
     }
     [self configureWatch];
+#if DEBUG_EVENTS
+    XTStation *station = [[self stationRefForWatch] loadStation];
+    if (station) {
+        NSArray *angles = [station generateWatchEventsStart:[NSDate date] end:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
+        NSLog(@"%@", angles);
+    }
+    NSDictionary *dict = [self clockInfoWithWidth:200 height:200 scale:2];
+    NSLog(@"%@", dict);
+#endif
 }
 
 // Only show the substations when we're zoomed in; there are over 4000 stations in the database.
@@ -280,9 +298,28 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 #pragma mark watch
 
+- (void)sessionReachabilityDidChange:(WCSession *)session
+{
+//    dispatch_sync(dispatch_get_main_queue(), ^{
+//        // We only care about location when the watch is using it.
+//        if (session.isReachable || session.complicationEnabled) {
+//            [self.locationManager startUpdatingLocation];
+//        } else {
+//            [self.locationManager stopUpdatingLocation];
+//        }
+//    });
+}
+
 - (void)updateWatchState
 {
     XTStationRef *currentRef = [self findStationRefForWatch];
+    if (!currentRef) {
+        /*
+         * This can happen on first launch while the prompt for locServices is up
+         * and there's no favorites list.
+         */
+        return;
+    }
     if ([currentRef isEqual:self.stationRefForWatch]) {
         return;
     }
@@ -315,11 +352,28 @@ calloutAccessoryControlTapped:(UIControl *)control
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (  status == kCLAuthorizationStatusAuthorizedWhenInUse
+        || status == kCLAuthorizationStatusAuthorizedAlways) {
+        [self.locationManager startUpdatingLocation];
+        if (self.watchSession) {
+            [self updateWatchState];
+        }
+    }
+}
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    [self updateWatchState];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateWatchState];
+    });
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"locationManager:didFailWithError: %@", error);
 }
 
 // Update the dot (if we could) and button after favorites change
@@ -347,20 +401,44 @@ calloutAccessoryControlTapped:(UIControl *)control
     }
 }
 
+- (void)showWatchNeedsLocationAlert
+{
+    if (self.didShowWatchLocationAlert) {
+        return;
+    }
+    // We may reset this after a certain time.
+    //
+    self.didShowWatchLocationAlert = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Watch needs station"
+                                       message:@"The watch cannot find a station to display. Mark a station as favorite."
+                                       preferredStyle:UIAlertControllerStyleAlert];
+         
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+           handler:^(UIAlertAction * action) {}];
+         
+        [alert addAction:defaultAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    });
+}
+
 /*
  * First option: closest favorite station. Update whenever location changes.
  * Second option: closest ref station. Update when the user location has moved more than
  *  a distance that's kind of arbitrary.
+ * If there's no location services, pick the first favorite.
+ * If that fails, we'll show showWatchNeedsLocationAlert when the watch asks for data.
  */
 - (XTStationRef *)findStationRefForWatch
 {
     XTStationIndex *stationIndex = [XTStationIndex sharedStationIndex];
-    CLLocation *userLoc = self.mapView.userLocation.location;
-    XTStationRef *ref = nil;
-    if (userLoc) {
-        ref = [stationIndex favoriteNearestLocation:userLoc];
+    NSAssert(self.locationManager, @"Calling this too soon!");
+    CLLocation *userLoc = self.locationManager.location;
+    if (!userLoc) {
+        return [[stationIndex favoriteStationRefs] firstObject];
     }
-    // TODO: Find out why this does not get updated when userLoc changes.
+
+    XTStationRef *ref = [stationIndex favoriteNearestLocation:userLoc];
     if (!ref) {
         // If we just de-fav'd it, we might still keep using it if we haven't moved.
         ref = self.stationRefForWatch;
@@ -381,15 +459,6 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 - (void)configureWatch
 {
-#if DEBUG_EVENTS
-    XTStation *station = [[self stationRefForWatch] loadStation];
-    if (station) {
-        NSArray *angles = [station generateWatchEventsStart:[NSDate date] end:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
-        NSLog(@"%@", angles);
-    }
-    NSDictionary *dict = [self clockInfoWithXSize:200 height:200 scale:2];
-    NSLog(@"%@", dict);
-#endif
     if (![WCSession isSupported]) {
         return;
     }
@@ -423,9 +492,12 @@ calloutAccessoryControlTapped:(UIControl *)control
 -    (void)session:(WCSession *)session
 didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
 {
+    if (!self.stationRefForWatch) {
+        NSLog(@"No station");
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIViewController *vc = self.navigationController.visibleViewController;
-        XTStation *station = [[self stationRefForWatch] loadStation];
+        XTStation *station = [self.stationRefForWatch loadStation];
         if ([vc isKindOfClass:[XTUIGraphViewController class]]) {
             [(XTUIGraphViewController *)vc updateStation:station];
         } else {
@@ -458,11 +530,19 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
     return nil;
 }
 
-
 -   (void)session:(WCSession *)session
  didReceiveMessage:(NSDictionary<NSString *,id> *)message
       replyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
 {
+    if (!self.stationRefForWatch) {
+        self.stationRefForWatch = [self findStationRefForWatch];
+        if (!self.stationRefForWatch) {
+            [self showWatchNeedsLocationAlert];
+            replyHandler(nil);
+            return;
+        }
+    }
+    // TODO: Make loadStation thread safe. This comes in on a background thread.
     NSString *kind = [message objectForKey:@"kind"];
     if ([kind isEqualToString:@"requestImage"]) {
         CGFloat width = [[message objectForKey:@"width"] floatValue];
@@ -470,20 +550,21 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         CGFloat scale = [[message objectForKey:@"scale"] floatValue];
         if (scale == 0) scale = 1;
         if (width > 0 && height > 0) {
-            NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
-            replyHandler( dict );
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
+                replyHandler( dict );
+            });
             return;
         }
     } else if ([kind isEqualToString:@"requestEvents"]) {
         self.eventStartDate = [message objectForKey:@"first"];
         self.eventEndDate = [message objectForKey:@"last"];
-        NSDictionary *events = [self complicationEvents];
-        if (events) {
-            replyHandler( events );
-            return;
-        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            replyHandler( [self complicationEvents] );
+        });
+        return;
     } else if ([kind isEqualToString:@"requestCoordinate"]) {
-        CLLocationCoordinate2D coord = self.stationRefForWatch.coordinate;
+            CLLocationCoordinate2D coord = self.stationRefForWatch.coordinate;
         replyHandler( @{@"coordinate":@[ @(coord.latitude), @(coord.longitude) ],
                         @"stationName": self.stationRefForWatch.title } );
         return;

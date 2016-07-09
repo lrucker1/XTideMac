@@ -35,7 +35,8 @@ static NSString * const GraphView_hasCustomDate = @"view.hasCustomDate";
     [gv setNeedsDisplay];
 }
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     XTUIGraphView *gv = (XTUIGraphView *)self.view;
@@ -53,8 +54,7 @@ static NSString * const GraphView_hasCustomDate = @"view.hasCustomDate";
     self.navigationItem.rightBarButtonItem = barButton;
     /*
      * TODO: Either watch the time and enable the button when it's more than a minute or
-     * so different from the chart, or add "sync to now" behavior like the Mac version.
-     * To really get ambitious, show the graphdate in the button image.
+     * so different from the chart, or add "sync to now" behavior like the Mac & Watch.
      */
 //    [self addObserver:self forKeyPath:GraphView_hasCustomDate options:0 context:&selfContext];
 

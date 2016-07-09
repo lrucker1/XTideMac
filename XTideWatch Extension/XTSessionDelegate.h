@@ -13,9 +13,12 @@
 extern NSString * const XTSessionReachabilityDidChangeNotification;
 extern NSString * const XTSessionAppContextNotification;
 extern NSString * const XTSessionUserInfoNotification;
+extern NSString * const XTSessionUpdateReplyNotification;
 
 @interface XTSessionDelegate : NSObject <WCSessionDelegate>
 
 + (instancetype)sharedDelegate;
+
+- (void)requestUpdate;
 
 @end

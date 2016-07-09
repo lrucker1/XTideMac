@@ -38,25 +38,18 @@
                                              selector:@selector(didReceiveApplicationContext:)
                                                  name:XTSessionAppContextNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(imageUpdated:)
+                                                 name:XTSessionUpdateReplyNotification
+                                               object:nil];
 
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastImageData"];
-    if (data) {
-        [self.group setBackgroundImageData:data];
-        NSString *axString = [[NSUserDefaults standardUserDefaults] objectForKey:@"axDescription"];
-        if (axString) {
-            [self.group setAccessibilityLabel:axString];
-        }
-        NSString *title = [[NSUserDefaults standardUserDefaults] objectForKey:@"title"];
-        if (title) {
-            [self setTitle:title];
-        }
+    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (info) {
+        [self updateContentsFromInfo:info];
     } else {
-        UIImage *image = [UIImage imageNamed:@"watchBackground"];
-        if (image) {
-            [self.group setBackgroundImage:image];
-        }
+        [self.sessionDelegate requestUpdate];
     }
-    BOOL noStation = (!data && !self.watchSession.isReachable);
+    BOOL noStation = (!info && !self.watchSession.isReachable);
     [self.noStationLabel setHidden:!noStation];
 
 #if DEBUG
@@ -77,7 +70,9 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:XTSessionAppContextNotification
                                                   object:nil];
-
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:XTSessionUpdateReplyNotification
+                                                  object:nil];
 }
 
 #if DEBUG
@@ -109,11 +104,30 @@
     self.timer = nil;
 }
 
-- (void)updateImageFromInfo:(NSDictionary *)info
+- (NSString *)axDescriptionFromInfo:(NSDictionary *)info
+{
+    NSArray *events = [info objectForKey:@"clockEvents"];
+    NSMutableArray *axStrings = [NSMutableArray array];
+    [axStrings addObject:@"Tide Chart Graph"];
+    for (NSDictionary *event in events) {
+        NSString *desc = [event objectForKey:@"desc"];
+        NSDate *date = [event objectForKey:@"date"];
+        // Long style to get the timezone.
+        NSString *dateString = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterLongStyle];
+        [axStrings addObject:[NSString stringWithFormat:@"%@ %@", desc, dateString]];
+    }
+    if ([axStrings count]) {
+        return [axStrings componentsJoinedByString:@". "];
+    }
+    return @"";
+}
+
+
+- (void)updateContentsFromInfo:(NSDictionary *)info
 {
     [self.noStationLabel setHidden:YES];
     NSData *data = [info objectForKey:@"clockImage"];
-    NSString *axString = [info objectForKey:@"axDescription"];
+    NSString *axString = [self axDescriptionFromInfo:info];
     NSString *title = [info objectForKey:@"title"];
     if (data) {
         [self.group setBackgroundImageData:data];
@@ -124,10 +138,6 @@
     if (title) {
         [self setTitle:title];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"lastImageData"];
-    [[NSUserDefaults standardUserDefaults] setObject:axString forKey:@"axDescription"];
-    [[NSUserDefaults standardUserDefaults] setObject:title forKey:@"title"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 
@@ -137,23 +147,7 @@
         return;
     }
 
-    CGRect bounds = [[WKInterfaceDevice currentDevice] screenBounds];
-    CGFloat scale = [[WKInterfaceDevice currentDevice] screenScale];
-    [self.watchSession sendMessage:@{@"kind"   : @"requestImage",
-                                     @"width"  : @(bounds.size.width),
-                                     @"height" : @(bounds.size.height),
-                                     @"scale"  : @(scale) }
-    replyHandler:^(NSDictionary *reply) {
-        if (reply) {
-            [self updateImageFromInfo:reply];
-        }
-    }
-    errorHandler:^(NSError *error){
-        // Ignore timeout errors.
-        if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
-            NSLog(@"requestImage: %@", error);
-        }
-    }];
+    [self.sessionDelegate requestUpdate];
 }
 
 - (void)reachabilityChanged:(NSNotification *)note
@@ -170,9 +164,17 @@
     NSDictionary *applicationContext = [note userInfo];
     NSData *data = [applicationContext objectForKey:@"clockImage"];
     if (data) {
-        [self updateImageFromInfo:applicationContext];
+        [self updateContentsFromInfo:applicationContext];
     } else {
         [self requestImage];
+    }
+}
+
+- (void)imageUpdated:(NSNotification *)note
+{
+    NSDictionary *reply = [note userInfo];
+    if (reply) {
+        [self updateContentsFromInfo:reply];
     }
 }
 
@@ -180,7 +182,13 @@
 {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    // Update from prefs so there's something while we wait for the latest update.
+    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (info) {
+        [self updateContentsFromInfo:info];
+    }
     if (self.watchSession.isReachable) {
+        // Calls requestUpdate.
         [self startTimer];
     }
 }

@@ -64,18 +64,6 @@
 		94041C5D1CBF173A003BD343 /* TideDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C581CBF173A003BD343 /* TideDocument.mm */; };
 		94041C5E1CBF173A003BD343 /* TideDataDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5A1CBF173A003BD343 /* TideDataDocument.mm */; };
 		94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */; };
-		94041C721CBF1768003BD343 /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C611CBF1768003BD343 /* sunrise.png */; };
-		94041C731CBF1768003BD343 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C621CBF1768003BD343 /* sunset.png */; };
-		94041C741CBF1768003BD343 /* newmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C631CBF1768003BD343 /* newmoon.png */; };
-		94041C751CBF1768003BD343 /* moonrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C641CBF1768003BD343 /* moonrise.png */; };
-		94041C761CBF1768003BD343 /* moonset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C651CBF1768003BD343 /* moonset.png */; };
-		94041C771CBF1768003BD343 /* firstquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C661CBF1768003BD343 /* firstquarter.png */; };
-		94041C781CBF1768003BD343 /* fullmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C671CBF1768003BD343 /* fullmoon.png */; };
-		94041C791CBF1768003BD343 /* lastquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C681CBF1768003BD343 /* lastquarter.png */; };
-		94041C7A1CBF1768003BD343 /* hightide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C691CBF1768003BD343 /* hightide.png */; };
-		94041C7B1CBF1768003BD343 /* lowtide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6A1CBF1768003BD343 /* lowtide.png */; };
-		94041C7C1CBF1768003BD343 /* falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6B1CBF1768003BD343 /* falling.png */; };
-		94041C7D1CBF1768003BD343 /* rising.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6C1CBF1768003BD343 /* rising.png */; };
 		94041C7E1CBF1768003BD343 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
 		94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		94041C801CBF1768003BD343 /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
@@ -121,6 +109,7 @@
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		94301D001D2B668C00D4D68A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
+		944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944501711D305A3C00203863 /* XTWListInterfaceController.m */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -176,18 +165,6 @@
 		945829421D248D8400972E1C /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 94041C501CBEE6BF003BD343 /* Global.cc */; };
 		945829431D248D9A00972E1C /* tide_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D311CC1CE3E003BD343 /* tide_db.c */; };
 		945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
-		945829461D248DD200972E1C /* sunrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C611CBF1768003BD343 /* sunrise.png */; };
-		945829471D248DD200972E1C /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C621CBF1768003BD343 /* sunset.png */; };
-		945829481D248DD200972E1C /* newmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C631CBF1768003BD343 /* newmoon.png */; };
-		945829491D248DD200972E1C /* moonrise.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C641CBF1768003BD343 /* moonrise.png */; };
-		9458294A1D248DD200972E1C /* moonset.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C651CBF1768003BD343 /* moonset.png */; };
-		9458294B1D248DD200972E1C /* firstquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C661CBF1768003BD343 /* firstquarter.png */; };
-		9458294C1D248DD200972E1C /* fullmoon.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C671CBF1768003BD343 /* fullmoon.png */; };
-		9458294D1D248DD200972E1C /* lastquarter.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C681CBF1768003BD343 /* lastquarter.png */; };
-		9458294E1D248DD200972E1C /* hightide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C691CBF1768003BD343 /* hightide.png */; };
-		9458294F1D248DD200972E1C /* lowtide.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6A1CBF1768003BD343 /* lowtide.png */; };
-		945829501D248DD200972E1C /* falling.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6B1CBF1768003BD343 /* falling.png */; };
-		945829511D248DD200972E1C /* rising.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6C1CBF1768003BD343 /* rising.png */; };
 		945829521D248DD200972E1C /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
 		945829531D248DD200972E1C /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		945829541D248DD200972E1C /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
@@ -338,18 +315,6 @@
 		94041C5A1CBF173A003BD343 /* TideDataDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataDocument.mm; sourceTree = "<group>"; };
 		94041C5B1CBF173A003BD343 /* TideGraphDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideGraphDocument.h; sourceTree = "<group>"; };
 		94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideGraphDocument.mm; sourceTree = "<group>"; };
-		94041C611CBF1768003BD343 /* sunrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunrise.png; path = XTide/sunrise.png; sourceTree = "<group>"; };
-		94041C621CBF1768003BD343 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sunset.png; path = XTide/sunset.png; sourceTree = "<group>"; };
-		94041C631CBF1768003BD343 /* newmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = newmoon.png; path = XTide/newmoon.png; sourceTree = "<group>"; };
-		94041C641CBF1768003BD343 /* moonrise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moonrise.png; path = XTide/moonrise.png; sourceTree = "<group>"; };
-		94041C651CBF1768003BD343 /* moonset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = moonset.png; path = XTide/moonset.png; sourceTree = "<group>"; };
-		94041C661CBF1768003BD343 /* firstquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = firstquarter.png; path = XTide/firstquarter.png; sourceTree = "<group>"; };
-		94041C671CBF1768003BD343 /* fullmoon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullmoon.png; path = XTide/fullmoon.png; sourceTree = "<group>"; };
-		94041C681CBF1768003BD343 /* lastquarter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lastquarter.png; path = XTide/lastquarter.png; sourceTree = "<group>"; };
-		94041C691CBF1768003BD343 /* hightide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hightide.png; path = XTide/hightide.png; sourceTree = "<group>"; };
-		94041C6A1CBF1768003BD343 /* lowtide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lowtide.png; path = XTide/lowtide.png; sourceTree = "<group>"; };
-		94041C6B1CBF1768003BD343 /* falling.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = falling.png; path = XTide/falling.png; sourceTree = "<group>"; };
-		94041C6C1CBF1768003BD343 /* rising.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rising.png; path = XTide/rising.png; sourceTree = "<group>"; };
 		94041C6D1CBF1768003BD343 /* blank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blank.png; path = XTide/blank.png; sourceTree = "<group>"; };
 		94041C6E1CBF1768003BD343 /* toolbar-graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-graph.png"; path = "XTide/toolbar-graph.png"; sourceTree = "<group>"; };
 		94041C6F1CBF1768003BD343 /* toolbar-list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "toolbar-list.png"; path = "XTide/toolbar-list.png"; sourceTree = "<group>"; };
@@ -419,6 +384,8 @@
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
 		9410B4711D2E10A900B40F43 /* svgTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svgTest.svg; sourceTree = "<group>"; };
+		944501701D305A3C00203863 /* XTWListInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWListInterfaceController.h; sourceTree = "<group>"; };
+		944501711D305A3C00203863 /* XTWListInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWListInterfaceController.m; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -792,18 +759,6 @@
 				94041CA31CC04969003BD343 /* Images.xcassets */,
 				94CE162F1D28B8560088720D /* StateImages.xcassets */,
 				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
-				94041C611CBF1768003BD343 /* sunrise.png */,
-				94041C621CBF1768003BD343 /* sunset.png */,
-				94041C631CBF1768003BD343 /* newmoon.png */,
-				94041C641CBF1768003BD343 /* moonrise.png */,
-				94041C651CBF1768003BD343 /* moonset.png */,
-				94041C661CBF1768003BD343 /* firstquarter.png */,
-				94041C671CBF1768003BD343 /* fullmoon.png */,
-				94041C681CBF1768003BD343 /* lastquarter.png */,
-				94041C691CBF1768003BD343 /* hightide.png */,
-				94041C6A1CBF1768003BD343 /* lowtide.png */,
-				94041C6B1CBF1768003BD343 /* falling.png */,
-				94041C6C1CBF1768003BD343 /* rising.png */,
 				94041C6D1CBF1768003BD343 /* blank.png */,
 				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
 				94041C6F1CBF1768003BD343 /* toolbar-list.png */,
@@ -1070,6 +1025,8 @@
 				94CE16111D287E690088720D /* InterfaceController.m */,
 				940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */,
 				940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */,
+				944501701D305A3C00203863 /* XTWListInterfaceController.h */,
+				944501711D305A3C00203863 /* XTWListInterfaceController.m */,
 				940BAA861D2C448F00E1C11B /* XTWMapInterfaceController.h */,
 				940BAA871D2C448F00E1C11B /* XTWMapInterfaceController.m */,
 				94CE16131D287E690088720D /* ExtensionDelegate.h */,
@@ -1320,28 +1277,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				945829531D248DD200972E1C /* toolbar-graph.png in Resources */,
-				9458294A1D248DD200972E1C /* moonset.png in Resources */,
-				9458294B1D248DD200972E1C /* firstquarter.png in Resources */,
-				9458294F1D248DD200972E1C /* lowtide.png in Resources */,
-				9458294C1D248DD200972E1C /* fullmoon.png in Resources */,
 				945829551D248DD200972E1C /* toolbar-calendar.png in Resources */,
 				945829521D248DD200972E1C /* blank.png in Resources */,
 				945829541D248DD200972E1C /* toolbar-list.png in Resources */,
 				94CE16311D28B8560088720D /* StateImages.xcassets in Resources */,
 				94CE15EC1D24E18A0088720D /* XTUIGraphViewController.xib in Resources */,
 				945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */,
-				945829471D248DD200972E1C /* sunset.png in Resources */,
-				945829481D248DD200972E1C /* newmoon.png in Resources */,
-				9458294E1D248DD200972E1C /* hightide.png in Resources */,
-				9458294D1D248DD200972E1C /* lastquarter.png in Resources */,
-				945829511D248DD200972E1C /* rising.png in Resources */,
 				94CE15ED1D24F8000088720D /* Images.xcassets in Resources */,
-				945829491D248DD200972E1C /* moonrise.png in Resources */,
 				945828F11D248BF300972E1C /* Assets.xcassets in Resources */,
 				945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */,
-				945829461D248DD200972E1C /* sunrise.png in Resources */,
 				945828EF1D248BF300972E1C /* Main.storyboard in Resources */,
-				945829501D248DD200972E1C /* falling.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1368,25 +1313,16 @@
 				94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */,
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
 				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
-				94041C7A1CBF1768003BD343 /* hightide.png in Resources */,
-				94041C741CBF1768003BD343 /* newmoon.png in Resources */,
-				94041C771CBF1768003BD343 /* firstquarter.png in Resources */,
 				94041C7E1CBF1768003BD343 /* blank.png in Resources */,
 				94041D771CCC2909003BD343 /* XTStationInfoViewController.xib in Resources */,
 				94041D411CC6EBF0003BD343 /* TideData.xib in Resources */,
 				94041D6C1CC95069003BD343 /* TideCalendar.xib in Resources */,
 				94041CAF1CC06B56003BD343 /* TideGraph.xib in Resources */,
-				94041C751CBF1768003BD343 /* moonrise.png in Resources */,
-				94041C7B1CBF1768003BD343 /* lowtide.png in Resources */,
 				94041D4F1CC7ED6E003BD343 /* suggestionprototype.xib in Resources */,
-				94041C761CBF1768003BD343 /* moonset.png in Resources */,
 				94041C801CBF1768003BD343 /* toolbar-list.png in Resources */,
-				94041C791CBF1768003BD343 /* lastquarter.png in Resources */,
 				94041CB51CC1943C003BD343 /* Preferences.xib in Resources */,
-				94041C7D1CBF1768003BD343 /* rising.png in Resources */,
 				94041D791CCC417B003BD343 /* XTStationInfoPopoverViewController.xib in Resources */,
 				946318E91CBC3242001CD859 /* MainMenu.xib in Resources */,
-				94041C731CBF1768003BD343 /* sunset.png in Resources */,
 				945828D51D1E07C800972E1C /* Credits.html in Resources */,
 				94041C9E1CC0432F003BD343 /* XTMapWindow.xib in Resources */,
 				94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */,
@@ -1394,10 +1330,7 @@
 				94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */,
 				94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */,
 				948353BC1CBC42FB0026F08A /* libxtide in Resources */,
-				94041C721CBF1768003BD343 /* sunrise.png in Resources */,
 				94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */,
-				94041C781CBF1768003BD343 /* fullmoon.png in Resources */,
-				94041C7C1CBF1768003BD343 /* falling.png in Resources */,
 				94CE16301D28B8560088720D /* StateImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1637,6 +1570,7 @@
 			files = (
 				94CE16151D287E690088720D /* ExtensionDelegate.m in Sources */,
 				940BAA881D2C448F00E1C11B /* XTWMapInterfaceController.m in Sources */,
+				944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */,
 				94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */,
 				940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */,
 				94CE16121D287E690088720D /* InterfaceController.m in Sources */,

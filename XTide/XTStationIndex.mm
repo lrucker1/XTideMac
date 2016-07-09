@@ -183,7 +183,7 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 - (XTStationRef *)stationRefNearestLocation:(CLLocation *)location
                                  inStations:(NSArray *)refs
 {
-    CLLocationDistance d = CLLocationDistanceMax;
+    CLLocationDistance d = DBL_MAX; // No CLLocationDistanceMax on macOS
     XTStationRef *closest = nil;
     for (XTStationRef *ref in refs) {
         CLLocationCoordinate2D coord = ref.coordinate;

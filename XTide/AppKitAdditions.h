@@ -23,8 +23,8 @@
 @interface XTStation (MacOSAdditions)
 
 #if DEBUG_GENERATE_WATCH_IMAGE
-// Generate a watch background image.
-- (void)createWatchPlaceholderImage: (NSURL *)fileURL;
+// Generate a watch background image set.
+- (void)createWatchPlaceholderImages;
 #endif
 
 - (NSAttributedString *)stationInfo;

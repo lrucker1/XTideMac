@@ -107,12 +107,7 @@ static NSString * const XTWindow_restorationName = @"name";
         NSLog(@"Couldn't find station");
         return;
     }
-    NSString *fileLoc = [@"~/watchBackground.png" stringByExpandingTildeInPath];
-    if (!fileLoc) {
-        NSLog(@"Couldn't make path");
-        return;
-    }
-    [[ref loadStation] createWatchPlaceholderImage:[NSURL fileURLWithPath:fileLoc]];
+    [[ref loadStation] createWatchPlaceholderImages];
 }
 #endif
 

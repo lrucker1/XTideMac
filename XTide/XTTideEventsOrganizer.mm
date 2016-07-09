@@ -80,6 +80,11 @@
     return (libxtide::TideEventsOrganizer &)*mTideEventsOrganizer;
 }
 
+- (libxtide::TideEventsOrganizer *)adaptedOrganizerPtr
+{
+    return mTideEventsOrganizer;
+}
+
 - (NSInteger)count
 {
     return [events count];

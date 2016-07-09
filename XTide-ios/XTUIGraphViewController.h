@@ -12,6 +12,8 @@
 
 @interface XTUIGraphViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UIButton *listButton;
+
 - (void)updateStation: (XTStation *)station;
 
 @end
