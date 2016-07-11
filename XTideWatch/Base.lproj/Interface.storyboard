@@ -33,11 +33,16 @@
                         <table alignment="left" spacing="3" id="gV9-b4-bzO">
                             <items>
                                 <tableRow identifier="listRow" id="EKg-ig-gXp" customClass="XTWListTableRowController">
-                                    <group key="rootItem" width="1" height="52.5" alignment="left" layout="vertical" spacing="1" id="iJB-7n-Ciq">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="1" id="iJB-7n-Ciq">
                                         <items>
-                                            <label alignment="left" text="Event" id="0zg-gF-Xdg">
-                                                <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
-                                            </label>
+                                            <group width="1" alignment="left" id="crh-WG-Dzr">
+                                                <items>
+                                                    <imageView width="14" height="14" alignment="left" verticalAlignment="center" id="13t-wG-fVt"/>
+                                                    <label alignment="left" verticalAlignment="center" text="Event" id="0zg-gF-Xdg">
+                                                        <fontDescription key="font" style="UICTFontTextStyleCaption1"/>
+                                                    </label>
+                                                </items>
+                                            </group>
                                             <label alignment="left" text="Level" id="Dl4-i2-rHh">
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
@@ -50,6 +55,7 @@
                                     </group>
                                     <connections>
                                         <outlet property="descLabel" destination="0zg-gF-Xdg" id="Gez-LW-S9o"/>
+                                        <outlet property="image" destination="13t-wG-fVt" id="YBr-nW-2Tq"/>
                                         <outlet property="levelLabel" destination="Dl4-i2-rHh" id="cGo-mo-Y0Y"/>
                                         <outlet property="timeLabel" destination="Zlh-jQ-I8N" id="ICl-cg-wzW"/>
                                     </connections>
@@ -92,4 +98,5 @@
             <point key="canvasLocation" x="468" y="643"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.0" green="1" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
 </document>

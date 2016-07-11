@@ -43,9 +43,8 @@
     NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
     if (info) {
         [self updateContentsFromInfo:info];
-    } else {
-        [self.sessionDelegate requestUpdate];
     }
+    [self setTitle:@"Min/Max"];
 }
 
 - (void)startTimer
@@ -56,11 +55,20 @@
     // Set the repeat for 6 hours. We'll update it when we get new data.
     self.timer = [[NSTimer alloc] initWithFireDate:self.fireDate
                                           interval:6 * 60 * 60
-                                            target:self.sessionDelegate
+                                            target:self
                                           selector:@selector(requestUpdate)
                                           userInfo:nil
                                            repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+}
+
+- (void)requestUpdate
+{
+    if (![WCSession defaultSession].reachable) {
+        return;
+    }
+
+    [self.sessionDelegate requestUpdate];
 }
 
 - (void)updateTimer
@@ -92,18 +100,42 @@
     }
 }
 
-- (void)loadTableDataFromEvents:(NSArray *)events
+- (UIImage *)imageForEvent:(NSDictionary *)event
 {
-    // Set a timer to go off after the next minmax event.
-    NSDictionary *firstEvent = [events firstObject];
-    if (firstEvent) {
-        NSDate *date = [[firstEvent objectForKey:@"date"] dateByAddingTimeInterval:60];
-        if (![date isEqual:self.fireDate]) {
-            self.fireDate = date;
-            [self updateTimer];
+    // min/max events have no "isRising" entry. Look in "type" for "hightide" and "lowtide"
+    NSNumber *risingObj = [event objectForKey:@"isRising"];
+    if (risingObj) {
+        return [UIImage imageNamed:[risingObj boolValue] ? @"upArrowImage" : @"downArrowImage"];
+    } else {
+        NSString *imgType = [event objectForKey:@"type"];
+        if (imgType) {
+            return [UIImage imageNamed:imgType];
         }
     }
-    [self.eventTable setNumberOfRows:[events count] withRowType:@"listRow"];
+    NSLog(@"no image for event %@", event);
+    return nil;
+}
+
+
+- (void)updateContentsFromInfo:(NSDictionary *)info
+{
+    // Run this before setting title because it uses that to see if this is the same data.
+    NSString *title = [info objectForKey:@"title"];
+    NSArray *events = [info objectForKey:@"clockEvents"];
+    NSDictionary *firstEvent = [events firstObject];
+
+    if (!firstEvent) {
+        return;
+    }
+    // If it's the same date and station, it's the same data.
+    NSInteger numberOfRows = [self.eventTable numberOfRows];
+    NSDate *date = [[firstEvent objectForKey:@"date"] dateByAddingTimeInterval:60];
+    // Set a timer to go off after the next minmax event.
+    self.fireDate = date;
+    [self updateTimer];
+    if (numberOfRows != 2) {
+        [self.eventTable setNumberOfRows:[events count] withRowType:@"listRow"];
+    }
     
     [events enumerateObjectsUsingBlock:^(NSDictionary *event, NSUInteger idx, BOOL *stop) {
         XTWListTableRowController *row = [self.eventTable rowControllerAtIndex:idx];
@@ -112,18 +144,14 @@
         [row.levelLabel setText:[event objectForKey:@"level"]];
         NSString *dateString = [NSDateFormatter localizedStringFromDate:[event objectForKey:@"date"] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterLongStyle];
         [row.timeLabel setText:dateString];
+        [row.image setImage:[self imageForEvent:event]];
     }];
-}
 
-- (void)updateContentsFromInfo:(NSDictionary *)info
-{
-    NSString *title = [info objectForKey:@"title"];
     if (title) {
-        // Title will always be truncated. stationLabel is 2 lines and usually fits.
+        // Title will always be truncated. The flashing is annoying. Maybe both views should turn it off.
         //[self setTitle:title];
         self.stationLabel.text = title;
     }
-    [self loadTableDataFromEvents:[info objectForKey:@"clockEvents"]];
 }
 
 - (void)didReceiveApplicationContext:(NSNotification *)note

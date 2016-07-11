@@ -13,11 +13,14 @@
 @protocol XTUITideView
 
 - (void)updateStation: (XTStation *)station;
+
+@optional
+
 - (IBAction)reloadContent;
 
 @end
 
 
-@interface XTUITideTabBarController : UITabBarController <XTUITideView>
+@interface XTUITideTabBarController : UITabBarController <XTUITideView, UITabBarControllerDelegate>
 
 @end

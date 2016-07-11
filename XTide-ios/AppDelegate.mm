@@ -12,8 +12,6 @@
 #import "XTSettings.h"
 #import "XTStationIndex.h"
 
-#define DEBUG_EVENTS 0
-
 NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
 
 @interface AppDelegate ()

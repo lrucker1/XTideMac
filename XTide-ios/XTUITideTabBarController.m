@@ -28,6 +28,7 @@
     UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
     [barButton setCustomView:self.nowButton];
     self.navigationItem.rightBarButtonItem = barButton;
+    self.delegate = self;
 }
 
 - (void)updateStation:(XTStation *)station
@@ -39,10 +40,20 @@
     }
 }
 
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    UIViewController<XTUITideView> *vc = (UIViewController<XTUITideView> *)viewController;
+    if ([vc respondsToSelector:@selector(reloadContent)]) {
+        self.nowButton.hidden = NO;
+    } else {
+        self.nowButton.hidden = YES;
+    }
+}
+
 - (IBAction)reloadContent
 {
     UIViewController<XTUITideView> *vc = self.selectedViewController;
-    if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
+    if ([vc respondsToSelector:@selector(reloadContent)]) {
         [vc reloadContent];
     }
 }

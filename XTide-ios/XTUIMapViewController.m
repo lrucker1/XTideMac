@@ -15,7 +15,11 @@
 #import "XTUITideTabBarController.h"
 #import "UIKitAdditions.h"
 
+// Fetch and log watch events.
 #define DEBUG_EVENTS 0
+// If DEBUG_EVENTS, also dump the clock image data.
+#define DEBUG_EVENT_CLOCK 0
+// Change the map dot color of favorite stations.
 #define DEBUG_DOTS 0
 
 static const CGFloat deltaLimit = 3;
@@ -119,8 +123,10 @@ static NSString * const XTMap_RegionKey = @"map.region";
         NSArray *angles = [station generateWatchEventsStart:[NSDate date] end:[NSDate dateWithTimeIntervalSinceNow:60*60*24]];
         NSLog(@"%@", angles);
     }
+#if DEBUG_EVENT_CLOCK
     NSDictionary *dict = [self clockInfoWithWidth:200 height:200 scale:2];
     NSLog(@"%@", dict);
+#endif
 #endif
 }
 
@@ -330,17 +336,9 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self updateAnnotation:self.stationRefForWatch];
 
     // TODO: Store the last known watch size so it's right when we do an update.
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-//    NSDictionary *clock = [self clockInfoWithWidth:156 height:195 scale:2];
-//    if (clock) {
-//        [dict addEntriesFromDictionary:clock];
-//    }
-    CLLocationCoordinate2D coord = currentRef.coordinate;
-    [dict setObject:@[ @(coord.latitude), @(coord.longitude) ] forKey:@"coordinate"];
-    [dict setObject:self.stationRefForWatch.title forKey:@"stationName"];
-    
-    NSError *error = nil;
     if (self.watchSession) {
+        NSDictionary *dict = [self clockInfoWithWidth:156 height:195 scale:2];
+        NSError *error = nil;
         if (![self.watchSession updateApplicationContext:dict
                                                    error:&error]) {
             NSLog(@"Updating the context failed: %@", error.localizedDescription);
@@ -356,7 +354,7 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    if (  status == kCLAuthorizationStatusAuthorizedWhenInUse
+    if (   status == kCLAuthorizationStatusAuthorizedWhenInUse
         || status == kCLAuthorizationStatusAuthorizedAlways) {
         [self.locationManager startUpdatingLocation];
         if (self.watchSession) {
@@ -573,11 +571,6 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         dispatch_async(dispatch_get_main_queue(), ^{
             replyHandler( [self complicationEvents] );
         });
-        return;
-    } else if ([kind isEqualToString:@"requestCoordinate"]) {
-            CLLocationCoordinate2D coord = self.stationRefForWatch.coordinate;
-        replyHandler( @{@"coordinate":@[ @(coord.latitude), @(coord.longitude) ],
-                        @"stationName": self.stationRefForWatch.title } );
         return;
     }
     replyHandler(nil);

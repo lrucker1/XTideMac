@@ -114,6 +114,7 @@
 		944501791D31874C00203863 /* XTUIGraphViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944501781D31874C00203863 /* XTUIGraphViewController.xib */; };
 		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
 		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
+		944501801D34120000203863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -1371,6 +1372,7 @@
 				9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */,
 				94CE16031D287E690088720D /* Assets.xcassets in Resources */,
 				94CE16011D287E690088720D /* Interface.storyboard in Resources */,
+				944501801D34120000203863 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

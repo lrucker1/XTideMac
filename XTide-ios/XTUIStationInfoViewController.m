@@ -33,8 +33,4 @@
     [self.webView loadHTMLString:[self.station stationInfoAsHTML] baseURL:nil];
 }
 
-- (IBAction)reloadContent
-{
-}
-
 @end

@@ -22,6 +22,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 @property (nonatomic) WCSession* watchSession;
 @property BOOL isBigWatch;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
+@property (strong) UIColor *tintColor;
 
 @end
 
@@ -32,6 +33,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     self = [super init];
     _isBigWatch = [self isBigWatchCheck];
     _watchSession = [WCSession defaultSession];
+    _tintColor = [UIColor colorWithRed:0 green:255 blue:128 alpha:1];
 
     _sessionDelegate = [XTSessionDelegate sharedDelegate];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -87,30 +89,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return [self dotWithRectSize:self.isBigWatch ? 36 : 32
                        lineWidth:2
                            angle:radians];
-}
-
-- (UIImage *)dotWithRectSize:(CGFloat)rectSize
-                   lineWidth:(CGFloat)lineWidth
-{
-    CGRect rect = CGRectMake(0, 0, rectSize, rectSize);
-    CGFloat dotInset = (rectSize - lineWidth * 2) / 2;
-    UIGraphicsBeginImageContext(rect.size);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-
-    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
-
-    CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
-    CGContextFillEllipseInRect(context, dotRect);
-
-    CGRect edgeRect = CGRectInset(rect, 2, 2);
-    CGContextSetLineWidth(context, 2);
-    CGContextStrokeEllipseInRect(context, edgeRect);
-
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-
-    return image;
 }
 
 - (UIImage *)dotWithRectSize:(CGFloat)rectSize
@@ -184,7 +162,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     NSDictionary *userInfo = [note userInfo];
     self.events = [userInfo objectForKey:@"events"];
-    [self reloadComplications];
 }
 
 #pragma mark - Timeline Configuration
@@ -202,7 +179,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (void)getTimelineEndDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
 {
-    handler([NSDate dateWithTimeIntervalSinceNow:DAY]);
+    handler([NSDate dateWithTimeIntervalSinceNow:DAY * 2]);
 }
 
 - (void)getPrivacyBehaviorForComplication:(CLKComplication *)complication withHandler:(void(^)(CLKComplicationPrivacyBehavior privacyBehavior))handler
@@ -332,7 +309,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }];
         return;
     }
-    handler ([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
+    handler([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
 }
 
 #pragma mark Update Scheduling
@@ -341,24 +318,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     // Call the handler with the date when you would next like to be given the opportunity to update your complication content
     // Every 12 hours should be enough to pick up new events.
-    handler ([NSDate dateWithTimeIntervalSinceNow:HOUR * 12]);
+    handler([NSDate dateWithTimeIntervalSinceNow:HOUR * 12]);
 }
 
 - (void)requestedUpdateDidBegin
-{
-    self.events = nil;
-    [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-        self.events = [reply objectForKey:@"events"];
-        CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-
-        for (CLKComplication *complication in server.activeComplications) {
-            [server extendTimelineForComplication:complication];
-        }
-    }];
-}
-
-
-- (void)reloadComplications
 {
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
 
@@ -371,17 +334,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (CGFloat)angleForEvent:(NSDictionary *)event
 {
-    NSNumber *angleObj = [event objectForKey:@"angle"];
-    CGFloat angle = 0;
-    if (angleObj) {
-        angle = [angleObj floatValue];
-    } else {
-        NSString *type = [event objectForKey:@"type"];
-        if ([type isEqualToString:@"lowtide"]) {
-            angle = M_PI;
-        }
-    }
-    return angle;
+    return [[event objectForKey:@"angle"] floatValue];
 }
 
 - (CLKSimpleTextProvider *)levelTextProviderForEvent:(NSDictionary *)event
@@ -394,7 +347,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (CLKSimpleTextProvider *)descTextProviderForEvent:(NSDictionary *)event
 {
     NSString *desc = [event objectForKey:@"desc"];
-    //NSString *levelShort = [event objectForKey:@"levelShort"];
+    NSString *descShort = [event objectForKey:@"descShort"];
+    if (descShort) {
+        return [CLKSimpleTextProvider textProviderWithText:desc shortText:descShort];
+    }
     return [CLKSimpleTextProvider textProviderWithText:desc];
 }
 
@@ -414,7 +370,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     if (image) {
         return [CLKImageProvider imageProviderWithOnePieceImage:image];
     }
-    NSLog(@"no image for event %@", event);
+    // slackrise/fall have no image because the text is long.
+    //NSLog(@"no image for event %@", event);
     return nil;
 }
 
@@ -430,9 +387,11 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         {
         CLKComplicationTemplateModularLargeStandardBody *large =
             [[CLKComplicationTemplateModularLargeStandardBody alloc] init];
-        large.headerTextProvider = [CLKTimeTextProvider textProviderWithDate:date];
-        large.body1TextProvider = [self descTextProviderForEvent:event];
-        large.body2TextProvider = [self levelTextProviderForEvent:event];
+        large.headerTextProvider = [self descTextProviderForEvent:event];
+        large.headerImageProvider = [self utilImageProviderForEvent:event];
+        large.headerImageProvider.tintColor = self.tintColor;
+        large.body1TextProvider = [self levelTextProviderForEvent:event];
+        large.body2TextProvider = [CLKTimeTextProvider textProviderWithDate:date];
         template = large;
         }
         break;
@@ -442,6 +401,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateModularSmallSimpleImage alloc] init];
         CGFloat angle = [self angleForEvent:event];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self modularSmallDotWithAngle:angle]];
+        small.imageProvider.tintColor = self.tintColor;
         template = small;
         }
         break;
@@ -450,14 +410,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateUtilitarianLargeFlat *large =
             [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
         NSString *desc = [event objectForKey:@"desc"];
+        NSString *descShort = [event objectForKey:@"descShort"];
         // Level starts with spaces.
         NSString *level = [event objectForKey:@"level"];
         NSString *levelShort = [event objectForKey:@"levelShort"];
         NSString *combo = [NSString stringWithFormat:@"%@%@", desc, level];
-        NSString *comboShort = [NSString stringWithFormat:@"%@%@", desc, levelShort];
+        NSString *comboShort = [NSString stringWithFormat:@"%@%@", descShort, levelShort];
         
         large.textProvider = [CLKSimpleTextProvider textProviderWithText:combo shortText:comboShort];
         large.imageProvider = [self utilImageProviderForEvent:event];
+        large.imageProvider.tintColor = self.tintColor;
         template = large;
         }
         break;
@@ -466,6 +428,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
         small.imageProvider = [self utilImageProviderForEvent:event];
+        small.imageProvider.tintColor = self.tintColor;
         if (small.imageProvider) {
             // It's a level event.
             small.textProvider = [self levelTextProviderForEvent:event];
@@ -482,6 +445,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateCircularSmallSimpleImage alloc] init];
         CGFloat angle = [self angleForEvent:event];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self circularSmallDotWithAngle:angle]];
+        small.imageProvider.tintColor = self.tintColor;
         template = small;
         }
         break;
@@ -501,9 +465,11 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         {
         CLKComplicationTemplateModularLargeStandardBody *large =
             [[CLKComplicationTemplateModularLargeStandardBody alloc] init];
-        large.headerTextProvider = [CLKTimeTextProvider textProviderWithDate:[NSDate date]];
-        large.body1TextProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
-        large.body2TextProvider = [CLKSimpleTextProvider textProviderWithText:@"Level"];
+        large.headerTextProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
+        large.headerImageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[UIImage imageNamed:@"hightide"]];
+        large.headerImageProvider.tintColor = self.tintColor;
+        large.body1TextProvider = [CLKSimpleTextProvider textProviderWithText:@"Level"];
+        large.body2TextProvider = [CLKTimeTextProvider textProviderWithDate:[NSDate date]];
         template = large;
         }
         break;
@@ -512,6 +478,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateModularSmallSimpleImage *small =
             [[CLKComplicationTemplateModularSmallSimpleImage alloc] init];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self modularSmallDotWithAngle:0]];
+        small.imageProvider.tintColor = self.tintColor;
         template = small;
         }
         break;
@@ -521,6 +488,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
         large.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
         large.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[UIImage imageNamed:@"hightide"]];
+        large.imageProvider.tintColor = self.tintColor;
         template = large;
         }
         break;
@@ -530,6 +498,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
         small.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event" shortText:@"Tide"];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[UIImage imageNamed:@"hightide"]];
+        small.imageProvider.tintColor = self.tintColor;
         template = small;
         }
         break;
@@ -538,6 +507,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateCircularSmallSimpleImage *small =
             [[CLKComplicationTemplateCircularSmallSimpleImage alloc] init];
         small.imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[self circularSmallDotWithAngle:0]];
+        small.imageProvider.tintColor = self.tintColor;
         template = small;
         }
         break;

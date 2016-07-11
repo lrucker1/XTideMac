@@ -32,6 +32,7 @@
 - (NSString *)eventTypeString;
 - (NSString *)timeForStation: (XTStation *)station;
 - (NSString *)dateForStation: (XTStation *)station;
+- (double)clockAngle;
 
 - (libxtide::TideEvent::EventType)eventType;
 - (BOOL)isDateEvent;

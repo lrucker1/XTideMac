@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XTUITideTabBarController.h"
 
-@interface XTUIStationInfoViewController : UIViewController <XTUITideView>
+@interface XTUIStationInfoViewController : UIViewController <XTUITideView, UIWebViewDelegate>
 
 @property IBOutlet UIWebView *webView;
 

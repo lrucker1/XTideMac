@@ -51,6 +51,7 @@
     }
     BOOL noStation = (!info && !self.watchSession.isReachable);
     [self.noStationLabel setHidden:!noStation];
+    [self setTitle:@"Tides"];
 
 #if DEBUG
     [self addMenuItemWithImageNamed:@"ReturnToNow"
@@ -128,15 +129,11 @@
     [self.noStationLabel setHidden:YES];
     NSData *data = [info objectForKey:@"clockImage"];
     NSString *axString = [self axDescriptionFromInfo:info];
-    NSString *title = [info objectForKey:@"title"];
     if (data) {
         [self.group setBackgroundImageData:data];
     }
     if (axString) {
         [self.group setAccessibilityLabel:axString];
-    }
-    if (title) {
-        [self setTitle:title];
     }
 }
 

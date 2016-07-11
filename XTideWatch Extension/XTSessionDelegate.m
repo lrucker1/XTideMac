@@ -75,7 +75,7 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
     [[NSNotificationCenter defaultCenter]
                 postNotificationName:XTSessionAppContextNotification
 							  object:self
-                              userInfo:applicationContext];
+                            userInfo:applicationContext];
 }
 
 

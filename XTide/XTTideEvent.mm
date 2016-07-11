@@ -69,13 +69,32 @@
     return mTideEvent;
 }
 
+- (double)clockAngle
+{
+	switch (self.eventType) {
+		case libxtide::TideEvent::max:
+			return 0;
+		case libxtide::TideEvent::slackfall:
+			return M_PI_2;
+		case libxtide::TideEvent::min:
+			return M_PI;
+		case libxtide::TideEvent::slackrise:
+			return M_PI + M_PI_2;
+		default:
+			return 0;
+	}
+    return 0;
+}
+
 - (NSDictionary *)eventDictionary
 {
     return @{@"date" : [self date],
              @"desc" : [self longDescription],
+             @"descShort" : [self shortDictionaryDescription],
              @"level" : [self displayLevel],
              @"levelShort" : [self displayLevelShort],
-             @"type" : [self eventTypeString]};
+             @"type" : [self eventTypeString],
+             @"angle" : @([self clockAngle])};
 }
 
 // Used for images and watch complications
@@ -147,6 +166,25 @@
     return DstrToNSString(mTideEvent->longDescription());
 }
 
+- (NSString *)shortDictionaryDescription
+{
+    if (eventDate) {
+        return @"";
+    }
+    // The cpp shortDescription is for graphs and doesn't cover everything.
+    // We really just need shorter versions of slackrise/slackfall for watches.
+
+ 	switch (self.eventType) {
+    case libxtide::TideEvent::slackrise:
+        return @"Flood Begins";
+    case libxtide::TideEvent::slackfall:
+        return @"Ebb Begins";
+    default:
+        break;
+	}
+    return [self longDescription];
+}
+
 - (NSString *)displayLevel
 {
     if (eventDate) {
@@ -201,7 +239,7 @@
     return DstrToNSString(text_out);
 }
 
-- (NSString *)description
+- (NSString *)debugDescription
 {
     if (eventDate) {
         return [eventDate description];

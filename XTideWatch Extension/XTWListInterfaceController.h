@@ -21,5 +21,6 @@
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *descLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *levelLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
 
 @end

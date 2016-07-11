@@ -38,16 +38,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
-                                <rect key="frame" x="20" y="20" width="560" height="531"/>
+                                <rect key="frame" x="20" y="0.0" width="560" height="551"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                <connections>
+                                    <outlet property="delegate" destination="mTB-Xe-Z3M" id="i8Q-c8-CBk"/>
+                                </connections>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="P4k-4F-Vxp" secondAttribute="bottom" id="2gd-G0-0bw"/>
+                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="P4k-4F-Vxp" secondAttribute="bottom" constant="-20" id="2gd-G0-0bw"/>
                             <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="mAA-w9-EdV" secondAttribute="leadingMargin" id="38j-VQ-tKh"/>
                             <constraint firstAttribute="trailingMargin" secondItem="OA5-f2-Hl7" secondAttribute="trailing" id="Dsl-02-4gv"/>
-                            <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="OA5-f2-Hl7" secondAttribute="bottom" id="Jn7-gO-deH"/>
+                            <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="OA5-f2-Hl7" secondAttribute="bottom" priority="750" id="Jn7-gO-deH"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Station Info" image="StationInfoIcon" id="JbQ-LH-poU"/>

@@ -123,7 +123,8 @@ static NSArray *unitsPrefMap = nil;
                                                             end:(NSDate *)endTime
 {
     static NSTimeInterval DAY = 60 * 60 * 24;
-    libxtide::Station::TideEventsFilter filter = libxtide::Station::maxMin;
+    libxtide::Station::TideEventsFilter filter = mStation->isCurrent ? libxtide::Station::knownTideEvents
+                                                                     : libxtide::Station::maxMin;
 
     XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
     // Generate min/max events, with at least one before and after the range for interpolation.
@@ -159,7 +160,7 @@ static NSArray *unitsPrefMap = nil;
 /*
  * Return the tide events as dictionary objects for a watch:
  * min/max, plus level and angle at every hour.
- * Angle is in radians for UIKit. AppKit may need degrees.
+ * Angle is in radians.
  */
 - (NSArray *)generateWatchEventsStart:(NSDate *)startTime
                                   end:(NSDate *)endTime
@@ -184,6 +185,12 @@ static NSArray *unitsPrefMap = nil;
     if (!next) {
         return nil;
     }
+    BOOL isCurrent = mStation->isCurrent;
+    // Size of the arc between each event: 1/12 radians.
+    double arcDelta = M_PI / 6;
+    // Number of "hours" (1/12th of clock) between each event.
+    // Currents have 4 events per day, Tides have 2.
+    int hours = isCurrent ? 3 : 6;
     // Go through all min/max events, compute intermediate rising/falling events with angle and level.
     while (next) {
         libxtide::TideEvent *previousMaxOrMin = [prev adaptedTideEvent];
@@ -193,22 +200,21 @@ static NSArray *unitsPrefMap = nil;
         }
         BOOL isRising = previousMaxOrMin->eventType == libxtide::TideEvent::min;
         NSString *desc = nil;
-        if (mStation->isCurrent) {
+        double angle = [prev clockAngle];
+        if (isCurrent) {
+            isRising |= previousMaxOrMin->eventType == libxtide::TideEvent::slackrise;
             desc = isRising ? @"Flood" : @"Ebb";
         } else {
             desc = isRising ? @"Rising" : @"Falling";
         }
-        // Add min/max events. Split the intervening time evenly.
+        // Add the tide event. Split the intervening time evenly between it and the next one.
         [array addObject:[prev eventDictionary]];
-        libxtide::Interval delta = (nextMaxOrMin->eventTime - previousMaxOrMin->eventTime) / 6;
-        currentTime = previousMaxOrMin->eventTime + delta;
+        libxtide::Interval timeDelta = (nextMaxOrMin->eventTime - previousMaxOrMin->eventTime) / hours;
+        currentTime = previousMaxOrMin->eventTime;
         NSInteger i = 0;
-        for (i = 0; i < 5; i++) {
-            double temp (((currentTime - previousMaxOrMin->eventTime)) /
-                            (nextMaxOrMin->eventTime - previousMaxOrMin->eventTime));
-            temp *= M_PI;
-            if (previousMaxOrMin->eventType == libxtide::TideEvent::min)
-                temp += M_PI;
+        for (i = 0; i < hours-1; i++) {
+            angle += arcDelta;
+            currentTime += timeDelta;
             Dstr levelPrint;
             mStation->predictTideLevel(currentTime).print(levelPrint);
             NSString *level = DstrToNSString(levelPrint);
@@ -216,13 +222,12 @@ static NSArray *unitsPrefMap = nil;
             NSString *levelShort = DstrToNSString(levelPrint);
            
             NSDictionary *event = @{@"date"  : TimestampToNSDate(currentTime),
-                                    @"angle" : @(temp),
+                                    @"angle" : @(angle),
                                     @"level" : level,
                                     @"levelShort" : levelShort,
                                     @"desc"     : desc,
                                     @"isRising" : @(isRising)};
             [array addObject:event];
-            currentTime += delta;
         }
         prev = next;
         next = [enumerator nextObject];
