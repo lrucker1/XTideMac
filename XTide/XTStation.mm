@@ -14,6 +14,8 @@
 #import "XTTideEventsOrganizer.h"
 #import "XTUtils.h"
 #import "PredictionValue.hh"
+#import "Graph.hh"
+#import "SVGGraph.hh"
 
 static NSArray *unitsPrefMap = nil;
 
@@ -116,7 +118,6 @@ static NSArray *unitsPrefMap = nil;
 {
    return [[self dateFormatter] stringFromDate:date];
 }
-
 
 // Generate an organizer with min/max events extending beyond the start/end dates.
 - (XTTideEventsOrganizer *)populateOrganizerForWatchEventsStart:(NSDate *)startTime

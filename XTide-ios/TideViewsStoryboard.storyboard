@@ -53,7 +53,7 @@
                             <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="OA5-f2-Hl7" secondAttribute="bottom" priority="750" id="Jn7-gO-deH"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Station Info" image="StationInfoIcon" id="JbQ-LH-poU"/>
+                    <tabBarItem key="tabBarItem" title="Station Info" image="lighthouse" id="JbQ-LH-poU"/>
                     <connections>
                         <outlet property="webView" destination="OA5-f2-Hl7" id="ovY-aP-QKD"/>
                     </connections>
@@ -177,7 +177,7 @@
         <image name="FavoriteStarOpen" width="32" height="32"/>
         <image name="ListViewTemplate" width="16" height="16"/>
         <image name="ReturnToNow" width="32" height="32"/>
-        <image name="StationInfoIcon" width="16" height="16"/>
         <image name="chartButtonBackgroundTemplate" width="48" height="48"/>
+        <image name="lighthouse" width="30" height="30"/>
     </resources>
 </document>

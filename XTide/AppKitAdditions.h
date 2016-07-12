@@ -25,6 +25,10 @@
 #if DEBUG_GENERATE_WATCH_IMAGE
 // Generate a watch background image set.
 - (void)createWatchPlaceholderImages;
+
+- (NSData *)SVGClockImageWithWidth:(CGFloat)width
+                            height:(CGFloat)height
+                              date:(NSDate *)clockDate;
 #endif
 
 - (NSAttributedString *)stationInfo;

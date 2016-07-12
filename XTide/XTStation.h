@@ -34,7 +34,6 @@
                      organizer:(XTTideEventsOrganizer*)organizer
                         filter:(int)filter;
 
-
 // Return the tide events as an IPC compliant dictionary for a watch.
 - (NSArray *)generateWatchEventsStart:(NSDate*)startTime
                                   end:(NSDate*)endTime;

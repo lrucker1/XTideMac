@@ -30,6 +30,20 @@
 
 @implementation XTStation (MacOSAdditions)
 
+#if DEBUG_GENERATE_WATCH_IMAGE
+
+- (NSData *)SVGClockImageWithWidth:(CGFloat)width
+                            height:(CGFloat)height
+                              date:(NSDate *)clockDate
+{
+    Dstr text_out;
+    libxtide::Timestamp clockTS = libxtide::Timestamp((time_t)[clockDate timeIntervalSince1970]);
+    libxtide::SVGGraph g(width, height, libxtide::Graph::clock);
+    g.drawTides(mStation, clockTS);
+    g.print(text_out);
+    return [DstrToNSString(text_out) dataUsingEncoding:NSUTF8StringEncoding];
+}
+
 // Create a placeholder image for the watch app when there's no station
 // Use the 1984 ad day and Golden Gate station:
 //      Jan 22, 1984
@@ -42,7 +56,6 @@
 // so it'll need fixing in a nice app like GraphicConverter.
 // But it's just a one-shot image generator, not user-facing, so it's good enough.
 
-#if DEBUG_GENERATE_WATCH_IMAGE
 - (void)createWatchPlaceholderImages
 {
     CGFloat scale = 2;
@@ -65,6 +78,14 @@
         [self createWatchPlaceholderImage:fileLoc
                                      rect:CGRectMake(0, 0, 156 * scale, 195 * scale)
                                      date:date];
+    }
+    // This works, but isn't as pretty as the images - colors are muddy, font isn't clear.
+    // PNG files are small enough to transfer to the watch.
+    // Also I don't even know if the watch handles SVGs that aren't in files.
+    fileLoc = [@"~/watchBackground.svg" stringByExpandingTildeInPath];
+    NSData *svgImage = [self SVGClockImageWithWidth:136 * scale height:170 * scale date:date];
+    if (svgImage) {
+        [svgImage writeToFile:fileLoc atomically:YES];
     }
 }
 

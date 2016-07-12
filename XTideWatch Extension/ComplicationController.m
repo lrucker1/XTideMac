@@ -109,15 +109,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
-    // TODO: Yes, this is inefficient, and having a line with end caps would be prettier.
-    // Debugging it is a pain.
+    // TODO: Having a line with end caps would be prettier.
     UIBezierPath *arm = [UIBezierPath bezierPathWithRect:
-            CGRectMake(-lineWidth / 2, 0, lineWidth, radius - (lineWidth * 2))];
+            CGRectMake(-lineWidth / 2, 0, lineWidth, -(radius - (lineWidth * 2)))];
     CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
-    position = CGAffineTransformRotate(position, M_PI + radians);
+    position = CGAffineTransformRotate(position, radians);
     [arm applyTransform:position];
     [arm fill];
 
+    // TODO: Use a two-part image with these two lines as the background part (and only built once per size)
+    // so that we have a tinted ring with a white indicator.
     CGRect edgeRect = CGRectInset(rect, 2, 2);
     CGContextStrokeEllipseInRect(context, edgeRect);
 
@@ -467,7 +468,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [[CLKComplicationTemplateModularLargeStandardBody alloc] init];
         large.headerTextProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
         large.headerImageProvider = [CLKImageProvider imageProviderWithOnePieceImage:[UIImage imageNamed:@"hightide"]];
-        large.headerImageProvider.tintColor = self.tintColor;
         large.body1TextProvider = [CLKSimpleTextProvider textProviderWithText:@"Level"];
         large.body2TextProvider = [CLKTimeTextProvider textProviderWithDate:[NSDate date]];
         template = large;
