@@ -10,6 +10,8 @@
 #import "XTColorUtils.h"
 #import "XTGraph.h"
 
+#define SVG_EXPERIMENT 0
+
 @implementation XTStationRef (MacOSAdditions)
 
 - (NSImage *)stationDot
@@ -32,6 +34,7 @@
 
 #if DEBUG_GENERATE_WATCH_IMAGE
 
+#if SVG_EXPERIMENT
 - (NSData *)SVGClockImageWithWidth:(CGFloat)width
                             height:(CGFloat)height
                               date:(NSDate *)clockDate
@@ -43,6 +46,7 @@
     g.print(text_out);
     return [DstrToNSString(text_out) dataUsingEncoding:NSUTF8StringEncoding];
 }
+#endif
 
 // Create a placeholder image for the watch app when there's no station
 // Use the 1984 ad day and Golden Gate station:
@@ -79,6 +83,14 @@
                                      rect:CGRectMake(0, 0, 156 * scale, 195 * scale)
                                      date:date];
     }
+
+    fileLoc = [@"~/icon512@2x.png" stringByExpandingTildeInPath];
+    if (fileLoc) {
+        [self createWatchPlaceholderImage:fileLoc
+                                     rect:CGRectMake(0, 0, 512 * scale, 512 * scale)
+                                     date:date];
+    }
+#if SVG_EXPERIMENT
     // This works, but isn't as pretty as the images - colors are muddy, font isn't clear.
     // PNG files are small enough to transfer to the watch.
     // Also I don't even know if the watch handles SVGs that aren't in files.
@@ -87,6 +99,7 @@
     if (svgImage) {
         [svgImage writeToFile:fileLoc atomically:YES];
     }
+#endif
 }
 
 - (void)createWatchPlaceholderImage:(NSString *)fileLoc

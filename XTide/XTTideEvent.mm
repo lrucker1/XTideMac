@@ -142,6 +142,7 @@
 }
 
 
+// These return the time in the station's timezone.
 - (NSString *)timeForStation: (XTStation *)station
 {
     if (eventDate) {

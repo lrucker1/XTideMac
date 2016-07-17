@@ -33,14 +33,12 @@
 
 @interface TideDataController ()
 
-@property (readwrite, retain) NSMutableDictionary *images;
 @property (nonatomic, readwrite, retain) NSDictionary *detailAttributes;
 
 @end
 
 @implementation TideDataController
 
-@synthesize images;
 @synthesize detailAttributes;
 
 - (id)initWith:(XTStationRef*)in_stationRef;
@@ -50,7 +48,6 @@
 
 - (void)dealloc
 {
-	self.images = nil;
 	self.detailAttributes = nil;
 }
 
@@ -88,19 +85,6 @@
     return YES;
 }
 
-- (NSImage *)imageWithName: (NSString *)name
-{
-	if (!self.images) {
-		self.images = [NSMutableDictionary dictionary];
-	}
-	NSImage *image = [self.images objectForKey:name];
-	if (!image) {
-		image = [NSImage imageNamed:name];
-		[self.images setObject:image forKey:name];
-	}
-	return image;
-}
-
 - (NSDictionary *)detailAttributes
 {
 	if (!detailAttributes) {
@@ -124,7 +108,7 @@
 	return [[organizer objectAtIndex:rowIndex] isDateEvent];
 }
 
-// TODO: Update to view-based table. Also the imageWithName is redundant.
+// TODO: Update to view-based table.
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
 {
 	XTTideEvent *tideEvent = [organizer objectAtIndex:rowIndex];
@@ -144,7 +128,7 @@
     if ([imgString length] == 0) {
         imgString = @"blank";
     }
-	return [self imageWithName:imgString];
+	return [NSImage imageNamed:imgString];
 }
 
 - (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {

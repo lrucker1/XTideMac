@@ -8,6 +8,7 @@
 
 #import "InterfaceController.h"
 #import "XTSessionDelegate.h"
+#import "NSDate+NSDate_XTWAdditions.h"
 
 #define DEBUG 1
 
@@ -51,7 +52,7 @@
     }
     BOOL noStation = (!info && !self.watchSession.isReachable);
     [self.noStationLabel setHidden:!noStation];
-    [self setTitle:@"Tides"];
+    [self setTitle:@"Forecast"];
 
 #if DEBUG
     [self addMenuItemWithImageNamed:@"ReturnToNow"
@@ -105,6 +106,7 @@
     self.timer = nil;
 }
 
+// The AX string will be local time even though the image shows station time.
 - (NSString *)axDescriptionFromInfo:(NSDictionary *)info
 {
     NSArray *events = [info objectForKey:@"clockEvents"];
@@ -113,12 +115,11 @@
     for (NSDictionary *event in events) {
         NSString *desc = [event objectForKey:@"desc"];
         NSDate *date = [event objectForKey:@"date"];
-        // Long style to get the timezone.
-        NSString *dateString = [NSDateFormatter localizedStringFromDate:date dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterLongStyle];
+        NSString *dateString = [date localizedTimeAndRelativeDateString];
         [axStrings addObject:[NSString stringWithFormat:@"%@ %@", desc, dateString]];
     }
     if ([axStrings count]) {
-        return [axStrings componentsJoinedByString:@". "];
+        return [axStrings componentsJoinedByString:@", "];
     }
     return @"";
 }

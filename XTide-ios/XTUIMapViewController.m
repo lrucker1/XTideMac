@@ -22,6 +22,7 @@
 // Change the map dot color of favorite stations.
 #define DEBUG_DOTS 0
 
+// TODO: Add a debug menu to do things like force complication updates.
 static const CGFloat deltaLimit = 3;
 static const CGFloat zoomLimit = 0.5;
 static const CLLocationDistance kUserLocMovement = 5000; // meters

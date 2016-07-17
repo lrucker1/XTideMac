@@ -9,6 +9,9 @@
 #import "XTWListInterfaceController.h"
 #import "InterfaceController.h"
 #import "XTSessionDelegate.h"
+#import "NSDate+NSDate_XTWAdditions.h"
+
+static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 @interface XTWListInterfaceController ()
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
@@ -47,14 +50,15 @@
     [self setTitle:@"Min/Max"];
 }
 
+// This timer runs even when the watch is not reachable so the contents will dim when we pass them.
 - (void)startTimer
 {
-    if (self.timer || !self.fireDate || ![WCSession defaultSession].reachable) {
+    if (self.timer || !self.fireDate) {
         return;
     }
     // Set the repeat for 6 hours. We'll update it when we get new data.
     self.timer = [[NSTimer alloc] initWithFireDate:self.fireDate
-                                          interval:6 * 60 * 60
+                                          interval:DEFAULT_TIMEOUT
                                             target:self
                                           selector:@selector(requestUpdate)
                                           userInfo:nil
@@ -65,6 +69,10 @@
 - (void)requestUpdate
 {
     if (![WCSession defaultSession].reachable) {
+        NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+        if (info) {
+            [self updateContentsFromInfo:info];
+        }
         return;
     }
 
@@ -116,24 +124,31 @@
     return nil;
 }
 
-
 - (void)updateContentsFromInfo:(NSDictionary *)info
 {
     // Run this before setting title because it uses that to see if this is the same data.
     NSString *title = [info objectForKey:@"title"];
     NSArray *events = [info objectForKey:@"clockEvents"];
-    NSDictionary *firstEvent = [events firstObject];
 
-    if (!firstEvent) {
+    if ([events count] < 2) {
         return;
     }
     // If it's the same date and station, it's the same data.
     NSInteger numberOfRows = [self.eventTable numberOfRows];
-    NSDate *date = [[firstEvent objectForKey:@"date"] dateByAddingTimeInterval:60];
-    // Set a timer to go off after the next minmax event.
-    self.fireDate = date;
+    NSDate *nextFire = [[[events firstObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
+    // Set a timer to go off after the next minmax event, unless it's in the past.
+    // Then try the last minmax so we can dim it.
+    // Finally give it the default timeout.
+    if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
+        nextFire = [[[events lastObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
+        if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
+            nextFire = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_TIMEOUT];
+        }
+    }
+    self.fireDate = nextFire;
     [self updateTimer];
     if (numberOfRows != 2) {
+        // Don't change unnecessarily; it flickers.
         [self.eventTable setNumberOfRows:[events count] withRowType:@"listRow"];
     }
     
@@ -142,14 +157,23 @@
 
         [row.descLabel setText:[event objectForKey:@"desc"]];
         [row.levelLabel setText:[event objectForKey:@"level"]];
-        NSString *dateString = [NSDateFormatter localizedStringFromDate:[event objectForKey:@"date"] dateStyle:NSDateFormatterNoStyle timeStyle:NSDateFormatterLongStyle];
-        [row.timeLabel setText:dateString];
+        NSDate *date = [event objectForKey:@"date"];
+        [row.timeLabel setText:[date localizedTimeAndRelativeDateString]];
         [row.image setImage:[self imageForEvent:event]];
+        UIColor *color = nil;
+        if ([date compare:[NSDate date]] == NSOrderedAscending) {
+            // Dim everything when the date is in the past.
+            // Doc says setTextColor:nil resets; it doesn't. rdar://27389249
+            color = [UIColor darkGrayColor];
+        }
+//        [row.descLabel setTextColor:color];
+//        [row.levelLabel setTextColor:color];
+//        [row.timeLabel setTextColor:color];
+        [row.image setTintColor:color];
+        
     }];
 
     if (title) {
-        // Title will always be truncated. The flashing is annoying. Maybe both views should turn it off.
-        //[self setTitle:title];
         self.stationLabel.text = title;
     }
 }
@@ -168,10 +192,6 @@
 {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    }
     [self.sessionDelegate requestUpdate];
     [self startTimer];
 }

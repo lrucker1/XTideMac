@@ -20,8 +20,10 @@
 
 @implementation XTUITideEventsTableViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    [self reloadContent];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -43,7 +45,7 @@
 
 - (NSDate *)startDate
 {
-    return [NSDate date];
+    return [[NSDate date] dateByAddingTimeInterval:-60 * 60];
 }
 
 - (NSDate *)endDate
@@ -54,6 +56,9 @@
 
 - (IBAction)reloadContent
 {
+    if (!self.station) {
+        return;
+    }
 	XTTideEventsOrganizer *tempOrganizer =
       [[XTTideEventsOrganizer alloc] init];
     [self.station predictTideEventsStart:[[self startDate] dateByAddingTimeInterval:(-60)]

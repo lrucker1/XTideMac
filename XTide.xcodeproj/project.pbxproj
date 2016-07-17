@@ -188,6 +188,7 @@
 		946318E91CBC3242001CD859 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946318E71CBC3242001CD859 /* MainMenu.xib */; };
 		946318F41CBC3242001CD859 /* XTideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318F31CBC3242001CD859 /* XTideTests.m */; };
 		946318FF1CBC3242001CD859 /* XTideUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318FE1CBC3242001CD859 /* XTideUITests.m */; };
+		946DAF771D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
 		94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* AppKitAdditions.mm */; };
 		94CE15D01D249EED0088720D /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
@@ -426,6 +427,8 @@
 		946318FA1CBC3242001CD859 /* XTideUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XTideUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		946318FE1CBC3242001CD859 /* XTideUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTideUITests.m; sourceTree = "<group>"; };
 		946319001CBC3242001CD859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		946DAF751D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+NSDate_XTWAdditions.h"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.h"; sourceTree = SOURCE_ROOT; };
+		946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+NSDate_XTWAdditions.m"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.m"; sourceTree = SOURCE_ROOT; };
 		948353BB1CBC42FB0026F08A /* libxtide */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libxtide; path = "/Users/lrucker/Microcode/XTideCocoa_2.15/libpng-1.6.21/../xtide-2.15.1/libxtide"; sourceTree = "<absolute>"; };
 		948355031CBC44660026F08A /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-1.6.21/png.h"; sourceTree = "<group>"; };
 		948355051CBC448F0026F08A /* tcd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tcd.h; path = "../libtcd-2.2.7/tcd.h"; sourceTree = "<group>"; };
@@ -1049,6 +1052,8 @@
 				94CE16171D287E6A0088720D /* NotificationController.m */,
 				94CE16191D287E6A0088720D /* ComplicationController.h */,
 				94CE161A1D287E6A0088720D /* ComplicationController.m */,
+				946DAF751D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.h */,
+				946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */,
 				94CE161C1D287E6A0088720D /* Assets.xcassets */,
 				94CE161E1D287E6A0088720D /* Info.plist */,
 				94CE160E1D287E690088720D /* Supporting Files */,
@@ -1592,6 +1597,7 @@
 				94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */,
 				940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */,
 				94CE16121D287E690088720D /* InterfaceController.m in Sources */,
+				946DAF771D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m in Sources */,
 				94CE16181D287E6A0088720D /* NotificationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

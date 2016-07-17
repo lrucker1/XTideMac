@@ -69,13 +69,14 @@ static NSArray *unitsPrefMap = nil;
    return mStation;
 }
 
+// Time must be NSDateFormatterLongStyle to get timeZone.
 - (NSDateFormatter *)timeFormatter
 {
 	if (!timeFormatter) {
 		timeFormatter = [[NSDateFormatter alloc] init];
 		[timeFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 		[timeFormatter setDateStyle:NSDateFormatterNoStyle];
-		[timeFormatter setTimeStyle:NSDateFormatterMediumStyle];
+		[timeFormatter setTimeStyle:NSDateFormatterLongStyle];
 		[timeFormatter setTimeZone:[self timeZone]];
 	}
 	return timeFormatter;
@@ -88,7 +89,8 @@ static NSArray *unitsPrefMap = nil;
 		[dayFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 		[dayFormatter setDateStyle:NSDateFormatterMediumStyle];
 		[dayFormatter setTimeStyle:NSDateFormatterNoStyle];
-	}
+		[dayFormatter setTimeZone:[self timeZone]];
+    }
 	return dayFormatter;
 }
 
@@ -98,7 +100,7 @@ static NSArray *unitsPrefMap = nil;
 		dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
 		[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-		[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+		[dateFormatter setTimeStyle:NSDateFormatterLongStyle];
 		[dateFormatter setTimeZone:[self timeZone]];
 	}
 	return dateFormatter;
@@ -203,12 +205,16 @@ static NSArray *unitsPrefMap = nil;
         NSString *desc = nil;
         double angle = [prev clockAngle];
         if (isCurrent) {
+            // Rising (up arrow) between min and max, Flood between slackrise/slackfall
             isRising |= previousMaxOrMin->eventType == libxtide::TideEvent::slackrise;
-            desc = isRising ? @"Flood" : @"Ebb";
+            BOOL flood =    previousMaxOrMin->eventType == libxtide::TideEvent::slackrise
+                         || previousMaxOrMin->eventType == libxtide::TideEvent::max;
+            desc = flood ? @"Flood" : @"Ebb";
         } else {
             desc = isRising ? @"Rising" : @"Falling";
         }
-        // Add the tide event. Split the intervening time evenly between it and the next one.
+        // Add the tide event, if it's in range; we may have picked up some extras for interpolation.
+        // Split the intervening time evenly between it and the next one.
         [array addObject:[prev eventDictionary]];
         libxtide::Interval timeDelta = (nextMaxOrMin->eventTime - previousMaxOrMin->eventTime) / hours;
         currentTime = previousMaxOrMin->eventTime;
@@ -217,9 +223,10 @@ static NSArray *unitsPrefMap = nil;
             angle += arcDelta;
             currentTime += timeDelta;
             Dstr levelPrint;
-            mStation->predictTideLevel(currentTime).print(levelPrint);
+            libxtide::PredictionValue prediction = mStation->predictTideLevel(currentTime);
+            prediction.print(levelPrint);
             NSString *level = DstrToNSString(levelPrint);
-            mStation->predictTideLevel(currentTime).printnp(levelPrint);
+            prediction.printnp(levelPrint);
             NSString *levelShort = DstrToNSString(levelPrint);
            
             NSDictionary *event = @{@"date"  : TimestampToNSDate(currentTime),
