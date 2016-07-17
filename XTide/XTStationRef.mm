@@ -89,6 +89,17 @@
     return CLLocationCoordinate2DMake(coordinates.lat(), coordinates.lng());
 }
 
+- (CLLocation *)location
+{
+    // Assume stations are always at sea level.
+    return [[CLLocation alloc] initWithCoordinate:[self coordinate]
+                                         altitude:0
+                               horizontalAccuracy:0
+                                 verticalAccuracy:0
+                                        timestamp:[NSDate date]];
+}
+
+
 - (NSString *)subtitle
 {
     return @"";

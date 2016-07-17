@@ -252,7 +252,7 @@ regionDidChangeAnimated:(BOOL)animated
 }
 
 
-// user tapped the call out accessory: star or 'i' button
+// user tapped the call out accessory: star or chart button
 - (void)mapView:(MKMapView *)aMapView
  annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control

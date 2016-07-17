@@ -37,20 +37,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbQ-CI-Bsn">
                                 <rect key="frame" x="20" y="0.0" width="560" height="551"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
-                                <connections>
-                                    <outlet property="delegate" destination="mTB-Xe-Z3M" id="i8Q-c8-CBk"/>
-                                </connections>
-                            </webView>
+                                <subviews>
+                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="551"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="mTB-Xe-Z3M" id="i8Q-c8-CBk"/>
+                                        </connections>
+                                    </webView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="nbQ-CI-Bsn" secondAttribute="leading" id="FcF-NC-MJv"/>
+                                    <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="nbQ-CI-Bsn" secondAttribute="top" id="HVb-94-4VT"/>
+                                    <constraint firstAttribute="trailing" secondItem="OA5-f2-Hl7" secondAttribute="trailing" id="bW3-ul-rhy"/>
+                                    <constraint firstAttribute="bottom" secondItem="OA5-f2-Hl7" secondAttribute="bottom" id="hIe-uc-b2e"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="P4k-4F-Vxp" secondAttribute="bottom" constant="-20" id="2gd-G0-0bw"/>
-                            <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="mAA-w9-EdV" secondAttribute="leadingMargin" id="38j-VQ-tKh"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="OA5-f2-Hl7" secondAttribute="trailing" id="Dsl-02-4gv"/>
-                            <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="OA5-f2-Hl7" secondAttribute="bottom" priority="750" id="Jn7-gO-deH"/>
+                            <constraint firstItem="nbQ-CI-Bsn" firstAttribute="trailing" secondItem="mAA-w9-EdV" secondAttribute="trailingMargin" id="KFz-Kz-q0m"/>
+                            <constraint firstItem="nbQ-CI-Bsn" firstAttribute="top" secondItem="mAA-w9-EdV" secondAttribute="topMargin" id="hM5-4Z-hxr"/>
+                            <constraint firstItem="nbQ-CI-Bsn" firstAttribute="leading" secondItem="mAA-w9-EdV" secondAttribute="leadingMargin" id="qVR-mv-eSA"/>
+                            <constraint firstItem="456-N0-Oop" firstAttribute="top" secondItem="nbQ-CI-Bsn" secondAttribute="bottom" priority="750" id="qup-8f-Jqj"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Station Info" image="lighthouse" id="JbQ-LH-poU"/>
@@ -77,16 +89,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKZ-aW-q9I" customClass="XTUIGraphView">
                                 <rect key="frame" x="0.0" y="20" width="600" height="531"/>
                                 <subviews>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
                                         <rect key="frame" x="520" y="435" width="48" height="48"/>
-                                        <accessibility key="accessibilityConfiguration" hint="Add or remove from favorites list" label="Favorite"/>
+                                        <accessibility key="accessibilityConfiguration" label="Return to current time"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgA-SB-lfY"/>
                                             <constraint firstAttribute="width" constant="48" id="ygL-Jx-CJc"/>
                                         </constraints>
-                                        <state key="normal" image="FavoriteStarOpen" backgroundImage="chartButtonBackgroundTemplate"/>
+                                        <state key="normal" image="ReturnToNow" backgroundImage="chartButtonBackgroundTemplate"/>
                                         <connections>
-                                            <action selector="toggleFavorite" destination="SFd-AG-GpC" eventType="touchUpInside" id="Zm0-IE-Dtw"/>
+                                            <action selector="reloadContent" destination="SFd-AG-GpC" eventType="touchUpInside" id="eaM-5D-y0k"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -107,7 +119,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Chart" image="ChartViewTemplate" id="7d2-iJ-LcH"/>
                     <connections>
-                        <outlet property="favoriteButton" destination="9t3-Uv-sho" id="w4b-uo-H7U"/>
                         <outlet property="graphView" destination="VKZ-aW-q9I" id="GdH-2q-5dY"/>
                     </connections>
                 </viewController>
@@ -124,11 +135,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TideEvent" textLabel="ffT-SS-nJu" detailTextLabel="ifd-LV-JXe" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="yHZ-cf-OTE">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="TideEvent" textLabel="ffT-SS-nJu" detailTextLabel="ifd-LV-JXe" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="yHZ-cf-OTE">
                                 <rect key="frame" x="0.0" y="28" width="600" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yHZ-cf-OTE" id="4Ko-gD-eqp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="553" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ffT-SS-nJu">
@@ -157,24 +168,12 @@
                     <tabBarItem key="tabBarItem" title="List" image="ListViewTemplate" id="rYm-Js-mNV"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk5-Is-MLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3dR-1j-3Sz">
-                    <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="gsL-AW-oMU"/>
-                        <constraint firstAttribute="width" constant="48" id="p1F-Gt-aeW"/>
-                    </constraints>
-                    <state key="normal" image="ReturnToNow" backgroundImage="chartButtonBackgroundTemplate"/>
-                    <connections>
-                        <action selector="returnToNow" destination="SFd-AG-GpC" eventType="touchUpInside" id="2B3-7n-8Wh"/>
-                    </connections>
-                </button>
             </objects>
             <point key="canvasLocation" x="900" y="233"/>
         </scene>
     </scenes>
     <resources>
         <image name="ChartViewTemplate" width="16" height="16"/>
-        <image name="FavoriteStarOpen" width="32" height="32"/>
         <image name="ListViewTemplate" width="16" height="16"/>
         <image name="ReturnToNow" width="32" height="32"/>
         <image name="chartButtonBackgroundTemplate" width="48" height="48"/>

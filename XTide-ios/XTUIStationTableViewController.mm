@@ -83,17 +83,8 @@
 #pragma mark - Table view data source
 - (NSArray *)suggestionsForText:(NSString *)text
 {
-    // Wait until there are > 3 characters because the search is slow. TODO: dispatch_async?
-//    if ([text length] < 3) {
-//        return nil;
-//    }
     NSMutableArray *suggestions = [NSMutableArray array];
     NSArray *stationRefArray = self.stationRefArray;
-//    if (self.searchingSubStations) {
-//        stationRefArray = [(AppDelegate *)[NSApp delegate] stationRefArray];
-//    } else {
-//        stationRefArray = self.refStations;
-//    }
 
     // Stop when we have 30 hits. Any more won't show up on most screens, and it'll speed things up.
     NSInteger count = 0;
@@ -163,7 +154,7 @@
     NSSet *touches = [event allTouches];
     UITouch *touch = [touches anyObject];
     CGPoint currentTouchPosition = [touch locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint: currentTouchPosition];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:currentTouchPosition];
     if (indexPath != nil){
         UIButton *button = (UIButton *)sender;
         button.selected = !button.selected;

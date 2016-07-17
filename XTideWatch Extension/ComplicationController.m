@@ -23,6 +23,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 @property (nonatomic) WCSession* watchSession;
 @property BOOL isBigWatch;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
+@property (strong) UIColor *tintColor;
 
 @end
 
@@ -33,6 +34,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     self = [super init];
     _isBigWatch = [self isBigWatchCheck];
     _watchSession = [WCSession defaultSession];
+    _tintColor = [UIColor colorWithRed:24/255.0 green:215/255.0 blue:222/255.0 alpha:1.0];
 
     _sessionDelegate = [XTSessionDelegate sharedDelegate];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -356,6 +358,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     }
     if (image) {
         CLKImageProvider *imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:image];
+        imageProvider.tintColor = self.tintColor;
         return imageProvider;
     }
     // slackrise/fall have no image because the text is long.
@@ -391,6 +394,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     UIImage *hand = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:NO];
     UIImage *bgImage = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:YES];
     CLKImageProvider *imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:bgImage twoPieceImageBackground:ring twoPieceImageForeground:hand];
+    imageProvider.tintColor = self.tintColor;
     return imageProvider;
 }
 

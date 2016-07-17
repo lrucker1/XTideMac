@@ -12,6 +12,7 @@
 
 #import "XTSettings.h"
 #import "XTStationIndex.h"
+#import "XTStation.h"
 #import "XTStationRefInt.h"
 #import "XTUtils.h"
 
@@ -158,6 +159,11 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 - (BOOL)isFavorite:(XTStationRef *)ref
 {
     return [[self favoriteNames] containsObject:[ref title]];
+}
+
+- (BOOL)isFavoriteStation:(XTStation *)station
+{
+    return [[self favoriteNames] containsObject:[station name]];
 }
 
 // Return names for simple lists.

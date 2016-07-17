@@ -12,6 +12,7 @@
 extern NSString * const XTStationIndexStationsReloadedNotification;
 extern NSString * const XTStationIndexFavoritesChangedNotification;
 
+@class XTStation;
 @class XTStationRef;
 
 @interface XTStationIndex : NSObject
@@ -30,6 +31,7 @@ extern NSString * const XTStationIndexFavoritesChangedNotification;
 - (void)addFavorite:(XTStationRef *)ref;
 - (void)removeFavorite:(XTStationRef *)ref;
 - (BOOL)isFavorite:(XTStationRef *)ref;
+- (BOOL)isFavoriteStation:(XTStation *)station;
 - (NSArray *)favoriteNames;
 - (NSArray *)favoriteStationRefs;
 - (XTStationRef *)favoriteNearestLocation:(CLLocation *)location;

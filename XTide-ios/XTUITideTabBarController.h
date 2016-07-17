@@ -14,10 +14,6 @@
 
 - (void)updateStation: (XTStation *)station;
 
-@optional
-
-- (IBAction)reloadContent;
-
 @end
 
 

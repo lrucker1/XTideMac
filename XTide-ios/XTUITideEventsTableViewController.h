@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
 #import "XTUITideTabBarController.h"
 
 @class XTStation;
 
-@interface XTUITideEventsTableViewController : UITableViewController <XTUITideView>
+@interface XTUITideEventsTableViewController : UITableViewController <XTUITideView, EKEventEditViewDelegate>
 
 - (void)updateStation:(XTStation *)station;
 

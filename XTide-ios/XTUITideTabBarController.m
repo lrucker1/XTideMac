@@ -8,9 +8,13 @@
 
 #import "XTUITideTabBarController.h"
 #import "XTStation.h"
+#import "XTStationIndex.h"
 
 @interface XTUITideTabBarController ()
-@property UIButton *nowButton;
+
+@property UIButton *favoriteButton;
+@property UIBarButtonItem *favoriteBarButton;
+@property XTStation *station;
 
 @end
 
@@ -19,15 +23,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Add a "Now" button
-    self.nowButton = [UIButton buttonWithType:UIButtonTypeSystem];
-    self.nowButton.frame = CGRectMake(0, 0, 24, 24);
-    [self.nowButton setImage:[UIImage imageNamed:@"ReturnToNow"] forState:UIControlStateNormal];
-    [self.nowButton addTarget:self action:@selector(reloadContent) forControlEvents:UIControlEventTouchUpInside];
+    // Add a "Favorite" button
+    self.favoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.favoriteButton.frame = CGRectMake(0, 0, 24, 24);
+    [self.favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarOpen"] forState:UIControlStateNormal];
+    [self.favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarFilled"] forState:UIControlStateSelected];
+    [self.favoriteButton addTarget:self action:@selector(toggleFavorite) forControlEvents:UIControlEventTouchUpInside];
+    if (self.station) {
+        self.favoriteButton.selected = [[XTStationIndex sharedStationIndex] isFavoriteStation:self.station];
+    }
 
-    UIBarButtonItem *barButton = [[UIBarButtonItem alloc] init];
-    [barButton setCustomView:self.nowButton];
-    self.navigationItem.rightBarButtonItem = barButton;
+    self.favoriteBarButton = [[UIBarButtonItem alloc] init];
+    [self.favoriteBarButton setCustomView:self.favoriteButton];
+    self.navigationItem.rightBarButtonItem = self.favoriteBarButton;
     self.delegate = self;
 }
 
@@ -38,23 +46,20 @@
             [vc updateStation:station];
         }
     }
+    self.station = station;
+    self.favoriteButton.selected = [[XTStationIndex sharedStationIndex] isFavoriteStation:station];
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+
+- (IBAction)toggleFavorite
 {
-    UIViewController<XTUITideView> *vc = (UIViewController<XTUITideView> *)viewController;
-    if ([vc respondsToSelector:@selector(reloadContent)]) {
-        self.nowButton.hidden = NO;
-    } else {
-        self.nowButton.hidden = YES;
+    self.favoriteButton.selected = !self.favoriteButton.selected;
+    XTStationRef *ref = self.station.stationRef;
+    if (self.favoriteButton.selected) {
+        [[XTStationIndex sharedStationIndex] addFavorite:ref];
     }
-}
-
-- (IBAction)reloadContent
-{
-    UIViewController<XTUITideView> *vc = self.selectedViewController;
-    if ([vc respondsToSelector:@selector(reloadContent)]) {
-        [vc reloadContent];
+    else {
+        [[XTStationIndex sharedStationIndex] removeFavorite:ref];
     }
 }
 

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "XTStationInt.h"
+#import "XTStationRefInt.h"
 #import "XTCalendar.h"
 #import "XTSettings.h"
 #import "XTTideEvent.h"
@@ -50,6 +51,12 @@ static NSArray *unitsPrefMap = nil;
 - (NSString *)name
 {
     return DstrToNSString(mStation->name);
+}
+
+- (XTStationRef *)stationRef
+{
+    libxtide::StationRef &ref = (libxtide::StationRef &)mStation->getStationRef();
+    return [[XTStationRef alloc] initWithStationRef:&ref];
 }
 
 - (void)updateUnits

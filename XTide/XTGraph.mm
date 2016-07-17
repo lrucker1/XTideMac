@@ -475,7 +475,7 @@ CocoaGraph::fontHeight() const
 
 const unsigned CocoaGraph::oughtHeight() const
 {
-    return [font pointSize] - 3; // TODO: I don't know what this does.
+    return [font pointSize] - 3; // For vertical alignment of depth labels.
 }
 
 

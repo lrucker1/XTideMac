@@ -274,7 +274,6 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     if (context != &selfContext) {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     } else if ([prefsKeysOfInterest containsObject:keyPath]) {
-        // TODO: set all Cpp settings before NSUserDefaults (except color, cpp doesn't care)
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.graphView display];
         });

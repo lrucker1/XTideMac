@@ -16,5 +16,6 @@
 - (uint32_t)recordNumber;
 - (XTStation *)loadStation;
 - (BOOL)isReferenceStation;
+- (CLLocation *)location;
 
 @end

@@ -10,6 +10,7 @@
 #define XTStation_h
 
 @class XTTideEventsOrganizer;
+@class XTStationRef;
 
 @interface XTStation : NSObject
 
@@ -19,6 +20,7 @@
 - (NSTimeZone *)timeZone;
 - (NSString *)stationInfoAsHTML;
 - (NSArray *)stationMetadata;
+- (XTStationRef *)stationRef;
 
 - (NSString *)timeStringFromDate: (NSDate *)date;
 - (NSString *)dayStringFromDate:(NSDate *)date;

@@ -189,6 +189,8 @@
 		946318F41CBC3242001CD859 /* XTideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318F31CBC3242001CD859 /* XTideTests.m */; };
 		946318FF1CBC3242001CD859 /* XTideUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318FE1CBC3242001CD859 /* XTideUITests.m */; };
 		946DAF771D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
+		946DAF821D3C150700B16FB2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF801D3C150700B16FB2 /* EventKit.framework */; };
+		946DAF831D3C150700B16FB2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF811D3C150700B16FB2 /* EventKitUI.framework */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
 		94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* AppKitAdditions.mm */; };
 		94CE15D01D249EED0088720D /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
@@ -429,6 +431,8 @@
 		946319001CBC3242001CD859 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		946DAF751D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+NSDate_XTWAdditions.h"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.h"; sourceTree = SOURCE_ROOT; };
 		946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+NSDate_XTWAdditions.m"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.m"; sourceTree = SOURCE_ROOT; };
+		946DAF801D3C150700B16FB2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
+		946DAF811D3C150700B16FB2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
 		948353BB1CBC42FB0026F08A /* libxtide */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libxtide; path = "/Users/lrucker/Microcode/XTideCocoa_2.15/libpng-1.6.21/../xtide-2.15.1/libxtide"; sourceTree = "<absolute>"; };
 		948355031CBC44660026F08A /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-1.6.21/png.h"; sourceTree = "<group>"; };
 		948355051CBC448F0026F08A /* tcd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tcd.h; path = "../libtcd-2.2.7/tcd.h"; sourceTree = "<group>"; };
@@ -473,7 +477,7 @@
 		9497B07C1CBC45B50004D687 /* Settings.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Settings.hh; path = "../xtide-2.15.1/libxtide/Settings.hh"; sourceTree = "<group>"; };
 		9497B07D1CBC45B50004D687 /* Skycal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Skycal.hh; path = "../xtide-2.15.1/libxtide/Skycal.hh"; sourceTree = "<group>"; };
 		9497B07E1CBC45B50004D687 /* Speed.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Speed.hh; path = "../xtide-2.15.1/libxtide/Speed.hh"; sourceTree = "<group>"; };
-		9497B07F1CBC45B50004D687 /* Station.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Station.hh; path = "../xtide-2.15.1/libxtide/Station.hh"; sourceTree = "<group>"; };
+		9497B07F1CBC45B50004D687 /* Station.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Station.hh; path = "../xtide-2.15.1/libxtide/Station.hh"; sourceTree = "<group>"; tabWidth = 8; };
 		9497B0801CBC45B50004D687 /* StationIndex.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationIndex.hh; path = "../xtide-2.15.1/libxtide/StationIndex.hh"; sourceTree = "<group>"; };
 		9497B0811CBC45B50004D687 /* StationRef.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationRef.hh; path = "../xtide-2.15.1/libxtide/StationRef.hh"; sourceTree = "<group>"; };
 		9497B0821CBC45B50004D687 /* SubordinateStation.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubordinateStation.hh; path = "../xtide-2.15.1/libxtide/SubordinateStation.hh"; sourceTree = "<group>"; };
@@ -571,8 +575,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */,
+				946DAF821D3C150700B16FB2 /* EventKit.framework in Frameworks */,
 				94CE15DF1D24A69E0088720D /* Foundation.framework in Frameworks */,
 				94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */,
+				946DAF831D3C150700B16FB2 /* EventKitUI.framework in Frameworks */,
 				94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -789,6 +795,8 @@
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
+				946DAF801D3C150700B16FB2 /* EventKit.framework */,
+				946DAF811D3C150700B16FB2 /* EventKitUI.framework */,
 				940BAA8A1D2C4DD700E1C11B /* MapKit.framework */,
 				94CE162A1D2882250088720D /* WatchConnectivity.framework */,
 				94CE15DE1D24A69E0088720D /* Foundation.framework */,
@@ -1730,6 +1738,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1750,6 +1759,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -1993,6 +2003,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
@@ -2011,6 +2025,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";

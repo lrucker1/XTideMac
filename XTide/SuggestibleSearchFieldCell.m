@@ -56,7 +56,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 
 /* The search text field in the MainMenu.xib has the class for its cell set to this class so that it will report the suggestions window as one of its accessibility children when the suggestions window is present.
 */
-// TODO: A very good idea, but not flexible; all NSTextFieldCells need their own.
+// A very good idea, but not flexible; all NSTextFieldCells need their own.
 - (id)accessibilityAttributeValue:(NSString *)attribute {
     id attributeValue;
     

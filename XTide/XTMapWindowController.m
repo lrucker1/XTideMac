@@ -317,7 +317,6 @@ regionDidChangeAnimated:(BOOL)animated
             viewForAnnotation:(id<MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
-        // TODO: see if we can call goHome: when this is clicked.
         return nil;
     }
     if (![annotation isKindOfClass:[XTStationRef class]]) {
@@ -443,7 +442,7 @@ We don't want to use the text from the search field as it could be a substring. 
 
 - (NSArray *)suggestionsForText:(NSString *)text
 {
-    // Wait until there are > 3 characters because the search is slow. TODO: dispatch_async?
+    // Wait until there are > 3 characters because the search is slow. dispatch_async might help
     if ([text length] < 3) {
         return nil;
     }
