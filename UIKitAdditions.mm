@@ -21,10 +21,10 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
 
     UIColor *color = nil;
-    if (self.isReferenceStation) {
-        color = ColorForKey(XTide_ColorKeys[refcolor]);
+    if (self.isCurrent) {
+        color = ColorForKey(XTide_ColorKeys[currentdotcolor]);
     } else {
-        color = ColorForKey(XTide_ColorKeys[subcolor]);
+        color = ColorForKey(XTide_ColorKeys[tidedotcolor]);
     }
 
     CGContextSetFillColorWithColor(context, [color CGColor]);

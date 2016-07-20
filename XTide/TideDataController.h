@@ -31,7 +31,6 @@
 {
 	IBOutlet NSTableView *tideTableView;
 	IBOutlet NSTextFieldCell *_sharedGroupTitleCell;
-	NSMutableDictionary *images;
 	NSDictionary *detailAttributes;
 }
 

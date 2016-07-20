@@ -59,13 +59,13 @@ static NSString *versionKey = @"version";
     [colorWell_mslcolor setColor:[self colorForKey:XTide_ColorKeys[mslcolor]]];
     
     if ([MKPinAnnotationView instancesRespondToSelector:@selector(pinTintColor)]) {
-        [colorWell_refcolor setColor:[self colorForKey:XTide_ColorKeys[refcolor]]];
-        [colorWell_subcolor setColor:[self colorForKey:XTide_ColorKeys[subcolor]]];
+        [colorWell_currentdotcolor setColor:[self colorForKey:XTide_ColorKeys[currentdotcolor]]];
+        [colorWell_tidedotcolor setColor:[self colorForKey:XTide_ColorKeys[tidedotcolor]]];
     } else {
-        [colorWell_refcolor setColor:[NSColor redColor]];
-        [colorWell_subcolor setColor:[NSColor greenColor]];
-        [colorWell_refcolor setEnabled:NO];
-        [colorWell_subcolor setEnabled:NO];
+        [colorWell_currentdotcolor setColor:[NSColor redColor]];
+        [colorWell_tidedotcolor setColor:[NSColor greenColor]];
+        [colorWell_currentdotcolor setEnabled:NO];
+        [colorWell_tidedotcolor setEnabled:NO];
     }
     
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];

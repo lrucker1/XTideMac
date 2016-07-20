@@ -17,5 +17,6 @@
 - (XTStation *)loadStation;
 - (BOOL)isReferenceStation;
 - (CLLocation *)location;
+- (BOOL)isCurrent;
 
 @end

@@ -115,6 +115,8 @@
 		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
 		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
 		944501801D34120000203863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
+		945282331D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
+		945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -399,6 +401,8 @@
 		9445017B1D318FE600203863 /* XTUITideTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUITideTabBarController.m; sourceTree = "<group>"; };
 		9445017D1D31A7DE00203863 /* XTUIStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIStationInfoViewController.h; sourceTree = "<group>"; };
 		9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIStationInfoViewController.m; sourceTree = "<group>"; };
+		945282311D3F419B00BA9DC0 /* XTTideEvent+EventKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XTTideEvent+EventKit.h"; sourceTree = "<group>"; };
+		945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "XTTideEvent+EventKit.mm"; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -720,6 +724,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9452822F1D3F416E00BA9DC0 /* xtideEventKit */ = {
+			isa = PBXGroup;
+			children = (
+				945282311D3F419B00BA9DC0 /* XTTideEvent+EventKit.h */,
+				945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */,
+			);
+			name = xtideEventKit;
+			sourceTree = "<group>";
+		};
 		945828DD1D248BF300972E1C /* XTide-ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -806,6 +819,7 @@
 				948355031CBC44660026F08A /* png.h */,
 				94041D311CC1CE3E003BD343 /* tide_db.c */,
 				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
+				9452822F1D3F416E00BA9DC0 /* xtideEventKit */,
 				94CE15E01D24D3D00088720D /* xtideUIKit */,
 				94CE15CA1D2495B60088720D /* xtideAppKit */,
 				9497B0EB1CBC4E910004D687 /* xtideFoundation */,
@@ -1437,6 +1451,7 @@
 				945829411D248D7900972E1C /* Dstr.cc in Sources */,
 				945828E31D248BF300972E1C /* AppDelegate.mm in Sources */,
 				945829321D248D7900972E1C /* Angle.cc in Sources */,
+				945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */,
 				945829181D248D6100972E1C /* TideEventsOrganizer.cc in Sources */,
 				945829191D248D6100972E1C /* Timestamp.cc in Sources */,
 				9458292E1D248D7100972E1C /* Settings.cc in Sources */,
@@ -1551,6 +1566,7 @@
 				94041C3C1CBECB40003BD343 /* Offsets.cc in Sources */,
 				94CE15E41D24D9370088720D /* XTGraph.mm in Sources */,
 				94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */,
+				945282331D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */,
 				94041C3D1CBECB40003BD343 /* PixelatedGraph.cc in Sources */,
 				94041C3E1CBECB40003BD343 /* PredictionValue.cc in Sources */,
 				94041C3F1CBECB40003BD343 /* RGBGraph.cc in Sources */,

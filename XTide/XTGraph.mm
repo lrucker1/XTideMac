@@ -149,6 +149,20 @@ namespace libxtide {
     return self;
 }
 
+- (instancetype)initIconModeWithXSize:(CGFloat)xsize
+                                ysize:(CGFloat)ysize
+                                scale:(CGFloat)scale
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+    
+    mGraph = new libxtide::CocoaGraph(xsize, ysize, scale, libxtide::Graph::icon);
+    
+    return self;
+}
+
 
 /*
  *-----------------------------------------------------------------------------

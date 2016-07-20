@@ -28,13 +28,6 @@
 @interface TideGraphController : TideController
 {
 	IBOutlet NSButton *nowButton;
-	
-	// Sheet
-	IBOutlet NSWindow *markSheet;
-	IBOutlet NSButton *showMarkCheckbox;
-	IBOutlet NSTextField *markValueText;
-	IBOutlet NSComboBox *markUnitsCombo;
-	IBOutlet NSTextField *aspectValueText;
 
     NSTimer *nowTimer;
 }
@@ -45,8 +38,6 @@
 
 - (GraphView *)graphView;
 
-- (IBAction)showOptionSheet:(id)sender;
-- (IBAction)hideOptionSheet:(id)sender;
 - (IBAction)updateStartTime:(id)sender;
 - (IBAction)returnToNow:(id)sender;
 @end

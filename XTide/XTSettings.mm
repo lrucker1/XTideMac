@@ -337,12 +337,6 @@ NSMutableDictionary *XTSettingsDefaultValues()
     [defaultValues setObject:@"gray90"
                       forKey:XTide_ColorKeys[fgcolor]];
     
-    // Colors (stations) - standard pin colors
-    [defaultValues setObject:@"red"
-                      forKey:XTide_ColorKeys[refcolor]];
-    [defaultValues setObject:@"green"
-                      forKey:XTide_ColorKeys[subcolor]];
-    
     return defaultValues;
 }
 

@@ -178,6 +178,64 @@ static TideController *selfContext;
     [(AppDelegate *)[NSApp delegate] showTideCalendarForStation:self.stationRef];
 }
 
+#pragma mark sheet
+
+- (IBAction)showOptionSheet:(id)sender
+{
+    [aspectValueText setDoubleValue:[station aspect]];
+    if ([station hasMarkLevel]) {
+        libxtide::NullablePredictionValue mark = [station markLevel];
+        [markValueText setDoubleValue:mark.val()];
+        if (![station isCurrent] && mark.Units() != libxtide::Units::zulu) {
+            // @lar units in prefs
+            NSString *markString = DstrToNSString(libxtide::Units::shortName(mark.Units()));
+            NSInteger index = [[XTStation unitsPrefMap] indexOfObject:markString];
+            if (index < 0 || index >= 3) {
+                index = 0;
+            }
+            [markUnitsCombo selectItemAtIndex:index];
+        }
+        [showMarkCheckbox setState:NSOnState];
+    }
+    else {
+        [showMarkCheckbox setState:NSOffState];
+    }
+    [[self window] beginSheet:markSheet completionHandler:nil];
+}
+
+- (IBAction)hideOptionSheet:(id)sender
+{
+    // Hide the sheet
+    [markSheet orderOut:sender];
+    
+    // Return to normal event handling
+    [NSApp endSheet:markSheet returnCode:1];
+    
+    // Get the options
+    if ([showMarkCheckbox state] == NSOnState) {
+        NSInteger index = [markUnitsCombo indexOfSelectedItem];
+        if (index < 0 || index >= 3) {
+            index = 0;
+        }
+        double val = [markValueText doubleValue];
+        libxtide::Units::PredictionUnits units = [station predictUnits];
+        libxtide::PredictionValue pv;
+        if (index != 0 && ![station isCurrent]) {
+            libxtide::Units::PredictionUnits altUnits = libxtide::Units::parse([[[XTStation unitsPrefMap] objectAtIndex:index] UTF8String]);
+            pv = libxtide::PredictionValue(altUnits, val);
+            if (units != altUnits) {
+                pv.Units(units);
+            }
+        } else {
+            pv = libxtide::PredictionValue(units, val);
+        }
+        [station markLevel:pv];
+    }
+    else {
+        [station clearMarkLevel];
+    }
+}
+
 #pragma mark popover
 
 // -------------------------------------------------------------------------------

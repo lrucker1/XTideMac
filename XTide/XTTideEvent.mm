@@ -122,11 +122,13 @@
 		case libxtide::TideEvent::min:
 			return @"lowtide";
 		case libxtide::TideEvent::slackrise:
+			return @"slackrise";
 		case libxtide::TideEvent::markrise:
-			return @"rising";
+			return @"markrise";
 		case libxtide::TideEvent::slackfall:
+			return @"slackfall";
 		case libxtide::TideEvent::markfall:
-			return @"falling";
+			return @"markfall";
 		default:
 			return @"";
 	}

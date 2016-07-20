@@ -74,6 +74,11 @@
 	[tideTableView reloadData];
 }
 
+- (IBAction)hideOptionSheet:(id)sender
+{
+    [super hideOptionSheet:sender];
+    [self computeEvents];
+}
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {

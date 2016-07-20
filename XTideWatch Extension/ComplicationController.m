@@ -20,10 +20,13 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 @interface ComplicationController ()
 
 @property (strong) NSArray *events;
+@property (strong) NSArray *oldEvents;
 @property (nonatomic) WCSession* watchSession;
 @property BOOL isBigWatch;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) UIColor *tintColor;
+@property (strong) NSDate *lastEndTime;
+@property (strong) NSMutableArray *replyHandlers;
 
 @end
 
@@ -34,7 +37,8 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     self = [super init];
     _isBigWatch = [self isBigWatchCheck];
     _watchSession = [WCSession defaultSession];
-    _tintColor = [UIColor colorWithRed:24/255.0 green:215/255.0 blue:222/255.0 alpha:1.0];
+    // 02B0CB
+    _tintColor = [UIColor colorWithRed:0x02/255.0 green:0xB0/255.0 blue:0xCB/255.0 alpha:1.0];
 
     _sessionDelegate = [XTSessionDelegate sharedDelegate];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -66,11 +70,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 - (void)loadEvents
 {
     if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                self.events = [reply objectForKey:@"events"];
-            }
-        }];
+        [self requestComplicationsWithReplyHandler:nil];
     }
 }
 
@@ -120,10 +120,8 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             if (reply) {
-                self.events = [reply objectForKey:@"events"];
                 handler([self firstEventTime]);
             } else {
-                // TODO: get a "no station" placeholder.
                 handler(nil);
             }
         }];
@@ -138,10 +136,8 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             if (reply) {
-                self.events = [reply objectForKey:@"events"];
                 handler([self lastEventTime]);
             } else {
-                // TODO: get a "no station" placeholder.
                 handler(nil);
             }
         }];
@@ -157,14 +153,93 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 
 #pragma mark - Timeline Population
 
+// isEqual or contains won't do; the prediction times might be slightly different.
+- (BOOL)isEvent:(NSDictionary *)eventA matchingEvent:(NSDictionary *)eventB
+{
+    NSDate *dateA = [eventA objectForKey:@"date"];
+    NSDate *dateB = [eventB objectForKey:@"date"];
+    // Common code says the tolerance is 15 minutes, but we may have interpolated levels
+    // that are closer.
+    return (fabs([dateA timeIntervalSinceDate:dateB]) < (5 * 60));
+}
+
+- (void)updateEvents:(NSArray *)newEvents
+{
+    if (!self.oldEvents) {
+        self.events = newEvents;
+        return;
+    }
+
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    NSDate *earlyDate = [server earliestTimeTravelDate];
+    NSMutableArray *events = [NSMutableArray array];
+    // Add events that are still valid.
+    for (NSDictionary *oldEvent in self.oldEvents) {
+        if ([[self timeForEvent:oldEvent] compare:earlyDate] == NSOrderedDescending) {
+            [events addObject:oldEvent];
+        }
+    }
+    // Add new events that aren't already included.
+    for (NSDictionary *newEvent in newEvents) {
+        NSUInteger matchIndex = [events indexOfObjectPassingTest:^BOOL(id event, NSUInteger idx, BOOL *stop) {
+            if ([self isEvent:event matchingEvent:newEvent]) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        if (matchIndex == NSNotFound) {
+            [events addObject:newEvent];
+        }
+    }
+    self.events = events;
+    self.oldEvents = nil;
+}
+
+// We want only one sendMessage in flight.
 - (void)requestComplicationsWithReplyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
 {
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    @synchronized (self) {
+        if (self.replyHandlers) {
+            if (replyHandler) {
+                [self.replyHandlers addObject:[replyHandler copy]];
+            }
+            return;
+        }
+        self.replyHandlers = [NSMutableArray array];
+        if (replyHandler) {
+            [self.replyHandlers addObject:[replyHandler copy]];
+        }
+    }
+    // Default handler sets the "events" array and merges it with any previous events.
+    id defaultHandler = ^(NSDictionary *reply) {
+        if (reply) {
+            [self updateEvents:[reply objectForKey:@"events"]];
+        }
+        @synchronized (self) {
+            for (id handler in self.replyHandlers) {
+               ((void (^)(NSDictionary<NSString *,id> *replyMessage))handler)(reply);
+            }
+            self.replyHandlers = nil;
+        }
+    };
 
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    NSDate *earlyDate = [server earliestTimeTravelDate];
+
+    // If the last update happened before the current window, clear the old data.
+    if ([self.lastEndTime compare:earlyDate] == NSOrderedAscending) {
+        self.lastEndTime = nil;
+        self.oldEvents = nil;
+    }
+    NSDate *startTime = self.lastEndTime ? self.lastEndTime: earlyDate;
+    self.lastEndTime = [server latestTimeTravelDate];
+
+    // TODO: make sure start and end aren't the same.
     [self.watchSession sendMessage:@{@"kind" : @"requestEvents",
-                                     @"first" : [server earliestTimeTravelDate],
-                                     @"last" : [server latestTimeTravelDate] }
-                      replyHandler:replyHandler
+                                     @"first" : startTime,
+                                     @"last" : self.lastEndTime }
+                      replyHandler:defaultHandler
                       errorHandler:nil];
 }
 
@@ -238,7 +313,6 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             if (reply) {
-                self.events = [reply objectForKey:@"events"];
                 handler([self getCurrentTimelineEntryForComplication:complication]);
             } else {
                 // TODO: get a "no station" placeholder.
@@ -260,8 +334,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             if (reply) {
-                self.events = [reply objectForKey:@"events"];
-                handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);\
+                handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
             } else {
                 handler(nil);
             }
@@ -280,7 +353,6 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (!self.events) {
         [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
             if (reply) {
-                self.events = [reply objectForKey:@"events"];
                 handler ([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
             } else {
                 handler(nil);
@@ -295,24 +367,31 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 
 - (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
 {
-    // Get updates every 24 hours. The server start/end dates are bound by local midnights
+    // Get updates when there's 1 day left to go.
+    // The server start/end dates are bound by local midnights
     // and we get the max possible, so anything more frequent is pointless.
-    handler([NSDate dateWithTimeIntervalSinceNow:HOUR * 24]);
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    NSDate *next = [[server latestTimeTravelDate] dateByAddingTimeInterval:-HOUR * 24];
+    // For the odd chance that we've already passed "next".
+    NSDate *datePlus6 = [[NSDate date] dateByAddingTimeInterval:HOUR * 6];
+    handler([datePlus6 laterDate:next]);
 }
 
 - (void)requestedUpdateDidBegin
 {
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
- 
+
+    self.oldEvents = self.events;
     self.events = nil;
 
-    // "extend" might be more appropriate than "reload", but the Organizer is long gone
-    // so we'd have to do the checks to detect duplicates at the boundary time ourselves.
-    // We shouldn't update that often, since we get complications for the max allowed range.
-    // We also only get a max of ~24 events per day.
     for (CLKComplication *complication in server.activeComplications) {
-        [server reloadTimelineForComplication:complication];
+        [server extendTimelineForComplication:complication];
     }
+}
+
+- (void)requestedUpdateBudgetExhausted
+{
+    NSLog(@"requestedUpdateBudgetExhausted");
 }
 
 #pragma mark - Entry generator
@@ -341,7 +420,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 
 - (CLKImageProvider *)utilImageProviderForEvent:(NSDictionary * _Nullable)event
 {
-    // min/max events have no "isRising" entry. Look in "type" for "hightide" and "lowtide"
+    // Only interpolated events have a "isRising" entry. Look in "type" for the icon name.
     UIImage *image = nil;
     if (event) {
         NSNumber *risingObj = [event objectForKey:@"isRising"];
@@ -361,8 +440,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         imageProvider.tintColor = self.tintColor;
         return imageProvider;
     }
-    // slackrise/fall have no image because the text is long.
-    //NSLog(@"no image for event %@", event);
+    NSLog(@"no image for event %@", event);
     return nil;
 }
 
@@ -442,13 +520,15 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
-    // TODO: Having a line with end caps would be prettier.
-    UIBezierPath *arm = [UIBezierPath bezierPathWithRect:
-            CGRectMake(-lineWidth / 2, 0, lineWidth, -(radius - (lineWidth * 2)))];
+    UIBezierPath *arm = [UIBezierPath bezierPath];
+    [arm moveToPoint:CGPointZero];
+    [arm addLineToPoint:CGPointMake(0, -(radius - lineWidth - 4))];
+    arm.lineWidth = lineWidth;
+    arm.lineCapStyle = kCGLineCapRound;
     CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
     position = CGAffineTransformRotate(position, radians);
     [arm applyTransform:position];
-    [arm fill];
+    [arm stroke];
 
     if (includeRing) {
         CGRect edgeRect = CGRectInset(rect, 2, 2);
@@ -505,7 +585,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         }
         break;
     case CLKComplicationFamilyUtilitarianSmall:
-         {
+        {
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
         small.imageProvider = [self utilImageProviderForEvent:event];

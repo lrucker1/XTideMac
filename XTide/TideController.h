@@ -34,6 +34,13 @@
 	XTTideEventsOrganizer *organizer;
 	IBOutlet NSTextField *timeZoneFromLabel;
 	IBOutlet NSDatePicker *dateFromPicker;
+	
+	// Sheet
+	IBOutlet NSWindow *markSheet;
+	IBOutlet NSButton *showMarkCheckbox;
+	IBOutlet NSTextField *markValueText;
+	IBOutlet NSComboBox *markUnitsCombo;
+	IBOutlet NSTextField *aspectValueText;
 }
 
 @property (readwrite, retain) XTTideEventsOrganizer *organizer;
@@ -42,6 +49,9 @@
 - (IBAction)showGraphForSelection:(id)sender;
 - (IBAction)showDataForSelection:(id)sender;
 - (IBAction)showCalendarForSelection:(id)sender;
+
+- (IBAction)showOptionSheet:(id)sender;
+- (IBAction)hideOptionSheet:(id)sender;
 
 - (instancetype)initWithWindowNibName:(NSString*)nibName stationRef:(XTStationRef *)in_stationRef;
 - (instancetype)initWith:(XTStationRef *)in_stationRef;

@@ -16,6 +16,4 @@
 @property IBOutlet WKInterfaceGroup *group;
 @property IBOutlet WKInterfaceLabel *noStationLabel;
 
-- (IBAction)showTidesOnPhone;
-
 @end

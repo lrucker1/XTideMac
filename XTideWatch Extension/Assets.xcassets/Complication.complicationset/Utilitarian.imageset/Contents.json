@@ -6,13 +6,13 @@
     },
     {
       "idiom" : "watch",
-      "filename" : "Utility38@2x.png",
+      "filename" : "hightide38UtilNC@2x.png",
       "screen-width" : "<=145",
       "scale" : "2x"
     },
     {
       "idiom" : "watch",
-      "filename" : "Utility42@2x.png",
+      "filename" : "hightide42UtilNC@2x.png",
       "screen-width" : ">145",
       "scale" : "2x"
     }

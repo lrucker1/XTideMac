@@ -24,8 +24,8 @@ static XTMapWindowController *selfContext;
 
 @property (copy) NSArray *refStations;
 @property (copy) NSArray *subStations;
-@property (retain) NSColor *refColor;
-@property (retain) NSColor *subColor;
+@property (retain) NSColor *currentDotColor;
+@property (retain) NSColor *tideDotColor;
 @property BOOL showingSubStations;
 @property BOOL searchingSubStations;
 @property (retain, nonatomic) SuggestionsWindowController *suggestionsController;
@@ -126,11 +126,11 @@ static XTMapWindowController *selfContext;
     self.mapView.mapType = MKMapTypeHybrid;
     self.mapView.showsPointsOfInterest = YES;
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_ColorKeys[refcolor]
+                                            forKeyPath:XTide_ColorKeys[currentdotcolor]
                                                options:NSKeyValueObservingOptionNew
                                                context:&selfContext];
     [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_ColorKeys[subcolor]
+                                            forKeyPath:XTide_ColorKeys[tidedotcolor]
                                                options:NSKeyValueObservingOptionNew
                                                context:&selfContext];
 
@@ -187,10 +187,10 @@ static XTMapWindowController *selfContext;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
     [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:XTide_ColorKeys[refcolor]
+                                               forKeyPath:XTide_ColorKeys[currentdotcolor]
                                                   context:&selfContext];
     [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:XTide_ColorKeys[subcolor]
+                                               forKeyPath:XTide_ColorKeys[tidedotcolor]
                                                   context:&selfContext];
 }
 
@@ -212,11 +212,11 @@ static XTMapWindowController *selfContext;
 
 - (BOOL)updateColors
 {
-    NSColor *ref = ColorForKey(XTide_ColorKeys[refcolor]);
-    NSColor *sub = ColorForKey(XTide_ColorKeys[subcolor]);
-    if (![ref isEqual:self.refColor] || ![sub isEqual:self.subColor]) {
-        self.refColor = ref;
-        self.subColor = sub;
+    NSColor *cur = ColorForKey(XTide_ColorKeys[currentdotcolor]);
+    NSColor *tide = ColorForKey(XTide_ColorKeys[tidedotcolor]);
+    if (![cur isEqual:self.currentDotColor] || ![tide isEqual:self.tideDotColor]) {
+        self.currentDotColor = cur;
+        self.tideDotColor = tide;
         return YES;
     }
     return NO;
@@ -368,12 +368,12 @@ regionDidChangeAnimated:(BOOL)animated
     // 10_11: pinTintColor
     if ([returnedAnnotationView respondsToSelector:@selector(pinTintColor)]) {
         ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor =
-                ref.isReferenceStation ? self.refColor
-                                       : self.subColor;
+                ref.isCurrent ? self.currentDotColor
+                              : self.tideDotColor;
     } else {
         ((MKPinAnnotationView *)returnedAnnotationView).pinColor =
-                ref.isReferenceStation ? MKPinAnnotationColorRed
-                                       : MKPinAnnotationColorGreen;
+                ref.isCurrent ? MKPinAnnotationColorRed
+                              : MKPinAnnotationColorGreen;
     }
     return returnedAnnotationView;
 }
@@ -639,8 +639,8 @@ doCommandBySelector:(SEL)commandSelector
 {
     if (context != &selfContext) {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    } else if (   [keyPath isEqualToString:XTide_ColorKeys[refcolor]]
-               || [keyPath isEqualToString:XTide_ColorKeys[subcolor]]) {
+    } else if (   [keyPath isEqualToString:XTide_ColorKeys[currentdotcolor]]
+               || [keyPath isEqualToString:XTide_ColorKeys[tidedotcolor]]) {
 		if ([self updateColors]) {
             // Force all the annotation views to reload iff the colors changed.
             NSArray *oldAnnotations = self.mapView.annotations;

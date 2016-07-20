@@ -11,16 +11,17 @@
 #import "XTGraph.h"
 
 #define SVG_EXPERIMENT 0
+#define IOS_ICONS 1
 
 @implementation XTStationRef (MacOSAdditions)
 
 - (NSImage *)stationDot
 {
     return [NSImage imageWithSize:NSMakeSize(12, 12) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        if (self.isReferenceStation) {
-            [ColorForKey(XTide_ColorKeys[refcolor]) set];
+        if (self.isCurrent) {
+            [ColorForKey(XTide_ColorKeys[currentdotcolor]) set];
         } else {
-            [ColorForKey(XTide_ColorKeys[subcolor]) set];
+            [ColorForKey(XTide_ColorKeys[tidedotcolor]) set];
         }
         [[NSBezierPath bezierPathWithOvalInRect:dstRect] fill];
         return YES;
@@ -56,8 +57,6 @@
 // 42mm: (0.0, 0.0, 156.0, 195.0)
 //
 // XXX: This is the hackiest code I've written in a long time.
-// The image comes out inverted (not flipped; a non-flipped GC gives us correct text but inverted tides),
-// so it'll need fixing in a nice app like GraphicConverter.
 // But it's just a one-shot image generator, not user-facing, so it's good enough.
 
 - (void)createWatchPlaceholderImages
@@ -67,7 +66,7 @@
     dateComponents.day = 22;
     dateComponents.month = 1;
     dateComponents.year = 1984;
-    dateComponents.hour = 12;
+    dateComponents.hour = 6;
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *date = [gregorianCalendar dateFromComponents:dateComponents];
     NSString *fileLoc = [@"~/watchBackground38@2x.png" stringByExpandingTildeInPath];
@@ -83,13 +82,14 @@
                                      rect:CGRectMake(0, 0, 156 * scale, 195 * scale)
                                      date:date];
     }
-
+ 
     fileLoc = [@"~/icon512@2x.png" stringByExpandingTildeInPath];
     if (fileLoc) {
         [self createWatchPlaceholderImage:fileLoc
                                      rect:CGRectMake(0, 0, 512 * scale, 512 * scale)
                                      date:date];
     }
+
 #if SVG_EXPERIMENT
     // This works, but isn't as pretty as the images - colors are muddy, font isn't clear.
     // PNG files are small enough to transfer to the watch.
@@ -114,7 +114,12 @@
     
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     [NSGraphicsContext setCurrentContext:graphicsContext];
-    XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:offscreenRect.size.width ysize:offscreenRect.size.height scale:1];
+
+    // translate/flip the graphics context (for transforming from CoreGraphics coordinates to default UI coordinates. The Y axis is flipped on regular coordinate systems)
+    CGContextTranslateCTM(contextRef, 0.0, offscreenRect.size.height);
+    CGContextScaleCTM(contextRef, 1.0, -1.0);
+
+    XTGraph *graph = [[XTGraph alloc] initIconModeWithXSize:offscreenRect.size.width ysize:offscreenRect.size.height scale:1];
     [graph drawTides:self now:date];
     CGColorSpaceRelease(colorSpace);
     CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);

@@ -10,7 +10,7 @@
 #import "XTSessionDelegate.h"
 #import "NSDate+NSDate_XTWAdditions.h"
 
-#define DEBUG 1
+#define DEBUG_MENU 0
 
 @interface InterfaceController()
 
@@ -31,6 +31,17 @@
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
     self.watchSession = [WCSession defaultSession];
 
+    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (info) {
+        [self updateContentsFromInfo:info];
+    } else {
+        [self.group setBackgroundImageNamed:@"watchBackground"];
+        [self.sessionDelegate requestUpdate];
+    }
+    BOOL noStation = (!info && !self.watchSession.isReachable);
+    [self.noStationLabel setHidden:!noStation];
+    [self setTitle:@"Forecast"];
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:XTSessionReachabilityDidChangeNotification
@@ -44,17 +55,8 @@
                                                  name:XTSessionUpdateReplyNotification
                                                object:nil];
 
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    } else {
-        [self.sessionDelegate requestUpdate];
-    }
-    BOOL noStation = (!info && !self.watchSession.isReachable);
-    [self.noStationLabel setHidden:!noStation];
-    [self setTitle:@"Forecast"];
 
-#if DEBUG
+#if DEBUG_MENU
     [self addMenuItemWithImageNamed:@"ReturnToNow"
                               title:NSLocalizedString(@"Update Chart", @"reload chart with current time")
                              action:@selector(requestImage)];
@@ -77,7 +79,7 @@
                                                   object:nil];
 }
 
-#if DEBUG
+#if DEBUG_MENU
 // Debugging only. There's no way to launch an iPhone app in watchOS 2.
 - (IBAction)showTidesOnPhone
 {

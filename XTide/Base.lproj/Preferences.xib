@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="101100" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="checkBox_extralines" destination="121" id="185"/>
                 <outlet property="checkBox_toplines" destination="123" id="187"/>
+                <outlet property="colorWell_currentdotcolor" destination="148" id="KxA-ce-dWs"/>
                 <outlet property="colorWell_datumcolor" destination="136" id="163"/>
                 <outlet property="colorWell_daycolor" destination="126" id="158"/>
                 <outlet property="colorWell_ebbcolor" destination="130" id="160"/>
@@ -17,8 +18,7 @@
                 <outlet property="colorWell_markcolor" destination="134" id="162"/>
                 <outlet property="colorWell_mslcolor" destination="138" id="164"/>
                 <outlet property="colorWell_nightcolor" destination="128" id="159"/>
-                <outlet property="colorWell_refcolor" destination="148" id="165"/>
-                <outlet property="colorWell_subcolor" destination="150" id="fiC-Xd-bvk"/>
+                <outlet property="colorWell_tidedotcolor" destination="150" id="wcA-Bp-Gab"/>
                 <outlet property="harmonicsFileArray" destination="o8h-xY-GcE" id="4OU-nr-Dxe"/>
                 <outlet property="popup_combo" destination="216" id="219"/>
                 <outlet property="resourceHarmonicsInfoField" destination="f2h-Aq-E2v" id="ECP-hi-9AF"/>
@@ -313,7 +313,7 @@
                                         </colorWell>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="149">
                                             <rect key="frame" x="357" y="228" width="209" height="17"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Reference Station" id="236">
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Current Station" id="236">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -330,14 +330,6 @@
                                                 <action selector="changeColor:" target="-2" id="155"/>
                                             </connections>
                                         </colorWell>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="151">
-                                            <rect key="frame" x="357" y="200" width="209" height="17"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Subordinate Station" id="237">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <box horizontalHuggingPriority="750" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="170">
                                             <rect key="frame" x="282" y="45" width="5" height="214"/>
                                             <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
@@ -380,6 +372,14 @@
                                                 <constraint firstAttribute="width" constant="184" id="Baw-5a-BiC"/>
                                             </constraints>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Daytime background" id="229">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="151">
+                                            <rect key="frame" x="357" y="200" width="209" height="17"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Tide Station" id="237">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

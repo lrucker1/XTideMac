@@ -29,6 +29,10 @@
                                  ysize:(CGFloat)ysize
                                  scale:(CGFloat)scale;
 
+- (instancetype)initIconModeWithXSize:(CGFloat)xsize
+                                ysize:(CGFloat)ysize
+                                scale:(CGFloat)scale;
+
 // This is where it all starts
 - (void)drawTides:(XTStation*)sr now:(NSDate*)now;
 

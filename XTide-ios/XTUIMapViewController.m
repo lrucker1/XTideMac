@@ -35,8 +35,8 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (copy) NSArray *refStations;
 @property (copy) NSArray *subStations;
 @property BOOL showingSubStations;
-@property (retain) UIColor *refColor;
-@property (retain) UIColor *subColor;
+@property (retain) UIColor *currentDotColor;
+@property (retain) UIColor *tideDotColor;
 @property (retain) id mapsLoadObserver;
 @property (nonatomic) WCSession *watchSession;
 @property (strong) CLLocationManager *locationManager;
@@ -106,8 +106,8 @@ static NSString * const XTMap_RegionKey = @"map.region";
         }
     }
     self.stationRefForWatch = [self findStationRefForWatch];
-    self.refColor = ColorForKey(XTide_ColorKeys[refcolor]);
-    self.subColor = ColorForKey(XTide_ColorKeys[subcolor]);
+    self.currentDotColor = ColorForKey(XTide_ColorKeys[currentdotcolor]);
+    self.tideDotColor = ColorForKey(XTide_ColorKeys[tidedotcolor]);
     self.refStations = refs;
     self.subStations = subs;
     [self.mapView addAnnotations:refs];
@@ -184,8 +184,8 @@ regionDidChangeAnimated:(BOOL)animated
      * to trigger that - it may be consolidating the changes.
      * So the color is only for debugging.
      */
-    UIColor *color = ref.isReferenceStation ? self.refColor
-                                            : self.subColor;
+    UIColor *color = ref.isCurrent ? self.currentDotColor
+                                   : self.tideDotColor;
 #if DEBUG_DOTS
     if ([[XTStationIndex sharedStationIndex] isFavorite:ref]) {
         color = [UIColor whiteColor];

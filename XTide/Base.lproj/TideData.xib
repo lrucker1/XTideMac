@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="101000" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
@@ -15,6 +15,10 @@
                 <outlet property="dayStepper" destination="33" id="48"/>
                 <outlet property="hourField" destination="35" id="49"/>
                 <outlet property="hourStepper" destination="36" id="50"/>
+                <outlet property="markSheet" destination="xqh-ge-hRn" id="s75-Dr-4Jw"/>
+                <outlet property="markUnitsCombo" destination="83f-C8-KhJ" id="Qc7-Qj-cKO"/>
+                <outlet property="markValueText" destination="x3h-61-j2k" id="hll-hX-Sxd"/>
+                <outlet property="showMarkCheckbox" destination="Gkh-9d-W56" id="Tmh-tg-Ljj"/>
                 <outlet property="tideTableView" destination="8" id="100"/>
                 <outlet property="timeZoneFromLabel" destination="26" id="29"/>
                 <outlet property="window" destination="5" id="16"/>
@@ -228,6 +232,16 @@
                                     </connections>
                                 </buttonCell>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="o2O-S6-b1K">
+                                <rect key="frame" x="234" y="13" width="88" height="32"/>
+                                <buttonCell key="cell" type="push" title="Options" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="7uF-PD-Nwd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showOptionSheet:" target="-2" id="bMd-j5-2oD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="3VS-Ga-4Gh" secondAttribute="bottom" constant="20" symbolic="YES" id="1tv-GF-YYb"/>
@@ -240,6 +254,7 @@
                             <constraint firstItem="81" firstAttribute="baseline" secondItem="22" secondAttribute="firstBaseline" id="F1b-Ka-C5h"/>
                             <constraint firstItem="31" firstAttribute="baseline" secondItem="23" secondAttribute="baseline" id="GbO-Fq-eGi"/>
                             <constraint firstAttribute="trailing" secondItem="26" secondAttribute="trailing" constant="20" symbolic="YES" id="Ged-Cc-FpO"/>
+                            <constraint firstItem="26" firstAttribute="trailing" secondItem="o2O-S6-b1K" secondAttribute="trailing" id="Jae-Ro-fSL"/>
                             <constraint firstItem="7u1-KG-twq" firstAttribute="leading" secondItem="103" secondAttribute="leading" id="OJA-kR-fzw"/>
                             <constraint firstItem="26" firstAttribute="baseline" secondItem="7u1-KG-twq" secondAttribute="baseline" id="ONy-LV-T1d"/>
                             <constraint firstItem="3VS-Ga-4Gh" firstAttribute="leading" secondItem="23" secondAttribute="leading" id="ObA-zc-ouE"/>
@@ -248,6 +263,7 @@
                             <constraint firstItem="33" firstAttribute="leading" secondItem="32" secondAttribute="trailing" constant="5" id="WEb-E4-hrl"/>
                             <constraint firstItem="81" firstAttribute="baseline" secondItem="7u1-KG-twq" secondAttribute="baseline" id="YUW-d4-yZD"/>
                             <constraint firstItem="32" firstAttribute="baseline" secondItem="23" secondAttribute="baseline" id="clF-4b-aTr"/>
+                            <constraint firstItem="o2O-S6-b1K" firstAttribute="baseline" secondItem="3VS-Ga-4Gh" secondAttribute="baseline" id="ftJ-gC-Bdg"/>
                             <constraint firstItem="23" firstAttribute="leading" secondItem="22" secondAttribute="leading" id="gH5-wN-5Ph"/>
                             <constraint firstItem="35" firstAttribute="leading" secondItem="31" secondAttribute="trailing" constant="7" id="lSR-Ky-8Sk"/>
                             <constraint firstItem="23" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="22" id="lZy-dH-YJ6"/>
@@ -288,5 +304,82 @@
             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
         </textFieldCell>
+        <window title="Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xqh-ge-hRn" userLabel="Sheet">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="324" y="539" width="368" height="101"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <view key="contentView" id="Ou1-ze-vfk">
+                <rect key="frame" x="0.0" y="0.0" width="368" height="101"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x3h-61-j2k">
+                        <rect key="frame" x="155" y="58" width="50" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="22" id="606-xs-s5B"/>
+                            <constraint firstAttribute="width" constant="50" id="OaR-1U-QMt"/>
+                        </constraints>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Fwn-iu-b5U">
+                            <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0.00" negativeFormat="-#,##0.00" thousandSeparator="," id="IGh-7D-yIo">
+                                <decimal key="minimum" value="NaN"/>
+                                <decimal key="maximum" value="NaN"/>
+                            </numberFormatter>
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="Gkh-9d-W56">
+                        <rect key="frame" x="18" y="60" width="131" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="127" id="WU0-vs-525"/>
+                        </constraints>
+                        <buttonCell key="cell" type="check" title="Show mark level:" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="h8R-tL-RCZ">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ztR-vq-G6q">
+                        <rect key="frame" x="295" y="13" width="59" height="32"/>
+                        <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="JRq-p3-oEe">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="hideOptionSheet:" target="-2" id="Oad-ic-PNq"/>
+                        </connections>
+                    </button>
+                    <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="83f-C8-KhJ">
+                        <rect key="frame" x="217" y="57" width="134" height="26"/>
+                        <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="station default" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="hnf-7s-g0m">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                            <objectValues>
+                                <string>station default</string>
+                                <string>feet</string>
+                                <string>meters</string>
+                            </objectValues>
+                        </comboBoxCell>
+                    </comboBox>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ztR-vq-G6q" secondAttribute="bottom" constant="20" symbolic="YES" id="13C-En-drR"/>
+                    <constraint firstItem="83f-C8-KhJ" firstAttribute="top" secondItem="Ou1-ze-vfk" secondAttribute="top" constant="20" symbolic="YES" id="96s-OI-cTG"/>
+                    <constraint firstItem="ztR-vq-G6q" firstAttribute="top" secondItem="83f-C8-KhJ" secondAttribute="bottom" constant="20" symbolic="YES" id="DDq-Or-iGj"/>
+                    <constraint firstItem="Gkh-9d-W56" firstAttribute="baseline" secondItem="83f-C8-KhJ" secondAttribute="baseline" id="GHi-sl-8oP"/>
+                    <constraint firstItem="Gkh-9d-W56" firstAttribute="leading" secondItem="Ou1-ze-vfk" secondAttribute="leading" constant="20" symbolic="YES" id="OxW-Bg-w89"/>
+                    <constraint firstItem="x3h-61-j2k" firstAttribute="leading" secondItem="Gkh-9d-W56" secondAttribute="trailing" constant="8" symbolic="YES" id="T5h-3L-gby"/>
+                    <constraint firstItem="83f-C8-KhJ" firstAttribute="leading" secondItem="x3h-61-j2k" secondAttribute="trailing" constant="12" id="Wvw-sI-lhd"/>
+                    <constraint firstItem="Gkh-9d-W56" firstAttribute="top" secondItem="Ou1-ze-vfk" secondAttribute="top" constant="25" id="eXB-pv-A57"/>
+                    <constraint firstAttribute="trailing" secondItem="ztR-vq-G6q" secondAttribute="trailing" constant="20" symbolic="YES" id="i1q-tC-358"/>
+                    <constraint firstAttribute="trailing" secondItem="83f-C8-KhJ" secondAttribute="trailing" constant="20" symbolic="YES" id="sd9-KQ-JhP"/>
+                    <constraint firstItem="x3h-61-j2k" firstAttribute="baseline" secondItem="Gkh-9d-W56" secondAttribute="baseline" id="uS0-Eg-ha5"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="initialFirstResponder" destination="x3h-61-j2k" id="FKu-Uh-XeA"/>
+            </connections>
+        </window>
     </objects>
 </document>

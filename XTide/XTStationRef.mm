@@ -102,7 +102,7 @@
 
 - (NSString *)subtitle
 {
-    return @"";
+    return (mStationRef->isReferenceStation ? @"Reference" : @"Subordinate");
 }
 
 
@@ -110,11 +110,12 @@
 
 - (BOOL)isReferenceStation {return mStationRef->isReferenceStation;}
 - (uint32_t)recordNumber {return mStationRef->recordNumber;}
+- (BOOL)isCurrent {return mStationRef->isCurrent;}
 
 // For sorting
 - (NSString*)type
 {
-    return (mStationRef->isReferenceStation? @"Ref" : @"Sub");
+    return (mStationRef->isReferenceStation ? @"Ref" : @"Sub");
 }
 
 // For sorting

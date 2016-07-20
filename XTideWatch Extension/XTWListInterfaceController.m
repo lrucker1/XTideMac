@@ -17,6 +17,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) NSTimer *timer;
 @property (strong) NSDate *fireDate;
+@property BOOL isActive;
 
 @end
 
@@ -31,6 +32,13 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
 
+    [self setTitle:@"Min/Max"];
+    // The doc implies we could set up the table here, but all we can fix is the station name.
+    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (info) {
+        [self updateContentsFromInfo:info];
+    }
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:XTSessionReachabilityDidChangeNotification
@@ -43,11 +51,6 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
                                              selector:@selector(listUpdated:)
                                                  name:XTSessionUpdateReplyNotification
                                                object:nil];
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    }
-    [self setTitle:@"Min/Max"];
 }
 
 // This timer runs even when the watch is not reachable so the contents will dim when we pass them.
@@ -126,8 +129,17 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)updateContentsFromInfo:(NSDictionary *)info
 {
-    // Run this before setting title because it uses that to see if this is the same data.
+    // Table behaves badly if configured while not active.
+    // Set the label so it stops saying "Waiting for iPhone", and then bail.
+    // TODO: file a bug.
     NSString *title = [info objectForKey:@"title"];
+    if (title) {
+        self.stationLabel.text = title;
+    }
+
+    if (!self.isActive) {
+        return;
+    }
     NSArray *events = [info objectForKey:@"clockEvents"];
 
     if ([events count] < 2) {
@@ -173,9 +185,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
         
     }];
 
-    if (title) {
-        self.stationLabel.text = title;
-    }
+    [self.eventTable scrollToRowAtIndex:0];
 }
 
 - (void)didReceiveApplicationContext:(NSNotification *)note
@@ -192,6 +202,11 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    self.isActive = YES;
+    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (info) {
+        [self updateContentsFromInfo:info];
+    }
     [self.sessionDelegate requestUpdate];
     [self startTimer];
 }
@@ -200,6 +215,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
+    self.isActive = NO;
     [self endTimer];
 }
 

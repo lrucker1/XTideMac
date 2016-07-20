@@ -33,8 +33,8 @@
 	IBOutlet NSColorWell *colorWell_markcolor;
 	IBOutlet NSColorWell *colorWell_datumcolor;
 	IBOutlet NSColorWell *colorWell_mslcolor;
-	IBOutlet NSColorWell *colorWell_refcolor;
-	IBOutlet NSColorWell *colorWell_subcolor;
+	IBOutlet NSColorWell *colorWell_currentdotcolor;
+	IBOutlet NSColorWell *colorWell_tidedotcolor;
 	IBOutlet NSColorWell *colorWell_fgcolor;
 
 	IBOutlet NSButton *checkBox_extralines;

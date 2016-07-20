@@ -53,10 +53,10 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
         }
     }
     errorHandler:^(NSError *error){
-        // Ignore timeout errors.
-        if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
+        // Ignore timeout errors while debugging.
+        //if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
             NSLog(@"requestUpdate: %@", error);
-        }
+        //}
     }];
 }
 

@@ -29,8 +29,8 @@ extern "C" {
 #define datumcolor	5	// datum line			// Dc
 #define	mslcolor	6	// Mean Astronomical Tide line 	// Mc
 
-#define refcolor	7	// Reference station
-#define subcolor	8	// Subordinate station
+#define currentdotcolor	7	// Current station
+#define tidedotcolor	8	// Tide station
 #define selcolor	9	// Selected station
 
 #define fgcolor		10	// Selected station		// fg
