@@ -235,10 +235,10 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     NSDate *startTime = self.lastEndTime ? self.lastEndTime: earlyDate;
     self.lastEndTime = [server latestTimeTravelDate];
 
-    // TODO: make sure start and end aren't the same.
+    // Get 24 hours extra, in case we're called just before lastEndTime.
     [self.watchSession sendMessage:@{@"kind" : @"requestEvents",
                                      @"first" : startTime,
-                                     @"last" : self.lastEndTime }
+                                     @"last" : [self.lastEndTime dateByAddingTimeInterval:HOUR * 24]}
                       replyHandler:defaultHandler
                       errorHandler:nil];
 }
@@ -370,8 +370,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     // Get updates when there's 1 day left to go.
     // The server start/end dates are bound by local midnights
     // and we get the max possible, so anything more frequent is pointless.
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *next = [[server latestTimeTravelDate] dateByAddingTimeInterval:-HOUR * 24];
+    NSDate *next = [self.lastEndTime dateByAddingTimeInterval:(-HOUR * 24) + 60];
     // For the odd chance that we've already passed "next".
     NSDate *datePlus6 = [[NSDate date] dateByAddingTimeInterval:HOUR * 6];
     handler([datePlus6 laterDate:next]);

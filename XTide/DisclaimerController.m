@@ -38,7 +38,7 @@
 }
 - (IBAction)changeShowDisclaimer:(id)sender
 {
-	[[NSUserDefaults standardUserDefaults] setBool:[sender state] 
+	[[NSUserDefaults standardUserDefaults] setBool:[checkBox_showdisclaimer state]
 		forKey:XTide_showdisclaimer];
 }
 

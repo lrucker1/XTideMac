@@ -33,24 +33,18 @@
 
 @interface TideDataController ()
 
-@property (nonatomic, readwrite, retain) NSDictionary *detailAttributes;
+@end
 
+@implementation XTTideEventTableCellView
 @end
 
 @implementation TideDataController
 
-@synthesize detailAttributes;
 
 - (id)initWith:(XTStationRef*)in_stationRef;
 {
 	return [super initWithWindowNibName:@"TideData" stationRef:in_stationRef];
 }
-
-- (void)dealloc
-{
-	self.detailAttributes = nil;
-}
-
 
 - (void)windowWillClose:(NSNotification*)note
 {
@@ -70,7 +64,6 @@
                           organizer:tempOrganizer
                              filter:libxtide::Station::noFilter];
 	self.organizer = tempOrganizer;
-	[tideTableView noteNumberOfRowsChanged];
 	[tideTableView reloadData];
 }
 
@@ -90,74 +83,45 @@
     return YES;
 }
 
-- (NSDictionary *)detailAttributes
-{
-	if (!detailAttributes) {
-		self.detailAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-			[NSColor grayColor], NSForegroundColorAttributeName,
-			[NSFont systemFontOfSize:[NSFont smallSystemFontSize]], NSFontAttributeName,
-			nil];
-	}
-	return detailAttributes;
-}
-
 // Table dataSource methods
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	return [organizer count];
+	return [self.organizer count];
 }
 
 
 - (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)rowIndex
 {
-	return [[organizer objectAtIndex:rowIndex] isDateEvent];
+    if (rowIndex >= [self.organizer count]) return NO;
+	return [[self.organizer objectAtIndex:rowIndex] isDateEvent];
 }
 
-// TODO: Update to view-based table.
-- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(int)rowIndex
+- (NSView *)tableView:(NSTableView *)tableView
+   viewForTableColumn:(NSTableColumn *)tableColumn
+                  row:(NSInteger)row
 {
-	XTTideEvent *tideEvent = [organizer objectAtIndex:rowIndex];
-	if ([tideEvent isDateEvent]) {
-		return [tideEvent timeForStation:station];
-	}
-	if ([[aTableColumn identifier] isEqualToString:@"data"]) {
-		NSMutableAttributedString *text =
-			[[NSMutableAttributedString alloc] initWithString:
-					[NSString stringWithFormat:@"%@\n", tideEvent.longDescriptionAndLevel]];
-		[text appendAttributedString:
-			[[NSAttributedString alloc] initWithString:[tideEvent timeForStation:station]
-				attributes:self.detailAttributes]];
-		return text;
-	}
-    NSString *imgString = tideEvent.eventTypeString;
-    if ([imgString length] == 0) {
-        imgString = @"blank";
-    }
-	return [NSImage imageNamed:imgString];
-}
-
-- (NSCell *)tableView:(NSTableView *)tableView dataCellForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)rowIndex {
-    if (tableColumn != nil) {
-        if ([[organizer objectAtIndex:rowIndex] isDateEvent]) {
-            // Use a shared cell setup in IB via an IBOutlet
-            return _sharedGroupTitleCell;
-        } else {
-            return [tableColumn dataCell];
-        }
+    XTTideEvent *tideEvent = [self.organizer objectAtIndex:row];
+    XTTideEventTableCellView *view = nil;
+    if ([tideEvent isDateEvent]) {
+        view = [tableView makeViewWithIdentifier:@"header" owner:self];
+        view.textField.stringValue = [tideEvent timeForStation:station];
     } else {
-       if ([[organizer objectAtIndex:rowIndex] isDateEvent]) {
-         // A nil table column is for a "full width" table column
-			return _sharedGroupTitleCell;
-		}
-		return nil;
+        view = [tableView makeViewWithIdentifier:@"event" owner:self];
+        view.textField.stringValue = tideEvent.longDescriptionAndLevel;
+        view.subtitleField.stringValue = [tideEvent timeForStation:station];
+        NSString *imgString = tideEvent.eventTypeString;
+        if ([imgString length] == 0) {
+            imgString = @"blank";
+        }
+        view.imageView.image = [NSImage imageNamed:imgString];
     }
+    return view;
 }
-
 
 // We make the "group rows" have a given height
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)rowIndex
 {
-	if ([[organizer objectAtIndex:rowIndex] isDateEvent]) {
+	if ([[self.organizer objectAtIndex:rowIndex] isDateEvent]) {
         return 17.0;
     } else {
         return [tableView rowHeight];

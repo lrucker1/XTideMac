@@ -111,22 +111,6 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     }
 }
 
-- (UIImage *)imageForEvent:(NSDictionary *)event
-{
-    // min/max events have no "isRising" entry. Look in "type" for "hightide" and "lowtide"
-    NSNumber *risingObj = [event objectForKey:@"isRising"];
-    if (risingObj) {
-        return [UIImage imageNamed:[risingObj boolValue] ? @"upArrowImage" : @"downArrowImage"];
-    } else {
-        NSString *imgType = [event objectForKey:@"type"];
-        if (imgType) {
-            return [UIImage imageNamed:imgType];
-        }
-    }
-    NSLog(@"no image for event %@", event);
-    return nil;
-}
-
 - (void)updateContentsFromInfo:(NSDictionary *)info
 {
     // Table behaves badly if configured while not active.
@@ -171,7 +155,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
         [row.levelLabel setText:[event objectForKey:@"level"]];
         NSDate *date = [event objectForKey:@"date"];
         [row.timeLabel setText:[date localizedTimeAndRelativeDateString]];
-        [row.image setImage:[self imageForEvent:event]];
+        [row.image setImage:[UIImage imageNamed:[event objectForKey:@"type"]]];
         UIColor *color = nil;
         if ([date compare:[NSDate date]] == NSOrderedAscending) {
             // Dim everything when the date is in the past.
@@ -190,12 +174,16 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)didReceiveApplicationContext:(NSNotification *)note
 {
-    [self updateContentsFromInfo:[note userInfo]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateContentsFromInfo:[note userInfo]];
+    });
 }
 
 - (void)listUpdated:(NSNotification *)note
 {
-    [self updateContentsFromInfo:[note userInfo]];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateContentsFromInfo:[note userInfo]];
+    });
 }
 
 - (void)willActivate

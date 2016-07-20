@@ -8,12 +8,21 @@
 
 #import "XTColorUtils.h"
 
+
 #if TARGET_OS_IPHONE
 #define COLOR_CLASS UIColor
+#define SEA_GREEN 0x4CFCB3
+#define DARK_SEA_GREEN 0x408A50
 #else
 #define COLOR_CLASS NSColor
+// These colors look close to the iPhone colors.
+// Don't lose them; they're needed for the watch background generation.
+#define SEA_GREEN 0x2DE09D
+#define DARK_SEA_GREEN 0x266F3E
 #endif
 
+#define SKY_BLUE 0x10385A
+#define DEEP_SKY_BLUE 0x041233
 
 NSString *XTide_ColorKeys[colorindexmax] = {
 	@"XTide_daycolor",	// dc
@@ -64,10 +73,10 @@ ColorForKey(NSString *key)
 {
     // Colors from http://www.colourlovers.com/palette/1838545/Evening_Tide
     // with some tweaking.
-    COLOR_CLASS *skyBlue = ColorForHex(0x10385A);
-    COLOR_CLASS *deepSkyBlue = ColorForHex(0x041233);
-    COLOR_CLASS *seaGreen = ColorForHex(0x4CFCB3);
-    COLOR_CLASS *darkSeaGreen = ColorForHex(0x408A50);
+    COLOR_CLASS *skyBlue = ColorForHex(SKY_BLUE);
+    COLOR_CLASS *deepSkyBlue = ColorForHex(DEEP_SKY_BLUE);
+    COLOR_CLASS *seaGreen = ColorForHex(SEA_GREEN);
+    COLOR_CLASS *darkSeaGreen = ColorForHex(DARK_SEA_GREEN);
 
     // Map colors used in libxtide::Settings.
     NSDictionary *colorMap =

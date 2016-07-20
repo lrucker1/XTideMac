@@ -27,11 +27,15 @@
 
 @class MyDatePicker;
 
+@interface XTTideEventTableCellView : NSTableCellView
+
+@property IBOutlet NSTextField *subtitleField;
+
+@end
+
 @interface TideDataController : TideTextViewController
 {
 	IBOutlet NSTableView *tideTableView;
-	IBOutlet NSTextFieldCell *_sharedGroupTitleCell;
-	NSDictionary *detailAttributes;
 }
 
 - (void)computeEvents;

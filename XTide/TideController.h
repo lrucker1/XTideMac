@@ -31,7 +31,6 @@
 {
 	XTStationRef *stationRef;
 	XTStation *station;
-	XTTideEventsOrganizer *organizer;
 	IBOutlet NSTextField *timeZoneFromLabel;
 	IBOutlet NSDatePicker *dateFromPicker;
 	

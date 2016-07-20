@@ -115,7 +115,6 @@
 		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
 		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
 		944501801D34120000203863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
-		945282331D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
@@ -993,8 +992,11 @@
 				9497B0B71CBC45B50004D687 /* xml_y.cc */,
 				9497B0B81CBC45B50004D687 /* Year.cc */,
 			);
+			indentWidth = 8;
 			name = xtideCore;
 			sourceTree = "<group>";
+			tabWidth = 8;
+			usesTabs = 1;
 		};
 		9497B0EB1CBC4E910004D687 /* xtideFoundation */ = {
 			isa = PBXGroup;
@@ -1566,7 +1568,6 @@
 				94041C3C1CBECB40003BD343 /* Offsets.cc in Sources */,
 				94CE15E41D24D9370088720D /* XTGraph.mm in Sources */,
 				94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */,
-				945282331D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */,
 				94041C3D1CBECB40003BD343 /* PixelatedGraph.cc in Sources */,
 				94041C3E1CBECB40003BD343 /* PredictionValue.cc in Sources */,
 				94041C3F1CBECB40003BD343 /* RGBGraph.cc in Sources */,
