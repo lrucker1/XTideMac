@@ -21,25 +21,40 @@
     Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 */
 
+#import <EventKit/EventKit.h>
+
 #import "TideController.h"
 #import "TideDataController.h"
 #import "XTStationRef.h"
 #import "XTStationInt.h"
 #import "XTTideEventsOrganizer.h"
 #import "XTTideEvent.h"
+#import "XTTideEvent+EventKit.h"
+#import "XTCalendarEventViewController.h"
 #import "XTGraph.h"
 
 #include "config.h"
 
+static NSImage *calendarImage = nil;
+
 @interface TideDataController ()
+
+@property (nonatomic, strong) EKEventStore *eventStore;
+@property (strong) NSPopover *calendarPopover;
+@property (strong) XTCalendarEventViewController *calPopoverViewController;
 
 @end
 
+@interface XTTideEventTableCellView ()
+
+@end
+
+
 @implementation XTTideEventTableCellView
+
 @end
 
 @implementation TideDataController
-
 
 - (id)initWith:(XTStationRef*)in_stationRef;
 {
@@ -65,6 +80,7 @@
                              filter:libxtide::Station::noFilter];
 	self.organizer = tempOrganizer;
 	[tideTableView reloadData];
+    [tideTableView scrollRowToVisible:0];
 }
 
 - (IBAction)hideOptionSheet:(id)sender
@@ -88,7 +104,6 @@
 {
 	return [self.organizer count];
 }
-
 
 - (BOOL)tableView:(NSTableView *)tableView isGroupRow:(NSInteger)rowIndex
 {
@@ -114,8 +129,14 @@
             imgString = @"blank";
         }
         view.imageView.image = [NSImage imageNamed:imgString];
+        view.calButton.cell.representedObject = tideEvent;
     }
     return view;
+}
+
+- (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
+{
+    return [self.organizer objectAtIndex:rowIndex];
 }
 
 // We make the "group rows" have a given height
@@ -137,6 +158,100 @@
 	[pboard declareTypes: [NSArray arrayWithObject:NSStringPboardType] owner:self];		
 	[pboard setString:str forType:NSStringPboardType];
 	return YES;
+}
+
+#pragma mark calendar
+
+- (NSImage *)calendarImage
+{
+    if (!calendarImage) {
+        NSURL *url = [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.apple.iCal"];
+        if (url) {
+            calendarImage = [[NSWorkspace sharedWorkspace] iconForFile:[url path]];
+            if (!calendarImage) {
+                calendarImage = [NSImage imageNamed:@"editCalendar"];
+            }
+        }
+        [calendarImage setSize:NSMakeSize(16, 16)];
+    }
+    return calendarImage;
+}
+
+- (IBAction)handleCalEvent:(id)sender
+{
+    [self handleCalendarEvent:[[sender cell] representedObject] sender:sender];
+}
+
+- (IBAction)handleCalendarEvent:(XTTideEvent *)tideEvent
+                         sender:(id)sender
+{
+    [self createCalendarPopoverForEvent:tideEvent];
+    
+    NSButton *targetButton = (NSButton *)sender;
+    
+    // Apparently a button in a table view can't anchor a popover; it vanishes as soon as it appears.
+    // While that might've been the multiple awakeFromNibs, it's also not good because the button can vanish
+    // when scrolling.
+    // Use the table view and the popover moves when it scrolls.
+    NSRect bounds = targetButton.bounds;
+    bounds = [tideTableView convertRect:bounds fromView:targetButton];
+    [self.calendarPopover showRelativeToRect:bounds ofView:tideTableView preferredEdge:NSRectEdgeMaxY];
+}
+
+- (EKEvent *)calendarEntryForEvent:(XTTideEvent *)tideEvent
+{
+    // Make a new event. If the user adds extras, we don't care.
+    EKEvent *event = [tideEvent calendarEventWithEventStore:self.eventStore forStation:self.station];
+    event.calendar = self.eventStore.defaultCalendarForNewEvents;
+    return event;
+}
+
+#pragma mark calendar popover
+
+// -------------------------------------------------------------------------------
+//  createPopover
+// -------------------------------------------------------------------------------
+- (void)createCalendarPopoverForEvent:(XTTideEvent *)tideEvent
+{
+    if (self.calendarPopover == nil)
+    {
+        // create and setup our popover
+        _calendarPopover = [[NSPopover alloc] init];
+        
+        // the popover retains us and we retain the popover,
+        // we drop the popover whenever it is closed to avoid a cycle
+ 
+        if (!self.eventStore) {
+            self.eventStore = [[EKEventStore alloc] init];
+        }
+        if (self.calPopoverViewController == nil) {
+            self.calPopoverViewController = [[XTCalendarEventViewController alloc] init];
+            self.calPopoverViewController.eventStore = self.eventStore;
+        }
+        self.calPopoverViewController.popover = self.calendarPopover;
+        self.calendarPopover.contentViewController = self.calPopoverViewController;
+        
+        self.calendarPopover.animates = YES;
+        self.calendarPopover.behavior = NSPopoverBehaviorTransient;
+        
+        // so we can be notified when the popover appears or closes
+        self.calendarPopover.delegate = self;
+    }
+    self.calPopoverViewController.representedObject = [self calendarEntryForEvent:tideEvent];
+}
+
+// -------------------------------------------------------------------------------
+// Invoked on the delegate when the NSPopoverDidCloseNotification notification is sent.
+// This method will also be invoked on the popover.
+// -------------------------------------------------------------------------------
+- (void)popoverDidClose:(NSNotification *)notification
+{
+    // release our popover since it closed
+    if ([notification object] == self.calendarPopover) {
+        self.calendarPopover = nil;
+    } else {
+        [super popoverDidClose:notification];
+    }
 }
 
 @end

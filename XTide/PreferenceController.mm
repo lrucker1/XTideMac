@@ -23,7 +23,6 @@
 
 #import <MapKit/MapKit.h>
 #import "libxtide.hh"
-#import "XTGlobal.h"
 #import "XTGraph.h"
 #import "XTSettings.h"
 #import "XTStation.h"

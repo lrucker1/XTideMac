@@ -15,14 +15,14 @@
 
 @interface XTTideEvent : NSObject
 {
-   libxtide::TideEvent *mTideEvent;
+   libxtide::TideEvent mTideEvent;
 	NSDate *eventDate;
 }
 
 - (id)initWithTideEvent:(libxtide::TideEvent *)aTideEvent;
 - (id)initWithDate:(NSDate *)date;
 
-- (libxtide::TideEvent *)adaptedTideEvent;
+- (libxtide::TideEvent)adaptedTideEvent;
 
 - (NSDate *)date;
 - (NSString *)longDescriptionAndLevel;

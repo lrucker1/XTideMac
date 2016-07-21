@@ -44,7 +44,7 @@
 - (id)initWithTideEvent: (libxtide::TideEvent *)aTideEvent
 {
     if ((self = [super init])) {
-        mTideEvent = aTideEvent;
+        mTideEvent = *aTideEvent;
     }
     return self;
 }
@@ -60,11 +60,11 @@
 - (void)dealloc
 {
     // Created and owned by the TideEventOrganizer
-    mTideEvent = NULL;
+//    mTideEvent = NULL;
     eventDate = nil;
 }
 
-- (libxtide::TideEvent *)adaptedTideEvent
+- (libxtide::TideEvent)adaptedTideEvent
 {
     return mTideEvent;
 }
@@ -140,7 +140,7 @@
     if (eventDate) {
         return eventDate;
     }
-    return TimestampToNSDate(mTideEvent->eventTime);
+    return TimestampToNSDate(mTideEvent.eventTime);
 }
 
 
@@ -150,7 +150,7 @@
     if (eventDate) {
         return [station dayStringFromDate:eventDate];
     }
-    return [station timeStringFromDate:TimestampToNSDate(mTideEvent->eventTime)];
+    return [station timeStringFromDate:TimestampToNSDate(mTideEvent.eventTime)];
 }
 
 - (NSString *)dateForStation: (XTStation *)station
@@ -158,7 +158,7 @@
     if (eventDate) {
         return [station dayStringFromDate:eventDate];
     }
-    return [station dateStringFromDate:TimestampToNSDate(mTideEvent->eventTime)];
+    return [station dateStringFromDate:TimestampToNSDate(mTideEvent.eventTime)];
 }
 
 - (NSString *)longDescription
@@ -166,7 +166,7 @@
     if (eventDate) {
         return @"";
     }
-    return DstrToNSString(mTideEvent->longDescription());
+    return DstrToNSString(mTideEvent.longDescription());
 }
 
 - (NSString *)shortDictionaryDescription
@@ -195,8 +195,8 @@
     }
     Dstr levelPrint;
     NSString *displayLevel = @"";
-    if (!mTideEvent->isSunMoonEvent()) {
-        mTideEvent->eventLevel.print(levelPrint);
+    if (!mTideEvent.isSunMoonEvent()) {
+        mTideEvent.eventLevel.print(levelPrint);
         displayLevel = DstrToNSString(levelPrint);
     }
    return displayLevel;
@@ -209,8 +209,8 @@
     }
     Dstr levelPrint;
     NSString *displayLevel = @"";
-    if (!mTideEvent->isSunMoonEvent()) {
-        mTideEvent->eventLevel.printnp(levelPrint);
+    if (!mTideEvent.isSunMoonEvent()) {
+        mTideEvent.eventLevel.printnp(levelPrint);
         displayLevel = DstrToNSString(levelPrint);
     }
    return displayLevel;
@@ -238,7 +238,7 @@
     }
     Dstr text_out;
     libxtide::Station *aStation = [station adaptedStation];
-    mTideEvent->print(text_out, (libxtide::Mode::Mode)mode, (libxtide::Format::Format)form, *aStation);
+    mTideEvent.print(text_out, (libxtide::Mode::Mode)mode, (libxtide::Format::Format)form, *aStation);
     return DstrToNSString(text_out);
 }
 
@@ -247,7 +247,7 @@
     if (eventDate) {
         return [eventDate description];
     }
-    NSDate *date = TimestampToNSDate(mTideEvent->eventTime);
+    NSDate *date = TimestampToNSDate(mTideEvent.eventTime);
     return [NSString stringWithFormat:@"%@ %@", date, [self longDescription]];
 }
 
@@ -261,7 +261,7 @@
     if (eventDate) {
         return libxtide::TideEvent::rawreading;
     }
-    return mTideEvent->eventType;
+    return mTideEvent.eventType;
 }
 
 

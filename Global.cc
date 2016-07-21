@@ -18,8 +18,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __APPLE__
-
 #include "libxtide.hh"
 #include "HarmonicsPath.hh"
 #include <locale.h>
@@ -113,16 +111,21 @@ const unsigned Global::dialogLastYear
 Settings Global::settings;
 Dstr Global::codeset;
 constCharPointer Global::degreeSign ("\xB0");
+#ifdef HAVE_LIBPNG
 FILE *Global::PNGFile = NULL;
+#endif
 
 static bool _disclaimerDisabled;
 static Dstr disclaimerFileName;
 static StationIndex *_stationIndex = NULL;
+#ifdef HAVE_SYSLOG_H
 static bool daemonMode = false;
+#endif
 static void (*_errorCallback) (const Dstr &errorMessage,
                                Error::ErrType fatality) = NULL;
 
 
+#ifdef HAVE_LIBPNG
 void Global::writePNGToFile (png_structp png_ptr unusedParameter,
                              png_bytep b_ptr,
                              png_size_t sz) {
@@ -130,7 +133,7 @@ void Global::writePNGToFile (png_structp png_ptr unusedParameter,
   if (fwriteReturn < sz)
     Global::barf (Error::PNG_WRITE_FAILURE);
 }
-
+#endif
 
 static void initDisclaimer() {
   static bool disclaimerInit = false;
@@ -782,7 +785,7 @@ This agreement governs the use of the Software and any updates to the Software, 
  4. Limitation of Remedies and Liability. To the maximum extent permitted by applicable law, Red Hat or any Red Hat authorized dealer will not be liable to Client for any incidental or consequential damages, including lost profits or lost savings arising out of the use or inability to use the Software, even if Red Hat or such dealer has been advised of the possibility of such damages. 
 
  5. General. If any provision of this agreement is held to be unenforceable, that shall not affect the enforceability of the remaining provisions. This agreement shall be governed by the laws of the State of North Carolina and of the United States, without regard to any conflict of laws provisions, except that the United Nations Convention on the International Sale of Goods shall not apply.
-Copyright © 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
+Copyright ï¿½ 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
 */
 
 #ifndef NO_INITIALIZER_LISTS
@@ -3113,5 +3116,3 @@ void Global::initializeGraphFont() {
 #endif
 
 }
-
-#endif

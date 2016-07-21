@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
 		94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
-		94041C161CBECAD6003BD343 /* XTGlobal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C091CBECAD6003BD343 /* XTGlobal.mm */; };
 		94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
 		94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
 		94041C191CBECAD6003BD343 /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
@@ -107,7 +106,6 @@
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
-		94301D001D2B668C00D4D68A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944501711D305A3C00203863 /* XTWListInterfaceController.m */; };
 		944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944501731D315E3900203863 /* TideViewsStoryboard.storyboard */; };
 		944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */; };
@@ -116,6 +114,10 @@
 		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
 		944501801D34120000203863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
 		945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
+		945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945282A41D4025DC00BA9DC0 /* EventKit.framework */; };
+		945282A61D4025E700BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
+		945282AD1D403A1F00BA9DC0 /* XTCalendarEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */; };
+		945282AF1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -175,7 +177,6 @@
 		945829531D248DD200972E1C /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		945829541D248DD200972E1C /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
 		945829551D248DD200972E1C /* toolbar-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C701CBF1768003BD343 /* toolbar-calendar.png */; };
-		945829561D24934D00972E1C /* XTGlobal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C091CBECAD6003BD343 /* XTGlobal.mm */; };
 		945829571D24935A00972E1C /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
 		9458295A1D24935A00972E1C /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
 		9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
@@ -217,7 +218,6 @@
 		94CE161B1D287E6A0088720D /* ComplicationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE161A1D287E6A0088720D /* ComplicationController.m */; };
 		94CE16221D287E6A0088720D /* XTideWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 94CE15FD1D287E690088720D /* XTideWatch.app */; };
 		94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE162A1D2882250088720D /* WatchConnectivity.framework */; };
-		94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		94CE16301D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
 		94CE16311D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
 /* End PBXBuildFile section */
@@ -299,8 +299,6 @@
 		94041C051CBECAD6003BD343 /* XTCalendar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTCalendar.mm; sourceTree = "<group>"; };
 		94041C061CBECAD6003BD343 /* XTSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSettings.h; sourceTree = "<group>"; };
 		94041C071CBECAD6003BD343 /* XTSettings.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTSettings.mm; sourceTree = "<group>"; };
-		94041C081CBECAD6003BD343 /* XTGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTGlobal.h; sourceTree = "<group>"; };
-		94041C091CBECAD6003BD343 /* XTGlobal.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTGlobal.mm; sourceTree = "<group>"; };
 		94041C0A1CBECAD6003BD343 /* XTStationIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationIndex.h; sourceTree = "<group>"; };
 		94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTStationIndex.mm; sourceTree = "<group>"; };
 		94041C0C1CBECAD6003BD343 /* XTStationRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationRef.h; sourceTree = "<group>"; };
@@ -311,8 +309,8 @@
 		94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEventsOrganizer.mm; sourceTree = "<group>"; };
 		94041C121CBECAD6003BD343 /* XTTideEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTideEvent.h; sourceTree = "<group>"; };
 		94041C131CBECAD6003BD343 /* XTTideEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTTideEvent.mm; sourceTree = "<group>"; };
-		94041C1E1CBECAE6003BD343 /* XTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUtils.h; sourceTree = "<group>"; };
-		94041C1F1CBECAE6003BD343 /* XTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = XTUtils.mm; sourceTree = "<group>"; };
+		94041C1E1CBECAE6003BD343 /* XTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = XTUtils.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		94041C1F1CBECAE6003BD343 /* XTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = XTUtils.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		94041C4D1CBECDE2003BD343 /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
 		94041C4E1CBECDE2003BD343 /* PreferenceController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PreferenceController.mm; sourceTree = "<group>"; };
 		94041C501CBEE6BF003BD343 /* Global.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Global.cc; sourceTree = "<group>"; };
@@ -402,6 +400,10 @@
 		9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIStationInfoViewController.m; sourceTree = "<group>"; };
 		945282311D3F419B00BA9DC0 /* XTTideEvent+EventKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XTTideEvent+EventKit.h"; sourceTree = "<group>"; };
 		945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "XTTideEvent+EventKit.mm"; sourceTree = "<group>"; };
+		945282A41D4025DC00BA9DC0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		945282AA1D403A1F00BA9DC0 /* XTCalendarEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTCalendarEventViewController.h; sourceTree = "<group>"; };
+		945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTCalendarEventViewController.m; sourceTree = "<group>"; };
+		945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTCalendarEventViewController.xib; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -421,7 +423,7 @@
 		9458290B1D248BF300972E1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		946318DC1CBC3242001CD859 /* XTide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XTide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		946318DF1CBC3242001CD859 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		946318E01CBC3242001CD859 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
+		946318E01CBC3242001CD859 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppDelegate.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		946318E31CBC3242001CD859 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		946318E51CBC3242001CD859 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		946318E81CBC3242001CD859 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +647,7 @@
 				94041D3F1CC6EBF0003BD343 /* TideData.xib */,
 				94041CB31CC1943C003BD343 /* Preferences.xib */,
 				94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */,
+				945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */,
 				94041D391CC6D92D003BD343 /* Disclaimer.xib */,
 				946318EA1CBC3242001CD859 /* Info.plist */,
 				946318DF1CBC3242001CD859 /* AppDelegate.h */,
@@ -653,6 +657,8 @@
 				94041C931CBF1B16003BD343 /* config.h */,
 				94041D571CC93BB7003BD343 /* XTPrefFlagsViewController.h */,
 				94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */,
+				945282AA1D403A1F00BA9DC0 /* XTCalendarEventViewController.h */,
+				945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */,
 				94041C4D1CBECDE2003BD343 /* PreferenceController.h */,
 				94041C4E1CBECDE2003BD343 /* PreferenceController.mm */,
 				94041D331CC6D804003BD343 /* DisclaimerController.h */,
@@ -732,6 +738,21 @@
 			name = xtideEventKit;
 			sourceTree = "<group>";
 		};
+		945282A31D40238500BA9DC0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				945282A41D4025DC00BA9DC0 /* EventKit.framework */,
+				946DAF801D3C150700B16FB2 /* EventKit.framework */,
+				946DAF811D3C150700B16FB2 /* EventKitUI.framework */,
+				940BAA8A1D2C4DD700E1C11B /* MapKit.framework */,
+				94CE162A1D2882250088720D /* WatchConnectivity.framework */,
+				94CE15DE1D24A69E0088720D /* Foundation.framework */,
+				94CE15DC1D24A6810088720D /* UIKit.framework */,
+				94CE15DA1D24A6650088720D /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		945828DD1D248BF300972E1C /* XTide-ios */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,13 +828,7 @@
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
-				946DAF801D3C150700B16FB2 /* EventKit.framework */,
-				946DAF811D3C150700B16FB2 /* EventKitUI.framework */,
-				940BAA8A1D2C4DD700E1C11B /* MapKit.framework */,
-				94CE162A1D2882250088720D /* WatchConnectivity.framework */,
-				94CE15DE1D24A69E0088720D /* Foundation.framework */,
-				94CE15DC1D24A6810088720D /* UIKit.framework */,
-				94CE15DA1D24A6650088720D /* MapKit.framework */,
+				945282A31D40238500BA9DC0 /* Frameworks */,
 				948355051CBC448F0026F08A /* tcd.h */,
 				948355031CBC44660026F08A /* png.h */,
 				94041D311CC1CE3E003BD343 /* tide_db.c */,
@@ -1008,8 +1023,6 @@
 				94041C071CBECAD6003BD343 /* XTSettings.mm */,
 				94041C041CBECAD6003BD343 /* XTCalendar.h */,
 				94041C051CBECAD6003BD343 /* XTCalendar.mm */,
-				94041C081CBECAD6003BD343 /* XTGlobal.h */,
-				94041C091CBECAD6003BD343 /* XTGlobal.mm */,
 				94041BFF1CBEC937003BD343 /* XTGraph.h */,
 				94041CA91CC05A80003BD343 /* XTGraphInt.h */,
 				94041C001CBEC937003BD343 /* XTGraph.mm */,
@@ -1373,6 +1386,7 @@
 				94041D7B1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */,
 				94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */,
 				94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */,
+				945282AF1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib in Resources */,
 				948353BC1CBC42FB0026F08A /* libxtide in Resources */,
 				94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */,
 				94CE16301D28B8560088720D /* StateImages.xcassets in Resources */,
@@ -1397,7 +1411,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94CE162D1D28B7CE0088720D /* Images.xcassets in Resources */,
 				9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */,
 				94CE16031D287E690088720D /* Assets.xcassets in Resources */,
 				94CE16011D287E690088720D /* Interface.storyboard in Resources */,
@@ -1410,7 +1423,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */,
-				94301D001D2B668C00D4D68A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1481,7 +1493,6 @@
 				9458295E1D24935A00972E1C /* XTTideEvent.mm in Sources */,
 				945829421D248D8400972E1C /* Global.cc in Sources */,
 				945828E61D248BF300972E1C /* XTUIMapViewController.m in Sources */,
-				945829561D24934D00972E1C /* XTGlobal.mm in Sources */,
 				945829281D248D7100972E1C /* NullableInterval.cc in Sources */,
 				94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */,
 				945829211D248D6900972E1C /* StationRef.cc in Sources */,
@@ -1519,7 +1530,6 @@
 				94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */,
 				94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */,
 				946318E41CBC3242001CD859 /* main.m in Sources */,
-				94041C161CBECAD6003BD343 /* XTGlobal.mm in Sources */,
 				94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */,
 				94041C191CBECAD6003BD343 /* XTStation.mm in Sources */,
 				946318E11CBC3242001CD859 /* AppDelegate.mm in Sources */,
@@ -1527,6 +1537,7 @@
 				94041D4B1CC7ED5F003BD343 /* SuggestionsWindowController.m in Sources */,
 				94041D4D1CC7ED5F003BD343 /* SuggestionsWindow.m in Sources */,
 				94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */,
+				945282AD1D403A1F00BA9DC0 /* XTCalendarEventViewController.m in Sources */,
 				94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */,
 				94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */,
 				94041C221CBECB40003BD343 /* Amplitude.cc in Sources */,
@@ -1559,6 +1570,7 @@
 				94041C361CBECB40003BD343 /* HarmonicsPath.cc in Sources */,
 				94041C371CBECB40003BD343 /* Interval.cc in Sources */,
 				94041D551CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m in Sources */,
+				945282A61D4025E700BA9DC0 /* XTTideEvent+EventKit.mm in Sources */,
 				94041CB71CC1AD70003BD343 /* XTColorUtils.m in Sources */,
 				94041D761CCC2909003BD343 /* XTStationInfoViewController.m in Sources */,
 				94041C381CBECB40003BD343 /* MetaField.cc in Sources */,

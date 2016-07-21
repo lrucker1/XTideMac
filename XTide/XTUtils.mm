@@ -31,31 +31,28 @@ TimestampToNSDate(const libxtide::Timestamp t)
 }
 
 
-// Output error message and die.
-/*
- * Yes, this is bad iOS/Mac behavior, but it's called from the common code.
- * However I've only hit it in early development, when the common code
- * adds features I don't have yet. There's no iOS terminate, so if this does
- * hit a user, I have no idea what happens after that.
- */
-void DisplayFatalError(NSString *errorString)
+// Display error message.
+// This comes from common code and I've only seen it when there are new features I haven't
+// implemented yet, so I'm not even installing it on iOS.
+// If it means the app dies with no notice, that's not terrible. iOS apps do that.
+void DisplayCoreError(const Dstr &errorDstr, libxtide::Error::ErrType fatality)
 {
+    NSString *errorString = DstrToNSString(errorDstr);
     NSLog(@"Fatal Error: %@", errorString);
 #if TARGET_OS_IPHONE
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Unexpected problem occurred"
-                                   message:errorString
-                                   preferredStyle:UIAlertControllerStyleAlert];
-     
-    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
-       handler:^(UIAlertAction * action) {}];
-     
-    [alert addAction:defaultAction];
+//    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Unexpected problem occurred"
+//                                   message:errorString
+//                                   preferredStyle:UIAlertControllerStyleAlert];
+//     
+//    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+//       handler:^(UIAlertAction * action) {}];
+//     
+//    [alert addAction:defaultAction];
    // TODO: [self presentViewController:alert animated:YES completion:nil];
 #else
    NSAlert *alert = [[NSAlert alloc] init];
    [alert setMessageText:@"Unexpected problem occurred"];
    [alert setInformativeText:errorString];
    [alert runModal];
-   [NSApp terminate:nil];
 #endif
 }

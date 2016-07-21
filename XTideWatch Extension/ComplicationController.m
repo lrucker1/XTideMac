@@ -372,7 +372,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     // and we get the max possible, so anything more frequent is pointless.
     NSDate *next = [self.lastEndTime dateByAddingTimeInterval:(-HOUR * 24) + 60];
     // For the odd chance that we've already passed "next".
-    NSDate *datePlus6 = [[NSDate date] dateByAddingTimeInterval:HOUR * 6];
+    NSDate *datePlus6 = [NSDate date];
     handler([datePlus6 laterDate:next]);
 }
 

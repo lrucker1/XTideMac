@@ -14,6 +14,7 @@
 #import "AppKitAdditions.h"
 #import "XTGraph.h"
 #import "XTSettings.h"
+#import "XTUtils.h"
 #import "PreferenceController.h"
 #import "DisclaimerController.h"
 #import "TideGraphController.h"
@@ -42,6 +43,7 @@ static NSString * const XTWindow_restorationName = @"name";
 {
    libxtide::Global::settings.setMacDefaults();
    libxtide::Global::settings.applyMacResources();
+   libxtide::Global::setErrorCallback(&DisplayCoreError);
 }
 
 + (void)restoreWindowWithIdentifier:(NSString *)identifier

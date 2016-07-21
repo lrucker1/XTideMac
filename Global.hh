@@ -19,7 +19,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef __APPLE__
 class Dstr;
 
 namespace libxtide {
@@ -111,7 +110,9 @@ namespace Global {
 
   // The user_io_ptr feature of libpng doesn't seem to work.
   // See writePNGToFile.
+#ifdef HAVE_LIBPNG
   extern FILE *PNGFile;
+#endif
 
   // Client-side font used in RGBGraph.
   extern ClientSide::Font graphFont;
@@ -158,10 +159,12 @@ namespace Global {
   // Return true if eventMask is a valid event mask, false if not.
   const bool isValidEventMask (const Dstr &eventMask);
 
+#ifdef HAVE_LIBPNG
   // Function for libpng.  See also PNGFile.
   void writePNGToFile (png_structp png_ptr,
 		       png_bytep b_ptr,
 		       png_size_t sz);
+#endif
 
   // Rounding functions that round to the nearest integer and round
   // halfway cases toward positive infinity.  Oddly enough, none of
@@ -220,4 +223,3 @@ namespace Global {
 }
 
 }
-#endif

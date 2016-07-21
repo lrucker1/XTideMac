@@ -46,6 +46,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (strong) XTStationRef *currentAnnotation;
 
 @property BOOL didShowWatchLocationAlert;
+@property BOOL canTrackLocation;
 
 @end
 
@@ -61,7 +62,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
         [self.locationManager requestWhenInUseAuthorization];
     } else if (  status == kCLAuthorizationStatusAuthorizedWhenInUse
                || status == kCLAuthorizationStatusAuthorizedAlways) {
-        [self.locationManager startUpdatingLocation];
+        self.canTrackLocation = YES;
     }
     self.locationManager.distanceFilter = kUserLocMovement;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
@@ -307,18 +308,15 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 - (void)sessionReachabilityDidChange:(WCSession *)session
 {
-//    dispatch_sync(dispatch_get_main_queue(), ^{
-//        // We only care about location when the watch is using it.
-//        if (session.isReachable || session.complicationEnabled) {
-//            [self.locationManager startUpdatingLocation];
-//        } else {
-//            [self.locationManager stopUpdatingLocation];
-//        }
-//    });
+    // We only care about location when the watch is using it.
+    [self configureLocationTrackingForWatch];
 }
 
 - (void)updateWatchState
 {
+    if (!self.watchSession) {
+        return;
+    }
     XTStationRef *currentRef = [self findStationRefForWatch];
     if (!currentRef) {
         /*
@@ -330,25 +328,19 @@ calloutAccessoryControlTapped:(UIControl *)control
     if ([currentRef isEqual:self.stationRefForWatch]) {
         return;
     }
-    // Update the old favorite.
-    XTStationRef *oldStation = self.stationRefForWatch;
     self.stationRefForWatch = currentRef;
-    [self updateAnnotation:oldStation];
-    [self updateAnnotation:self.stationRefForWatch];
 
     // TODO: Store the last known watch size so it's right when we do an update.
-    if (self.watchSession) {
-        NSDictionary *dict = [self clockInfoWithWidth:156 height:195 scale:2];
-        NSError *error = nil;
-        if (![self.watchSession updateApplicationContext:dict
-                                                   error:&error]) {
-            NSLog(@"Updating the context failed: %@", error.localizedDescription);
-        }
-        if ([self.watchSession isComplicationEnabled]) {
-            NSDictionary *events = [self complicationEvents];
-            if (events) {
-                [self.watchSession transferCurrentComplicationUserInfo:events];
-            }
+    NSDictionary *dict = [self clockInfoWithWidth:156 height:195 scale:2];
+    NSError *error = nil;
+    if (![self.watchSession updateApplicationContext:dict
+                                               error:&error]) {
+        NSLog(@"Updating the context failed: %@", error.localizedDescription);
+    }
+    if ([self.watchSession isComplicationEnabled]) {
+        NSDictionary *events = [self complicationEvents];
+        if (events) {
+            [self.watchSession transferCurrentComplicationUserInfo:events];
         }
     }
 }
@@ -357,19 +349,16 @@ calloutAccessoryControlTapped:(UIControl *)control
 {
     if (   status == kCLAuthorizationStatusAuthorizedWhenInUse
         || status == kCLAuthorizationStatusAuthorizedAlways) {
-        [self.locationManager startUpdatingLocation];
-        if (self.watchSession) {
-            [self updateWatchState];
-        }
+        self.canTrackLocation = YES;
+        [self configureLocationTrackingForWatch];
+        [self updateWatchState];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateWatchState];
-    });
+    [self updateWatchState];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -409,7 +398,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self updateWatchState];
     XTStationRef *ref = [[notification userInfo] objectForKey:@"ref"];
     if (ref) {
-        // The state just changed on this ref. Update its annotationView dot and button.
+        // The state just changed on this ref. Update its annotationView button state.
         [self updateAnnotation:ref];
     }
 }
@@ -470,6 +459,21 @@ calloutAccessoryControlTapped:(UIControl *)control
     return ref;
 }
 
+// The map does its own thing; this is for us to get delegate methods.
+// Only the watch needs them.
+- (void)configureLocationTrackingForWatch
+{
+    if (self.watchSession == nil || !self.canTrackLocation) {
+        return;
+    }
+
+    if (self.watchSession.isReachable || self.watchSession.complicationEnabled) {
+        [self.locationManager startUpdatingLocation];
+    } else {
+        [self.locationManager stopUpdatingLocation];
+    }
+}
+
 - (void)configureWatch
 {
     if (![WCSession isSupported]) {
@@ -479,6 +483,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     self.watchSession.delegate = self;
     [self.watchSession activateSession];
     [self updateWatchState];
+    [self configureLocationTrackingForWatch];
 }
 
 
@@ -560,18 +565,14 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         CGFloat scale = [[message objectForKey:@"scale"] floatValue];
         if (scale == 0) scale = 1;
         if (width > 0 && height > 0) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
-                replyHandler( dict );
-            });
+            NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
+            replyHandler( dict );
             return;
         }
     } else if ([kind isEqualToString:@"requestEvents"]) {
         self.eventStartDate = [message objectForKey:@"first"];
         self.eventEndDate = [message objectForKey:@"last"];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            replyHandler( [self complicationEvents] );
-        });
+        replyHandler( [self complicationEvents] );
         return;
     }
     replyHandler(nil);

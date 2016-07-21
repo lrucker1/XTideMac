@@ -8,7 +8,7 @@
  */
 
 #import <Foundation/Foundation.h>
-#include "libxtide.hh" // Includes XTSettingsInt and all sorts of things that are incompatible with cocoa.
+#include "libxtide.hh" // Includes SettingsInt and all sorts of things that are incompatible with cocoa.
 #include "config.hh"
 #include "XTUtils.h"
 #include "XTColorUtils.h"
@@ -36,7 +36,7 @@ NSString *XTide_harmonicsFiles = @"XTide_harmonicsFiles";
 
 
 namespace libxtide {
-libxtide::XTSettings::XTSettings () {
+Settings::Settings () {
     
     // No way to initialize a map with a literal, so make an array and
     // initialize the map at run time.
@@ -274,7 +274,7 @@ static id valueForConfigurable(libxtide::Configurable &cfbl)
 /*
  *------------------------------------------------------------------------------
  *
- * XTSettings::updateOldPref --
+ * Settings::updateOldPref --
  *
  *      Change any "XTide*Foo" resources to "XTide_Foo";
  *      '*' is not legal in bindings.
@@ -315,7 +315,7 @@ static void updateOldPref(const char *s)
     }
 }
 
-NSMutableDictionary *XTSettingsDefaultValues()
+NSMutableDictionary *SettingsDefaultValues()
 {
     NSMutableDictionary *defaultValues = [NSMutableDictionary dictionary];
     
@@ -343,7 +343,7 @@ NSMutableDictionary *XTSettingsDefaultValues()
 /*
  *------------------------------------------------------------------------------
  *
- * XTSettings::setMacDefaults --
+ * Settings::setMacDefaults --
  *
  *      Register the NSUserDefaults default values based on the table values.
  *
@@ -356,9 +356,9 @@ NSMutableDictionary *XTSettingsDefaultValues()
  *------------------------------------------------------------------------------
  */
 
-void libxtide::XTSettings::setMacDefaults()
+void libxtide::Settings::setMacDefaults()
 {
-    NSMutableDictionary *defaultValues = XTSettingsDefaultValues();
+    NSMutableDictionary *defaultValues = SettingsDefaultValues();
     for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
         Configurable &cfbl = it->second;
         if (cfbl.kind == Configurable::settingKind) {
@@ -409,7 +409,7 @@ void libxtide::XTSettings::setMacDefaults()
 /*
  *------------------------------------------------------------------------------
  *
- * XTSettings::applyMacResources --
+ * Settings::applyMacResources --
  *
  *      Update the table values to the NSUserDefaults.
  *
@@ -422,7 +422,7 @@ void libxtide::XTSettings::setMacDefaults()
  *------------------------------------------------------------------------------
  */
 
-void libxtide::XTSettings::applyMacResources()
+void libxtide::Settings::applyMacResources()
 {
     for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
         Configurable &cfbl = it->second;

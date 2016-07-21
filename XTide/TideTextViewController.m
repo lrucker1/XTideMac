@@ -20,6 +20,7 @@ static NSString * const TideData_hourRange = @"hourRange";
 @interface TideTextViewController ()
 
 @property BOOL customDate;
+@property BOOL didAwakeFromNib;
 
 @end
 
@@ -78,9 +79,14 @@ static NSString * const TideData_hourRange = @"hourRange";
 	return 7;
 }
 
+// Oh, the fun of view-based tables calling awakeFromNib for every row.
 - (void)awakeFromNib
 {
+    if (self.didAwakeFromNib) {
+        return;
+    }
 	[super awakeFromNib];
+    self.didAwakeFromNib = YES;
 //#define DEBUG_PREDICTIONS 1
 
     for (NSString *keyPath in prefsKeysOfInterest) {

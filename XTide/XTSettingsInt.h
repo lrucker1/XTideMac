@@ -27,7 +27,7 @@
 // (last visited January 13, 2007).
 
 
-class libxtide::XTSettings: public libxtide::ConfigurablesMap {
+class libxtide::Settings: public libxtide::ConfigurablesMap {
 public:
    
    // Default constructor initializes map to config.hh defaults.  This
@@ -35,7 +35,7 @@ public:
    // An empty map tells you nothing about what settings are even
    // available.  A nulled-out map gives you all the metadata (just no
    // data).
-   XTSettings();
+   Settings();
 
    // Set the initial user defaults from the table.
    void setMacDefaults();

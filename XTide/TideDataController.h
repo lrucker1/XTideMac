@@ -30,14 +30,14 @@
 @interface XTTideEventTableCellView : NSTableCellView
 
 @property IBOutlet NSTextField *subtitleField;
+@property IBOutlet NSButton *calButton;
 
 @end
+
 
 @interface TideDataController : TideTextViewController
 {
 	IBOutlet NSTableView *tideTableView;
 }
 
-- (void)computeEvents;
-- (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard;
 @end

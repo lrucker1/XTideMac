@@ -188,7 +188,7 @@ static NSArray *unitsPrefMap = nil;
         return nil;
     }
     // Find first pair.
-    while (next && [next adaptedTideEvent]->eventTime <= currentTime) {
+    while (next && [next adaptedTideEvent].eventTime <= currentTime) {
         prev = next;
         next = [enumerator nextObject];
     }
@@ -203,19 +203,19 @@ static NSArray *unitsPrefMap = nil;
     int hours = isCurrent ? 3 : 6;
     // Go through all min/max events, compute intermediate rising/falling events with angle and level.
     while (next) {
-        libxtide::TideEvent *previousMaxOrMin = [prev adaptedTideEvent];
-        libxtide::TideEvent *nextMaxOrMin = [next adaptedTideEvent];
-        if (previousMaxOrMin->eventTime > endTimestamp) {
+        libxtide::TideEvent previousMaxOrMin = [prev adaptedTideEvent];
+        libxtide::TideEvent nextMaxOrMin = [next adaptedTideEvent];
+        if (previousMaxOrMin.eventTime > endTimestamp) {
             break;
         }
-        BOOL isRising = previousMaxOrMin->eventType == libxtide::TideEvent::min;
+        BOOL isRising = previousMaxOrMin.eventType == libxtide::TideEvent::min;
         NSString *desc = nil;
         double angle = [prev clockAngle];
         if (isCurrent) {
             // Rising (up arrow) between min and max, Flood between slackrise/slackfall
-            isRising |= previousMaxOrMin->eventType == libxtide::TideEvent::slackrise;
-            BOOL flood =    previousMaxOrMin->eventType == libxtide::TideEvent::slackrise
-                         || previousMaxOrMin->eventType == libxtide::TideEvent::max;
+            isRising |= previousMaxOrMin.eventType == libxtide::TideEvent::slackrise;
+            BOOL flood =    previousMaxOrMin.eventType == libxtide::TideEvent::slackrise
+                         || previousMaxOrMin.eventType == libxtide::TideEvent::max;
             desc = flood ? @"Flood" : @"Ebb";
         } else {
             desc = isRising ? @"Rising" : @"Falling";
@@ -223,8 +223,8 @@ static NSArray *unitsPrefMap = nil;
         // Add the tide event, if it's in range; we may have picked up some extras for interpolation.
         // Split the intervening time evenly between it and the next one.
         [array addObject:[prev eventDictionary]];
-        libxtide::Interval timeDelta = (nextMaxOrMin->eventTime - previousMaxOrMin->eventTime) / hours;
-        currentTime = previousMaxOrMin->eventTime;
+        libxtide::Interval timeDelta = (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime) / hours;
+        currentTime = previousMaxOrMin.eventTime;
         NSInteger i = 0;
         for (i = 0; i < hours-1; i++) {
             angle += arcDelta;

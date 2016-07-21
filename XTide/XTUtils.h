@@ -19,4 +19,4 @@ DstrToNSString(const Dstr &s);
 NSDate *
 TimestampToNSDate(const libxtide::Timestamp t);
 
-void DisplayFatalError(NSString *errorString);
+void DisplayCoreError(const Dstr &errorDstr, libxtide::Error::ErrType fatality);

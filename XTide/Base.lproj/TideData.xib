@@ -42,14 +42,14 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" autosaveColumns="NO" rowHeight="43" rowSizeStyle="automatic" viewBased="YES" id="8" customClass="TideTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="358" height="282"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="358" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="image" editable="NO" width="355" minWidth="10" maxWidth="3.4028234663852886e+38" id="104">
+                                        <tableColumn identifier="image" editable="NO" width="352" minWidth="10" maxWidth="3.4028234663852886e+38" id="104">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -71,33 +71,51 @@
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="pR9-hO-5Ud"/>
                                                         </imageView>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="he6-op-vrn" userLabel="Description">
-                                                            <rect key="frame" x="40" y="26" width="307" height="17"/>
+                                                            <rect key="frame" x="40" y="26" width="264" height="17"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="X4X-HD-0AM">
                                                                 <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ppI-C9-Qzf" userLabel="Time">
-                                                            <rect key="frame" x="40" y="8" width="307" height="17"/>
+                                                            <rect key="frame" x="40" y="8" width="264" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="KW6-iM-TGw">
                                                                 <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
+                                                        <button horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="guj-Na-eLf">
+                                                            <rect key="frame" x="310" y="8" width="32" height="32"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="BIX-Rf-JjD"/>
+                                                            </constraints>
+                                                            <buttonCell key="cell" type="bevel" title="add…" bezelStyle="rounded" image="editCalendar" imagePosition="above" alignment="center" controlSize="mini" imageScaling="proportionallyDown" inset="2" id="ccl-s1-Za0">
+                                                                <behavior key="behavior" lightByContents="YES"/>
+                                                                <font key="font" metaFont="miniSystem"/>
+                                                            </buttonCell>
+                                                            <accessibility description="Add to calendar"/>
+                                                            <connections>
+                                                                <action selector="handleCalEvent:" target="-2" id="j95-tg-huP"/>
+                                                                <binding destination="-2" name="image" keyPath="calendarImage" id="Mig-Du-E4l"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="PEZ-N9-vgi" firstAttribute="top" secondItem="XTy-U6-VTu" secondAttribute="top" id="4rQ-Qs-kVF"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ppI-C9-Qzf" secondAttribute="trailing" constant="10" id="9a9-9Q-KLB"/>
-                                                        <constraint firstAttribute="trailing" secondItem="he6-op-vrn" secondAttribute="trailing" constant="10" id="CxX-VJ-GZ6"/>
                                                         <constraint firstItem="he6-op-vrn" firstAttribute="top" secondItem="XTy-U6-VTu" secondAttribute="top" id="Nf2-Pc-WdS"/>
                                                         <constraint firstItem="PEZ-N9-vgi" firstAttribute="leading" secondItem="XTy-U6-VTu" secondAttribute="leading" constant="3" id="Ro5-q1-8gx"/>
+                                                        <constraint firstItem="guj-Na-eLf" firstAttribute="top" secondItem="XTy-U6-VTu" secondAttribute="top" constant="3" id="X5Z-AD-hvG"/>
+                                                        <constraint firstAttribute="trailing" secondItem="guj-Na-eLf" secondAttribute="trailing" constant="10" id="Xau-xc-NPK"/>
+                                                        <constraint firstItem="ppI-C9-Qzf" firstAttribute="trailing" secondItem="he6-op-vrn" secondAttribute="trailing" id="aaZ-Lp-FbJ"/>
                                                         <constraint firstItem="ppI-C9-Qzf" firstAttribute="leading" secondItem="he6-op-vrn" secondAttribute="leading" id="ayb-n0-taP"/>
+                                                        <constraint firstItem="guj-Na-eLf" firstAttribute="leading" secondItem="he6-op-vrn" secondAttribute="trailing" constant="8" id="fqP-jD-X6P"/>
                                                         <constraint firstItem="he6-op-vrn" firstAttribute="leading" secondItem="PEZ-N9-vgi" secondAttribute="trailing" constant="7" id="fys-oe-uMX"/>
                                                         <constraint firstItem="ppI-C9-Qzf" firstAttribute="top" secondItem="he6-op-vrn" secondAttribute="bottom" constant="1" id="ylG-dJ-E8j"/>
                                                     </constraints>
                                                     <connections>
+                                                        <outlet property="calButton" destination="guj-Na-eLf" id="rWD-CP-VHr"/>
                                                         <outlet property="imageView" destination="PEZ-N9-vgi" id="ePZ-Is-iyv"/>
                                                         <outlet property="subtitleField" destination="ppI-C9-Qzf" id="t8U-eQ-EYs"/>
                                                         <outlet property="textField" destination="he6-op-vrn" id="YFG-Ze-Sx8"/>
@@ -108,7 +126,7 @@
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="iPj-FA-hab">
-                                                            <rect key="frame" x="0.0" y="0.0" width="355" height="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="352" height="17"/>
                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Header" id="5n9-TV-7nq">
                                                                 <font key="font" metaFont="systemBold"/>
                                                                 <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
@@ -435,5 +453,6 @@
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
+        <image name="editCalendar" width="32" height="32"/>
     </resources>
 </document>

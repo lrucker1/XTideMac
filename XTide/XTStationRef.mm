@@ -52,7 +52,6 @@
  */
 - (XTStation *)loadStation
 {
-    NSAssert([NSThread isMainThread], @"loadStation on non-main thread");
     return [[XTStation alloc] initUsingStationRef:mStationRef];
 }
 

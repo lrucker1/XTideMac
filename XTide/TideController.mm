@@ -31,6 +31,7 @@
 #import "XTTideEvent.h"
 #import "XTUtils.h"
 #import "PredictionValue.hh"
+#import "Graph.hh"
 
 static TideController *selfContext;
 
@@ -99,8 +100,8 @@ static TideController *selfContext;
 
 - (void)awakeFromNib
 {
-    [dateFromPicker setMinDate:TimestampToNSDate(libxtide::Global::beginningOfTime)];
-    [dateFromPicker setMaxDate:TimestampToNSDate(libxtide::Global::endOfTime)];
+    [dateFromPicker setMinDate:TimestampToNSDate(libxtide::Graph::beginningOfTime)];
+    [dateFromPicker setMaxDate:TimestampToNSDate(libxtide::Graph::endOfTime)];
     [dateFromPicker setTimeZone:[station timeZone]];
     [self invalidateRestorableState];
 }
@@ -286,7 +287,9 @@ static TideController *selfContext;
 - (void)popoverDidClose:(NSNotification *)notification
 {
     // release our popover since it closed
-    self.eventMaskPopover = nil;
+   if ([notification object] == self.eventMaskPopover) {
+        self.eventMaskPopover = nil;
+    }
 }
 
 #pragma mark observation

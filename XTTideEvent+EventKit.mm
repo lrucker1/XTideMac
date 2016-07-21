@@ -36,8 +36,7 @@
 {
     // Make a new event.
     EKEvent *event = [EKEvent eventWithEventStore:eventStore];
-    EKStructuredLocation *loc = [[EKStructuredLocation alloc] init];
-    loc.title = station.name;
+    EKStructuredLocation *loc = [EKStructuredLocation locationWithTitle:station.name];
     loc.geoLocation = station.stationRef.location;
     event.title = [self longDescription];
     event.structuredLocation = loc;

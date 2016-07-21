@@ -65,4 +65,6 @@
 
 - (void)removeObservers;
 
+- (void)popoverDidClose:(NSNotification *)notification;
+
 @end
