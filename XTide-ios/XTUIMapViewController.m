@@ -412,11 +412,11 @@ calloutAccessoryControlTapped:(UIControl *)control
     //
     self.didShowWatchLocationAlert = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Watch needs station"
-                                       message:@"The watch cannot find a station to display. Mark a station as favorite."
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Watch needs station", @"No station error title")
+                                       message:NSLocalizedString(@"The watch cannot find a station to display. Mark a station as favorite.", @"No station error message")
                                        preferredStyle:UIAlertControllerStyleAlert];
          
-        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"OK", @"OK") style:UIAlertActionStyleDefault
            handler:^(UIAlertAction * action) {}];
          
         [alert addAction:defaultAction];
@@ -501,46 +501,42 @@ calloutAccessoryControlTapped:(UIControl *)control
                                  scale:scale];
 }
 
-
-/*
- * Note: Showing the station in the app isn't a great UI because there's no
- * way to force it to launch the app (a button with no apparent effect is bad),
- * so it's just for debugging.
- */
 -    (void)session:(WCSession *)session
 didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
 {
-    if (!self.stationRefForWatch) {
-        NSLog(@"No station");
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIViewController<XTUITideView> *vc = (UIViewController<XTUITideView> *)self.navigationController.visibleViewController;
-        XTStation *station = [self.stationRefForWatch loadStation];
-        if ([vc conformsToProtocol:@protocol(XTUITideView)]) {
-            [vc updateStation:station];
-        } else {
-            // Whatever else it is, it supports showing a station.
-            self.currentAnnotation = self.stationRefForWatch;
-            [self performSegueWithIdentifier:@"ShowTideViews" sender:self];
+    NSString *kind = [userInfo objectForKey:@"kind"];
+    if ([kind isEqualToString:@"requestEvents"]) {
+        self.eventStartDate = [userInfo objectForKey:@"first"];
+        self.eventEndDate = [userInfo objectForKey:@"last"];
+        NSDictionary *events = [self complicationEvents];
+        if (events) {
+            [self.watchSession transferCurrentComplicationUserInfo:events];
         }
-    });
+    }
 }
 
+// If this is sent because of a station change, the Complication will need to reload.
 - (NSDictionary *)complicationEvents
 {
     XTStation *station = [[self stationRefForWatch] loadStation];
     if (!station) {
         return nil;
     }
+    // Calendar complications run for 3 days from start of "yesterday"
+    // We return 24 hours extra to allow for comm lags.
     if (!self.eventStartDate) {
-        self.eventStartDate = [NSDate dateWithTimeIntervalSinceNow:-DAY];
+        NSDate *yesterday = [NSDate dateWithTimeIntervalSinceNow:-DAY];
+        self.eventStartDate = [[NSCalendar currentCalendar] startOfDayForDate:yesterday];
     }
     if (!self.eventEndDate) {
-        self.eventEndDate = [NSDate dateWithTimeIntervalSinceNow:DAY * 2];
+        self.eventEndDate = [self.eventStartDate dateByAddingTimeInterval:DAY * 4];
     }
-    NSArray *events = [station generateWatchEventsStart:self.eventStartDate end:self.eventEndDate];
+    NSArray *events = [station generateWatchEventsStart:self.eventStartDate
+                                                    end:self.eventEndDate];
     if (events) {
-        return @{@"events":events};
+        return @{@"events" : events,
+                 @"startDate" : self.eventStartDate,
+                 @"station" : station.name};
     }
     return nil;
 }
@@ -557,7 +553,6 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
             return;
         }
     }
-    // TODO: Make loadStation thread safe. This comes in on a background thread.
     NSString *kind = [message objectForKey:@"kind"];
     if ([kind isEqualToString:@"requestImage"]) {
         CGFloat width = [[message objectForKey:@"width"] floatValue];

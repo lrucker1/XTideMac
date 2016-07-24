@@ -129,7 +129,6 @@ static NSImage *calendarImage = nil;
             imgString = @"blank";
         }
         view.imageView.image = [NSImage imageNamed:imgString];
-        view.calButton.cell.representedObject = tideEvent;
     }
     return view;
 }
@@ -177,11 +176,6 @@ static NSImage *calendarImage = nil;
     return calendarImage;
 }
 
-- (IBAction)handleCalEvent:(id)sender
-{
-    [self handleCalendarEvent:[[sender cell] representedObject] sender:sender];
-}
-
 - (IBAction)handleCalendarEvent:(XTTideEvent *)tideEvent
                          sender:(id)sender
 {
@@ -195,7 +189,7 @@ static NSImage *calendarImage = nil;
     // Use the table view and the popover moves when it scrolls.
     NSRect bounds = targetButton.bounds;
     bounds = [tideTableView convertRect:bounds fromView:targetButton];
-    [self.calendarPopover showRelativeToRect:bounds ofView:tideTableView preferredEdge:NSRectEdgeMaxY];
+    [self.calendarPopover showRelativeToRect:bounds ofView:tideTableView preferredEdge:NSRectEdgeMaxX];
 }
 
 - (EKEvent *)calendarEntryForEvent:(XTTideEvent *)tideEvent

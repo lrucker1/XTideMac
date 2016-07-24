@@ -216,13 +216,16 @@ static NSArray *unitsPrefMap = nil;
             isRising |= previousMaxOrMin.eventType == libxtide::TideEvent::slackrise;
             BOOL flood =    previousMaxOrMin.eventType == libxtide::TideEvent::slackrise
                          || previousMaxOrMin.eventType == libxtide::TideEvent::max;
-            desc = flood ? @"Flood" : @"Ebb";
+            desc = flood ? NSLocalizedString(@"Flood", @"Flood event")
+                         : NSLocalizedString(@"Ebb", @"Ebb event");
         } else {
-            desc = isRising ? @"Rising" : @"Falling";
+            desc = isRising ? NSLocalizedString(@"Rising", @"Rising event")
+                            : NSLocalizedString(@"Falling", @"Falling event");
         }
         // Add the tide event, if it's in range; we may have picked up some extras for interpolation.
         // Split the intervening time evenly between it and the next one.
         [array addObject:[prev eventDictionary]];
+        NSDictionary *nextShort = [next eventShortDictionary];
         libxtide::Interval timeDelta = (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime) / hours;
         currentTime = previousMaxOrMin.eventTime;
         NSInteger i = 0;
@@ -236,12 +239,13 @@ static NSArray *unitsPrefMap = nil;
             prediction.printnp(levelPrint);
             NSString *levelShort = DstrToNSString(levelPrint);
            
-            NSDictionary *event = @{@"date"  : TimestampToNSDate(currentTime),
-                                    @"angle" : @(angle),
-                                    @"level" : level,
+            NSDictionary *event = @{@"date"     : TimestampToNSDate(currentTime),
+                                    @"angle"    : @(angle),
+                                    @"level"    : level,
                                     @"levelShort" : levelShort,
                                     @"desc"     : desc,
-                                    @"isRising" : @(isRising)};
+                                    @"isRising" : @(isRising),
+                                    @"next"     : nextShort};
             [array addObject:event];
         }
         prev = next;

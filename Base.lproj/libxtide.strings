@@ -1,0 +1,33 @@
+/* 
+  libxtide.strings
+  XTide
+
+  Created by Lee Ann Rucker on 7/23/16.
+  Copyright © 2016 Lee Ann Rucker. All rights reserved.
+*/
+
+// Strings for TideEvent.cc
+"Max Flood" = "Max Flood";
+"Min Ebb" = "Min Ebb";
+"High Tide" = "High Tide";
+"Max Ebb" = "Max Ebb";
+"Min Flood" = "Min Flood";
+"Low Tide" = "Low Tide";
+"Slack, Flood Begins" = "Slack, Flood Begins";
+"Slack, Ebb Begins" = "Slack, Ebb Begins";
+"Mark, Ebb Decreasing" = "Mark, Ebb Decreasing";
+"Mark, Flood Increasing" = "Mark, Flood Increasing";
+"Mark, Flood Begins" = "Mark, Flood Begins";
+"Mark Rising" = "Mark Rising";
+"Mark, Ebb Increasing" = "Mark, Ebb Increasing";
+"Mark, Flood Decreasing" = "Mark, Flood Decreasing";
+"Mark, Ebb Begins" = "Mark, Ebb Begins";
+"Mark Falling" = "Mark Falling";
+"Sunrise" = "Sunrise";
+"Sunset" = "Sunset";
+"Moonrise" = "Moonrise";
+"Moonset" = "Moonset";
+"New Moon" = "New Moon";
+"First Quarter" = "First Quarter";
+"Full Moon" = "Full Moon";
+"Last Quarter" = "Last Quarter";

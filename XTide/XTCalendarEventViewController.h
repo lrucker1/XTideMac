@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface XTCalendarEventViewController : NSViewController
+@interface XTCalendarEventViewController : NSViewController <NSMenuDelegate>
 
 @property IBOutlet NSPopUpButton *calendarPopup;
 

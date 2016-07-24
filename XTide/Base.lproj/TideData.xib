@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="101000" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
@@ -97,8 +97,22 @@
                                                             </buttonCell>
                                                             <accessibility description="Add to calendar"/>
                                                             <connections>
-                                                                <action selector="handleCalEvent:" target="-2" id="j95-tg-huP"/>
+                                                                <binding destination="XTy-U6-VTu" name="argument2" keyPath="calButton" previousBinding="oDh-UW-5R8" id="MuC-nd-ifF">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSSelectorName">handleCalendarEvent:sender:</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                                 <binding destination="-2" name="image" keyPath="calendarImage" id="Mig-Du-E4l"/>
+                                                                <binding destination="XTy-U6-VTu" name="argument" keyPath="objectValue" id="oDh-UW-5R8">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSSelectorName">handleCalendarEvent:sender:</string>
+                                                                    </dictionary>
+                                                                </binding>
+                                                                <binding destination="-2" name="target" keyPath="self" previousBinding="MuC-nd-ifF" id="2l0-5e-ZEu">
+                                                                    <dictionary key="options">
+                                                                        <string key="NSSelectorName">handleCalendarEvent:sender:</string>
+                                                                    </dictionary>
+                                                                </binding>
                                                             </connections>
                                                         </button>
                                                     </subviews>

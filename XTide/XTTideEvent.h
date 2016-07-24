@@ -29,6 +29,7 @@
 - (NSString *)longDescription;
 - (NSString *)displayLevel;
 - (NSDictionary *)eventDictionary;
+- (NSDictionary *)eventShortDictionary;
 - (NSString *)eventTypeString;
 - (NSString *)timeForStation: (XTStation *)station;
 - (NSString *)dateForStation: (XTStation *)station;

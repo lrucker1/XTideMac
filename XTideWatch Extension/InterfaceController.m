@@ -40,7 +40,7 @@
     }
     BOOL noStation = (!info && !self.watchSession.isReachable);
     [self.noStationLabel setHidden:!noStation];
-    [self setTitle:@"Forecast"];
+    [self setTitle:NSLocalizedString(@"Forecast", @"Title: Chart forecast page")];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
@@ -60,9 +60,6 @@
     [self addMenuItemWithImageNamed:@"ReturnToNow"
                               title:NSLocalizedString(@"Update Chart", @"reload chart with current time")
                              action:@selector(requestImage)];
-    [self addMenuItemWithImageNamed:@"StationInfoIcon"
-                              title:NSLocalizedString(@"Show in iPhone", @"show the chart in the iPhone")
-                             action:@selector(showTidesOnPhone)];
 #endif
 }
 
@@ -78,15 +75,6 @@
                                                     name:XTSessionUpdateReplyNotification
                                                   object:nil];
 }
-
-#if DEBUG_MENU
-// Debugging only. There's no way to launch an iPhone app in watchOS 2.
-- (IBAction)showTidesOnPhone
-{
-    NSDictionary *applicationDict = @{@"test":@"test"}; // Create a dict of application data
-    [[WCSession defaultSession] transferUserInfo:applicationDict];
-}
-#endif
 
 - (void)startTimer
 {

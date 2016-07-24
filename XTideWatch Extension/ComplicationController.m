@@ -12,10 +12,10 @@
 @import WatchConnectivity;
 @import WatchKit;
 
-static NSTimeInterval HOUR = 60 * 60;
-// Show the complication 10 minutes before the event happens.
-static NSTimeInterval EVENT_OFFSET = -10 * 60;
-//static NSTimeInterval DAY = 60 * 60 * 24;
+//static NSTimeInterval HOUR = 60 * 60;
+// Show predicted complication 30 minutes before the event happens.
+static NSTimeInterval EVENT_OFFSET = -30 * 60;
+static NSTimeInterval DAY = 60 * 60 * 24;
 
 @interface ComplicationController ()
 
@@ -25,8 +25,9 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 @property BOOL isBigWatch;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) UIColor *tintColor;
-@property (strong) NSDate *lastEndTime;
+@property (strong) NSDate *lastStartTime;
 @property (strong) NSMutableArray *replyHandlers;
+@property (strong) NSString *lastStation;
 
 @end
 
@@ -67,46 +68,47 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     return YES;
 }
 
-- (void)loadEvents
-{
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:nil];
-    }
-}
-
-
 - (void)reachabilityChanged:(NSNotification *)note
 {
-    if ([WCSession defaultSession].reachable) {
-        [self loadEvents];
+    if ([WCSession defaultSession].reachable && !self.events) {
+        [self requestComplicationsWithReplyHandler:nil];
     }
 }
 
 - (void)didReceiveUserInfo:(NSNotification *)note
 {
-    NSDictionary *userInfo = [note userInfo];
-    self.events = [userInfo objectForKey:@"events"];
+    [self updateEvents:[note userInfo]];
 }
 
 #pragma mark - Timeline Configuration
 
-// The time to show the event; offset to a few minutes before it happens.
+// The time to show the event. Show it before the actual prediction by some reasonable offset.
 - (NSDate *)timeForEvent:(NSDictionary *)event
+                  family:(CLKComplicationFamily)family
 {
-    return [[event objectForKey:@"date"] dateByAddingTimeInterval:EVENT_OFFSET];
+    // Rings update at the event time. The others bracket the event.
+    switch (family) {
+        case CLKComplicationFamilyModularSmall:
+        case CLKComplicationFamilyCircularSmall:
+            return [event objectForKey:@"date"];
+        default:
+            return [[event objectForKey:@"date"] dateByAddingTimeInterval:EVENT_OFFSET];
+    }
 }
 
-- (NSDate *)firstEventTime
+- (NSDate *)firstEventTimeForFamily:(CLKComplicationFamily)family
 {
-    return [self timeForEvent:[self.events firstObject]];
+    return [self timeForEvent:[self.events firstObject] family:family];
 }
 
 // The time when the last event should dim, if we don't have any new ones.
+// This may be past latestTimeTravelDate; hopefully it won't complain.
 - (NSDate *)lastEventTime
 {
+    // Add the same offset for all families.
     NSDictionary *event = [self.events lastObject];
     NSDate *date = [event objectForKey:@"date"];
-    return [date dateByAddingTimeInterval:HOUR];
+    return [date dateByAddingTimeInterval:-EVENT_OFFSET];
 }
 
 
@@ -117,33 +119,25 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 
 - (void)getTimelineStartDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
 {
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                handler([self firstEventTime]);
-            } else {
-                handler(nil);
-            }
-        }];
-        return;
-    }
-    handler([self firstEventTime]);
+    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
+        if (isReady) {
+            handler([self firstEventTimeForFamily:complication.family]);
+        } else {
+            handler(nil);
+        }
+    }];
 }
 
-// The last date for which we currently have data. It will dim after this if it doesn't update.
+// The last date for which we can supply data.
 - (void)getTimelineEndDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
 {
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                handler([self lastEventTime]);
-            } else {
-                handler(nil);
-            }
-        }];
-        return;
-    }
-    handler([self lastEventTime]);
+    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
+        if (isReady) {
+            handler([self lastEventTime]);
+        } else {
+            handler(nil);
+        }
+    }];
 }
 
 - (void)getPrivacyBehaviorForComplication:(CLKComplication *)complication withHandler:(void(^)(CLKComplicationPrivacyBehavior privacyBehavior))handler
@@ -163,19 +157,47 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     return (fabs([dateA timeIntervalSinceDate:dateB]) < (5 * 60));
 }
 
-- (void)updateEvents:(NSArray *)newEvents
+- (void)updateEvents:(NSDictionary *)reply
 {
-    if (!self.oldEvents) {
+    NSString *station = [reply objectForKey:@"station"];
+    BOOL stationChange = self.lastStation != nil && ![station isEqualToString:self.lastStation];
+    if (stationChange) {
+        self.events = nil;
+    }
+    self.lastStation = station;
+    [self processEvents:reply];
+    if (stationChange) {
+        // This is a station change. Dump everything if we had a previous station.
+        CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+        for (CLKComplication *complication in server.activeComplications) {
+            [server reloadTimelineForComplication:complication];
+        }
+    }
+}
+
+// Update the event array. Return YES if the events have changed.
+- (BOOL)processEvents:(NSDictionary *)reply
+{
+    NSArray *newEvents = [reply objectForKey:@"events"];
+    NSDate *startDate = [reply objectForKey:@"startDate"];
+    if (!self.events) {
         self.events = newEvents;
-        return;
+        self.lastStartTime = startDate;
+        return YES;
     }
 
+    if ([startDate isEqualToDate:self.lastStartTime]) {
+        // Same events, do nothing.
+        return NO;
+    }
+
+    // Either the date or the station have changed.
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
     NSDate *earlyDate = [server earliestTimeTravelDate];
     NSMutableArray *events = [NSMutableArray array];
     // Add events that are still valid.
-    for (NSDictionary *oldEvent in self.oldEvents) {
-        if ([[self timeForEvent:oldEvent] compare:earlyDate] == NSOrderedDescending) {
+    for (NSDictionary *oldEvent in self.events) {
+        if ([[oldEvent objectForKey:@"date"] compare:earlyDate] == NSOrderedDescending) {
             [events addObject:oldEvent];
         }
     }
@@ -193,12 +215,65 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         }
     }
     self.events = events;
-    self.oldEvents = nil;
+    self.lastStartTime = startDate;
+    return YES;
 }
 
-// We want only one sendMessage in flight.
-- (void)requestComplicationsWithReplyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
+- (NSDictionary *)eventRequestDictionary
 {
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+
+    // Always ask for the full range plus 1 day. It makes it easier to know when
+    // we need to reload. We can't be sure in what order the requests will come.
+    return @{@"kind" : @"requestEvents",
+             @"first" : [server earliestTimeTravelDate],
+             @"last" : [[server latestTimeTravelDate] dateByAddingTimeInterval:DAY]};
+}
+
+- (void)requestUserInfo
+{
+    // Cancel any pending requests; they may be out of date
+    NSArray *oldRequests = [self.watchSession outstandingUserInfoTransfers];
+    for (WCSessionUserInfoTransfer *xfer in oldRequests) {
+        [xfer cancel];
+    }
+    [self.watchSession transferUserInfo:[self eventRequestDictionary]];
+}
+
+- (BOOL)needsReload
+{
+    if (self.events == nil) {
+        return YES;
+    }
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    NSDate *earlyDate = [server earliestTimeTravelDate];
+    return [self.lastStartTime compare:earlyDate] == NSOrderedAscending;
+}
+
+
+/*
+ * If the phone is reachable, send a message now.
+ * If not, post a userInfo request for updates and reply with nil now.
+ *
+ * We want only one sendMessage in flight, so consolidate replyHandlers.
+ */
+- (void)requestComplicationsWithReplyHandler:(void (^)(BOOL isReady))replyHandler
+{
+    if (![self needsReload]) {
+        if (replyHandler) {
+            replyHandler(YES);
+        }
+        return;
+    }
+
+    if (!self.watchSession.reachable) {
+        [self requestUserInfo];
+        if (replyHandler) {
+            replyHandler(self.events != nil);
+        }
+        return;
+    }
+
     @synchronized (self) {
         if (self.replyHandlers) {
             if (replyHandler) {
@@ -211,36 +286,32 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
             [self.replyHandlers addObject:[replyHandler copy]];
         }
     }
-    // Default handler sets the "events" array and merges it with any previous events.
+    // Default handler merges the reply with the existing events.
     id defaultHandler = ^(NSDictionary *reply) {
         if (reply) {
-            [self updateEvents:[reply objectForKey:@"events"]];
+            [self updateEvents:reply];
         }
+        // If we didn't get an answer, we'll still have the old events. Old data is better than none.
+        BOOL isReady = self.events != nil;
         @synchronized (self) {
             for (id handler in self.replyHandlers) {
-               ((void (^)(NSDictionary<NSString *,id> *replyMessage))handler)(reply);
+               ((void (^)(BOOL))handler)(isReady);
             }
             self.replyHandlers = nil;
         }
     };
 
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *earlyDate = [server earliestTimeTravelDate];
-
-    // If the last update happened before the current window, clear the old data.
-    if ([self.lastEndTime compare:earlyDate] == NSOrderedAscending) {
-        self.lastEndTime = nil;
-        self.oldEvents = nil;
-    }
-    NSDate *startTime = self.lastEndTime ? self.lastEndTime: earlyDate;
-    self.lastEndTime = [server latestTimeTravelDate];
-
-    // Get 24 hours extra, in case we're called just before lastEndTime.
-    [self.watchSession sendMessage:@{@"kind" : @"requestEvents",
-                                     @"first" : startTime,
-                                     @"last" : [self.lastEndTime dateByAddingTimeInterval:HOUR * 24]}
+    [self.watchSession sendMessage:[self eventRequestDictionary]
                       replyHandler:defaultHandler
-                      errorHandler:nil];
+                      errorHandler:
+        ^(NSError *error) {
+            // If it timed out, do a userInfo request.
+            if ([error.domain isEqualToString:@"WCErrorDomain"] && error.code == 7012) {
+                [self requestUserInfo];
+            } else {
+                NSLog(@"%@", error);
+            }
+        }];
 }
 
 - (NSDictionary *)currentEventForComplication:(CLKComplication *)complication
@@ -275,8 +346,9 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 {
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger count = 0;
+    CLKComplicationFamily family = complication.family;
     for (NSDictionary *event in [self.events reverseObjectEnumerator]) {
-        NSDate *testDate = [self timeForEvent:event];
+        NSDate *testDate = [self timeForEvent:event family:family];
         if ([testDate compare:date] == NSOrderedAscending) {
             [array addObject:[self getEntryforComplication:complication withEvent:event]];
             count++;
@@ -294,8 +366,9 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 {
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger count = 0;
+    CLKComplicationFamily family = complication.family;
     for (NSDictionary *event in self.events) {
-        NSDate *testDate = [self timeForEvent:event];
+        NSDate *testDate = [self timeForEvent:event family:family];
         if ([testDate compare:date] == NSOrderedDescending) {
             [array addObject:[self getEntryforComplication:complication withEvent:event]];
             count++;
@@ -310,19 +383,15 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
 - (void)getCurrentTimelineEntryForComplication:(CLKComplication *)complication
                                    withHandler:(void(^)(CLKComplicationTimelineEntry * __nullable))handler
 {
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                handler([self getCurrentTimelineEntryForComplication:complication]);
-            } else {
-                // TODO: get a "no station" placeholder.
-                handler(nil);
-            }
-        }];
-        return;
-    }
     // Call the handler with the current timeline entry
-    handler ([self getCurrentTimelineEntryForComplication:complication]);
+    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
+        if (isReady) {
+            handler([self getCurrentTimelineEntryForComplication:complication]);
+        } else {
+            // TODO: get a "no station" placeholder.
+            handler(nil);
+        }
+    }];
 }
 
 - (void)getTimelineEntriesForComplication:(CLKComplication *)complication
@@ -331,17 +400,13 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
                               withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
 {
     // Call the handler with the timeline entries prior to the given date
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
-            } else {
-                handler(nil);
-            }
-        }];
-        return;
-    }
-    handler ([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
+    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
+        if (isReady) {
+            handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
+        } else {
+            handler(nil);
+        }
+    }];
 }
 
 - (void)getTimelineEntriesForComplication:(CLKComplication *)complication
@@ -349,43 +414,34 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
                                     limit:(NSUInteger)limit
                               withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
 {
-    // Call the handler with the timeline entries prior to the given date
-    if (!self.events) {
-        [self requestComplicationsWithReplyHandler:^(NSDictionary *reply) {
-            if (reply) {
-                handler ([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
-            } else {
-                handler(nil);
-            }
-        }];
-        return;
-    }
-    handler([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
+    // Call the handler with the timeline entries after the given date
+    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
+        if (isReady) {
+            handler ([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
+        } else {
+            handler(nil);
+        }
+    }];
 }
 
 #pragma mark Update Scheduling
 
 - (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
 {
-    // Get updates when there's 1 day left to go.
     // The server start/end dates are bound by local midnights
     // and we get the max possible, so anything more frequent is pointless.
-    NSDate *next = [self.lastEndTime dateByAddingTimeInterval:(-HOUR * 24) + 60];
-    // For the odd chance that we've already passed "next".
-    NSDate *datePlus6 = [NSDate date];
-    handler([datePlus6 laterDate:next]);
+    // We get one extra day, so we can update at the end of the current range.
+    handler([[CLKComplicationServer sharedInstance] latestTimeTravelDate]);
 }
 
 - (void)requestedUpdateDidBegin
 {
+    // Our timeline always extends.
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-
-    self.oldEvents = self.events;
-    self.events = nil;
-
     for (CLKComplication *complication in server.activeComplications) {
         [server extendTimelineForComplication:complication];
     }
+//    [self requestComplicationsWithReplyHandler:nil];
 }
 
 - (void)requestedUpdateBudgetExhausted
@@ -437,6 +493,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     if (image) {
         CLKImageProvider *imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:image];
         imageProvider.tintColor = self.tintColor;
+        imageProvider.accessibilityLabel = [self imageAccessibilityLabelForEvent:event];
         return imageProvider;
     }
     NSLog(@"no image for event %@", event);
@@ -447,10 +504,18 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
  * SmallSimpleImage:
  *  Modular:  58 : 52
  *  Circular: 36 : 32
- * Utilitarian:
+ * Utilitarian
  *  Flat:     20 : 18
  *  Square:   50 : 46
  */
+
+- (NSString *)imageAccessibilityLabelForEvent:(NSDictionary * _Nullable)event
+{
+    if (!event) {
+        return @"";
+    }
+    return [NSString stringWithFormat:@"%@%@", [event objectForKey:@"desc"], [event objectForKey:@"level"]];
+}
 
 - (CLKImageProvider *)ringImageProviderForEvent:(NSDictionary * _Nullable)event
                                          family:(CLKComplicationFamily)family
@@ -472,6 +537,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     UIImage *bgImage = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:YES];
     CLKImageProvider *imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:bgImage twoPieceImageBackground:ring twoPieceImageForeground:hand];
     imageProvider.tintColor = self.tintColor;
+    imageProvider.accessibilityLabel = [self imageAccessibilityLabelForEvent:event];
     return imageProvider;
 }
 
@@ -539,22 +605,48 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
     return image;
 }
 
-// TODO: if event is nil, provide "Waiting" placeholder text.
+- (CLKTextProvider *)dateProviderForEvent:(NSDictionary * _Nullable)event
+{
+    if (!event) {
+        // Using a relative date here makes it show the date relative to when the
+        // placeholder was made. It's weird.
+        return [CLKDateTextProvider textProviderWithDate:[NSDate date]
+                                                   units:NSCalendarUnitHour | NSCalendarUnitMinute];
+    }
+    // For level events, show the upcoming event with a relative date.
+    // For predicted events, just show the event's relative date.
+    NSDictionary *next = [event objectForKey:@"next"];
+    NSDate *date = [next objectForKey:@"date"];
+    if (!date) {
+        date = [event objectForKey:@"date"];
+    }
+    CLKRelativeDateTextProvider *dateText =
+        [CLKRelativeDateTextProvider textProviderWithDate:date
+                                                    style:CLKRelativeDateStyleNatural
+                                                    units:NSCalendarUnitHour | NSCalendarUnitMinute];
+    if (next) {
+        CLKSimpleTextProvider *nextDesc = [self descTextProviderForEvent:next];
+        return [CLKTextProvider textProviderWithFormat:@"%@ %@", nextDesc, dateText];
+    }
+    return dateText;
+}
+
+// TODO: if event is nil, provide "Waiting" placeholder text?
 // The actual placeholder text shows up in Customize and should be meaningful.
 - (CLKComplicationTimelineEntry *)getEntryforComplication:(CLKComplication *)complication
                                                 withEvent:(NSDictionary *)event
 {
     CLKComplicationTemplate *template = nil;
-    NSDate *date = [event objectForKey:@"date"];
     switch (complication.family) {
     case CLKComplicationFamilyModularLarge:
         {
         CLKComplicationTemplateModularLargeStandardBody *large =
             [[CLKComplicationTemplateModularLargeStandardBody alloc] init];
         large.headerTextProvider = [self descTextProviderForEvent:event];
+        large.headerTextProvider.tintColor = self.tintColor;
         large.headerImageProvider = [self utilImageProviderForEvent:event];
         large.body1TextProvider = [self levelTextProviderForEvent:event];
-        large.body2TextProvider = [CLKTimeTextProvider textProviderWithDate:date];
+        large.body2TextProvider = [self dateProviderForEvent:event];
         template = large;
         }
         break;
@@ -570,15 +662,10 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         {
         CLKComplicationTemplateUtilitarianLargeFlat *large =
             [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
-        NSString *desc = [event objectForKey:@"desc"];
-        NSString *descShort = [event objectForKey:@"descShort"];
-        // Level starts with spaces.
-        NSString *level = [event objectForKey:@"level"];
-        NSString *levelShort = [event objectForKey:@"levelShort"];
-        NSString *combo = [NSString stringWithFormat:@"%@%@", desc, level];
-        NSString *comboShort = [NSString stringWithFormat:@"%@%@", descShort, levelShort];
-        
-        large.textProvider = [CLKSimpleTextProvider textProviderWithText:combo shortText:comboShort];
+        // level strings all start with spaces.
+        large.textProvider = [CLKTextProvider textProviderWithFormat:@"%@%@",
+                                                [self descTextProviderForEvent:event],
+                                                [self levelTextProviderForEvent:event]];
         large.imageProvider = [self utilImageProviderForEvent:event];
         template = large;
         }
@@ -588,13 +675,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
         small.imageProvider = [self utilImageProviderForEvent:event];
-        if (small.imageProvider) {
-            // It's a level event.
-            small.textProvider = [self levelTextProviderForEvent:event];
-        } else {
-            // It's a min/max event.
-            small.textProvider = [self descTextProviderForEvent:event];
-        }
+        small.textProvider = [self levelTextProviderForEvent:event];
         template = small;
         }
        break;
@@ -608,8 +689,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         break;
     }
 
-    // Show the complication a few minutes before the event.
-    return [CLKComplicationTimelineEntry entryWithDate:[self timeForEvent:event]
+    return [CLKComplicationTimelineEntry entryWithDate:[self timeForEvent:event family:complication.family]
                                   complicationTemplate:template];
 }
 
@@ -628,7 +708,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         large.headerTextProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
         large.headerImageProvider = [self utilImageProviderForEvent:nil];
         large.body1TextProvider = [CLKSimpleTextProvider textProviderWithText:@"Level"];
-        large.body2TextProvider = [CLKTimeTextProvider textProviderWithDate:[NSDate date]];
+        large.body2TextProvider = [self dateProviderForEvent:nil];
         template = large;
         }
         break;
@@ -644,7 +724,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         {
         CLKComplicationTemplateUtilitarianLargeFlat *large =
             [[CLKComplicationTemplateUtilitarianLargeFlat alloc] init];
-        large.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event"];
+        large.textProvider = [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Tide Event", @"Tide event placeholder")];
         large.imageProvider = [self utilImageProviderForEvent:nil];
         template = large;
         }
@@ -653,7 +733,7 @@ static NSTimeInterval EVENT_OFFSET = -10 * 60;
         {
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
-        small.textProvider = [CLKSimpleTextProvider textProviderWithText:@"Tide Event" shortText:@"Tide"];
+        small.textProvider = [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Tide Event", @"Tide event placeholder") shortText:NSLocalizedString(@"Tide", @"Short Tide event placeholder")];
         small.imageProvider = [self utilImageProviderForEvent:nil];
         template = small;
         }

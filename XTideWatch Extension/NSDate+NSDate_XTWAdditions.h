@@ -11,5 +11,6 @@
 @interface NSDate (NSDate_XTWAdditions_m)
 
 - (NSString *)localizedTimeAndRelativeDateString;
+- (NSString *)localizedRelativeDateString;
 
 @end

@@ -32,11 +32,24 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
 
-    [self setTitle:@"Min/Max"];
-    // The doc implies we could set up the table here, but all we can fix is the station name.
+    [self setTitle:NSLocalizedString(@"Min/Max", @"Title: Min/Max page")];
+    /*
+     * There is a bug which is hard to isolate: if we update the contents between now and
+     * willActivate, layout never happens and the contents can't be seen.
+     * Provide placeholder info if we don't have contents.
+     * It does not seem to be related to which thread we're on.
+     */
     NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
     if (info) {
         [self updateContentsFromInfo:info];
+    } else {
+        NSArray *events = @[@{@"desc":NSLocalizedString(@"High Tide", @"High Tide"),
+                              @"level":@" ...",
+                              @"type":@"hightide"},
+                            @{@"desc":NSLocalizedString(@"Low Tide", @"Low Tide"),
+                              @"level":@" ...",
+                              @"type":@"lowtide"}];
+        [self updateContentsFromInfo:@{@"clockEvents":events}];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -117,13 +130,13 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     // Set the label so it stops saying "Waiting for iPhone", and then bail.
     // TODO: file a bug.
     NSString *title = [info objectForKey:@"title"];
-    if (title) {
+    BOOL placeholder = title == nil;
+    if (!placeholder) {
         self.stationLabel.text = title;
     }
 
-    if (!self.isActive) {
-        return;
-    }
+    // Being on the main thread does not help.
+    NSAssert([NSThread isMainThread], @"is on main thread");
     NSArray *events = [info objectForKey:@"clockEvents"];
 
     if ([events count] < 2) {
@@ -131,18 +144,20 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     }
     // If it's the same date and station, it's the same data.
     NSInteger numberOfRows = [self.eventTable numberOfRows];
-    NSDate *nextFire = [[[events firstObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
-    // Set a timer to go off after the next minmax event, unless it's in the past.
-    // Then try the last minmax so we can dim it.
-    // Finally give it the default timeout.
-    if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
-        nextFire = [[[events lastObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
+    if (self.isActive) {
+        NSDate *nextFire = [[[events firstObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
+        // Set a timer to go off after the next minmax event, unless it's in the past.
+        // Then try the last minmax so we can dim it.
+        // Finally give it the default timeout.
         if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
-            nextFire = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_TIMEOUT];
+            nextFire = [[[events lastObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
+            if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
+                nextFire = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_TIMEOUT];
+            }
         }
+        self.fireDate = nextFire;
+        [self updateTimer];
     }
-    self.fireDate = nextFire;
-    [self updateTimer];
     if (numberOfRows != 2) {
         // Don't change unnecessarily; it flickers.
         [self.eventTable setNumberOfRows:[events count] withRowType:@"listRow"];
@@ -154,10 +169,12 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
         [row.descLabel setText:[event objectForKey:@"desc"]];
         [row.levelLabel setText:[event objectForKey:@"level"]];
         NSDate *date = [event objectForKey:@"date"];
-        [row.timeLabel setText:[date localizedTimeAndRelativeDateString]];
+        // For placeholders, show localized "Today" with no time.
+        [row.timeLabel setText:date ? [date localizedTimeAndRelativeDateString]
+                                    : [[NSDate date] localizedRelativeDateString]];
         [row.image setImage:[UIImage imageNamed:[event objectForKey:@"type"]]];
         UIColor *color = nil;
-        if ([date compare:[NSDate date]] == NSOrderedAscending) {
+        if (date && ([date compare:[NSDate date]] == NSOrderedAscending)) {
             // Dim everything when the date is in the past.
             // Doc says setTextColor:nil resets; it doesn't. rdar://27389249
             color = [UIColor darkGrayColor];
@@ -174,14 +191,14 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)didReceiveApplicationContext:(NSNotification *)note
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self updateContentsFromInfo:[note userInfo]];
     });
 }
 
 - (void)listUpdated:(NSNotification *)note
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_main_queue(), ^{
         [self updateContentsFromInfo:[note userInfo]];
     });
 }

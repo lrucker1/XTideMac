@@ -32,7 +32,7 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // loading/processing stations might take a while -- do it asynchronously
+    // loading/processing stations might take a while -- do it in the background.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.stationRefArray = [[XTStationIndex sharedStationIndex] stationRefArray];
         

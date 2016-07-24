@@ -135,7 +135,7 @@ static XTMapWindowController *selfContext;
                                                context:&selfContext];
 
 
-    NSMenu *searchMenu = [[NSMenu alloc] initWithTitle:@"Search Menu"];
+    NSMenu *searchMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Search Menu", @"Search menu")];
     [searchMenu setAutoenablesItems:YES];
     
     // first add our custom menu item (Important note: "action" MUST be valid or the menu item is disabled)
@@ -149,17 +149,20 @@ static XTMapWindowController *selfContext;
     NSMenuItem *separator =  [NSMenuItem separatorItem];
     [searchMenu insertItem:separator atIndex:1];
 
-    NSMenuItem *recentsTitleItem = [[NSMenuItem alloc] initWithTitle:@"Recent Searches" action:nil keyEquivalent:@""];
+    NSMenuItem *recentsTitleItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Recent Searches", @"Recent search menu")
+                                                              action:nil keyEquivalent:@""];
     // tag this menu item so NSSearchField can use it and respond to it appropriately
     [recentsTitleItem setTag:NSSearchFieldRecentsTitleMenuItemTag];
     [searchMenu insertItem:recentsTitleItem atIndex:2];
     
-    NSMenuItem *norecentsTitleItem = [[NSMenuItem alloc] initWithTitle:@"No recent searches" action:nil keyEquivalent:@""];
+    NSMenuItem *norecentsTitleItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"No recent searches", @"No recents item")
+                                                                action:nil keyEquivalent:@""];
     // tag this menu item so NSSearchField can use it and respond to it appropriately
     [norecentsTitleItem setTag:NSSearchFieldNoRecentsMenuItemTag];
     [searchMenu insertItem:norecentsTitleItem atIndex:3];
     
-    NSMenuItem *recentsItem = [[NSMenuItem alloc] initWithTitle:@"Recents" action:nil keyEquivalent:@""];
+    NSMenuItem *recentsItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Recents", @"Recents item")
+                                                         action:nil keyEquivalent:@""];
     // tag this menu item so NSSearchField can use it and respond to it appropriately
     [recentsItem setTag:NSSearchFieldRecentsMenuItemTag];	
     [searchMenu insertItem:recentsItem atIndex:4];
@@ -169,7 +172,8 @@ static XTMapWindowController *selfContext;
     [separatorItem setTag:NSSearchFieldRecentsTitleMenuItemTag];
     [searchMenu insertItem:separatorItem atIndex:5];
     
-    NSMenuItem *clearItem = [[NSMenuItem alloc] initWithTitle:@"Clear" action:nil keyEquivalent:@""];
+    NSMenuItem *clearItem = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Clear", @"Clear searches item")
+                                                       action:nil keyEquivalent:@""];
     [clearItem setTag:NSSearchFieldClearRecentsMenuItemTag];	// tag this menu item so NSSearchField can use it
     [searchMenu insertItem:clearItem atIndex:6];
     

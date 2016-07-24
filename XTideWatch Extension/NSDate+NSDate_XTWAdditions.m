@@ -22,4 +22,13 @@
     return [dateFormatter stringFromDate:self];
 }
 
+- (NSString *)localizedRelativeDateString
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.timeStyle = NSDateFormatterNoStyle;
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    dateFormatter.doesRelativeDateFormatting = YES;
+    return [dateFormatter stringFromDate:self];
+}
+
 @end

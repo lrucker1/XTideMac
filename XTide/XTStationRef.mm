@@ -101,7 +101,8 @@
 
 - (NSString *)subtitle
 {
-    return (mStationRef->isReferenceStation ? @"Reference" : @"Subordinate");
+    return (mStationRef->isReferenceStation ? NSLocalizedString(@"Reference", @"Reference station")
+                                            : NSLocalizedString(@"Subordinate", @"Subordinate station"));
 }
 
 

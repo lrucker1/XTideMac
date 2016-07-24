@@ -29,7 +29,6 @@
 		94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8A1CBF1938003BD343 /* GraphView.mm */; };
 		94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8D1CBF1967003BD343 /* TideTextViewController.m */; };
 		94041C911CBF1967003BD343 /* TideDataController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8F1CBF1967003BD343 /* TideDataController.mm */; };
-		94041C9E1CC0432F003BD343 /* XTMapWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041C9D1CC0432F003BD343 /* XTMapWindow.xib */; };
 		94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CA01CC043D6003BD343 /* XTMapWindowController.m */; };
 		94041CA41CC04969003BD343 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
 		94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
@@ -49,15 +48,11 @@
 		94041D521CC7ED9D003BD343 /* HighlightingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D511CC7ED9D003BD343 /* HighlightingView.m */; };
 		94041D551CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D541CC7EDC6003BD343 /* SuggestibleSearchFieldCell.m */; };
 		94041D5A1CC93BB7003BD343 /* XTPrefFlagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */; };
-		94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */; };
 		94041D661CC94E51003BD343 /* CalendarController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041D651CC94E51003BD343 /* CalendarController.mm */; };
 		94041D6C1CC95069003BD343 /* TideCalendar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D6A1CC95069003BD343 /* TideCalendar.xib */; };
 		94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D6E1CC98A71003BD343 /* XTApplication.m */; };
 		94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D701CCABB6A003BD343 /* TideGraphTest.xib */; };
 		94041D761CCC2909003BD343 /* XTStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D741CCC2909003BD343 /* XTStationInfoViewController.m */; };
-		94041D771CCC2909003BD343 /* XTStationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */; };
-		94041D791CCC417B003BD343 /* XTStationInfoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */; };
-		94041D7B1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */; };
 		940BAA8B1D2C4DD700E1C11B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940BAA8A1D2C4DD700E1C11B /* MapKit.framework */; };
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
@@ -69,11 +64,18 @@
 		9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017B1D318FE600203863 /* XTUITideTabBarController.m */; };
 		9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */; };
 		944501801D34120000203863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
+		9451F4D01D445E2C006DC606 /* XTMapWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4D21D445E2C006DC606 /* XTMapWindow.xib */; };
+		9451F4D31D445E33006DC606 /* libxtide.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4D61D445E33006DC606 /* libxtide.strings */; };
+		9451F4D41D445E33006DC606 /* libxtide.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4D61D445E33006DC606 /* libxtide.strings */; };
+		9451F4D71D445E5D006DC606 /* XTPrefFlagsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4D91D445E5D006DC606 /* XTPrefFlagsViewController.xib */; };
+		9451F4DA1D445E65006DC606 /* XTCalendarEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4DC1D445E65006DC606 /* XTCalendarEventViewController.xib */; };
+		9451F4DD1D445E71006DC606 /* XTStationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4DF1D445E71006DC606 /* XTStationInfoViewController.xib */; };
+		9451F4E01D445E77006DC606 /* XTStationInfoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4E21D445E77006DC606 /* XTStationInfoPopoverViewController.xib */; };
+		9451F4E31D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4E51D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib */; };
 		945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945282A41D4025DC00BA9DC0 /* EventKit.framework */; };
 		945282A61D4025E700BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945282AD1D403A1F00BA9DC0 /* XTCalendarEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */; };
-		945282AF1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */; };
 		945828D51D1E07C800972E1C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = 945828D41D1E07C800972E1C /* Credits.html */; };
 		945828E01D248BF300972E1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828DF1D248BF300972E1C /* main.m */; };
 		945828E31D248BF300972E1C /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945828E21D248BF300972E1C /* AppDelegate.mm */; };
@@ -336,7 +338,6 @@
 		94041C8F1CBF1967003BD343 /* TideDataController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataController.mm; sourceTree = "<group>"; };
 		94041C921CBF1A4E003BD343 /* XTStation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStation.h; sourceTree = "<group>"; };
 		94041C931CBF1B16003BD343 /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		94041C9D1CC0432F003BD343 /* XTMapWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTMapWindow.xib; sourceTree = "<group>"; };
 		94041C9F1CC043D6003BD343 /* XTMapWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTMapWindowController.h; sourceTree = "<group>"; };
 		94041CA01CC043D6003BD343 /* XTMapWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTMapWindowController.m; sourceTree = "<group>"; };
 		94041CA21CC047FC003BD343 /* XTStationRefInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStationRefInt.h; sourceTree = "<group>"; };
@@ -370,7 +371,6 @@
 		94041D561CC8425C003BD343 /* XTSettingsInt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTSettingsInt.h; sourceTree = "<group>"; };
 		94041D571CC93BB7003BD343 /* XTPrefFlagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTPrefFlagsViewController.h; sourceTree = "<group>"; };
 		94041D581CC93BB7003BD343 /* XTPrefFlagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTPrefFlagsViewController.m; sourceTree = "<group>"; };
-		94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTPrefFlagsViewController.xib; sourceTree = "<group>"; };
 		94041D641CC94E51003BD343 /* CalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarController.h; sourceTree = "<group>"; };
 		94041D651CC94E51003BD343 /* CalendarController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CalendarController.mm; sourceTree = "<group>"; };
 		94041D6B1CC95069003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideCalendar.xib; sourceTree = "<group>"; };
@@ -379,9 +379,6 @@
 		94041D711CCABB6A003BD343 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TideGraphTest.xib; sourceTree = "<group>"; };
 		94041D731CCC2908003BD343 /* XTStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTStationInfoViewController.h; sourceTree = "<group>"; };
 		94041D741CCC2909003BD343 /* XTStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTStationInfoViewController.m; sourceTree = "<group>"; };
-		94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoViewController.xib; sourceTree = "<group>"; };
-		94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewController.xib; sourceTree = "<group>"; };
-		94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTStationInfoPopoverViewControllerVibrant.xib; sourceTree = "<group>"; };
 		940BAA8A1D2C4DD700E1C11B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS2.2.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
@@ -396,12 +393,18 @@
 		9445017B1D318FE600203863 /* XTUITideTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUITideTabBarController.m; sourceTree = "<group>"; };
 		9445017D1D31A7DE00203863 /* XTUIStationInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTUIStationInfoViewController.h; sourceTree = "<group>"; };
 		9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTUIStationInfoViewController.m; sourceTree = "<group>"; };
+		9451F4D11D445E2C006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTMapWindow.xib; sourceTree = "<group>"; };
+		9451F4D51D445E33006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/libxtide.strings; sourceTree = "<group>"; };
+		9451F4D81D445E5D006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTPrefFlagsViewController.xib; sourceTree = "<group>"; };
+		9451F4DB1D445E65006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTCalendarEventViewController.xib; sourceTree = "<group>"; };
+		9451F4DE1D445E71006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTStationInfoViewController.xib; sourceTree = "<group>"; };
+		9451F4E11D445E77006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTStationInfoPopoverViewController.xib; sourceTree = "<group>"; };
+		9451F4E41D445E7C006DC606 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/XTStationInfoPopoverViewControllerVibrant.xib; sourceTree = "<group>"; };
 		945282311D3F419B00BA9DC0 /* XTTideEvent+EventKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "XTTideEvent+EventKit.h"; sourceTree = "<group>"; };
 		945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "XTTideEvent+EventKit.mm"; sourceTree = "<group>"; };
 		945282A41D4025DC00BA9DC0 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		945282AA1D403A1F00BA9DC0 /* XTCalendarEventViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTCalendarEventViewController.h; sourceTree = "<group>"; };
 		945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTCalendarEventViewController.m; sourceTree = "<group>"; };
-		945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTCalendarEventViewController.xib; sourceTree = "<group>"; };
 		945828D41D1E07C800972E1C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
 		945828DC1D248BF300972E1C /* XTide-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "XTide-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		945828DF1D248BF300972E1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -643,8 +646,8 @@
 				94041D701CCABB6A003BD343 /* TideGraphTest.xib */,
 				94041D3F1CC6EBF0003BD343 /* TideData.xib */,
 				94041CB31CC1943C003BD343 /* Preferences.xib */,
-				94041D591CC93BB7003BD343 /* XTPrefFlagsViewController.xib */,
-				945282AC1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib */,
+				9451F4D91D445E5D006DC606 /* XTPrefFlagsViewController.xib */,
+				9451F4DC1D445E65006DC606 /* XTCalendarEventViewController.xib */,
 				94041D391CC6D92D003BD343 /* Disclaimer.xib */,
 				946318EA1CBC3242001CD859 /* Info.plist */,
 				946318DF1CBC3242001CD859 /* AppDelegate.h */,
@@ -682,9 +685,9 @@
 				94041C8A1CBF1938003BD343 /* GraphView.mm */,
 				94041D731CCC2908003BD343 /* XTStationInfoViewController.h */,
 				94041D741CCC2909003BD343 /* XTStationInfoViewController.m */,
-				94041D751CCC2909003BD343 /* XTStationInfoViewController.xib */,
-				94041D781CCC417B003BD343 /* XTStationInfoPopoverViewController.xib */,
-				94041D7A1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib */,
+				9451F4DF1D445E71006DC606 /* XTStationInfoViewController.xib */,
+				9451F4E21D445E77006DC606 /* XTStationInfoPopoverViewController.xib */,
+				9451F4E51D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib */,
 			);
 			name = macOS;
 			sourceTree = "<group>";
@@ -694,7 +697,7 @@
 			children = (
 				94041D4E1CC7ED6E003BD343 /* suggestionprototype.xib */,
 				945828D41D1E07C800972E1C /* Credits.html */,
-				94041C9D1CC0432F003BD343 /* XTMapWindow.xib */,
+				9451F4D21D445E2C006DC606 /* XTMapWindow.xib */,
 				94041C711CBF1768003BD343 /* lh128.icns */,
 			);
 			name = Resources;
@@ -815,6 +818,7 @@
 				94CE162F1D28B8560088720D /* StateImages.xcassets */,
 				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
 				94041C6D1CBF1768003BD343 /* blank.png */,
+				9451F4D61D445E33006DC606 /* libxtide.strings */,
 				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
 				94041C6F1CBF1768003BD343 /* toolbar-list.png */,
 				94041C701CBF1768003BD343 /* toolbar-calendar.png */,
@@ -1325,6 +1329,7 @@
 			files = (
 				945829531D248DD200972E1C /* toolbar-graph.png in Resources */,
 				945829551D248DD200972E1C /* toolbar-calendar.png in Resources */,
+				9451F4D41D445E33006DC606 /* libxtide.strings in Resources */,
 				944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */,
 				945829521D248DD200972E1C /* blank.png in Resources */,
 				945829541D248DD200972E1C /* toolbar-list.png in Resources */,
@@ -1362,24 +1367,25 @@
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
 				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
 				94041C7E1CBF1768003BD343 /* blank.png in Resources */,
-				94041D771CCC2909003BD343 /* XTStationInfoViewController.xib in Resources */,
+				9451F4DD1D445E71006DC606 /* XTStationInfoViewController.xib in Resources */,
 				94041D411CC6EBF0003BD343 /* TideData.xib in Resources */,
 				94041D6C1CC95069003BD343 /* TideCalendar.xib in Resources */,
 				94041CAF1CC06B56003BD343 /* TideGraph.xib in Resources */,
 				94041D4F1CC7ED6E003BD343 /* suggestionprototype.xib in Resources */,
 				94041C801CBF1768003BD343 /* toolbar-list.png in Resources */,
 				94041CB51CC1943C003BD343 /* Preferences.xib in Resources */,
-				94041D791CCC417B003BD343 /* XTStationInfoPopoverViewController.xib in Resources */,
+				9451F4E01D445E77006DC606 /* XTStationInfoPopoverViewController.xib in Resources */,
 				946318E91CBC3242001CD859 /* MainMenu.xib in Resources */,
+				9451F4D31D445E33006DC606 /* libxtide.strings in Resources */,
 				945828D51D1E07C800972E1C /* Credits.html in Resources */,
-				94041C9E1CC0432F003BD343 /* XTMapWindow.xib in Resources */,
+				9451F4D01D445E2C006DC606 /* XTMapWindow.xib in Resources */,
 				94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */,
-				94041D7B1CCC4D25003BD343 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */,
+				9451F4E31D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */,
 				94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */,
 				94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */,
-				945282AF1D403A1F00BA9DC0 /* XTCalendarEventViewController.xib in Resources */,
+				9451F4DA1D445E65006DC606 /* XTCalendarEventViewController.xib in Resources */,
 				948353BC1CBC42FB0026F08A /* libxtide in Resources */,
-				94041D5B1CC93BB7003BD343 /* XTPrefFlagsViewController.xib in Resources */,
+				9451F4D71D445E5D006DC606 /* XTPrefFlagsViewController.xib in Resources */,
 				94CE16301D28B8560088720D /* StateImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1712,6 +1718,62 @@
 				94041D711CCABB6A003BD343 /* Base */,
 			);
 			name = TideGraphTest.xib;
+			sourceTree = "<group>";
+		};
+		9451F4D21D445E2C006DC606 /* XTMapWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4D11D445E2C006DC606 /* Base */,
+			);
+			name = XTMapWindow.xib;
+			sourceTree = "<group>";
+		};
+		9451F4D61D445E33006DC606 /* libxtide.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4D51D445E33006DC606 /* Base */,
+			);
+			name = libxtide.strings;
+			sourceTree = "<group>";
+		};
+		9451F4D91D445E5D006DC606 /* XTPrefFlagsViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4D81D445E5D006DC606 /* Base */,
+			);
+			name = XTPrefFlagsViewController.xib;
+			sourceTree = "<group>";
+		};
+		9451F4DC1D445E65006DC606 /* XTCalendarEventViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4DB1D445E65006DC606 /* Base */,
+			);
+			name = XTCalendarEventViewController.xib;
+			sourceTree = "<group>";
+		};
+		9451F4DF1D445E71006DC606 /* XTStationInfoViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4DE1D445E71006DC606 /* Base */,
+			);
+			name = XTStationInfoViewController.xib;
+			sourceTree = "<group>";
+		};
+		9451F4E21D445E77006DC606 /* XTStationInfoPopoverViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4E11D445E77006DC606 /* Base */,
+			);
+			name = XTStationInfoPopoverViewController.xib;
+			sourceTree = "<group>";
+		};
+		9451F4E51D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9451F4E41D445E7C006DC606 /* Base */,
+			);
+			name = XTStationInfoPopoverViewControllerVibrant.xib;
 			sourceTree = "<group>";
 		};
 		945828ED1D248BF300972E1C /* Main.storyboard */ = {

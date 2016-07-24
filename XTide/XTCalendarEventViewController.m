@@ -63,6 +63,14 @@
 {
     [super viewDidLoad];
     // Do view setup here.
+    [self.calendarPopup.menu setDelegate:self];
+    [self menuNeedsUpdate:self.calendarPopup.menu];
+}
+
+// Implement as delegate just in case the calendars change.
+- (void)menuNeedsUpdate:(NSMenu *)menu
+{
+    [menu removeAllItems];
     NSArray *calendars = [self.eventStore calendarsForEntityType:EKEntityTypeEvent];
     NSMutableArray *local = [NSMutableArray array];
     NSMutableArray *cloud = [NSMutableArray array];
@@ -82,7 +90,6 @@
     [local sortUsingDescriptors:@[nameSort]];
     [cloud sortUsingDescriptors:@[nameSort]];
 
-    NSMenu *menu = self.calendarPopup.menu;
     NSMenuItem *header = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"On My Mac", @"Name for local calendars")
                                                     action:nil
                                              keyEquivalent:@""];
@@ -103,8 +110,25 @@
         [menu addItem:[self menuItemForCalendar:cal]];
     }
     EKEvent *event = (EKEvent *)self.representedObject;
-    NSInteger sel = [menu indexOfItemWithRepresentedObject:event.calendar];
-    [self.calendarPopup selectItemAtIndex:sel];
+    if (event) {
+        NSInteger sel = [self.calendarPopup.menu indexOfItemWithRepresentedObject:event.calendar];
+        // There should always be a sel. If not, something very weird happened.
+        if (sel != -1) {
+            [self.calendarPopup selectItemAtIndex:sel];
+        }
+    }
+}
+
+- (void)setRepresentedObject:(id)representedObject
+{
+    [super setRepresentedObject:representedObject];
+    EKEvent *event = (EKEvent *)self.representedObject;
+    NSInteger sel = [self.calendarPopup.menu indexOfItemWithRepresentedObject:event.calendar];
+    if (sel == -1) {
+        [self menuNeedsUpdate:self.calendarPopup.menu];
+    } else {
+        [self.calendarPopup selectItemAtIndex:sel];
+    }
 }
 
 - (IBAction)addEvent:(id)sender

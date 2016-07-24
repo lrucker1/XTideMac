@@ -59,7 +59,7 @@
 
 - (void)dealloc
 {
-    // Created and owned by the TideEventOrganizer
+    // Copy of object owned by the TideEventOrganizer
 //    mTideEvent = NULL;
     eventDate = nil;
 }
@@ -95,6 +95,14 @@
              @"levelShort" : [self displayLevelShort],
              @"type" : [self eventTypeString],
              @"angle" : @([self clockAngle])};
+}
+
+// Dictionary for showing upcoming event in an interpolated level event.
+- (NSDictionary *)eventShortDictionary
+{
+    return @{@"date" : [self date],
+             @"desc" : [self longDescription],
+             @"descShort" : [self shortDictionaryDescription]};
 }
 
 // Used for images and watch complications
@@ -166,7 +174,10 @@
     if (eventDate) {
         return @"";
     }
-    return DstrToNSString(mTideEvent.longDescription());
+    // Localize the hard way.
+    NSString *key = DstrToNSString(mTideEvent.longDescription());
+    NSString *value = [[NSBundle mainBundle] localizedStringForKey:key value:@"" table:@"libxtide"];
+    return value ? value : key;
 }
 
 - (NSString *)shortDictionaryDescription
@@ -179,9 +190,9 @@
 
  	switch (self.eventType) {
     case libxtide::TideEvent::slackrise:
-        return @"Flood Begins";
+        return NSLocalizedString(@"Flood Begins", @"Short slackrise");
     case libxtide::TideEvent::slackfall:
-        return @"Ebb Begins";
+        return NSLocalizedString(@"Ebb Begins", @"Short slackfall");
     default:
         break;
 	}
