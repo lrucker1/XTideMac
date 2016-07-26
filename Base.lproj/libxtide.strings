@@ -6,7 +6,7 @@
   Copyright © 2016 Lee Ann Rucker. All rights reserved.
 */
 
-// Strings for TideEvent.cc
+// Strings for TideEvent.cc longDescription.
 "Max Flood" = "Max Flood";
 "Min Ebb" = "Min Ebb";
 "High Tide" = "High Tide";
