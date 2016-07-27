@@ -228,6 +228,11 @@ static NSArray *unitsPrefMap = nil;
         NSDictionary *nextShort = [next eventShortDictionary];
         libxtide::Interval timeDelta = (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime) / hours;
         currentTime = previousMaxOrMin.eventTime;
+         // Add extra ring events on the half-hour.
+        NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(currentTime + (timeDelta/2)),
+                                    @"angle"    : @(angle + (arcDelta/2)),
+                                    @"ringEvent" : @(YES)};
+        [array addObject:ringEvent];
         NSInteger i = 0;
         for (i = 0; i < hours-1; i++) {
             angle += arcDelta;
@@ -247,6 +252,11 @@ static NSArray *unitsPrefMap = nil;
                                     @"isRising" : @(isRising),
                                     @"next"     : nextShort};
             [array addObject:event];
+            // Add extra ring events on the half-hour.
+            NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(currentTime + (timeDelta/2)),
+                                        @"angle"    : @(angle + (arcDelta/2)),
+                                        @"ringEvent" : @(YES)};
+            [array addObject:ringEvent];
         }
         prev = next;
         next = [enumerator nextObject];

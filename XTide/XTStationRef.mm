@@ -101,10 +101,10 @@
 
 - (NSString *)subtitle
 {
-    NSString *refCurrent = NSLocalizedString(@"Tide currents (Reference station)", @"Reference current station");
-    NSString *subCurrent = NSLocalizedString(@"Tide currents (Subordinate station)", @"Subordinate current station");
-    NSString *refTide = NSLocalizedString(@"Tide levels (Reference station)", @"Reference tide station");
-    NSString *subTide = NSLocalizedString(@"Tide levels (Subordinate station)", @"Subordinate tide station");
+    NSString *refCurrent = NSLocalizedString(@"Tide currents reference station", @"Reference current station");
+    NSString *subCurrent = NSLocalizedString(@"Tide currents subordinate station", @"Subordinate current station");
+    NSString *refTide = NSLocalizedString(@"Tide level reference station", @"Reference tide station");
+    NSString *subTide = NSLocalizedString(@"Tide level subordinate station", @"Subordinate tide station");
     BOOL ref = self.isReferenceStation;
     return self.isCurrent ? (ref ? refCurrent : subCurrent)
                           : (ref ? refTide : subTide);

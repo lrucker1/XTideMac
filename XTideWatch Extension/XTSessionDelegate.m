@@ -32,7 +32,8 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
 
 - (void)requestUpdate
 {
-    if (![WCSession defaultSession].reachable) {
+    if (   ![WCSession defaultSession].reachable
+        || [WCSession defaultSession].activationState != WCSessionActivationStateActivated) {
         return;
     }
 
@@ -53,10 +54,11 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
         }
     }
     errorHandler:^(NSError *error){
-        // Ignore timeout errors while using debugger.
-        //if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
+        // Ignore timeout errors. Preventing them would be nice, but it's not essential;
+        // the chart updates every minute.
+        if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
             NSLog(@"requestUpdate: %@", error);
-        //}
+        }
     }];
 }
 

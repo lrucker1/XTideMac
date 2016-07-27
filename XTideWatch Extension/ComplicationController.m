@@ -104,7 +104,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (NSDate *)firstEventTimeForFamily:(CLKComplicationFamily)family
 {
-    return [self timeForEvent:[self.events firstObject] family:family];
+    return [self timeForEvent:[self firstEventForFamily:family] family:family];
 }
 
 // The time when the last event should dim, if we don't have any new ones.
@@ -342,18 +342,73 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }];
 }
 
+- (BOOL)isRingFamily:(CLKComplicationFamily)family
+{
+    switch (family) {
+        case CLKComplicationFamilyModularSmall:
+        case CLKComplicationFamilyCircularSmall:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
+// Although the event generator always starts with a standard event,
+// we might lose it when we filter against earliestTime.
+- (NSDictionary *)firstEventForFamily:(CLKComplicationFamily)family
+{
+    if ([self isRingFamily:family]) {
+        return [self.events firstObject];
+    }
+    NSDictionary *dict = [self.events firstObject];
+    if ([dict objectForKey:@"ringEvent"]) {
+        if ([self.events count] > 1) {
+            return [self.events objectAtIndex:1];
+        }
+        return nil;
+    }
+    return dict;
+}
+
+- (NSDictionary *)lastEventForFamily:(CLKComplicationFamily)family
+{
+    if ([self isRingFamily:family]) {
+        return [self.events lastObject];
+    }
+    NSDictionary *dict = [self.events lastObject];
+    if ([dict objectForKey:@"ringEvent"]) {
+        if ([self.events count] > 1) {
+            return [self.events objectAtIndex:[self.events count] - 2];
+        }
+        return nil;
+    }
+    return dict;
+}
+
+- (NSArray *)eventsForFamily:(CLKComplicationFamily)family
+{
+    if ([self isRingFamily:family]) {
+        return self.events;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"ringEvent == nil"];
+    NSArray *results = [self.events filteredArrayUsingPredicate:predicate];
+    return results;
+}
+
 - (NSDictionary *)currentEventForComplication:(CLKComplication *)complication
 {
     NSDate *date = [NSDate date];
-    NSDictionary *lastEvent = [self.events firstObject];
-    for (NSDictionary *event in self.events) {
+    NSArray *events = [self eventsForFamily:complication.family];
+    NSDictionary *lastEvent = [self lastEventForFamily:complication.family];
+    NSDictionary *lastTestedEvent = lastEvent;
+    for (NSDictionary *event in events) {
         NSDate *testDate = [event objectForKey:@"date"];
         if ([testDate compare:date] == NSOrderedDescending) {
-            return lastEvent;
+            return lastTestedEvent;
         }
-        lastEvent = event;
+        lastTestedEvent = event;
     }
-    return [self.events lastObject];
+    return lastEvent;
 }
 
 - (CLKComplicationTimelineEntry *)getCurrentTimelineEntryForComplication:(CLKComplication *)complication
@@ -375,7 +430,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger count = 0;
     CLKComplicationFamily family = complication.family;
-    for (NSDictionary *event in [self.events reverseObjectEnumerator]) {
+    NSArray *events = [self eventsForFamily:complication.family];
+    for (NSDictionary *event in [events reverseObjectEnumerator]) {
         NSDate *testDate = [self timeForEvent:event family:family];
         if ([testDate compare:date] == NSOrderedAscending) {
             [array addObject:[self getEntryforComplication:complication withEvent:event]];
@@ -395,7 +451,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger count = 0;
     CLKComplicationFamily family = complication.family;
-    for (NSDictionary *event in self.events) {
+    NSArray *events = [self eventsForFamily:complication.family];
+    for (NSDictionary *event in events) {
         NSDate *testDate = [self timeForEvent:event family:family];
         if ([testDate compare:date] == NSOrderedDescending) {
             [array addObject:[self getEntryforComplication:complication withEvent:event]];

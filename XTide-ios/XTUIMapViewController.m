@@ -518,11 +518,11 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
 // If this is sent because of a station change, the Complication will need to reload.
 - (NSDictionary *)complicationEvents
 {
-#if 1 // Change to 0 to test watch behavior with no data.
     XTStation *station = [[self stationRefForWatch] loadStation];
     if (!station) {
         return [NSDictionary dictionary];
     }
+#if 1 // Change to 0 to test watch behavior with no data.
     // Calendar complications run for 3 days from start of "yesterday"
     // We return 24 hours extra to allow for comm lags.
     if (!self.eventStartDate) {
