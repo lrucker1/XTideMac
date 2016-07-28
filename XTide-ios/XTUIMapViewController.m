@@ -68,7 +68,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     //[self.locationManager allowDeferredLocationUpdatesUntilTraveled:kUserLocMovement timeout:CLTimeIntervalMax];
     self.mapView.showsUserLocation = YES;
-    self.mapView.mapType = MKMapTypeHybrid;
+    self.mapView.mapType = MKMapTypeSatellite;
 
     [self loadStations];
     if (!self.refStations) {
@@ -312,25 +312,34 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self configureLocationTrackingForWatch];
 }
 
+- (void)updateTimerFired:(NSTimer *)timer
+{
+    if ([self.watchSession isComplicationEnabled]) {
+        NSDictionary *events = [self complicationEvents];
+        if (events) {
+            [self.watchSession transferCurrentComplicationUserInfo:events];
+        }
+    }
+}
+
 - (void)updateWatchState
 {
     if (!self.watchSession) {
         return;
     }
     XTStationRef *currentRef = [self findStationRefForWatch];
-    if (!currentRef) {
+    if (!currentRef && !self.stationRefForWatch) {
         /*
          * This can happen on first launch while the prompt for locServices is up
          * and there's no favorites list.
          */
         return;
     }
-    if ([currentRef isEqual:self.stationRefForWatch]) {
-        return;
+    // Always update, even if the station hasn't changed.
+    if (currentRef) {
+        self.stationRefForWatch = currentRef;
     }
-    self.stationRefForWatch = currentRef;
 
-    // TODO: Store the last known watch size so it's right when we do an update.
     NSDictionary *dict = [self clockInfoWithWidth:156 height:195 scale:2];
     NSError *error = nil;
     if (![self.watchSession updateApplicationContext:dict
@@ -484,6 +493,12 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self.watchSession activateSession];
     [self updateWatchState];
     [self configureLocationTrackingForWatch];
+    // Don't rely on the watch asking for complications; update it every day.
+    [NSTimer scheduledTimerWithTimeInterval:DAY
+                                     target:self
+                                   selector:@selector(updateTimerFired:)
+                                   userInfo:nil
+                                    repeats:YES];
 }
 
 

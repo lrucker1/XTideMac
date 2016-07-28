@@ -64,6 +64,12 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
                                              selector:@selector(listUpdated:)
                                                  name:XTSessionUpdateReplyNotification
                                                object:nil];
+
+
+    // TODO: Might want this to apply to complications.
+    [self addMenuItemWithImageNamed:@"ReturnToNow"
+                              title:NSLocalizedString(@"Update Info", @"update the chart and list")
+                             action:@selector(requestUpdate)];
 }
 
 // This timer runs even when the watch is not reachable so the contents will dim when we pass them.

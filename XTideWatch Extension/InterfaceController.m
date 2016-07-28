@@ -10,8 +10,6 @@
 #import "XTSessionDelegate.h"
 #import "NSDate+NSDate_XTWAdditions.h"
 
-#define DEBUG_MENU 0
-
 @interface InterfaceController()
 
 @property (nonatomic) WCSession *watchSession;
@@ -56,11 +54,9 @@
                                                object:nil];
 
 
-#if DEBUG_MENU
     [self addMenuItemWithImageNamed:@"ReturnToNow"
-                              title:NSLocalizedString(@"Update Chart", @"reload chart with current time")
+                              title:NSLocalizedString(@"Update Info", @"update the chart and list")
                              action:@selector(requestImage)];
-#endif
 }
 
 - (void)dealloc

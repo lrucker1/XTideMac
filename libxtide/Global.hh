@@ -117,8 +117,13 @@ namespace Global {
   // Client-side font used in RGBGraph.
   extern ClientSide::Font graphFont;
 
-
   // Functions.
+
+  // Init harmonics file mutex. Only one harmonics file instance can exist at a time, even for the same file.
+  // Wrappers used so they can be stubbed out if pthreads aren't supported. 
+  void mutex_init_harmonics();
+  void mutex_lock_harmonics();
+  void mutex_unlock_harmonics();
 
   // Initialize codeset from locale.  If TERM is vt100 or vt102, set
   // degreeSign accordingly.

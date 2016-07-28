@@ -23,6 +23,7 @@
 #include <locale.h>
 #include <sys/stat.h>
 #include <limits>       // No relation to limits.h
+#include <pthread.h>
 
 #define HAVE_DIRENT_H 1
 
@@ -63,6 +64,9 @@ const char Global::CSV_repchar ('|');
 
 // SCS: G0 = US-ASCII, G1 = Special Graphics.
 constString Global::VT100_init ("\033(B\033)0");
+
+
+pthread_mutex_t harmonicsMutex;
 
 
 // Determination of year limits for time control dialogs.
@@ -155,6 +159,18 @@ static void initDisclaimer() {
   }
 }
 
+
+void Global::mutex_init_harmonics() {
+  pthread_mutex_init(&harmonicsMutex, NULL);
+}
+
+void Global::mutex_lock_harmonics() {
+  pthread_mutex_lock(&harmonicsMutex);
+}
+
+void Global::mutex_unlock_harmonics() {
+  pthread_mutex_unlock(&harmonicsMutex);
+}
 
 void Global::initTerm() {
   if (codeset.isNull()) {
@@ -786,7 +802,7 @@ This agreement governs the use of the Software and any updates to the Software, 
  4. Limitation of Remedies and Liability. To the maximum extent permitted by applicable law, Red Hat or any Red Hat authorized dealer will not be liable to Client for any incidental or consequential damages, including lost profits or lost savings arising out of the use or inability to use the Software, even if Red Hat or such dealer has been advised of the possibility of such damages. 
 
  5. General. If any provision of this agreement is held to be unenforceable, that shall not affect the enforceability of the remaining provisions. This agreement shall be governed by the laws of the State of North Carolina and of the United States, without regard to any conflict of laws provisions, except that the United Nations Convention on the International Sale of Goods shall not apply.
-Copyright © 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
+Copyright ï¿½ 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
 */
 
 #ifndef NO_INITIALIZER_LISTS

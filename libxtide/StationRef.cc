@@ -24,19 +24,12 @@
 
 namespace libxtide {
 
-pthread_mutex_t mutex;
-bool hasMutex = 0;
-
 // Only one harmonics file instance can exist at a time, even for the same file.
 Station * const StationRef::load() const {
-  if (!hasMutex) {
-      pthread_mutex_init(&mutex, NULL);
-      hasMutex = 1;
-  }
-  pthread_mutex_lock(&mutex);
+  Global::mutex_lock_harmonics();
   HarmonicsFile h (harmonicsFileName);
   Station * s= h.getStation (*this);
-  pthread_mutex_unlock(&mutex);
+  Global::mutex_unlock_harmonics();
   return s;
 }
 

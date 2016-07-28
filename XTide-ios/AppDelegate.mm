@@ -25,6 +25,7 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
 
 + (void)initialize
 {
+   libxtide::Global::mutex_init_harmonics();
    libxtide::Global::settings.setMacDefaults();
    libxtide::Global::settings.applyMacResources();
 }

@@ -80,7 +80,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (void)didReceiveUserInfo:(NSNotification *)note
 {
-    [self updateEvents:[note userInfo] fromTransferRequest:YES];
+    [self updateEvents:[note userInfo] forCallback:NO];
 }
 
 #pragma mark - Timeline Configuration
@@ -93,13 +93,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         return [NSDate date];
     }
     // Rings update at the event time. The others bracket the event.
-    switch (family) {
-        case CLKComplicationFamilyModularSmall:
-        case CLKComplicationFamilyCircularSmall:
-            return [event objectForKey:@"date"];
-        default:
-            return [[event objectForKey:@"date"] dateByAddingTimeInterval:EVENT_OFFSET];
+    if ([self isRingFamily:family]) {
+        return [event objectForKey:@"date"];
     }
+    return [[event objectForKey:@"date"] dateByAddingTimeInterval:EVENT_OFFSET];
 }
 
 - (NSDate *)firstEventTimeForFamily:(CLKComplicationFamily)family
@@ -107,7 +104,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return [self timeForEvent:[self firstEventForFamily:family] family:family];
 }
 
-// The time when the last event should dim, if we don't have any new ones.
+// The time when the last event should dim, if we don't have any new ones,
+// which should only happen if the phone was out of reach for 24 hours!
 // This may be past latestTimeTravelDate; hopefully it won't complain.
 - (NSDate *)lastEventTime
 {
@@ -129,6 +127,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         if (isReady) {
             handler([self firstEventTimeForFamily:complication.family]);
         } else {
+            // Show the placeholder contents forever, or until the user picks a station.
             // It won't ask for anything else if you return "now"
             handler([[CLKComplicationServer sharedInstance] earliestTimeTravelDate]);
         }
@@ -143,6 +142,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             handler([self lastEventTime]);
         } else {
             // Show the placeholder contents forever, or until the user picks a station.
+            // Once it has a start and end date, it'll ask for Current and use it forever.
             handler([[CLKComplicationServer sharedInstance] latestTimeTravelDate]);
         }
     }];
@@ -166,7 +166,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 }
 
 - (void)updateEvents:(NSDictionary *)reply
- fromTransferRequest:(BOOL)fromTransferRequest
+         forCallback:(BOOL)forCallback
 {
     NSString *station = [reply objectForKey:@"station"];
     if (!station) {
@@ -182,17 +182,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     self.lastStation = station;
     [self processEvents:reply];
 
-    // If this came in from a transferRequest that isn't a timeline extension,
-    // it means the initial request for data failed so the get..withHandlers need to run again.
-    if (stationChange || (fromTransferRequest && !self.extendRequest)) {
-        CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-        for (CLKComplication *complication in server.activeComplications) {
-            [server reloadTimelineForComplication:complication];
-        }
-    } else if (self.extendRequest) {
+    // We don't want to reloadTimeline if there are handlers waiting to be called.
+    if (self.extendRequest) {
         CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
         for (CLKComplication *complication in server.activeComplications) {
             [server extendTimelineForComplication:complication];
+        }
+    } else if (stationChange && !forCallback) {
+        CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+        for (CLKComplication *complication in server.activeComplications) {
+            [server reloadTimelineForComplication:complication];
         }
     }
     self.extendRequest = NO;
@@ -312,7 +311,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
     // Default handler merges the reply with the existing events.
     id defaultHandler = ^(NSDictionary *reply) {
-        [self updateEvents:reply fromTransferRequest:NO];
+        [self updateEvents:reply forCallback:[self.replyHandlers count] != 0];
         // If the reply was empty, we'll still have the old events. Old data is better than none.
         BOOL isReady = self.events != nil;
         @synchronized (self) {
@@ -360,6 +359,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     if ([self isRingFamily:family]) {
         return [self.events firstObject];
     }
+    // A ringEvent only has date and angle.
     NSDictionary *dict = [self.events firstObject];
     if ([dict objectForKey:@"ringEvent"]) {
         if ([self.events count] > 1) {

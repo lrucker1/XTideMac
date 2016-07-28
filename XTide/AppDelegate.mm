@@ -41,6 +41,7 @@ static NSString * const XTWindow_restorationName = @"name";
 
 + (void)initialize
 {
+   libxtide::Global::mutex_init_harmonics();
    libxtide::Global::settings.setMacDefaults();
    libxtide::Global::settings.applyMacResources();
    libxtide::Global::setErrorCallback(&DisplayCoreError);
