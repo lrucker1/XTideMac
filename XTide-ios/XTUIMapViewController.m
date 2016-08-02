@@ -340,17 +340,39 @@ calloutAccessoryControlTapped:(UIControl *)control
         self.stationRefForWatch = currentRef;
     }
 
-    NSDictionary *dict = [self clockInfoWithWidth:156 height:195 scale:2];
-    NSError *error = nil;
-    if (![self.watchSession updateApplicationContext:dict
-                                               error:&error]) {
-        NSLog(@"Updating the context failed: %@", error.localizedDescription);
+    // Use the last size we sent, if we have it.
+    // Simulator doesn't seem to have a multiple-watch option.
+    CGFloat width = 156;
+    CGFloat height = 195;
+    CGFloat scale = 2;
+    NSDictionary *lastContext = [self.watchSession applicationContext];
+    if (lastContext) {
+        NSNumber *widthObj = [lastContext objectForKey:@"width"];
+        NSNumber *heightObj = [lastContext objectForKey:@"height"];
+        NSNumber *scaleObj = [lastContext objectForKey:@"scale"];
+        if (widthObj && heightObj) {
+            width = [widthObj floatValue];
+            height = [heightObj floatValue];
+            scale = [scaleObj floatValue];
+        }
     }
+    
+    [self updateApplicationContextWithWidth:width height:height scale:scale];
     if ([self.watchSession isComplicationEnabled]) {
         NSDictionary *events = [self complicationEvents];
         if (events) {
             [self.watchSession transferCurrentComplicationUserInfo:events];
         }
+    }
+}
+
+- (void)updateApplicationContextWithWidth:(CGFloat)width height:(CGFloat)height scale:(CGFloat)scale
+{
+    NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
+    NSError *error = nil;
+    if (![self.watchSession updateApplicationContext:dict
+                                               error:&error]) {
+        NSLog(@"Updating the context failed: %@", error.localizedDescription);
     }
 }
 
@@ -560,6 +582,25 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
 
 -   (void)session:(WCSession *)session
  didReceiveMessage:(NSDictionary<NSString *,id> *)message
+{
+    if (!self.stationRefForWatch) {
+        self.stationRefForWatch = [self findStationRefForWatch];
+        if (!self.stationRefForWatch) {
+            [self showWatchNeedsLocationAlert];
+            return;
+        }
+    }
+    NSString *kind = [message objectForKey:@"kind"];
+    if ([kind isEqualToString:@"requestImage"]) {
+        CGFloat width = [[message objectForKey:@"width"] floatValue];
+        CGFloat height = [[message objectForKey:@"height"] floatValue];
+        CGFloat scale = [[message objectForKey:@"scale"] floatValue];
+        [self updateApplicationContextWithWidth:width height:height scale:scale];
+    }
+}
+
+-   (void)session:(WCSession *)session
+ didReceiveMessage:(NSDictionary<NSString *,id> *)message
       replyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
 {
     if (!self.stationRefForWatch) {
@@ -571,17 +612,7 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         }
     }
     NSString *kind = [message objectForKey:@"kind"];
-    if ([kind isEqualToString:@"requestImage"]) {
-        CGFloat width = [[message objectForKey:@"width"] floatValue];
-        CGFloat height = [[message objectForKey:@"height"] floatValue];
-        CGFloat scale = [[message objectForKey:@"scale"] floatValue];
-        if (scale == 0) scale = 1;
-        if (width > 0 && height > 0) {
-            NSDictionary *dict = [self clockInfoWithWidth:width height:height scale:scale];
-            replyHandler( dict );
-            return;
-        }
-    } else if ([kind isEqualToString:@"requestEvents"]) {
+    if ([kind isEqualToString:@"requestEvents"]) {
         self.eventStartDate = [message objectForKey:@"first"];
         self.eventEndDate = [message objectForKey:@"last"];
         replyHandler( [self complicationEvents] );

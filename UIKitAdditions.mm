@@ -57,7 +57,11 @@
     UIGraphicsEndImageContext();
     NSData *data = UIImagePNGRepresentation(image);
 
-    return @{@"clockImage" : data, @"clockEvents": [organizer eventsAsDictionary], @"title" : self.name };
+    return @{@"clockImage" : data,
+             @"clockEvents": [organizer eventsAsDictionary],
+             @"title" : self.name,
+             @"width" : @(xsize),
+             @"height" : @(ysize) };
 }
 
 - (NSAttributedString *)stationInfo

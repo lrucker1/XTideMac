@@ -14,6 +14,8 @@
 static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 @interface XTWListInterfaceController ()
+
+@property (nonatomic) WCSession *watchSession;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) NSTimer *timer;
 @property (strong) NSDate *fireDate;
@@ -31,6 +33,8 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     [super awakeWithContext:context];
 
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
+    self.watchSession = [WCSession defaultSession];
+
 
     [self setTitle:NSLocalizedString(@"Min/Max", @"Title: Min/Max page")];
     /*
@@ -39,7 +43,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
      * Provide placeholder info if we don't have contents.
      * It does not seem to be related to which thread we're on.
      */
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    NSDictionary *info = [self.watchSession receivedApplicationContext];
     if (info) {
         [self updateContentsFromInfo:info];
     } else {
@@ -59,10 +63,6 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(didReceiveApplicationContext:)
                                                  name:XTSessionAppContextNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(listUpdated:)
-                                                 name:XTSessionUpdateReplyNotification
                                                object:nil];
 
 
@@ -90,8 +90,8 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)requestUpdate
 {
-    if (![WCSession defaultSession].reachable) {
-        NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    if (!self.watchSession.reachable) {
+        NSDictionary *info = [self.watchSession receivedApplicationContext];
         if (info) {
             [self updateContentsFromInfo:info];
         }
@@ -103,7 +103,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)updateTimer
 {
-    if (![WCSession defaultSession].isReachable) {
+    if (!self.watchSession.isReachable) {
         return;
     }
     if (self.timer) {
@@ -123,7 +123,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 - (void)reachabilityChanged:(NSNotification *)note
 {
-    if ([WCSession defaultSession].reachable) {
+    if (self.watchSession.reachable) {
         [self startTimer];
     } else {
         [self endTimer];
@@ -202,19 +202,12 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     });
 }
 
-- (void)listUpdated:(NSNotification *)note
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateContentsFromInfo:[note userInfo]];
-    });
-}
-
 - (void)willActivate
 {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     self.isActive = YES;
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    NSDictionary *info = [self.watchSession receivedApplicationContext];
     if (info) {
         [self updateContentsFromInfo:info];
     }

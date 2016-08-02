@@ -29,7 +29,7 @@
     self.sessionDelegate = [XTSessionDelegate sharedDelegate];
     self.watchSession = [WCSession defaultSession];
 
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    NSDictionary *info = [self.watchSession receivedApplicationContext];
     if (info) {
         [self updateContentsFromInfo:info];
     } else {
@@ -48,10 +48,6 @@
                                              selector:@selector(didReceiveApplicationContext:)
                                                  name:XTSessionAppContextNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(imageUpdated:)
-                                                 name:XTSessionUpdateReplyNotification
-                                               object:nil];
 
 
     [self addMenuItemWithImageNamed:@"ReturnToNow"
@@ -66,9 +62,6 @@
                                                   object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:XTSessionAppContextNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:XTSessionUpdateReplyNotification
                                                   object:nil];
 }
 
@@ -166,8 +159,8 @@
 {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-    // Update from prefs so there's something while we wait for the latest update.
-    NSDictionary *info = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentState"];
+    // Update from last info so there's something while we wait for the latest update.
+    NSDictionary *info = [self.watchSession receivedApplicationContext];
     if (info) {
         [self updateContentsFromInfo:info];
     }

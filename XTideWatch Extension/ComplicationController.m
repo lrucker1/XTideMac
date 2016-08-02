@@ -12,7 +12,7 @@
 @import WatchConnectivity;
 @import WatchKit;
 
-//static NSTimeInterval HOUR = 60 * 60;
+static NSTimeInterval HOUR = 60 * 60;
 // Show predicted complication 30 minutes before the event happens.
 static NSTimeInterval EVENT_OFFSET = -30 * 60;
 static NSTimeInterval DAY = 60 * 60 * 24;
@@ -514,9 +514,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
 {
     // The server start/end dates are bound by local midnights
-    // and we get the max possible, so anything more frequent is pointless.
-    // We get one extra day, so we can update at the end of the current range.
-    handler([[CLKComplicationServer sharedInstance] latestTimeTravelDate]);
+    // and we get the max possible, but reload every 12 hours
+    // just to be sure we're ready.
+    handler([NSDate dateWithTimeIntervalSinceNow:12 * HOUR]);
 }
 
 - (void)requestedUpdateDidBegin

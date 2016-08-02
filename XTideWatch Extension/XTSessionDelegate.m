@@ -14,7 +14,6 @@
 NSString * const XTSessionReachabilityDidChangeNotification = @"XTSessionReachabilityDidChangeNotification";
 NSString * const XTSessionAppContextNotification = @"XTSessionAppContextNotification";
 NSString * const XTSessionUserInfoNotification = @"XTSessionUserInfoNotification";
-NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotification";
 
 @implementation XTSessionDelegate
 
@@ -43,23 +42,10 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
                                               @"width"  : @(bounds.size.width),
                                               @"height" : @(bounds.size.height),
                                               @"scale"  : @(scale) }
-    replyHandler:^(NSDictionary *reply) {
-        if (reply) {
-            [[NSUserDefaults standardUserDefaults] setObject:reply forKey:@"currentState"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [[NSNotificationCenter defaultCenter]
-                        postNotificationName:XTSessionUpdateReplyNotification
-                                      object:self
-                                    userInfo:reply];
-        }
-    }
-    errorHandler:^(NSError *error){
-        // Ignore timeout errors. Preventing them would be nice, but it's not essential;
-        // the chart updates every minute.
-        if (!([[error domain] isEqualToString:@"WCErrorDomain"] && [error code] == 7012)) {
-            NSLog(@"requestUpdate: %@", error);
-        }
-    }];
+                               replyHandler:nil
+                               errorHandler:^(NSError *error){
+                                   NSLog(@"requestUpdate: %@", error);
+                               }];
 }
 
 - (void)sessionReachabilityDidChange:(WCSession *)session
@@ -72,8 +58,6 @@ NSString * const XTSessionUpdateReplyNotification = @"XTSessionUpdateReplyNotifi
 
 - (void)session:(WCSession *)session didReceiveApplicationContext:(NSDictionary<NSString *,id> *)applicationContext
 {
-    [[NSUserDefaults standardUserDefaults] setObject:applicationContext forKey:@"currentState"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSNotificationCenter defaultCenter]
                 postNotificationName:XTSessionAppContextNotification
 							  object:self
