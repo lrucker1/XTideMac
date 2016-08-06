@@ -36,11 +36,16 @@ extern NSString *XTide_units;		// u
 extern NSString *XTide_zulu;		// z
 
 
+void RegisterUserDefaults(NSUserDefaults *defaults);
+NSUserDefaults *XTSettings_GetUserDefaults();
+
 /*
  * Use this for the settings values used in CPP, so that they get set before
  * NSUserDefaults fires the change signal.
  */
 void XTSettings_SetShortcutToValue(const char *shortcut, id value);
+
+id XTSettings_ObjectForKey(NSString *key);
 
 NSArray *XTSettings_GetHarmonicsURLsFromPrefs();
 

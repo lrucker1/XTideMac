@@ -10,8 +10,15 @@
 #import "XTColorUtils.h"
 #import "XTGraph.h"
 
-#define SVG_EXPERIMENT 0
-#define IOS_ICONS 1
+#define SVG_EXPERIMENT 1
+#ifdef SVG_EXPERIMENT
+#import "XTStationInt.h"
+#import "XTUtils.h"
+#import "Graph.hh"
+#import "SVGGraph.hh"
+#endif
+
+#define IOS_ICONS 0
 
 @implementation XTStationRef (MacOSAdditions)
 
@@ -69,6 +76,7 @@
     dateComponents.hour = 6;
     NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDate *date = [gregorianCalendar dateFromComponents:dateComponents];
+#if IOS_ICONS
     NSString *fileLoc = [@"~/watchBackground38@2x.png" stringByExpandingTildeInPath];
     if (fileLoc) {
         [self createWatchPlaceholderImage:fileLoc
@@ -89,15 +97,17 @@
                                      rect:CGRectMake(0, 0, 512 * scale, 512 * scale)
                                      date:date];
     }
+#endif
 
 #if SVG_EXPERIMENT
-    // This works, but isn't as pretty as the images - colors are muddy, font isn't clear.
+    // This works, but isn't as pretty as the images - no translucency, font isn't sharp,
+    // no + mark for the current time.
     // PNG files are small enough to transfer to the watch.
-    // Also I don't even know if the watch handles SVGs that aren't in files.
-    fileLoc = [@"~/watchBackground.svg" stringByExpandingTildeInPath];
+    // Also the watch doesn't handle SVGs that aren't in files, though PocketSVG is an option.
+    NSString *svgFileLoc = [@"~/watchBackground.svg" stringByExpandingTildeInPath];
     NSData *svgImage = [self SVGClockImageWithWidth:136 * scale height:170 * scale date:date];
     if (svgImage) {
-        [svgImage writeToFile:fileLoc atomically:YES];
+        [svgImage writeToFile:svgFileLoc atomically:YES];
     }
 #endif
 }

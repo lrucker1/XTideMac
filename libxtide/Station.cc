@@ -408,7 +408,7 @@ void Station::addSimpleTideEvents (Timestamp startTime,
                                    Timestamp endTime,
                                    TideEventsOrganizer &organizer,
                                    TideEventsFilter filter) {
-  bool isRising;
+  bool isRising = 0;
   TideEvent te;
 
   // loopTime is the "internal" timestamp for scanning the reference

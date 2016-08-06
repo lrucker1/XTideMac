@@ -106,7 +106,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
             [subs addObject:station];
         }
     }
-    self.stationRefForWatch = [self findStationRefForWatch];
+    self.stationRefForWatch = [self findClosestStationRef];
     self.currentDotColor = ColorForKey(XTide_ColorKeys[currentdotcolor]);
     self.tideDotColor = ColorForKey(XTide_ColorKeys[tidedotcolor]);
     self.refStations = refs;
@@ -250,6 +250,7 @@ regionDidChangeAnimated:(BOOL)animated
         return;
     }
     [self updateAnnotation:ref];
+    [super viewDidAppear:animated];
 }
 
 
@@ -324,10 +325,11 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 - (void)updateWatchState
 {
+    // Closest is used by watch and Today widget.
+    XTStationRef *currentRef = [self findClosestStationRef];
     if (!self.watchSession) {
         return;
     }
-    XTStationRef *currentRef = [self findStationRefForWatch];
     if (!currentRef && !self.stationRefForWatch) {
         /*
          * This can happen on first launch while the prompt for locServices is up
@@ -460,15 +462,19 @@ calloutAccessoryControlTapped:(UIControl *)control
  * Second option: closest ref station. Update when the user location has moved more than
  *  a distance that's kind of arbitrary.
  * If there's no location services, pick the first favorite.
- * If that fails, we'll show showWatchNeedsLocationAlert when the watch asks for data.
+ * If that fails, either pick the nearest ref station, or we'll show showWatchNeedsLocationAlert when the watch asks for data.
+ * Choosing the station seems fast enough, but we can still fail to have a favorite on the Today or Watch
+ * if those run before this does.
  */
-- (XTStationRef *)findStationRefForWatch
+- (XTStationRef *)findClosestStationRef
 {
     XTStationIndex *stationIndex = [XTStationIndex sharedStationIndex];
     NSAssert(self.locationManager, @"Calling this too soon!");
     CLLocation *userLoc = self.locationManager.location;
     if (!userLoc) {
-        return [[stationIndex favoriteStationRefs] firstObject];
+        XTStationRef *ref = [[stationIndex favoriteStationRefs] firstObject];
+        [stationIndex saveClosestFavorite:ref];
+        return ref;
     }
 
     XTStationRef *ref = [stationIndex favoriteNearestLocation:userLoc];
@@ -487,6 +493,7 @@ calloutAccessoryControlTapped:(UIControl *)control
             ref = [stationIndex stationRefNearestLocation:userLoc inStations:self.refStations];
         }
     }
+    [stationIndex saveClosestFavorite:ref];
     return ref;
 }
 
@@ -584,7 +591,7 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
  didReceiveMessage:(NSDictionary<NSString *,id> *)message
 {
     if (!self.stationRefForWatch) {
-        self.stationRefForWatch = [self findStationRefForWatch];
+        self.stationRefForWatch = [self findClosestStationRef];
         if (!self.stationRefForWatch) {
             [self showWatchNeedsLocationAlert];
             return;
@@ -604,7 +611,7 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
       replyHandler:(void (^)(NSDictionary<NSString *,id> *replyMessage))replyHandler
 {
     if (!self.stationRefForWatch) {
-        self.stationRefForWatch = [self findStationRefForWatch];
+        self.stationRefForWatch = [self findClosestStationRef];
         if (!self.stationRefForWatch) {
             [self showWatchNeedsLocationAlert];
             replyHandler(nil);

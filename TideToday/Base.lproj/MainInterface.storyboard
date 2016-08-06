@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="120"/>
+                    <connections>
+                        <outlet property="eventLabel" destination="b0t-yN-WvQ" id="LI7-XT-ph8"/>
+                        <outlet property="graphView" destination="z86-ai-n20" id="aHB-HR-HiM"/>
+                        <outlet property="label" destination="GcN-lo-r42" id="8a1-Cu-Edw"/>
+                        <outlet property="noFavoritesView" destination="JPZ-H1-Fcs" id="8Im-qq-P6v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="z86-ai-n20" customClass="XTTodayGraphView">
+                    <rect key="frame" x="0.0" y="0.0" width="288" height="120"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="No tide station" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
+                            <rect key="frame" x="4" y="0.0" width="280" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Event" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="b0t-yN-WvQ">
+                            <rect key="frame" x="0.0" y="94" width="288" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="b0t-yN-WvQ" secondAttribute="trailing" id="JrC-t4-ipW"/>
+                        <constraint firstAttribute="bottom" secondItem="b0t-yN-WvQ" secondAttribute="bottom" constant="5" id="Ljz-vE-Bm2"/>
+                        <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="z86-ai-n20" secondAttribute="leading" constant="4" id="eRA-3o-zwd"/>
+                        <constraint firstAttribute="trailing" secondItem="GcN-lo-r42" secondAttribute="trailing" constant="4" id="ekt-SC-Jo7"/>
+                        <constraint firstItem="b0t-yN-WvQ" firstAttribute="leading" secondItem="z86-ai-n20" secondAttribute="leading" id="hZj-xK-EYO"/>
+                        <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="z86-ai-n20" secondAttribute="top" id="up6-qt-zu8"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" id="JPZ-H1-Fcs">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="46"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fER-ex-T0i">
+                            <rect key="frame" x="20" y="8" width="201" height="30"/>
+                            <state key="normal" title="Choose a favorite tide station"/>
+                            <connections>
+                                <action selector="openApp" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="2RQ-or-vUv"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <accessibility key="accessibilityConfiguration" identifier="NoFavorites"/>
+                    <constraints>
+                        <constraint firstItem="fER-ex-T0i" firstAttribute="centerX" secondItem="JPZ-H1-Fcs" secondAttribute="centerX" id="dZM-vs-ATW"/>
+                        <constraint firstItem="fER-ex-T0i" firstAttribute="centerY" secondItem="JPZ-H1-Fcs" secondAttribute="centerY" id="dhU-99-Fip"/>
+                    </constraints>
+                </view>
+            </objects>
+            <point key="canvasLocation" x="516" y="284"/>
+        </scene>
+    </scenes>
+</document>

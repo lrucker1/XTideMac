@@ -53,7 +53,6 @@
 		94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D6E1CC98A71003BD343 /* XTApplication.m */; };
 		94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041D701CCABB6A003BD343 /* TideGraphTest.xib */; };
 		94041D761CCC2909003BD343 /* XTStationInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041D741CCC2909003BD343 /* XTStationInfoViewController.m */; };
-		940BAA8B1D2C4DD700E1C11B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 940BAA8A1D2C4DD700E1C11B /* MapKit.framework */; };
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
@@ -72,7 +71,6 @@
 		9451F4DD1D445E71006DC606 /* XTStationInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4DF1D445E71006DC606 /* XTStationInfoViewController.xib */; };
 		9451F4E01D445E77006DC606 /* XTStationInfoPopoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4E21D445E77006DC606 /* XTStationInfoPopoverViewController.xib */; };
 		9451F4E31D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9451F4E51D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib */; };
-		945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 945282A41D4025DC00BA9DC0 /* EventKit.framework */; };
 		945282A61D4025E700BA9DC0 /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
 		945282AD1D403A1F00BA9DC0 /* XTCalendarEventViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 945282AB1D403A1F00BA9DC0 /* XTCalendarEventViewController.m */; };
@@ -85,19 +83,10 @@
 		945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 945828F21D248BF300972E1C /* LaunchScreen.storyboard */; };
 		945828FF1D248BF300972E1C /* XTide_iosTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945828FE1D248BF300972E1C /* XTide_iosTests.m */; };
 		9458290A1D248BF300972E1C /* XTide_iosUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 945829091D248BF300972E1C /* XTide_iosUITests.m */; };
-		945829431D248D9A00972E1C /* tide_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D311CC1CE3E003BD343 /* tide_db.c */; };
-		945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
 		945829521D248DD200972E1C /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
 		945829531D248DD200972E1C /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		945829541D248DD200972E1C /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
 		945829551D248DD200972E1C /* toolbar-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C701CBF1768003BD343 /* toolbar-calendar.png */; };
-		945829571D24935A00972E1C /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
-		9458295A1D24935A00972E1C /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
-		9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
-		9458295C1D24935A00972E1C /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
-		9458295D1D24935A00972E1C /* XTTideEventsOrganizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */; };
-		9458295E1D24935A00972E1C /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
-		945829601D24935A00972E1C /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
 		946318E11CBC3242001CD859 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 946318E01CBC3242001CD859 /* AppDelegate.mm */; };
 		946318E41CBC3242001CD859 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 946318E31CBC3242001CD859 /* main.m */; };
 		946318E61CBC3242001CD859 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 946318E51CBC3242001CD859 /* Assets.xcassets */; };
@@ -111,95 +100,48 @@
 		948B181A1D4165C0002378B7 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18151D4165C0002378B7 /* Amplitude.cc */; };
 		948B181B1D4165C0002378B7 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18171D4165C0002378B7 /* Angle.cc */; };
 		948B187F1D4165D2002378B7 /* Banner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B181D1D4165D1002378B7 /* Banner.cc */; };
-		948B18801D4165D2002378B7 /* Banner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B181D1D4165D1002378B7 /* Banner.cc */; };
 		948B18811D4165D2002378B7 /* Calendar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18201D4165D1002378B7 /* Calendar.cc */; };
-		948B18821D4165D2002378B7 /* Calendar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18201D4165D1002378B7 /* Calendar.cc */; };
 		948B18831D4165D2002378B7 /* CalendarFormC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18221D4165D1002378B7 /* CalendarFormC.cc */; };
-		948B18841D4165D2002378B7 /* CalendarFormC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18221D4165D1002378B7 /* CalendarFormC.cc */; };
 		948B18851D4165D2002378B7 /* CalendarFormH.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18241D4165D1002378B7 /* CalendarFormH.cc */; };
-		948B18861D4165D2002378B7 /* CalendarFormH.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18241D4165D1002378B7 /* CalendarFormH.cc */; };
 		948B18871D4165D2002378B7 /* CalendarFormL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18261D4165D1002378B7 /* CalendarFormL.cc */; };
-		948B18881D4165D2002378B7 /* CalendarFormL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18261D4165D1002378B7 /* CalendarFormL.cc */; };
 		948B18891D4165D2002378B7 /* CalendarFormNotC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18281D4165D1002378B7 /* CalendarFormNotC.cc */; };
-		948B188A1D4165D2002378B7 /* CalendarFormNotC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18281D4165D1002378B7 /* CalendarFormNotC.cc */; };
 		948B188B1D4165D2002378B7 /* CalendarFormT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182A1D4165D1002378B7 /* CalendarFormT.cc */; };
-		948B188C1D4165D2002378B7 /* CalendarFormT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182A1D4165D1002378B7 /* CalendarFormT.cc */; };
 		948B188D1D4165D2002378B7 /* ClientSideFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182C1D4165D1002378B7 /* ClientSideFont.cc */; };
-		948B188E1D4165D2002378B7 /* ClientSideFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182C1D4165D1002378B7 /* ClientSideFont.cc */; };
 		948B188F1D4165D2002378B7 /* Colors.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182E1D4165D1002378B7 /* Colors.cc */; };
-		948B18901D4165D2002378B7 /* Colors.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182E1D4165D1002378B7 /* Colors.cc */; };
 		948B18911D4165D2002378B7 /* Constituent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18321D4165D1002378B7 /* Constituent.cc */; };
-		948B18921D4165D2002378B7 /* Constituent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18321D4165D1002378B7 /* Constituent.cc */; };
 		948B18931D4165D2002378B7 /* ConstituentSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18341D4165D1002378B7 /* ConstituentSet.cc */; };
-		948B18941D4165D2002378B7 /* ConstituentSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18341D4165D1002378B7 /* ConstituentSet.cc */; };
 		948B18951D4165D2002378B7 /* Coordinates.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18361D4165D1002378B7 /* Coordinates.cc */; };
-		948B18961D4165D2002378B7 /* Coordinates.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18361D4165D1002378B7 /* Coordinates.cc */; };
 		948B18971D4165D2002378B7 /* CurrentBearing.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18381D4165D1002378B7 /* CurrentBearing.cc */; };
-		948B18981D4165D2002378B7 /* CurrentBearing.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18381D4165D1002378B7 /* CurrentBearing.cc */; };
 		948B18991D4165D2002378B7 /* Date.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183A1D4165D1002378B7 /* Date.cc */; };
-		948B189A1D4165D2002378B7 /* Date.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183A1D4165D1002378B7 /* Date.cc */; };
 		948B189B1D4165D2002378B7 /* Dstr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183C1D4165D1002378B7 /* Dstr.cc */; };
-		948B189C1D4165D2002378B7 /* Dstr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183C1D4165D1002378B7 /* Dstr.cc */; };
 		948B189D1D4165D2002378B7 /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183F1D4165D1002378B7 /* Global.cc */; };
-		948B189E1D4165D2002378B7 /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183F1D4165D1002378B7 /* Global.cc */; };
 		948B189F1D4165D2002378B7 /* Graph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18411D4165D1002378B7 /* Graph.cc */; };
-		948B18A01D4165D2002378B7 /* Graph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18411D4165D1002378B7 /* Graph.cc */; };
 		948B18A11D4165D2002378B7 /* HarmonicsFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18431D4165D1002378B7 /* HarmonicsFile.cc */; };
-		948B18A21D4165D2002378B7 /* HarmonicsFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18431D4165D1002378B7 /* HarmonicsFile.cc */; };
 		948B18A31D4165D2002378B7 /* HarmonicsPath.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18451D4165D1002378B7 /* HarmonicsPath.cc */; };
-		948B18A41D4165D2002378B7 /* HarmonicsPath.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18451D4165D1002378B7 /* HarmonicsPath.cc */; };
 		948B18A51D4165D2002378B7 /* Interval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18471D4165D1002378B7 /* Interval.cc */; };
-		948B18A61D4165D2002378B7 /* Interval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18471D4165D1002378B7 /* Interval.cc */; };
 		948B18A71D4165D2002378B7 /* MetaField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184A1D4165D1002378B7 /* MetaField.cc */; };
-		948B18A81D4165D2002378B7 /* MetaField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184A1D4165D1002378B7 /* MetaField.cc */; };
 		948B18A91D4165D2002378B7 /* Nullable.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184D1D4165D1002378B7 /* Nullable.cc */; };
-		948B18AA1D4165D2002378B7 /* Nullable.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184D1D4165D1002378B7 /* Nullable.cc */; };
 		948B18AB1D4165D2002378B7 /* NullableInterval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184F1D4165D1002378B7 /* NullableInterval.cc */; };
-		948B18AC1D4165D2002378B7 /* NullableInterval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184F1D4165D1002378B7 /* NullableInterval.cc */; };
 		948B18AD1D4165D2002378B7 /* NullablePredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18511D4165D1002378B7 /* NullablePredictionValue.cc */; };
-		948B18AE1D4165D2002378B7 /* NullablePredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18511D4165D1002378B7 /* NullablePredictionValue.cc */; };
 		948B18AF1D4165D2002378B7 /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18531D4165D1002378B7 /* Offsets.cc */; };
-		948B18B01D4165D2002378B7 /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18531D4165D1002378B7 /* Offsets.cc */; };
 		948B18B11D4165D2002378B7 /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18551D4165D1002378B7 /* PixelatedGraph.cc */; };
-		948B18B21D4165D2002378B7 /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18551D4165D1002378B7 /* PixelatedGraph.cc */; };
 		948B18B31D4165D2002378B7 /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18571D4165D1002378B7 /* PredictionValue.cc */; };
-		948B18B41D4165D2002378B7 /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18571D4165D1002378B7 /* PredictionValue.cc */; };
 		948B18B51D4165D2002378B7 /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185A1D4165D1002378B7 /* RGBGraph.cc */; };
-		948B18B61D4165D2002378B7 /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185A1D4165D1002378B7 /* RGBGraph.cc */; };
 		948B18B71D4165D2002378B7 /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185D1D4165D1002378B7 /* Settings.cc */; };
-		948B18B81D4165D2002378B7 /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185D1D4165D1002378B7 /* Settings.cc */; };
 		948B18B91D4165D2002378B7 /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185F1D4165D1002378B7 /* Skycal.cc */; };
-		948B18BA1D4165D2002378B7 /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185F1D4165D1002378B7 /* Skycal.cc */; };
 		948B18BB1D4165D2002378B7 /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18611D4165D1002378B7 /* Speed.cc */; };
-		948B18BC1D4165D2002378B7 /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18611D4165D1002378B7 /* Speed.cc */; };
 		948B18BD1D4165D2002378B7 /* Station.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18631D4165D1002378B7 /* Station.cc */; };
-		948B18BE1D4165D2002378B7 /* Station.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18631D4165D1002378B7 /* Station.cc */; };
 		948B18BF1D4165D2002378B7 /* StationIndex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18651D4165D1002378B7 /* StationIndex.cc */; };
-		948B18C01D4165D2002378B7 /* StationIndex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18651D4165D1002378B7 /* StationIndex.cc */; };
 		948B18C11D4165D2002378B7 /* StationRef.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18671D4165D1002378B7 /* StationRef.cc */; };
-		948B18C21D4165D2002378B7 /* StationRef.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18671D4165D1002378B7 /* StationRef.cc */; };
 		948B18C31D4165D2002378B7 /* SubordinateStation.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18691D4165D1002378B7 /* SubordinateStation.cc */; };
-		948B18C41D4165D2002378B7 /* SubordinateStation.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18691D4165D1002378B7 /* SubordinateStation.cc */; };
 		948B18C51D4165D2002378B7 /* SVGGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186B1D4165D1002378B7 /* SVGGraph.cc */; };
-		948B18C61D4165D2002378B7 /* SVGGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186B1D4165D1002378B7 /* SVGGraph.cc */; };
 		948B18C71D4165D2002378B7 /* TideEvent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186D1D4165D1002378B7 /* TideEvent.cc */; };
-		948B18C81D4165D2002378B7 /* TideEvent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186D1D4165D1002378B7 /* TideEvent.cc */; };
 		948B18C91D4165D2002378B7 /* TideEventsOrganizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186F1D4165D1002378B7 /* TideEventsOrganizer.cc */; };
-		948B18CA1D4165D2002378B7 /* TideEventsOrganizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186F1D4165D1002378B7 /* TideEventsOrganizer.cc */; };
 		948B18CB1D4165D2002378B7 /* Timestamp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18711D4165D1002378B7 /* Timestamp.cc */; };
-		948B18CC1D4165D2002378B7 /* Timestamp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18711D4165D1002378B7 /* Timestamp.cc */; };
 		948B18CD1D4165D2002378B7 /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18731D4165D1002378B7 /* TTYGraph.cc */; };
-		948B18CE1D4165D2002378B7 /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18731D4165D1002378B7 /* TTYGraph.cc */; };
 		948B18CF1D4165D2002378B7 /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18751D4165D1002378B7 /* Units.cc */; };
-		948B18D01D4165D2002378B7 /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18751D4165D1002378B7 /* Units.cc */; };
 		948B18D91D4165D2002378B7 /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B187D1D4165D1002378B7 /* Year.cc */; };
-		948B18DA1D4165D2002378B7 /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B187D1D4165D1002378B7 /* Year.cc */; };
-		948B18DB1D4165FC002378B7 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18151D4165C0002378B7 /* Amplitude.cc */; };
-		948B18DC1D4165FF002378B7 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18171D4165C0002378B7 /* Angle.cc */; };
 		94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* AppKitAdditions.mm */; };
-		94CE15D01D249EED0088720D /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
-		94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
-		94CE15D21D24A3CE0088720D /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
 		94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DA1D24A6650088720D /* MapKit.framework */; };
 		94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DC1D24A6810088720D /* UIKit.framework */; };
 		94CE15DF1D24A69E0088720D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DE1D24A69E0088720D /* Foundation.framework */; };
@@ -207,10 +149,8 @@
 		94CE15E71D24DFBD0088720D /* XTUIGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E61D24DFBD0088720D /* XTUIGraphView.m */; };
 		94CE15EB1D24E18A0088720D /* XTUIGraphViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15E91D24E18A0088720D /* XTUIGraphViewController.m */; };
 		94CE15ED1D24F8000088720D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
-		94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
 		94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F31D26E6740088720D /* XTUIStationTableViewController.mm */; };
 		94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F61D272F2E0088720D /* XTUIFavoritesTableViewController.m */; };
-		94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F81D284BB40088720D /* UIKitAdditions.mm */; };
 		94CE16011D287E690088720D /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94CE15FF1D287E690088720D /* Interface.storyboard */; };
 		94CE16031D287E690088720D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE16021D287E690088720D /* Assets.xcassets */; };
 		94CE160A1D287E690088720D /* XTideWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 94CE16091D287E690088720D /* XTideWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -222,6 +162,80 @@
 		94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE162A1D2882250088720D /* WatchConnectivity.framework */; };
 		94CE16301D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
 		94CE16311D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
+		94FD65111D51A338006C44BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419E1661D512FE20055DEE9 /* NotificationCenter.framework */; };
+		94FD65151D51A338006C44BA /* TodayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94FD65141D51A338006C44BA /* TodayViewController.mm */; };
+		94FD65181D51A338006C44BA /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FD65161D51A338006C44BA /* MainInterface.storyboard */; };
+		94FD651C1D51A338006C44BA /* TideToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 94FD65101D51A338006C44BA /* TideToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		94FD65291D51A3ED006C44BA /* libxtide.h in Headers */ = {isa = PBXBuildFile; fileRef = 94FD65281D51A3ED006C44BA /* libxtide.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		94FD65301D51A3EE006C44BA /* libxtide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD65261D51A3ED006C44BA /* libxtide.framework */; };
+		94FD65371D51A3EE006C44BA /* libxtideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FD65361D51A3EE006C44BA /* libxtideTests.m */; };
+		94FD653B1D51A3EE006C44BA /* libxtide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD65261D51A3ED006C44BA /* libxtide.framework */; };
+		94FD653C1D51A3EE006C44BA /* libxtide.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD65261D51A3ED006C44BA /* libxtide.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		94FD65441D51A428006C44BA /* tide_db.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D311CC1CE3E003BD343 /* tide_db.c */; };
+		94FD65451D51A428006C44BA /* bit_pack.c in Sources */ = {isa = PBXBuildFile; fileRef = 94041D2F1CC1CDF1003BD343 /* bit_pack.c */; };
+		94FD65461D51A428006C44BA /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18151D4165C0002378B7 /* Amplitude.cc */; };
+		94FD65471D51A428006C44BA /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18171D4165C0002378B7 /* Angle.cc */; };
+		94FD65481D51A428006C44BA /* Banner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B181D1D4165D1002378B7 /* Banner.cc */; };
+		94FD65491D51A428006C44BA /* Calendar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18201D4165D1002378B7 /* Calendar.cc */; };
+		94FD654A1D51A428006C44BA /* CalendarFormC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18221D4165D1002378B7 /* CalendarFormC.cc */; };
+		94FD654B1D51A428006C44BA /* CalendarFormH.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18241D4165D1002378B7 /* CalendarFormH.cc */; };
+		94FD654C1D51A428006C44BA /* CalendarFormL.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18261D4165D1002378B7 /* CalendarFormL.cc */; };
+		94FD654D1D51A428006C44BA /* CalendarFormNotC.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18281D4165D1002378B7 /* CalendarFormNotC.cc */; };
+		94FD654E1D51A428006C44BA /* CalendarFormT.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182A1D4165D1002378B7 /* CalendarFormT.cc */; };
+		94FD654F1D51A428006C44BA /* ClientSideFont.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182C1D4165D1002378B7 /* ClientSideFont.cc */; };
+		94FD65501D51A428006C44BA /* Colors.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B182E1D4165D1002378B7 /* Colors.cc */; };
+		94FD65511D51A428006C44BA /* Constituent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18321D4165D1002378B7 /* Constituent.cc */; };
+		94FD65521D51A428006C44BA /* ConstituentSet.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18341D4165D1002378B7 /* ConstituentSet.cc */; };
+		94FD65531D51A428006C44BA /* Coordinates.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18361D4165D1002378B7 /* Coordinates.cc */; };
+		94FD65541D51A428006C44BA /* CurrentBearing.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18381D4165D1002378B7 /* CurrentBearing.cc */; };
+		94FD65551D51A428006C44BA /* Date.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183A1D4165D1002378B7 /* Date.cc */; };
+		94FD65561D51A428006C44BA /* Dstr.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183C1D4165D1002378B7 /* Dstr.cc */; };
+		94FD65571D51A428006C44BA /* Global.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B183F1D4165D1002378B7 /* Global.cc */; };
+		94FD65581D51A428006C44BA /* Graph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18411D4165D1002378B7 /* Graph.cc */; };
+		94FD65591D51A428006C44BA /* HarmonicsFile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18431D4165D1002378B7 /* HarmonicsFile.cc */; };
+		94FD655A1D51A428006C44BA /* HarmonicsPath.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18451D4165D1002378B7 /* HarmonicsPath.cc */; };
+		94FD655B1D51A428006C44BA /* Interval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18471D4165D1002378B7 /* Interval.cc */; };
+		94FD655C1D51A428006C44BA /* MetaField.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184A1D4165D1002378B7 /* MetaField.cc */; };
+		94FD655D1D51A428006C44BA /* Nullable.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184D1D4165D1002378B7 /* Nullable.cc */; };
+		94FD655E1D51A428006C44BA /* NullableInterval.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B184F1D4165D1002378B7 /* NullableInterval.cc */; };
+		94FD655F1D51A428006C44BA /* NullablePredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18511D4165D1002378B7 /* NullablePredictionValue.cc */; };
+		94FD65601D51A428006C44BA /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18531D4165D1002378B7 /* Offsets.cc */; };
+		94FD65611D51A428006C44BA /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18551D4165D1002378B7 /* PixelatedGraph.cc */; };
+		94FD65621D51A428006C44BA /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18571D4165D1002378B7 /* PredictionValue.cc */; };
+		94FD65631D51A428006C44BA /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185A1D4165D1002378B7 /* RGBGraph.cc */; };
+		94FD65641D51A428006C44BA /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185D1D4165D1002378B7 /* Settings.cc */; };
+		94FD65651D51A428006C44BA /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185F1D4165D1002378B7 /* Skycal.cc */; };
+		94FD65661D51A428006C44BA /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18611D4165D1002378B7 /* Speed.cc */; };
+		94FD65671D51A428006C44BA /* Station.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18631D4165D1002378B7 /* Station.cc */; };
+		94FD65681D51A428006C44BA /* StationIndex.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18651D4165D1002378B7 /* StationIndex.cc */; };
+		94FD65691D51A428006C44BA /* StationRef.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18671D4165D1002378B7 /* StationRef.cc */; };
+		94FD656A1D51A428006C44BA /* SubordinateStation.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18691D4165D1002378B7 /* SubordinateStation.cc */; };
+		94FD656B1D51A428006C44BA /* SVGGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186B1D4165D1002378B7 /* SVGGraph.cc */; };
+		94FD656C1D51A428006C44BA /* TideEvent.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186D1D4165D1002378B7 /* TideEvent.cc */; };
+		94FD656D1D51A428006C44BA /* TideEventsOrganizer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B186F1D4165D1002378B7 /* TideEventsOrganizer.cc */; };
+		94FD656E1D51A428006C44BA /* Timestamp.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18711D4165D1002378B7 /* Timestamp.cc */; };
+		94FD656F1D51A428006C44BA /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18731D4165D1002378B7 /* TTYGraph.cc */; };
+		94FD65701D51A428006C44BA /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18751D4165D1002378B7 /* Units.cc */; };
+		94FD65711D51A428006C44BA /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B187D1D4165D1002378B7 /* Year.cc */; };
+		94FD65721D51A465006C44BA /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
+		94FD65731D51A465006C44BA /* XTSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C071CBECAD6003BD343 /* XTSettings.mm */; };
+		94FD65741D51A465006C44BA /* XTCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C051CBECAD6003BD343 /* XTCalendar.mm */; };
+		94FD65751D51A465006C44BA /* XTGraph.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C001CBEC937003BD343 /* XTGraph.mm */; };
+		94FD65761D51A465006C44BA /* XTStationIndex.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0B1CBECAD6003BD343 /* XTStationIndex.mm */; };
+		94FD65771D51A465006C44BA /* XTStationRef.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0D1CBECAD6003BD343 /* XTStationRef.mm */; };
+		94FD65781D51A465006C44BA /* XTStation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C0F1CBECAD6003BD343 /* XTStation.mm */; };
+		94FD65791D51A465006C44BA /* XTTideEventsOrganizer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C111CBECAD6003BD343 /* XTTideEventsOrganizer.mm */; };
+		94FD657A1D51A465006C44BA /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
+		94FD657B1D51A465006C44BA /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
+		94FD657D1D51A476006C44BA /* UIKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15F81D284BB40088720D /* UIKitAdditions.mm */; };
+		94FD657E1D51A48F006C44BA /* XTTideEvent+EventKit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 945282321D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm */; };
+		94FD65801D51A4D1006C44BA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD657F1D51A4D1006C44BA /* CoreLocation.framework */; };
+		94FD65811D51A52A006C44BA /* libxtide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD65261D51A3ED006C44BA /* libxtide.framework */; };
+		94FD65821D51A72B006C44BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DC1D24A6810088720D /* UIKit.framework */; };
+		94FD65861D52B5C6006C44BA /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
+		94FD658B1D52C4B8006C44BA /* XTTodayGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FD658A1D52C4B8006C44BA /* XTTodayGraphView.m */; };
+		94FD658C1D52E2ED006C44BA /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
+		94FD65911D53E497006C44BA /* UIView_UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FD658F1D53C7D2006C44BA /* UIView_UIViewAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -267,9 +281,47 @@
 			remoteGlobalIDString = 94CE15FC1D287E690088720D;
 			remoteInfo = XTideWatch;
 		};
+		94FD651A1D51A338006C44BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94FD650F1D51A338006C44BA;
+			remoteInfo = TideToday;
+		};
+		94FD65311D51A3EE006C44BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94FD65251D51A3ED006C44BA;
+			remoteInfo = libxtide;
+		};
+		94FD65331D51A3EE006C44BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 945828DB1D248BF300972E1C;
+			remoteInfo = "XTide-ios";
+		};
+		94FD65391D51A3EE006C44BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 946318D41CBC3242001CD859 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94FD65251D51A3ED006C44BA;
+			remoteInfo = libxtide;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		9419E17C1D512FE20055DEE9 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94CE16211D287E6A0088720D /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -290,6 +342,28 @@
 				94CE160A1D287E690088720D /* XTideWatch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD65201D51A338006C44BA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				94FD651C1D51A338006C44BA /* TideToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD65401D51A3EE006C44BA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				94FD653C1D51A3EE006C44BA /* libxtide.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -383,6 +457,17 @@
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
 		9410B4711D2E10A900B40F43 /* svgTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svgTest.svg; sourceTree = "<group>"; };
+		9419E1661D512FE20055DEE9 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		9419E16A1D512FE20055DEE9 /* MacWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MacWidget.entitlements; sourceTree = "<group>"; };
+		9419E16B1D512FE20055DEE9 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		9419E16C1D512FE20055DEE9 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		9419E16F1D512FE20055DEE9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TodayViewController.xib; sourceTree = "<group>"; };
+		9419E1711D512FE20055DEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9419E1731D512FE20055DEE9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9419E17E1D5168D30055DEE9 /* ListRowViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListRowViewController.xib; sourceTree = "<group>"; };
+		9419E1801D5169BC0055DEE9 /* ListRowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListRowViewController.h; sourceTree = "<group>"; };
+		9419E1811D5169BC0055DEE9 /* ListRowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListRowViewController.m; sourceTree = "<group>"; };
+		9419E1BD1D51A0ED0055DEE9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		944501701D305A3C00203863 /* XTWListInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWListInterfaceController.h; sourceTree = "<group>"; };
 		944501711D305A3C00203863 /* XTWListInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWListInterfaceController.m; sourceTree = "<group>"; };
 		944501731D315E3900203863 /* TideViewsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TideViewsStoryboard.storyboard; sourceTree = "<group>"; };
@@ -484,7 +569,7 @@
 		948B18401D4165D1002378B7 /* Global.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Global.hh; path = libxtide/Global.hh; sourceTree = "<group>"; };
 		948B18411D4165D1002378B7 /* Graph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Graph.cc; path = libxtide/Graph.cc; sourceTree = "<group>"; };
 		948B18421D4165D1002378B7 /* Graph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Graph.hh; path = libxtide/Graph.hh; sourceTree = "<group>"; };
-		948B18431D4165D1002378B7 /* HarmonicsFile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HarmonicsFile.cc; path = libxtide/HarmonicsFile.cc; sourceTree = "<group>"; };
+		948B18431D4165D1002378B7 /* HarmonicsFile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HarmonicsFile.cc; path = libxtide/HarmonicsFile.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B18441D4165D1002378B7 /* HarmonicsFile.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HarmonicsFile.hh; path = libxtide/HarmonicsFile.hh; sourceTree = "<group>"; };
 		948B18451D4165D1002378B7 /* HarmonicsPath.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HarmonicsPath.cc; path = libxtide/HarmonicsPath.cc; sourceTree = "<group>"; };
 		948B18461D4165D1002378B7 /* HarmonicsPath.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HarmonicsPath.hh; path = libxtide/HarmonicsPath.hh; sourceTree = "<group>"; };
@@ -512,17 +597,17 @@
 		948B185C1D4165D1002378B7 /* SafeVector.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeVector.hh; path = libxtide/SafeVector.hh; sourceTree = "<group>"; };
 		948B185D1D4165D1002378B7 /* Settings.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Settings.cc; path = libxtide/Settings.cc; sourceTree = "<group>"; };
 		948B185E1D4165D1002378B7 /* Settings.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Settings.hh; path = libxtide/Settings.hh; sourceTree = "<group>"; };
-		948B185F1D4165D1002378B7 /* Skycal.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skycal.cc; path = libxtide/Skycal.cc; sourceTree = "<group>"; };
+		948B185F1D4165D1002378B7 /* Skycal.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skycal.cc; path = libxtide/Skycal.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B18601D4165D1002378B7 /* Skycal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Skycal.hh; path = libxtide/Skycal.hh; sourceTree = "<group>"; };
 		948B18611D4165D1002378B7 /* Speed.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Speed.cc; path = libxtide/Speed.cc; sourceTree = "<group>"; };
 		948B18621D4165D1002378B7 /* Speed.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Speed.hh; path = libxtide/Speed.hh; sourceTree = "<group>"; };
-		948B18631D4165D1002378B7 /* Station.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Station.cc; path = libxtide/Station.cc; sourceTree = "<group>"; };
+		948B18631D4165D1002378B7 /* Station.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Station.cc; path = libxtide/Station.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B18641D4165D1002378B7 /* Station.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Station.hh; path = libxtide/Station.hh; sourceTree = "<group>"; };
 		948B18651D4165D1002378B7 /* StationIndex.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StationIndex.cc; path = libxtide/StationIndex.cc; sourceTree = "<group>"; };
 		948B18661D4165D1002378B7 /* StationIndex.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationIndex.hh; path = libxtide/StationIndex.hh; sourceTree = "<group>"; };
 		948B18671D4165D1002378B7 /* StationRef.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StationRef.cc; path = libxtide/StationRef.cc; sourceTree = "<group>"; };
 		948B18681D4165D1002378B7 /* StationRef.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = StationRef.hh; path = libxtide/StationRef.hh; sourceTree = "<group>"; };
-		948B18691D4165D1002378B7 /* SubordinateStation.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubordinateStation.cc; path = libxtide/SubordinateStation.cc; sourceTree = "<group>"; };
+		948B18691D4165D1002378B7 /* SubordinateStation.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SubordinateStation.cc; path = libxtide/SubordinateStation.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B186A1D4165D1002378B7 /* SubordinateStation.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SubordinateStation.hh; path = libxtide/SubordinateStation.hh; sourceTree = "<group>"; };
 		948B186B1D4165D1002378B7 /* SVGGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SVGGraph.cc; path = libxtide/SVGGraph.cc; sourceTree = "<group>"; };
 		948B186C1D4165D1002378B7 /* SVGGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SVGGraph.hh; path = libxtide/SVGGraph.hh; sourceTree = "<group>"; };
@@ -572,6 +657,24 @@
 		94CE161E1D287E6A0088720D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94CE162A1D2882250088720D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94CE162F1D28B8560088720D /* StateImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = StateImages.xcassets; path = XTide/StateImages.xcassets; sourceTree = "<group>"; };
+		94FD65101D51A338006C44BA /* TideToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TideToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		94FD65131D51A338006C44BA /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		94FD65141D51A338006C44BA /* TodayViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TodayViewController.mm; sourceTree = "<group>"; };
+		94FD65171D51A338006C44BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		94FD65191D51A338006C44BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94FD65261D51A3ED006C44BA /* libxtide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = libxtide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		94FD65281D51A3ED006C44BA /* libxtide.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libxtide.h; sourceTree = "<group>"; };
+		94FD652A1D51A3ED006C44BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94FD652F1D51A3EE006C44BA /* libxtideTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = libxtideTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		94FD65361D51A3EE006C44BA /* libxtideTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libxtideTests.m; sourceTree = "<group>"; };
+		94FD65381D51A3EE006C44BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		94FD657F1D51A4D1006C44BA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		94FD65831D51B044006C44BA /* TideToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TideToday.entitlements; sourceTree = "<group>"; };
+		94FD65841D51B069006C44BA /* XTide-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "XTide-ios.entitlements"; sourceTree = "<group>"; };
+		94FD65891D52C4B8006C44BA /* XTTodayGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTTodayGraphView.h; sourceTree = "<group>"; };
+		94FD658A1D52C4B8006C44BA /* XTTodayGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTTodayGraphView.m; sourceTree = "<group>"; };
+		94FD658E1D53C7A3006C44BA /* UIView_UIViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIView_UIViewAdditions.h; sourceTree = "<group>"; };
+		94FD658F1D53C7D2006C44BA /* UIView_UIViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIView_UIViewAdditions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -585,6 +688,7 @@
 				94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */,
 				946DAF831D3C150700B16FB2 /* EventKitUI.framework in Frameworks */,
 				94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */,
+				94FD653B1D51A3EE006C44BA /* libxtide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,7 +732,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				940BAA8B1D2C4DD700E1C11B /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD650D1D51A338006C44BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65821D51A72B006C44BA /* UIKit.framework in Frameworks */,
+				94FD65111D51A338006C44BA /* NotificationCenter.framework in Frameworks */,
+				94FD65811D51A52A006C44BA /* libxtide.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD65221D51A3ED006C44BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65801D51A4D1006C44BA /* CoreLocation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD652C1D51A3EE006C44BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65301D51A3EE006C44BA /* libxtide.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +858,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		9419E1681D512FE20055DEE9 /* MacWidget */ = {
+			isa = PBXGroup;
+			children = (
+				9419E16B1D512FE20055DEE9 /* TodayViewController.h */,
+				9419E16C1D512FE20055DEE9 /* TodayViewController.m */,
+				9419E1801D5169BC0055DEE9 /* ListRowViewController.h */,
+				9419E1811D5169BC0055DEE9 /* ListRowViewController.m */,
+				9419E16E1D512FE20055DEE9 /* TodayViewController.xib */,
+				9419E17E1D5168D30055DEE9 /* ListRowViewController.xib */,
+				9419E1711D512FE20055DEE9 /* Info.plist */,
+				9419E1721D512FE20055DEE9 /* InfoPlist.strings */,
+				9419E1691D512FE20055DEE9 /* Supporting Files */,
+			);
+			path = MacWidget;
+			sourceTree = "<group>";
+		};
+		9419E1691D512FE20055DEE9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9419E16A1D512FE20055DEE9 /* MacWidget.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		9452822F1D3F416E00BA9DC0 /* xtideEventKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -741,6 +894,8 @@
 		945282A31D40238500BA9DC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94FD657F1D51A4D1006C44BA /* CoreLocation.framework */,
+				9419E1BD1D51A0ED0055DEE9 /* CoreLocation.framework */,
 				945282A41D4025DC00BA9DC0 /* EventKit.framework */,
 				946DAF801D3C150700B16FB2 /* EventKit.framework */,
 				946DAF811D3C150700B16FB2 /* EventKitUI.framework */,
@@ -749,6 +904,7 @@
 				94CE15DE1D24A69E0088720D /* Foundation.framework */,
 				94CE15DC1D24A6810088720D /* UIKit.framework */,
 				94CE15DA1D24A6650088720D /* MapKit.framework */,
+				9419E1661D512FE20055DEE9 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -756,6 +912,7 @@
 		945828DD1D248BF300972E1C /* XTide-ios */ = {
 			isa = PBXGroup;
 			children = (
+				94FD65841D51B069006C44BA /* XTide-ios.entitlements */,
 				945828E11D248BF300972E1C /* AppDelegate.h */,
 				945828E21D248BF300972E1C /* AppDelegate.mm */,
 				945828E41D248BF300972E1C /* XTUIMapViewController.h */,
@@ -829,11 +986,10 @@
 		946318D31CBC3242001CD859 = {
 			isa = PBXGroup;
 			children = (
+				9419E1681D512FE20055DEE9 /* MacWidget */,
+				94FD65271D51A3ED006C44BA /* libxtide-uiKit */,
+				94FD65351D51A3EE006C44BA /* libxtideTests */,
 				945282A31D40238500BA9DC0 /* Frameworks */,
-				948355051CBC448F0026F08A /* tcd.h */,
-				948355031CBC44660026F08A /* png.h */,
-				94041D311CC1CE3E003BD343 /* tide_db.c */,
-				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
 				948B18141D4165AF002378B7 /* libxtide */,
 				9452822F1D3F416E00BA9DC0 /* xtideEventKit */,
 				94CE15E01D24D3D00088720D /* xtideUIKit */,
@@ -844,11 +1000,13 @@
 				94041D2B1CC1CA8D003BD343 /* libtcd-2.2.7.xcodeproj */,
 				946318F21CBC3242001CD859 /* XTideTests */,
 				946318FD1CBC3242001CD859 /* XTideUITests */,
+				94FD65121D51A338006C44BA /* TideToday */,
 				945828DD1D248BF300972E1C /* XTide-ios */,
 				945828FD1D248BF300972E1C /* XTide-iosTests */,
 				945829081D248BF300972E1C /* XTide-iosUITests */,
 				94CE15FE1D287E690088720D /* XTideWatch */,
 				94CE160D1D287E690088720D /* XTideWatch Extension */,
+				94FD658D1D53C76E006C44BA /* Additions */,
 				946318DD1CBC3242001CD859 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -864,6 +1022,9 @@
 				945829051D248BF300972E1C /* XTide-iosUITests.xctest */,
 				94CE15FD1D287E690088720D /* XTideWatch.app */,
 				94CE16091D287E690088720D /* XTideWatch Extension.appex */,
+				94FD65101D51A338006C44BA /* TideToday.appex */,
+				94FD65261D51A3ED006C44BA /* libxtide.framework */,
+				94FD652F1D51A3EE006C44BA /* libxtideTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -907,6 +1068,10 @@
 		948B18141D4165AF002378B7 /* libxtide */ = {
 			isa = PBXGroup;
 			children = (
+				948355051CBC448F0026F08A /* tcd.h */,
+				948355031CBC44660026F08A /* png.h */,
+				94041D311CC1CE3E003BD343 /* tide_db.c */,
+				94041D2F1CC1CDF1003BD343 /* bit_pack.c */,
 				948B18151D4165C0002378B7 /* Amplitude.cc */,
 				948B18161D4165C0002378B7 /* Amplitude.hh */,
 				948B18171D4165C0002378B7 /* Angle.cc */,
@@ -1084,8 +1249,6 @@
 				94CE16171D287E6A0088720D /* NotificationController.m */,
 				94CE16191D287E6A0088720D /* ComplicationController.h */,
 				94CE161A1D287E6A0088720D /* ComplicationController.m */,
-				946DAF751D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.h */,
-				946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */,
 				94CE161C1D287E6A0088720D /* Assets.xcassets */,
 				94CE161E1D287E6A0088720D /* Info.plist */,
 				94CE160E1D287E690088720D /* Supporting Files */,
@@ -1101,7 +1264,63 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		94FD65121D51A338006C44BA /* TideToday */ = {
+			isa = PBXGroup;
+			children = (
+				94FD65831D51B044006C44BA /* TideToday.entitlements */,
+				94FD65131D51A338006C44BA /* TodayViewController.h */,
+				94FD65141D51A338006C44BA /* TodayViewController.mm */,
+				94FD65891D52C4B8006C44BA /* XTTodayGraphView.h */,
+				94FD658A1D52C4B8006C44BA /* XTTodayGraphView.m */,
+				94FD65161D51A338006C44BA /* MainInterface.storyboard */,
+				94FD65191D51A338006C44BA /* Info.plist */,
+			);
+			path = TideToday;
+			sourceTree = "<group>";
+		};
+		94FD65271D51A3ED006C44BA /* libxtide-uiKit */ = {
+			isa = PBXGroup;
+			children = (
+				94FD65281D51A3ED006C44BA /* libxtide.h */,
+				94FD652A1D51A3ED006C44BA /* Info.plist */,
+			);
+			name = "libxtide-uiKit";
+			path = libxtide;
+			sourceTree = "<group>";
+		};
+		94FD65351D51A3EE006C44BA /* libxtideTests */ = {
+			isa = PBXGroup;
+			children = (
+				94FD65361D51A3EE006C44BA /* libxtideTests.m */,
+				94FD65381D51A3EE006C44BA /* Info.plist */,
+			);
+			path = libxtideTests;
+			sourceTree = "<group>";
+		};
+		94FD658D1D53C76E006C44BA /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				94FD658E1D53C7A3006C44BA /* UIView_UIViewAdditions.h */,
+				94FD658F1D53C7D2006C44BA /* UIView_UIViewAdditions.m */,
+				946DAF751D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.h */,
+				946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */,
+			);
+			name = Additions;
+			path = "XTideWatch Extension";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		94FD65231D51A3ED006C44BA /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65291D51A3ED006C44BA /* libxtide.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		945828DB1D248BF300972E1C /* XTide-ios */ = {
@@ -1112,11 +1331,15 @@
 				945828D91D248BF300972E1C /* Frameworks */,
 				945828DA1D248BF300972E1C /* Resources */,
 				94CE16211D287E6A0088720D /* Embed Watch Content */,
+				94FD65201D51A338006C44BA /* Embed App Extensions */,
+				94FD65401D51A3EE006C44BA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				94CE16201D287E6A0088720D /* PBXTargetDependency */,
+				94FD651B1D51A338006C44BA /* PBXTargetDependency */,
+				94FD653A1D51A3EE006C44BA /* PBXTargetDependency */,
 			);
 			name = "XTide-ios";
 			productName = "XTide-ios";
@@ -1166,6 +1389,7 @@
 				946318D81CBC3242001CD859 /* Sources */,
 				946318D91CBC3242001CD859 /* Frameworks */,
 				946318DA1CBC3242001CD859 /* Resources */,
+				9419E17C1D512FE20055DEE9 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -1246,6 +1470,60 @@
 			productReference = 94CE16091D287E690088720D /* XTideWatch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
+		94FD650F1D51A338006C44BA /* TideToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94FD651D1D51A338006C44BA /* Build configuration list for PBXNativeTarget "TideToday" */;
+			buildPhases = (
+				94FD650C1D51A338006C44BA /* Sources */,
+				94FD650D1D51A338006C44BA /* Frameworks */,
+				94FD650E1D51A338006C44BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TideToday;
+			productName = TideToday;
+			productReference = 94FD65101D51A338006C44BA /* TideToday.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		94FD65251D51A3ED006C44BA /* libxtide */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94FD653D1D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtide" */;
+			buildPhases = (
+				94FD65211D51A3ED006C44BA /* Sources */,
+				94FD65221D51A3ED006C44BA /* Frameworks */,
+				94FD65231D51A3ED006C44BA /* Headers */,
+				94FD65241D51A3ED006C44BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = libxtide;
+			productName = libxtide;
+			productReference = 94FD65261D51A3ED006C44BA /* libxtide.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		94FD652E1D51A3EE006C44BA /* libxtideTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 94FD65411D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtideTests" */;
+			buildPhases = (
+				94FD652B1D51A3EE006C44BA /* Sources */,
+				94FD652C1D51A3EE006C44BA /* Frameworks */,
+				94FD652D1D51A3EE006C44BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				94FD65321D51A3EE006C44BA /* PBXTargetDependency */,
+				94FD65341D51A3EE006C44BA /* PBXTargetDependency */,
+			);
+			name = libxtideTests;
+			productName = libxtideTests;
+			productReference = 94FD652F1D51A3EE006C44BA /* libxtideTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1257,6 +1535,12 @@
 				TargetAttributes = {
 					945828DB1D248BF300972E1C = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 92RP9V4XB5;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					945828F91D248BF300972E1C = {
 						CreatedOnToolsVersion = 7.3;
@@ -1279,6 +1563,7 @@
 					};
 					94CE15FC1D287E690088720D = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 92RP9V4XB5;
 					};
 					94CE16081D287E690088720D = {
 						CreatedOnToolsVersion = 7.3;
@@ -1288,6 +1573,23 @@
 								enabled = 1;
 							};
 						};
+					};
+					94FD650F1D51A338006C44BA = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 92RP9V4XB5;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					94FD65251D51A3ED006C44BA = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 92RP9V4XB5;
+					};
+					94FD652E1D51A3EE006C44BA = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 945828DB1D248BF300972E1C;
 					};
 				};
 			};
@@ -1318,6 +1620,9 @@
 				945829041D248BF300972E1C /* XTide-iosUITests */,
 				94CE15FC1D287E690088720D /* XTideWatch */,
 				94CE16081D287E690088720D /* XTideWatch Extension */,
+				94FD650F1D51A338006C44BA /* TideToday */,
+				94FD65251D51A3ED006C44BA /* libxtide */,
+				94FD652E1D51A3EE006C44BA /* libxtideTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1337,7 +1642,6 @@
 				945828F41D248BF300972E1C /* LaunchScreen.storyboard in Resources */,
 				94CE15ED1D24F8000088720D /* Images.xcassets in Resources */,
 				945828F11D248BF300972E1C /* Assets.xcassets in Resources */,
-				945829451D248DD200972E1C /* harmonics-dwf-20151227-free.tcd in Resources */,
 				945828EF1D248BF300972E1C /* Main.storyboard in Resources */,
 				944501791D31874C00203863 /* XTUIGraphViewController.xib in Resources */,
 			);
@@ -1423,6 +1727,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		94FD650E1D51A338006C44BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65181D51A338006C44BA /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD65241D51A3ED006C44BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65861D52B5C6006C44BA /* harmonics-dwf-20151227-free.tcd in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD652D1D51A3EE006C44BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1430,74 +1757,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				948B18BE1D4165D2002378B7 /* Station.cc in Sources */,
-				948B18C01D4165D2002378B7 /* StationIndex.cc in Sources */,
-				948B18A61D4165D2002378B7 /* Interval.cc in Sources */,
-				948B188E1D4165D2002378B7 /* ClientSideFont.cc in Sources */,
 				944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */,
-				9458295B1D24935A00972E1C /* XTStationRef.mm in Sources */,
-				948B18A41D4165D2002378B7 /* HarmonicsPath.cc in Sources */,
-				948B18861D4165D2002378B7 /* CalendarFormH.cc in Sources */,
 				94CE15E71D24DFBD0088720D /* XTUIGraphView.m in Sources */,
-				948B18C61D4165D2002378B7 /* SVGGraph.cc in Sources */,
-				94CE15EE1D25C4A50088720D /* XTGraph.mm in Sources */,
-				948B18BA1D4165D2002378B7 /* Skycal.cc in Sources */,
-				9458295C1D24935A00972E1C /* XTStation.mm in Sources */,
-				948B18CC1D4165D2002378B7 /* Timestamp.cc in Sources */,
-				948B18901D4165D2002378B7 /* Colors.cc in Sources */,
-				948B18881D4165D2002378B7 /* CalendarFormL.cc in Sources */,
-				948B18A81D4165D2002378B7 /* MetaField.cc in Sources */,
-				948B18AA1D4165D2002378B7 /* Nullable.cc in Sources */,
-				94CE15D21D24A3CE0088720D /* XTSettings.mm in Sources */,
-				948B18921D4165D2002378B7 /* Constituent.cc in Sources */,
-				948B18BC1D4165D2002378B7 /* Speed.cc in Sources */,
-				948B18B21D4165D2002378B7 /* PixelatedGraph.cc in Sources */,
-				9458295D1D24935A00972E1C /* XTTideEventsOrganizer.mm in Sources */,
 				945828E31D248BF300972E1C /* AppDelegate.mm in Sources */,
-				945282341D3F419B00BA9DC0 /* XTTideEvent+EventKit.mm in Sources */,
-				948B18981D4165D2002378B7 /* CurrentBearing.cc in Sources */,
-				948B18DB1D4165FC002378B7 /* Amplitude.cc in Sources */,
-				948B18DC1D4165FF002378B7 /* Angle.cc in Sources */,
-				948B188C1D4165D2002378B7 /* CalendarFormT.cc in Sources */,
 				94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */,
-				948B18DA1D4165D2002378B7 /* Year.cc in Sources */,
-				948B18B41D4165D2002378B7 /* PredictionValue.cc in Sources */,
-				948B189A1D4165D2002378B7 /* Date.cc in Sources */,
-				948B18941D4165D2002378B7 /* ConstituentSet.cc in Sources */,
 				9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */,
-				948B18B81D4165D2002378B7 /* Settings.cc in Sources */,
+				94FD657E1D51A48F006C44BA /* XTTideEvent+EventKit.mm in Sources */,
 				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
 				9445017F1D31A7DE00203863 /* XTUIStationInfoViewController.m in Sources */,
-				94CE15F91D284BB40088720D /* UIKitAdditions.mm in Sources */,
-				948B18961D4165D2002378B7 /* Coordinates.cc in Sources */,
-				945829601D24935A00972E1C /* XTUtils.mm in Sources */,
 				945828E01D248BF300972E1C /* main.m in Sources */,
-				948B18B61D4165D2002378B7 /* RGBGraph.cc in Sources */,
-				948B18801D4165D2002378B7 /* Banner.cc in Sources */,
-				948B18CA1D4165D2002378B7 /* TideEventsOrganizer.cc in Sources */,
-				945829571D24935A00972E1C /* XTCalendar.mm in Sources */,
-				948B18A21D4165D2002378B7 /* HarmonicsFile.cc in Sources */,
-				948B18841D4165D2002378B7 /* CalendarFormC.cc in Sources */,
-				948B18C21D4165D2002378B7 /* StationRef.cc in Sources */,
-				948B18D01D4165D2002378B7 /* Units.cc in Sources */,
 				94CE15EB1D24E18A0088720D /* XTUIGraphViewController.m in Sources */,
-				948B18821D4165D2002378B7 /* Calendar.cc in Sources */,
-				948B18C41D4165D2002378B7 /* SubordinateStation.cc in Sources */,
-				948B18A01D4165D2002378B7 /* Graph.cc in Sources */,
-				948B18CE1D4165D2002378B7 /* TTYGraph.cc in Sources */,
-				945829431D248D9A00972E1C /* tide_db.c in Sources */,
-				94CE15D01D249EED0088720D /* bit_pack.c in Sources */,
-				948B18AC1D4165D2002378B7 /* NullableInterval.cc in Sources */,
-				948B189C1D4165D2002378B7 /* Dstr.cc in Sources */,
-				9458295E1D24935A00972E1C /* XTTideEvent.mm in Sources */,
 				945828E61D248BF300972E1C /* XTUIMapViewController.m in Sources */,
-				948B18B01D4165D2002378B7 /* Offsets.cc in Sources */,
-				948B18AE1D4165D2002378B7 /* NullablePredictionValue.cc in Sources */,
-				948B188A1D4165D2002378B7 /* CalendarFormNotC.cc in Sources */,
-				94CE15D11D24A1F80088720D /* XTColorUtils.m in Sources */,
-				948B189E1D4165D2002378B7 /* Global.cc in Sources */,
-				9458295A1D24935A00972E1C /* XTStationIndex.mm in Sources */,
-				948B18C81D4165D2002378B7 /* TideEvent.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1636,6 +1906,89 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		94FD650C1D51A338006C44BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65151D51A338006C44BA /* TodayViewController.mm in Sources */,
+				94FD658B1D52C4B8006C44BA /* XTTodayGraphView.m in Sources */,
+				94FD658C1D52E2ED006C44BA /* NSDate+NSDate_XTWAdditions.m in Sources */,
+				94FD65911D53E497006C44BA /* UIView_UIViewAdditions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD65211D51A3ED006C44BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65651D51A428006C44BA /* Skycal.cc in Sources */,
+				94FD655D1D51A428006C44BA /* Nullable.cc in Sources */,
+				94FD65731D51A465006C44BA /* XTSettings.mm in Sources */,
+				94FD654F1D51A428006C44BA /* ClientSideFont.cc in Sources */,
+				94FD655C1D51A428006C44BA /* MetaField.cc in Sources */,
+				94FD65521D51A428006C44BA /* ConstituentSet.cc in Sources */,
+				94FD657D1D51A476006C44BA /* UIKitAdditions.mm in Sources */,
+				94FD656C1D51A428006C44BA /* TideEvent.cc in Sources */,
+				94FD657B1D51A465006C44BA /* XTUtils.mm in Sources */,
+				94FD65541D51A428006C44BA /* CurrentBearing.cc in Sources */,
+				94FD65501D51A428006C44BA /* Colors.cc in Sources */,
+				94FD657A1D51A465006C44BA /* XTTideEvent.mm in Sources */,
+				94FD654C1D51A428006C44BA /* CalendarFormL.cc in Sources */,
+				94FD65461D51A428006C44BA /* Amplitude.cc in Sources */,
+				94FD65721D51A465006C44BA /* XTColorUtils.m in Sources */,
+				94FD656B1D51A428006C44BA /* SVGGraph.cc in Sources */,
+				94FD65701D51A428006C44BA /* Units.cc in Sources */,
+				94FD65771D51A465006C44BA /* XTStationRef.mm in Sources */,
+				94FD65491D51A428006C44BA /* Calendar.cc in Sources */,
+				94FD656D1D51A428006C44BA /* TideEventsOrganizer.cc in Sources */,
+				94FD654B1D51A428006C44BA /* CalendarFormH.cc in Sources */,
+				94FD65481D51A428006C44BA /* Banner.cc in Sources */,
+				94FD654E1D51A428006C44BA /* CalendarFormT.cc in Sources */,
+				94FD65631D51A428006C44BA /* RGBGraph.cc in Sources */,
+				94FD654A1D51A428006C44BA /* CalendarFormC.cc in Sources */,
+				94FD65451D51A428006C44BA /* bit_pack.c in Sources */,
+				94FD65621D51A428006C44BA /* PredictionValue.cc in Sources */,
+				94FD65791D51A465006C44BA /* XTTideEventsOrganizer.mm in Sources */,
+				94FD655B1D51A428006C44BA /* Interval.cc in Sources */,
+				94FD654D1D51A428006C44BA /* CalendarFormNotC.cc in Sources */,
+				94FD65761D51A465006C44BA /* XTStationIndex.mm in Sources */,
+				94FD65561D51A428006C44BA /* Dstr.cc in Sources */,
+				94FD655A1D51A428006C44BA /* HarmonicsPath.cc in Sources */,
+				94FD656A1D51A428006C44BA /* SubordinateStation.cc in Sources */,
+				94FD65741D51A465006C44BA /* XTCalendar.mm in Sources */,
+				94FD65441D51A428006C44BA /* tide_db.c in Sources */,
+				94FD65581D51A428006C44BA /* Graph.cc in Sources */,
+				94FD65591D51A428006C44BA /* HarmonicsFile.cc in Sources */,
+				94FD65751D51A465006C44BA /* XTGraph.mm in Sources */,
+				94FD65531D51A428006C44BA /* Coordinates.cc in Sources */,
+				94FD65711D51A428006C44BA /* Year.cc in Sources */,
+				94FD655E1D51A428006C44BA /* NullableInterval.cc in Sources */,
+				94FD65661D51A428006C44BA /* Speed.cc in Sources */,
+				94FD65681D51A428006C44BA /* StationIndex.cc in Sources */,
+				94FD65641D51A428006C44BA /* Settings.cc in Sources */,
+				94FD65671D51A428006C44BA /* Station.cc in Sources */,
+				94FD65781D51A465006C44BA /* XTStation.mm in Sources */,
+				94FD656F1D51A428006C44BA /* TTYGraph.cc in Sources */,
+				94FD655F1D51A428006C44BA /* NullablePredictionValue.cc in Sources */,
+				94FD65551D51A428006C44BA /* Date.cc in Sources */,
+				94FD656E1D51A428006C44BA /* Timestamp.cc in Sources */,
+				94FD65611D51A428006C44BA /* PixelatedGraph.cc in Sources */,
+				94FD65601D51A428006C44BA /* Offsets.cc in Sources */,
+				94FD65511D51A428006C44BA /* Constituent.cc in Sources */,
+				94FD65571D51A428006C44BA /* Global.cc in Sources */,
+				94FD65691D51A428006C44BA /* StationRef.cc in Sources */,
+				94FD65471D51A428006C44BA /* Angle.cc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94FD652B1D51A3EE006C44BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94FD65371D51A3EE006C44BA /* libxtideTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1668,6 +2021,26 @@
 			isa = PBXTargetDependency;
 			target = 94CE15FC1D287E690088720D /* XTideWatch */;
 			targetProxy = 94CE161F1D287E6A0088720D /* PBXContainerItemProxy */;
+		};
+		94FD651B1D51A338006C44BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94FD650F1D51A338006C44BA /* TideToday */;
+			targetProxy = 94FD651A1D51A338006C44BA /* PBXContainerItemProxy */;
+		};
+		94FD65321D51A3EE006C44BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94FD65251D51A3ED006C44BA /* libxtide */;
+			targetProxy = 94FD65311D51A3EE006C44BA /* PBXContainerItemProxy */;
+		};
+		94FD65341D51A3EE006C44BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 945828DB1D248BF300972E1C /* XTide-ios */;
+			targetProxy = 94FD65331D51A3EE006C44BA /* PBXContainerItemProxy */;
+		};
+		94FD653A1D51A3EE006C44BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94FD65251D51A3ED006C44BA /* libxtide */;
+			targetProxy = 94FD65391D51A3EE006C44BA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1718,6 +2091,22 @@
 				94041D711CCABB6A003BD343 /* Base */,
 			);
 			name = TideGraphTest.xib;
+			sourceTree = "<group>";
+		};
+		9419E16E1D512FE20055DEE9 /* TodayViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9419E16F1D512FE20055DEE9 /* Base */,
+			);
+			name = TodayViewController.xib;
+			sourceTree = "<group>";
+		};
+		9419E1721D512FE20055DEE9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9419E1731D512FE20055DEE9 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		9451F4D21D445E2C006DC606 /* XTMapWindow.xib */ = {
@@ -1808,6 +2197,14 @@
 			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
+		94FD65161D51A338006C44BA /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94FD65171D51A338006C44BA /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1815,8 +2212,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				CODE_SIGN_ENTITLEMENTS = "XTide-ios/XTide-ios.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
@@ -1828,6 +2226,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1837,8 +2236,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				CODE_SIGN_ENTITLEMENTS = "XTide-ios/XTide-ios.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/XTide-ios",
@@ -1850,6 +2250,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1934,7 +2335,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1978,7 +2379,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Lee Ann Rucker (FXAEKL7QJZ)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Lee Ann Rucker (FXAEKL7QJZ)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2132,10 +2533,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				IBSC_MODULE = XTideWatch_Extension;
 				INFOPLIST_FILE = XTideWatch/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
@@ -2147,15 +2551,135 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				IBSC_MODULE = XTideWatch_Extension;
 				INFOPLIST_FILE = XTideWatch/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		94FD651E1D51A338006C44BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TideToday/TideToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TideToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		94FD651F1D51A338006C44BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = TideToday/TideToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = TideToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		94FD653E1D51A3EE006C44BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = libxtide/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtide;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		94FD653F1D51A3EE006C44BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = libxtide/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtide;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		94FD65421D51A3EE006C44BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = libxtideTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtideTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XTide-ios.app/XTide-ios";
+			};
+			name = Debug;
+		};
+		94FD65431D51A3EE006C44BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = libxtideTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtideTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/XTide-ios.app/XTide-ios";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -2242,6 +2766,30 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		94FD651D1D51A338006C44BA /* Build configuration list for PBXNativeTarget "TideToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94FD651E1D51A338006C44BA /* Debug */,
+				94FD651F1D51A338006C44BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94FD653D1D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtide" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94FD653E1D51A3EE006C44BA /* Debug */,
+				94FD653F1D51A3EE006C44BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		94FD65411D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtideTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94FD65421D51A3EE006C44BA /* Debug */,
+				94FD65431D51A3EE006C44BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

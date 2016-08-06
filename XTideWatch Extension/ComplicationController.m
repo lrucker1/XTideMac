@@ -25,6 +25,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) UIColor *tintColor;
 @property (strong) NSDate *lastStartTime;
+@property (strong) NSDate *lastAfterDate;
 @property (strong) NSMutableArray *replyHandlers;
 @property (strong) NSString *lastStation;
 // Set this when we're asking the phone for an extension.
@@ -137,6 +138,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 // The last date for which we can supply data.
 - (void)getTimelineEndDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
 {
+//    handler([NSDate distantFuture]);
     [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
         if (isReady) {
             handler([self lastEventTime]);
@@ -236,7 +238,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [events addObject:newEvent];
         }
     }
-    self.events = events;
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
+    self.events = [events sortedArrayUsingDescriptors:@[descriptor]];
     self.lastStartTime = startDate;
     return YES;
 }
@@ -245,11 +248,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
 
-    // Always ask for the full range plus 1 day. It makes it easier to know when
-    // we need to reload. We can't be sure in what order the requests will come.
-    return @{@"kind" : @"requestEvents",
-             @"first" : [server earliestTimeTravelDate],
-             @"last" : [[server latestTimeTravelDate] dateByAddingTimeInterval:DAY]};
+    NSDate *date = self.lastAfterDate ? self.lastAfterDate : [server earliestTimeTravelDate];
+    return @{@"kind"  : @"requestEvents",
+             @"first" : date,
+             @"last"  : [date dateByAddingTimeInterval:3 * DAY]};
 }
 
 - (void)requestUserInfo
@@ -265,12 +267,12 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (BOOL)needsReload
 {
-    if (self.events == nil) {
+    if (self.events == nil || self.lastStartTime == nil || self.extendRequest) {
         return YES;
     }
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *earlyDate = [server earliestTimeTravelDate];
-    return [self.lastStartTime compare:earlyDate] == NSOrderedAscending;
+    NSDate *date = self.lastAfterDate ? self.lastAfterDate : [server earliestTimeTravelDate];
+    return [self.lastStartTime compare:date] == NSOrderedAscending;
 }
 
 
@@ -330,7 +332,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             if ([error.domain isEqualToString:@"WCErrorDomain"] && error.code == 7012) {
                 [self requestUserInfo];
             }
-            NSLog(@"%@", error);
+            NSLog(@"requestComplicationsWithReplyHandler %@", error);
             // Tell any handlers there's no data.
             @synchronized (self) {
                 for (id handler in self.replyHandlers) {
@@ -434,7 +436,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     for (NSDictionary *event in [events reverseObjectEnumerator]) {
         NSDate *testDate = [self timeForEvent:event family:family];
         if ([testDate compare:date] == NSOrderedAscending) {
-            [array addObject:[self getEntryforComplication:complication withEvent:event]];
+            [array insertObject:[self getEntryforComplication:complication withEvent:event] atIndex:0];
             count++;
             if (count == limit) {
                 break;
@@ -462,6 +464,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             }
         }
     }
+    // TODO: should we put a "no more events" marker at the end, in case the phone is out of reach?
     return array;
 }
 
@@ -499,6 +502,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                     limit:(NSUInteger)limit
                               withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
 {
+    self.lastAfterDate = date;
     // Call the handler with the timeline entries after the given date
     [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
         if (isReady) {
@@ -524,8 +528,11 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // Our timeline always extends. Unlike the complications, we don't need to reply
     // immediately; we wait until the data arrives. So we don't pass a callback,
     // just set a flag.
-    self.extendRequest = YES;
-    [self requestComplicationsWithReplyHandler:nil];
+    if ([[self lastEventTime] compare:[[CLKComplicationServer sharedInstance] latestTimeTravelDate]] == NSOrderedAscending) {
+        self.extendRequest = YES;
+        self.lastAfterDate = [self lastEventTime];
+        [self requestComplicationsWithReplyHandler:nil];
+    }
 }
 
 - (void)requestedUpdateBudgetExhausted

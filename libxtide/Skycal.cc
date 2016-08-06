@@ -897,6 +897,7 @@ bool &is_rise) {
   // First we want to know what we are looking for.
   bool looking_for = (altitude (jdorig, lat, longit, lunar) < riseAltitude);
 
+  is_rise = 0; // Make the analyzer happy.
   // Now give it a decent try.  Because jd_alt is so unpredictable,
   // we can even find things out of order (which is one reason we need
   // to know what we're looking for).

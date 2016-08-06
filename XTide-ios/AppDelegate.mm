@@ -25,9 +25,13 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
 
 + (void)initialize
 {
-   libxtide::Global::mutex_init_harmonics();
-   libxtide::Global::settings.setMacDefaults();
-   libxtide::Global::settings.applyMacResources();
+    static NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.xtide"];
+
+    RegisterUserDefaults(nil);
+    libxtide::Global::mutex_init_harmonics();
+    libxtide::Global::settings.setMacDefaults();
+    libxtide::Global::settings.applyMacResources();
+    [[XTStationIndex sharedStationIndex] setFavoritesDefaults:defaults];
 }
 
 
@@ -42,7 +46,7 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
         });
     });
 
-     return YES;
+    return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

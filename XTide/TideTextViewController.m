@@ -36,9 +36,9 @@ static NSString * const TideData_hourRange = @"hourRange";
 - (void)dealloc
 {
     for (NSString *keyPath in prefsKeysOfInterest) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                                   forKeyPath:keyPath
-                                                      context:&selfContext];
+        [XTSettings_GetUserDefaults() removeObserver:self
+                                          forKeyPath:keyPath
+                                             context:&selfContext];
     }
 }
 
@@ -90,10 +90,10 @@ static NSString * const TideData_hourRange = @"hourRange";
 //#define DEBUG_PREDICTIONS 1
 
     for (NSString *keyPath in prefsKeysOfInterest) {
-        [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:keyPath
-                                                   options:NSKeyValueObservingOptionNew
-                                                   context:&selfContext];
+        [XTSettings_GetUserDefaults() addObserver:self
+                                       forKeyPath:keyPath
+                                          options:NSKeyValueObservingOptionNew
+                                          context:&selfContext];
     }
 	
 	[dayStepper setIntValue:[self defaultDayRange]];

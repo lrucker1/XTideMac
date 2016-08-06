@@ -35,7 +35,7 @@
 	IBOutlet NSColorWell *colorWell_mslcolor;
 	IBOutlet NSColorWell *colorWell_currentdotcolor;
 	IBOutlet NSColorWell *colorWell_tidedotcolor;
-	IBOutlet NSColorWell *colorWell_fgcolor;
+	IBOutlet NSColorWell *colorWell_foreground;
 
 	IBOutlet NSButton *checkBox_extralines;
 	IBOutlet NSButton *checkBox_toplines;

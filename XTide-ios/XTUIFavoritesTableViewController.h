@@ -10,5 +10,7 @@
 
 @interface XTUIFavoritesTableViewController : UITableViewController
 
+@property (nonatomic, strong) IBOutlet UIView *noFavoritesView;
+
 
 @end

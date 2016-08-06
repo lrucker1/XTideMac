@@ -33,17 +33,21 @@ extern "C" {
 #define tidedotcolor	8	// Tide station
 #define selcolor	9	// Selected station
 
-#define fgcolor		10	// Selected station		// fg
-#define colorindexmax (fgcolor+1)
+#define foregroundcolor	10	// Text		// fg
+#define colorindexmax (foregroundcolor+1)
 
 // Colors
 extern NSString *XTide_ColorKeys[colorindexmax];
 
 #if TARGET_OS_IPHONE
-UIColor *ColorForKey(NSString *key);
+#define COLOR_CLASS UIColor
 #else
-NSColor *ColorForKey(NSString *key);
+#define COLOR_CLASS NSColor
 #endif
+
+COLOR_CLASS *ColorForKey(NSString *key);
+COLOR_CLASS *ColorForName(NSString *colorAsString);
+NSString *ColorToRGBString(COLOR_CLASS *color);
 
 #ifdef __cplusplus
 }

@@ -204,6 +204,7 @@ void SVGGraph::centerStringSxPy (double x, int y, const Dstr &s) {
   SVG += x;
   SVG += "\" y=\"";
   SVG += y + SVGfontBaselineAdjust;
+  SVG += "\" class=\"fg";
   SVG += "\" text-anchor=\"middle\">";
   SVG += s;
   SVG += "</text>\n";
@@ -215,6 +216,7 @@ void SVGGraph::rightJustifyStringS (double x, double y, const Dstr &s) {
   SVG += x;
   SVG += "\" y=\"";
   SVG += y + SVGfontBaselineAdjust;
+  SVG += "\" class=\"fg";
   SVG += "\" text-anchor=\"end\">";
   SVG += s;
   SVG += "</text>\n";

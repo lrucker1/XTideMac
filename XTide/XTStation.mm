@@ -19,6 +19,8 @@
 #import "SVGGraph.hh"
 
 static NSArray *unitsPrefMap = nil;
+static NSTimeInterval DAY = 60 * 60 * 24;
+
 
 @implementation XTStation
 
@@ -61,7 +63,7 @@ static NSArray *unitsPrefMap = nil;
 
 - (void)updateUnits
 {
-	NSString *unitType = [[NSUserDefaults standardUserDefaults] objectForKey:XTide_units];
+	NSString *unitType = XTSettings_ObjectForKey(XTide_units);
     if (!unitType) {
         unitType = @"ft";
     }
@@ -128,11 +130,23 @@ static NSArray *unitsPrefMap = nil;
    return [[self dateFormatter] stringFromDate:date];
 }
 
+- (XTTideEvent *)nextMajorEventAfter:(NSDate *)startTime
+{
+    libxtide::Station::TideEventsFilter filter = mStation->isCurrent ? libxtide::Station::knownTideEvents
+                                                                     : libxtide::Station::maxMin;
+	XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
+    [self predictTideEventsStart:startTime
+                             end:[startTime dateByAddingTimeInterval:DAY]
+                       organizer:organizer
+                          filter:(int)filter];
+    return [[organizer standardEvents] firstObject];
+}
+
+
 // Generate an organizer with min/max events extending beyond the start/end dates.
 - (XTTideEventsOrganizer *)populateOrganizerForWatchEventsStart:(NSDate *)startTime
                                                             end:(NSDate *)endTime
 {
-    static NSTimeInterval DAY = 60 * 60 * 24;
     libxtide::Station::TideEventsFilter filter = mStation->isCurrent ? libxtide::Station::knownTideEvents
                                                                      : libxtide::Station::maxMin;
 

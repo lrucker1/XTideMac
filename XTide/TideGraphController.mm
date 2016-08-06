@@ -67,10 +67,10 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     }
     [self addObserver:self forKeyPath:TideGraph_graphdate options:0 context:&selfContext];
     for (NSString *keyPath in prefsKeysOfInterest) {
-        [[NSUserDefaults standardUserDefaults] addObserver:self
-                                                forKeyPath:keyPath
-                                                   options:NSKeyValueObservingOptionNew
-                                                   context:&selfContext];
+        [XTSettings_GetUserDefaults() addObserver:self
+                                       forKeyPath:keyPath
+                                          options:NSKeyValueObservingOptionNew
+                                          context:&selfContext];
     }
     return self;
 }
@@ -79,9 +79,9 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 {
     [self removeObserver:self forKeyPath:TideGraph_graphdate context:&selfContext];
     for (NSString *keyPath in prefsKeysOfInterest) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                                   forKeyPath:keyPath
-                                                      context:&selfContext];
+        [XTSettings_GetUserDefaults() removeObserver:self
+                                          forKeyPath:keyPath
+                                             context:&selfContext];
     }
     [super removeObservers];
 }

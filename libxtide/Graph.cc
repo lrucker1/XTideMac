@@ -101,15 +101,22 @@ void Graph::checkDepth (double ymax,
     int depth;
     const double valmax10(valmax*10), valmin10(valmin*10);
     double ytide;
+    bool showlabels = Global::settings["nl"].c != 'y';
+    // Leave a little space for the margin even if there's no text.
+    // TODO: Add another property to customize the space; there are labels,
+    // just not ones added here.
+    double textHeight = showlabels ? fontHeight() * 3 : 20;
+    double tickHeight = showlabels ? hourTickLen() - hourTickVerticalMargin() : 0;
+    
     for (depth = 0; depth <= valmax10; depth += lineStep) {
         ytide = xlate(0.1*depth);
         // Leave room for 3 lines of text at top, 3 lines of text plus
         // tick marks at bottom.
         if (ytide - fontHeight()/2 - depthLineVerticalMargin() <=
-            fontHeight() * 3)
+            textHeight)
             break;
         if (ytide + fontHeight()/2 + depthLineVerticalMargin() >=
-            _ySize - fontHeight() * 3 - hourTickLen() - hourTickVerticalMargin())
+            _ySize - textHeight - tickHeight)
             continue;
         maxDepth_out = depth;
         if (depth < minDepth_out) // In case one loop is never executed.
@@ -120,10 +127,10 @@ void Graph::checkDepth (double ymax,
         // Leave room for 3 lines of text at top, 3 lines of text plus
         // tick marks at bottom.
         if (ytide - fontHeight()/2 - depthLineVerticalMargin() <=
-            fontHeight() * 3)
+            textHeight)
             continue;
         if (ytide + fontHeight()/2 + depthLineVerticalMargin() >=
-            _ySize - fontHeight() * 3 - hourTickLen() - hourTickVerticalMargin())
+            _ySize - textHeight - tickHeight)
             break;
         minDepth_out = depth;
         if (depth > maxDepth_out) // In case one loop is never executed.
@@ -382,7 +389,9 @@ void Graph::drawTides (Station *station,
                          increment * startPosition(labelWidth));
     Timestamp endTime (startTime + increment * _xSize);
     Timestamp currentTime ((time_t)time(NULL));
-    
+ 
+    bool showlabels = Global::settings["nl"].c != 'y';
+   
     // First get a list of the relevant tide events.  Need some extra on
     // either side since text pertaining to events occurring beyond the
     // margins can still be visible.  We also need to make sure
@@ -535,28 +544,30 @@ void Graph::drawTides (Station *station,
             timeStep = 24;
         
         // Do time axis.
-        const Timestamp timeAxisStopTime (endTime + Global::hour * timeStep);
-        Timestamp loopt = startTime;
-        for (loopt.floorHour(station->timezone);
-             loopt < timeAxisStopTime;
-             loopt.nextHour(station->timezone)) {
-            if (loopt.tmStruct(station->timezone).tm_hour % timeStep == 0) {
-                const double x = (loopt - startTime) / increment;
-                drawHourTick (x, Colors::foreground, false);
-                Dstr ts;
-                loopt.printHour (ts, station->timezone);
-                labelHourTick (x, ts);
+        if (showlabels) {
+            const Timestamp timeAxisStopTime (endTime + Global::hour * timeStep);
+            Timestamp loopt = startTime;
+            for (loopt.floorHour(station->timezone);
+                 loopt < timeAxisStopTime;
+                 loopt.nextHour(station->timezone)) {
+                if (loopt.tmStruct(station->timezone).tm_hour % timeStep == 0) {
+                    const double x = (loopt - startTime) / increment;
+                    drawHourTick (x, Colors::foreground, false);
+                    Dstr ts;
+                    loopt.printHour (ts, station->timezone);
+                    labelHourTick (x, ts);
+                }
             }
-        }
         
-        /* Make tick marks for day boundaries thicker. */
-        /* They are not guaranteed to coincide with hour transitions! */
-        loopt = startTime;
-        for (loopt.floorDay(station->timezone);
-             loopt < timeAxisStopTime;
-             loopt.nextDay(station->timezone)) {
-            const double x = (loopt - startTime) / increment;
-            drawHourTick (x, Colors::foreground, true);
+            /* Make tick marks for day boundaries thicker. */
+            /* They are not guaranteed to coincide with hour transitions! */
+            loopt = startTime;
+            for (loopt.floorDay(station->timezone);
+                 loopt < timeAxisStopTime;
+                 loopt.nextDay(station->timezone)) {
+                const double x = (loopt - startTime) / increment;
+                drawHourTick (x, Colors::foreground, true);
+            }
         }
     }
 
@@ -581,7 +592,7 @@ void Graph::drawTides (Station *station,
             clockOrganizer->add(nextMax);
             clockOrganizer->add(nextMin);
         }
-    } else if (_style != icon) {
+    } else if (_style != icon && showlabels) {
         
         drawTitleLine (station->name);
         

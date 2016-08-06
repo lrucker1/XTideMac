@@ -61,10 +61,10 @@ static TideController *selfContext;
     self.station = [stationRef loadStation];
     _isObserving = YES;
     
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_units
-                                               options:NSKeyValueObservingOptionNew
-                                               context:&selfContext];
+    [XTSettings_GetUserDefaults() addObserver:self
+                                   forKeyPath:XTide_units
+                                      options:NSKeyValueObservingOptionNew
+                                      context:&selfContext];
     
     return self;
 }
@@ -84,9 +84,9 @@ static TideController *selfContext;
 
 - (void)removeObservers
 {
-   [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:XTide_units
-                                                  context:&selfContext];
+    [XTSettings_GetUserDefaults() removeObserver:self
+                                      forKeyPath:XTide_units
+                                         context:&selfContext];
     self.isObserving = NO;
 }
 

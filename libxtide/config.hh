@@ -140,6 +140,9 @@ static constString prefunits = "x";
 // Force UTC?
 static const char forceZuluTime = 'n';
 
+// No event labels?
+static const char nolabels = 'n';
+
 // Date, time, hour formats.
 
 static constString datefmt = "%Y-%m-%d";

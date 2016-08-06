@@ -79,7 +79,6 @@
     return [DstrToNSString(mStationRef->harmonicsFileName) hash] + mStationRef->recordNumber;
 }
 
-
 #pragma mark MKAnnotation
 
 - (CLLocationCoordinate2D)coordinate
@@ -97,7 +96,6 @@
                                  verticalAccuracy:0
                                         timestamp:[NSDate date]];
 }
-
 
 - (NSString *)subtitle
 {

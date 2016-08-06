@@ -16,6 +16,7 @@
 
 static NSString * const PVUnitsKey = @"units";
 static NSString * const PVValueKey = @"value";
+static NSUserDefaults *userDefaults;
 
 NSString *XTide_gaspect = @"XTide_gaspect";
 NSString *XTide_extralines = @"XTide_extralines";
@@ -101,7 +102,10 @@ Settings::Settings () {
         {"l", Dstr(), Dstr(), Configurable::switchKind, Configurable::dstrVectorRep, Configurable::textInterp, true, 0,0,0,Dstr(),PredictionValue(),DstrVector(), 0},
         {"ml", Dstr(), Dstr(), Configurable::switchKind, Configurable::predictionValueRep, Configurable::numberInterp, true, 0,0,0,Dstr(),PredictionValue(),DstrVector(), 0},
         {"o", Dstr(), Dstr(), Configurable::switchKind, Configurable::dstrRep, Configurable::textInterp, true, 0,0,0,Dstr(),PredictionValue(),DstrVector(), 0},
-        
+ 
+        // Apple additions
+        {"nl", "nolabels", "No event labels?", Configurable::settingKind, Configurable::charRep, Configurable::booleanInterp, false, 0,0,nolabels,Dstr(),PredictionValue(),DstrVector(), 0},
+
         // Deprecated settings
         {"ns", "nosunmoon", Dstr(), Configurable::settingKind, Configurable::charRep, Configurable::booleanInterp, true, 0,0,0,Dstr(),PredictionValue(),DstrVector(), 0},
         {"nf", "nofill", Dstr(), Configurable::settingKind, Configurable::charRep, Configurable::booleanInterp, true, 0,0,0,Dstr(),PredictionValue(),DstrVector(), 0},
@@ -181,21 +185,38 @@ static void setConfigurableToValue(libxtide::Configurable &cfbl,
             cfbl.d = [value doubleValue];
             break;
         case libxtide::Configurable::charRep:
-            if (cfbl.interpretation == libxtide::Configurable::booleanInterp) {
-                cfbl.c = [value boolValue] ? 'y' : 'n';
-            } else {
-                cfbl.c = [value charValue];
+            if ([value isKindOfClass:[NSNumber class]]) {
+                if (cfbl.interpretation == libxtide::Configurable::booleanInterp) {
+                    cfbl.c = [value boolValue] ? 'y' : 'n';
+                } else {
+                    cfbl.c = [value charValue];
+                }
+            } else if ([value isKindOfClass:[NSString class]]) {
+                cfbl.c = [value characterAtIndex:0];
             }
             break;
         case libxtide::Configurable::dstrRep:
             /*
              * Colors might be NSData or a string. We only use Configurable
              * colors for the initial defaults, then get them from NSUserDefaults
-             * after that. So don't worry about it.
+             * after that, but SVG uses them.
              */
             if ([value isKindOfClass:[NSString class]]) {
                 cfbl.s = Dstr([value UTF8String]);
+                break;
             }
+            if ([value isKindOfClass:[NSData class]]) {
+                value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
+            }
+            if ([value isKindOfClass:[COLOR_CLASS class]]) {
+                NSString *colorString = ColorToRGBString(value);
+                if (colorString) {
+                    cfbl.s = Dstr([colorString UTF8String]);
+                }
+            } else {
+                NSLog(@"setConfigurableToValue dstrRep failure: %@ %@ %@", DstrToNSString(cfbl.switchName), DstrToNSString(cfbl.resourceName), value);
+            }
+            //NSLog(@"%@ %@ %@", DstrToNSString(cfbl.switchName), DstrToNSString(cfbl.resourceName), DstrToNSString(cfbl.s));
             break;
         case libxtide::Configurable::predictionValueRep:
         {
@@ -215,7 +236,7 @@ static void setConfigurableToValue(libxtide::Configurable &cfbl,
 static void setConfigurableFromPref(libxtide::Configurable &cfbl)
 {
     NSString *resName = configurablePrefKey(cfbl);
-    id pref = [[NSUserDefaults standardUserDefaults] objectForKey:resName];
+    id pref = [XTSettings_GetUserDefaults() objectForKey:resName];
     //NSLog(@"%@ %@", resName, pref);
     setConfigurableToValue(cfbl, pref);
 }
@@ -291,7 +312,7 @@ static id valueForConfigurable(libxtide::Configurable &cfbl)
 static void updateOldPref(const char *s)
 {
     NSString *oldName = [NSString stringWithFormat:@"XTide*%s", s];
-    id pref = [[NSUserDefaults standardUserDefaults] objectForKey:oldName];
+    id pref = [XTSettings_GetUserDefaults() objectForKey:oldName];
     if (pref) {
         NSString *newName = [NSString stringWithFormat:@"XTide_%s", s];
         if ([newName isEqualToString:@"XTide_units"]) {
@@ -310,8 +331,8 @@ static void updateOldPref(const char *s)
         } else if ([newName isEqualToString:@"XTide_nosunmoon"]) {
             // YES -> "pSsMm", NO -> "x"
         }
-        [[NSUserDefaults standardUserDefaults] setObject:pref forKey:newName];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:oldName];
+        [XTSettings_GetUserDefaults() setObject:pref forKey:newName];
+        [XTSettings_GetUserDefaults() removeObjectForKey:oldName];
     }
 }
 
@@ -335,7 +356,7 @@ NSMutableDictionary *SettingsDefaultValues()
     [defaultValues setObject:@"yellow"
                       forKey:XTide_ColorKeys[mslcolor]];
     [defaultValues setObject:@"gray90"
-                      forKey:XTide_ColorKeys[fgcolor]];
+                      forKey:XTide_ColorKeys[foregroundcolor]];
     
     return defaultValues;
 }
@@ -358,6 +379,7 @@ NSMutableDictionary *SettingsDefaultValues()
 
 void libxtide::Settings::setMacDefaults()
 {
+    assert(XTSettings_GetUserDefaults() != nil);
     NSMutableDictionary *defaultValues = SettingsDefaultValues();
     for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
         Configurable &cfbl = it->second;
@@ -374,7 +396,7 @@ void libxtide::Settings::setMacDefaults()
     }
     
     // Register the dictionary of defaults
-    [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+    [XTSettings_GetUserDefaults() registerDefaults:defaultValues];
     
     // Fix any old prefs
     for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
@@ -432,6 +454,17 @@ void libxtide::Settings::applyMacResources()
     }
 }
 
+void RegisterUserDefaults(NSUserDefaults *defaults)
+{
+    userDefaults = defaults ? defaults : [NSUserDefaults standardUserDefaults];
+    
+}
+
+NSUserDefaults *XTSettings_GetUserDefaults()
+{
+    return userDefaults;
+}
+
 void XTSettings_SetShortcutToValue(const char *shortcut, id value)
 {
     libxtide::Configurable &cfbl = libxtide::Global::settings[shortcut];
@@ -439,12 +472,20 @@ void XTSettings_SetShortcutToValue(const char *shortcut, id value)
     NSString *resName = configurablePrefKey(cfbl);
     // CPP update has to happen before NSUserDefaults change fires, so applyMacResources is too late.
     setConfigurableToValue(cfbl, value);
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:resName];
+    if ([value isKindOfClass:[COLOR_CLASS class]]) {
+        value = [NSKeyedArchiver archivedDataWithRootObject:value];
+    }
+    [XTSettings_GetUserDefaults() setObject:value forKey:resName];
+}
+
+id XTSettings_ObjectForKey(NSString *key)
+{
+    return [XTSettings_GetUserDefaults() objectForKey:key];
 }
 
 NSArray *XTSettings_GetHarmonicsURLsFromPrefs()
 {
-    NSArray *bookmarks = [[NSUserDefaults standardUserDefaults] objectForKey:XTide_harmonicsFiles];
+    NSArray *bookmarks = [XTSettings_GetUserDefaults() objectForKey:XTide_harmonicsFiles];
     NSMutableArray *urls = [NSMutableArray array];
     
     for (NSData *bookmarkData in bookmarks) {

@@ -18,6 +18,7 @@
 
 static XTStationIndex *gStationIndex = NULL;
 static NSString *XTStationFavoritesKey = @"stationFavorites";
+static NSString *XTStationClosestFavoriteKey = @"closestFavorite";
 
 NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexStationsReloadedNotification";
 NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFavoritesChangedNotification";
@@ -114,9 +115,15 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 
 #pragma mark favorites
 
+- (NSUserDefaults *)userDefaults
+{
+    return self.favoritesDefaults ? self.favoritesDefaults
+                                  : [NSUserDefaults standardUserDefaults];
+}
+
 - (void)addFavorite:(XTStationRef *)ref
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = self.userDefaults;
     NSArray *favoritesLoaded = [defaults objectForKey:XTStationFavoritesKey];
     NSMutableArray *favorites = nil;
 
@@ -138,7 +145,7 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 
 - (void)removeFavorite:(XTStationRef *)ref
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = self.userDefaults;
     NSArray *favoritesLoaded = [defaults objectForKey:XTStationFavoritesKey];
 
     if (!favoritesLoaded) {
@@ -169,7 +176,7 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 // Return names for simple lists.
 - (NSArray *)favoriteNames
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:XTStationFavoritesKey];
+    return [self.userDefaults objectForKey:XTStationFavoritesKey];
 }
 
 // Return StationRefs for the current favorites.
@@ -208,6 +215,23 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
     return [self stationRefNearestLocation:location inStations:[self favoriteStationRefs]];
 }
 
+- (XTStationRef *)closestFavorite
+{
+    NSUserDefaults *defaults = self.userDefaults;
+    NSString *name = [defaults objectForKey:XTStationClosestFavoriteKey];
+    if (name) {
+        return [self stationRefByName:name];
+    }
+    return nil;
+}
+
+- (void)saveClosestFavorite:(XTStationRef *)closest
+{
+    NSUserDefaults *defaults = self.userDefaults;
+    [defaults setObject:[closest title] forKey:XTStationClosestFavoriteKey];
+    [defaults synchronize];
+}
+
 
 #pragma mark adaptation
 
@@ -220,24 +244,21 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 
 - (void)loadHarmonicsFiles
 {
-    NSArray *harmonicsFiles = [[NSBundle mainBundle] pathsForResourcesOfType:@"tcd" inDirectory:nil];
-    if (self.resourceTCDVersion == nil) {
-        // Read the version info.
-        NSMutableArray *info = [NSMutableArray array];
-        for (NSString *harmonicsFile in harmonicsFiles) {
-            [info addObject:[self versionFromHarmonicsFile:harmonicsFile]];
-        }
-        self.resourceTCDVersion = [info componentsJoinedByString:@"\n"];
-    }
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:XTide_ignoreResourceHarmonics]) {
+    NSArray *harmonicsFiles = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"tcd" inDirectory:nil];
+    // Load files and read the version info.
+    NSMutableArray *info = [NSMutableArray array];
+    if (![XTSettings_GetUserDefaults() boolForKey:XTide_ignoreResourceHarmonics]) {
         for (NSString *harmonicsFile in harmonicsFiles) {
             [self loadHarmonicsFile:harmonicsFile];
+            [info addObject:[self versionFromHarmonicsFile:harmonicsFile]];
         }
     }
     NSArray *urls = XTSettings_GetHarmonicsURLsFromPrefs();
     for (NSURL *url in urls) {
         [self loadHarmonicsFile:[url path]];
+        [info addObject:[self versionFromHarmonicsFile:[url path]]];
     }
+    self.resourceTCDVersion = [info componentsJoinedByString:@"\n"];
 }
 
 
@@ -286,7 +307,7 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
         mStationIndex->sort();
         mStationIndex->setRootStationIndexIndices();
     }
-    // Don't build the ref array yet; we have multiple harmonics files.
+    // Don't build the ref array yet; we can have multiple harmonics files.
     // Throw it away if we have one to force a rebuild with all files.
     if (stationRefArray) {
         self.stationRefArray = nil;

@@ -54,7 +54,7 @@
 @end
 
 namespace libxtide {
-    int colormap[Colors::numColors] = {-1, fgcolor, markcolor, -1,
+    int colormap[Colors::numColors] = {-1, foregroundcolor, markcolor, -1,
         daycolor, nightcolor, floodcolor, ebbcolor, datumcolor, mslcolor};
 }
 
@@ -354,7 +354,7 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
     const char gs (Global::settings["gs"].c);
     const double opacity (gs == 'l' ? 1.0 : Global::settings["to"].d);
     Colors::Colorchoice lastcolor = (Colors::Colorchoice)-1;
-    Colors::Colorchoice c = lastcolor;
+    Colors::Colorchoice c;
 
     BEZIER_CLASS *tidePath = [BEZIER_CLASS bezierPath];
     CGPoint p1;
@@ -367,6 +367,9 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
     
     if (_xSize == 0) {
         return;
+    }
+    if (!fill) {
+        [tidePath setLineWidth:Global::settings["lw"].d];
     }
     for (int x=0; x<(int)_xSize; ++x) {
         
@@ -384,21 +387,29 @@ void CocoaGraph::drawLevels(const SafeVector<double> &val,
             if (lastcolor >= 0) {
                 p1 = CGPointMake(x+1, y[x+2]);
                 [tidePath lineToPoint:p1];
-                [tidePath lineToPoint:CGPointMake(x+1, ybase)];
+                if (fill) {
+                    [tidePath lineToPoint:CGPointMake(x+1, ybase)];
+                }
                 [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
                 fill ? [tidePath fill] : [tidePath stroke];
                 [tidePath removeAllPoints];
             }
-            [tidePath moveToPoint:CGPointMake(x, ybase)];
+            if (fill) {
+                [tidePath moveToPoint:CGPointMake(x, ybase)];
+            } else {
+                [tidePath moveToPoint:p1];
+            }
             lastcolor = c;
-       }
+        }
         else {
             [tidePath lineToPoint:p1];
         }
     }
     // and the final bit at the end
     [[mycolors[lastcolor] colorWithAlphaComponent:opacity] set];
-    [tidePath lineToPoint:CGPointMake(_xSize, ybase)];
+    if (fill) {
+        [tidePath lineToPoint:CGPointMake(_xSize, ybase)];
+    }
     fill ? [tidePath fill] : [tidePath stroke];
 }
 
@@ -461,7 +472,7 @@ void CocoaGraph::drawBoxS (double x1, double x2, double y1, double y2,
     CGRect fillRect = CGRectMake(ix1, iy1, ix2 - ix1, iy2 - iy1);
     [mycolors[c] set];
 #if TARGET_OS_IPHONE
-    UIRectFill(fillRect);
+     UIRectFill(fillRect);
 #else
     NSRectFill(fillRect);
 #endif

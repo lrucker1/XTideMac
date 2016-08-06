@@ -48,7 +48,7 @@ static NSString *versionKey = @"version";
 
 - (void)windowDidLoad
 {
-    [colorWell_fgcolor setColor:[self colorForKey:XTide_ColorKeys[fgcolor]]];
+    [colorWell_foreground setColor:[self colorForKey:XTide_ColorKeys[foregroundcolor]]];
     [colorWell_daycolor setColor:[self colorForKey:XTide_ColorKeys[daycolor]]];
     [colorWell_nightcolor setColor:[self colorForKey:XTide_ColorKeys[nightcolor]]];
     [colorWell_ebbcolor setColor:[self colorForKey:XTide_ColorKeys[ebbcolor]]];
@@ -67,7 +67,7 @@ static NSString *versionKey = @"version";
         [colorWell_tidedotcolor setEnabled:NO];
     }
     
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *settings = XTSettings_GetUserDefaults();
     
     BOOL tl = [settings boolForKey:XTide_toplines]; //"tl" toplines - draw depth lines
     BOOL el = [settings boolForKey:XTide_extralines]; //"el" extralines - draw datum and Mean Astronomical Tide lines
@@ -101,7 +101,7 @@ static NSString *versionKey = @"version";
 
 - (void)readHarmonicsFromPrefs
 {
-    self.useStandardHarmonics = ![[NSUserDefaults standardUserDefaults] boolForKey:XTide_ignoreResourceHarmonics];
+    self.useStandardHarmonics = ![XTSettings_GetUserDefaults() boolForKey:XTide_ignoreResourceHarmonics];
     NSArray *urls = XTSettings_GetHarmonicsURLsFromPrefs();
     [harmonicsFileArray removeObjects:[harmonicsFileArray arrangedObjects]];
     [harmonicsFileArray addObjects:[self objectsForURLs:urls]];
@@ -123,7 +123,7 @@ static NSString *versionKey = @"version";
         key = XTide_ColorKeys[keyIndex];
         
         // We read colors from prefs, so we don't need to worry about syncing.
-        [[NSUserDefaults standardUserDefaults] setObject:colorAsData forKey:key];
+        [XTSettings_GetUserDefaults() setObject:colorAsData forKey:key];
     }
 }
 
@@ -208,7 +208,7 @@ static NSString *versionKey = @"version";
 
 - (IBAction)applyHarmonics:(id)sender
 {
-    [[NSUserDefaults standardUserDefaults] setBool:!self.useStandardHarmonics forKey:XTide_ignoreResourceHarmonics];
+    [XTSettings_GetUserDefaults() setBool:!self.useStandardHarmonics forKey:XTide_ignoreResourceHarmonics];
     NSMutableArray *array = [NSMutableArray array];
     for (NSDictionary *tableData in [harmonicsFileArray arrangedObjects]) {
         NSURL *url = [tableData objectForKey:urlKey];
@@ -222,7 +222,7 @@ static NSString *versionKey = @"version";
             }
         }
     }
-    [[NSUserDefaults standardUserDefaults] setObject:array forKey:XTide_harmonicsFiles];
+    [XTSettings_GetUserDefaults() setObject:array forKey:XTide_harmonicsFiles];
 }
 
 - (IBAction)revertHarmonics:(id)sender

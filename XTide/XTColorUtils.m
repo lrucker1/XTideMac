@@ -7,14 +7,13 @@
 //
 
 #import "XTColorUtils.h"
+#import "XTSettings.h"
 
 
 #if TARGET_OS_IPHONE
-#define COLOR_CLASS UIColor
 #define SEA_GREEN 0x4CFCB3
 #define DARK_SEA_GREEN 0x408A50
 #else
-#define COLOR_CLASS NSColor
 // These colors look close to the iPhone colors.
 // Don't lose them; they're needed for the watch background generation.
 #define SEA_GREEN 0x2DE09D
@@ -35,7 +34,7 @@ NSString *XTide_ColorKeys[colorindexmax] = {
 	@"XTide_currentdotcolor",
 	@"XTide_tidedotcolor",
 	@"XTide_selcolor",
-	@"XTide_fgcolor"	// fg
+	@"XTide_foreground"	// fg
 };
 
 // This would be a category extension but we only need it here.
@@ -54,22 +53,73 @@ ColorForHex(NSUInteger hex)
 static COLOR_CLASS *
 ColorFromRGBString(NSString *colorName)
 {
-  NSInteger r, g, b;
-  r = g = b = 0;
-  const char *fmt1 = "rgb:%" SCNx8 "/%" SCNx8 "/%" SCNx8;
-
-  if (sscanf ([colorName UTF8String], fmt1, &r, &g, &b) == 3) {
-      return [COLOR_CLASS colorWithRed:r / 255.0
-                                 green:g / 255.0
-                                  blue:b / 255.0
-                                 alpha:1.0];
-  }
-  return nil;
+    NSInteger r, g, b, w;
+    r = g = b = w = 0;
+    const char *fmt1 = "rgb:%" SCNx8 "/%" SCNx8 "/%" SCNx8;
+    const char *fmtGray = "gray%" SCNx8;
+    
+    if (sscanf ([colorName UTF8String], fmt1, &r, &g, &b) == 3) {
+        return [COLOR_CLASS colorWithRed:r / 255.0
+                                   green:g / 255.0
+                                    blue:b / 255.0
+                                   alpha:1.0];
+    } else if (sscanf ([colorName UTF8String], fmtGray, &w)) {
+        return [COLOR_CLASS colorWithWhite:w / 100.0
+                                   alpha:1.0];
+    }
+    return nil;
 }
 
-// Dearchive a color object or name, using xtide's names.
+static NSString *
+ColorToGrayString(COLOR_CLASS *color)
+{
+    CGFloat w, a;
+#if TARGET_OS_IPHONE
+    if (![color getWhite:&w alpha:&a]) {
+        return nil;
+    }
+#else
+    // Using the exceptions because there are more spaces to check, and since
+    // this is the failure case for the RGB check it's pretty likely to be a
+    // gray color if we get here.
+    @try {
+        [color getWhite:&w alpha:&a];
+    } @catch (NSException *e) {
+        return nil;
+    }
+#endif
+    if (w == 0) {
+        return @"black";
+    } else if (w == 1) {
+        return @"white";
+    }
+    return [NSString stringWithFormat:@"gray%d", (int)(w * 100.0)];
+}
+
+NSString *
+ColorToRGBString(COLOR_CLASS *color)
+{
+    CGFloat r, g, b;
+    const NSString *fmt1 = @"rgb:%" SCNx8 "/%" SCNx8 "/%" SCNx8;
+#if TARGET_OS_IPHONE
+    if (![color getRed:&r green:&g blue:&b alpha:NULL]) {
+        return ColorToGrayString(color);
+    }
+#else
+    // This could use try/catch, but then you'll hit this a lot with exception breakpoints on.
+    NSString *spaceName = [color colorSpaceName];
+    if (    [spaceName isEqualToString:NSCalibratedRGBColorSpace]
+         || [spaceName isEqualToString:NSDeviceRGBColorSpace]) {
+       [color getRed:&r green:&g blue:&b alpha:NULL];
+    } else {
+        return ColorToGrayString(color);
+    }
+#endif
+    return [NSString stringWithFormat:(NSString *)fmt1, (int)(r * 255.0), (int)(g * 255.0), (int)(b * 255.0)];
+}
+
 COLOR_CLASS *
-ColorForKey(NSString *key)
+ColorForName(NSString *colorAsString)
 {
     // Colors from http://www.colourlovers.com/palette/1838545/Evening_Tide
     // with some tweaking.
@@ -93,17 +143,24 @@ ColorForKey(NSString *key)
           @"deepskyblue" : deepSkyBlue,
           @"darkseagreen": darkSeaGreen,
          };
-	NSData *colorAsData = [[NSUserDefaults standardUserDefaults]
-						objectForKey:key];
+    COLOR_CLASS *color = [colorMap objectForKey:[colorAsString lowercaseString]];
+    if (!color) {
+        color = ColorFromRGBString(colorAsString);
+    }
+    return color;
+}
+
+// Dearchive a color object or name, using xtide's names.
+COLOR_CLASS *
+ColorForKey(NSString *key)
+{
+	NSData *colorAsData = [XTSettings_GetUserDefaults() objectForKey:key];
     if (!colorAsData) {
         return nil;
     }
     if ([colorAsData isKindOfClass:[NSString class]]) {
         NSString *colorAsString = (NSString *)colorAsData;
-        COLOR_CLASS *color = [colorMap objectForKey:[colorAsString lowercaseString]];
-        if (!color) {
-            color = ColorFromRGBString(colorAsString);
-        }
+        COLOR_CLASS *color = ColorForName(colorAsString);
         if (!color) {
             NSLog(@"ColorForKey: No colorMap value %@ %@", key, colorAsString);
             return [COLOR_CLASS orangeColor];

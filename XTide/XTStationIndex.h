@@ -19,6 +19,7 @@ extern NSString * const XTStationIndexFavoritesChangedNotification;
 
 @property (readonly, retain, nonatomic) NSArray *stationRefArray;
 @property (readonly, copy, nonatomic) NSString *resourceTCDVersion;
+@property (readwrite, retain, nonatomic) NSUserDefaults *favoritesDefaults;
 
 + (XTStationIndex *)sharedStationIndex;
 + (void)releaseSharedStationIndex;
@@ -34,6 +35,8 @@ extern NSString * const XTStationIndexFavoritesChangedNotification;
 - (BOOL)isFavoriteStation:(XTStation *)station;
 - (NSArray *)favoriteNames;
 - (NSArray *)favoriteStationRefs;
+- (void)saveClosestFavorite:(XTStationRef *)closest;
+- (XTStationRef *)closestFavorite;
 - (XTStationRef *)favoriteNearestLocation:(CLLocation *)location;
 - (XTStationRef *)stationRefNearestLocation:(CLLocation *)location
                                  inStations:(NSArray *)refs;

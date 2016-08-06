@@ -11,6 +11,7 @@
 
 @class XTTideEventsOrganizer;
 @class XTStationRef;
+@class XTTideEvent;
 
 @interface XTStation : NSObject
 
@@ -26,6 +27,7 @@
 - (NSString *)dayStringFromDate:(NSDate *)date;
 - (NSString *)dateStringFromDate:(NSDate *)date;
 
+- (XTTideEvent *)nextMajorEventAfter:(NSDate *)startTime;
 - (void)predictTideEventsStart:(NSDate*)startTime
                            end:(NSDate*)endTime
                      organizer:(XTTideEventsOrganizer*)organizer;

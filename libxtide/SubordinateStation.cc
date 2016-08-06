@@ -355,7 +355,7 @@ void SubordinateStation::addInterpolatedSubstationMarkCrossingEvents (
                                            Timestamp startTime,
                                            Timestamp endTime,
                                            TideEventsOrganizer &organizer) {
-  bool isRising;
+  bool isRising = 0;
   TideEvent new_te;
 
   // Problem #1.  Need to extract the set of relevant events.

@@ -20,10 +20,10 @@ static XTPrefFlagsViewController *selfContext;
 
 - (void)awakeFromNib
 {
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_eventmask
-                                               options:NSKeyValueObservingOptionNew
-                                               context:&selfContext];
+    [XTSettings_GetUserDefaults() addObserver:self
+                                   forKeyPath:XTide_eventmask
+                                      options:NSKeyValueObservingOptionNew
+                                      context:&selfContext];
     self.isObserving = YES;
     [self parseEventMask];
 }
@@ -32,9 +32,9 @@ static XTPrefFlagsViewController *selfContext;
 - (void)dealloc
 {
     if (self.isObserving) {
-        [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                                   forKeyPath:XTide_eventmask
-                                                      context:&selfContext];
+        [XTSettings_GetUserDefaults() removeObserver:self
+                                          forKeyPath:XTide_eventmask
+                                             context:&selfContext];
     }
 }
 
@@ -50,7 +50,7 @@ static XTPrefFlagsViewController *selfContext;
 
 - (void)parseEventMask
 {
-    NSString *eventMask = [[NSUserDefaults standardUserDefaults] stringForKey:XTide_eventmask];
+    NSString *eventMask = [XTSettings_GetUserDefaults() stringForKey:XTide_eventmask];
     self.phaseOfMoon = [eventMask rangeOfString:@"p"].location == NSNotFound;
     self.sunrise = [eventMask rangeOfString:@"S"].location == NSNotFound;
     self.sunset = [eventMask rangeOfString:@"s"].location == NSNotFound;

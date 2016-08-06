@@ -43,7 +43,6 @@ public:
    
 protected:
    
-   
 };
 
 #endif /* XTSettingsInt_h */

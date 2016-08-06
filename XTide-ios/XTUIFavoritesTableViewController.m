@@ -23,6 +23,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteStationRefs];
+    if ([self.favoritesArray count] == 0) {
+        self.tableView.backgroundView = self.noFavoritesView;
+    } else {
+        self.tableView.backgroundView = nil;
+    }
     
     // Uncomment the following line to preserve selection between presentations.
     self.clearsSelectionOnViewWillAppear = NO;

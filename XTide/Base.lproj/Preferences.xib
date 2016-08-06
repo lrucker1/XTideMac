@@ -13,8 +13,8 @@
                 <outlet property="colorWell_datumcolor" destination="136" id="163"/>
                 <outlet property="colorWell_daycolor" destination="126" id="158"/>
                 <outlet property="colorWell_ebbcolor" destination="130" id="160"/>
-                <outlet property="colorWell_fgcolor" destination="172" id="175"/>
                 <outlet property="colorWell_floodcolor" destination="132" id="161"/>
+                <outlet property="colorWell_foreground" destination="172" id="TsJ-Kp-hMf"/>
                 <outlet property="colorWell_markcolor" destination="134" id="162"/>
                 <outlet property="colorWell_mslcolor" destination="138" id="164"/>
                 <outlet property="colorWell_nightcolor" destination="128" id="159"/>
@@ -194,6 +194,7 @@
                                             </constraints>
                                             <color key="color" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="129" id="nMC-cB-gKF"/>
                                                 <action selector="changeColor:" target="-2" id="142"/>
                                             </connections>
                                         </colorWell>
@@ -213,6 +214,7 @@
                                             </constraints>
                                             <color key="color" red="0.59559655190000005" green="1" blue="0.91683393719999995" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="131" id="pOB-lB-5Qc"/>
                                                 <action selector="changeColor:" target="-2" id="143"/>
                                             </connections>
                                         </colorWell>
@@ -232,6 +234,7 @@
                                             </constraints>
                                             <color key="color" red="0.023988544939999999" green="0.43561911580000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="133" id="oVI-fJ-vSi"/>
                                                 <action selector="changeColor:" target="-2" id="144"/>
                                             </connections>
                                         </colorWell>
@@ -251,6 +254,7 @@
                                             </constraints>
                                             <color key="color" red="1" green="0.06030158326" blue="0.0367205143" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="135" id="kxW-3r-BMf"/>
                                                 <action selector="changeColor:" target="-2" id="145"/>
                                             </connections>
                                         </colorWell>
@@ -270,6 +274,7 @@
                                             </constraints>
                                             <color key="color" red="0.97239422799999997" green="0.98777753109999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="137" id="ccT-zQ-I18"/>
                                                 <action selector="changeColor:" target="-2" id="146"/>
                                             </connections>
                                         </colorWell>
@@ -289,6 +294,7 @@
                                             </constraints>
                                             <color key="color" red="0.96513032909999996" green="1" blue="0.02250593901" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="139" id="QEq-bx-VkJ"/>
                                                 <action selector="changeColor:" target="-2" id="147"/>
                                             </connections>
                                         </colorWell>
@@ -308,6 +314,7 @@
                                             </constraints>
                                             <color key="color" red="1" green="0.012268543240000001" blue="0.024057805540000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="149" id="pjZ-5F-Pwl"/>
                                                 <action selector="changeColor:" target="-2" id="154"/>
                                             </connections>
                                         </colorWell>
@@ -327,6 +334,7 @@
                                             </constraints>
                                             <color key="color" red="1" green="0.4637349248" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="151" id="zc4-nB-STJ"/>
                                                 <action selector="changeColor:" target="-2" id="155"/>
                                             </connections>
                                         </colorWell>
@@ -344,17 +352,10 @@
                                             </constraints>
                                             <color key="color" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="173" id="rJG-Qf-CBn"/>
                                                 <action selector="changeColor:" target="-2" id="174"/>
                                             </connections>
                                         </colorWell>
-                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="173">
-                                            <rect key="frame" x="357" y="116" width="209" height="17"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Graph labels" id="239">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
-                                        </textField>
                                         <colorWell tag="1001" translatesAutoresizingMaskIntoConstraints="NO" id="126">
                                             <rect key="frame" x="20" y="224" width="52" height="24"/>
                                             <constraints>
@@ -363,6 +364,7 @@
                                             </constraints>
                                             <color key="color" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
+                                                <accessibilityConnection property="title" destination="127" id="cTq-YZ-M0C"/>
                                                 <action selector="changeColor:" target="-2" id="141"/>
                                             </connections>
                                         </colorWell>
@@ -380,6 +382,14 @@
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="151">
                                             <rect key="frame" x="357" y="200" width="209" height="17"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Tide Station" id="237">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="173">
+                                            <rect key="frame" x="357" y="116" width="209" height="17"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Graph labels" id="239">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

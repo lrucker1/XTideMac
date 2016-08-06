@@ -27,7 +27,7 @@
 
 
 - (NSInteger)count;
-- (XTTideEvent *)objectAtIndex: (NSInteger)i;
+- (XTTideEvent *)objectAtIndex:(NSInteger)i;
 - (XTTideEvent *)objectAtIndexPath:(NSIndexPath *)indexPath;
 - (NSInteger)numberOfRowsInSection:(NSInteger)section;
 

@@ -12,6 +12,7 @@
 #import "XTStation.h"
 #import "XTStationIndex.h"
 #import "XTStationRef.h"
+#import "XTSettings.h"
 #import "XTGraph.h"
 #import "TideGraphController.h"
 #import "SuggestionsWindowController.h"
@@ -125,14 +126,14 @@ static XTMapWindowController *selfContext;
     self.mapView.showsUserLocation = YES;
     self.mapView.mapType = MKMapTypeHybrid;
     self.mapView.showsPointsOfInterest = YES;
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_ColorKeys[currentdotcolor]
-                                               options:NSKeyValueObservingOptionNew
-                                               context:&selfContext];
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:XTide_ColorKeys[tidedotcolor]
-                                               options:NSKeyValueObservingOptionNew
-                                               context:&selfContext];
+    [XTSettings_GetUserDefaults() addObserver:self
+                                   forKeyPath:XTide_ColorKeys[currentdotcolor]
+                                      options:NSKeyValueObservingOptionNew
+                                      context:&selfContext];
+    [XTSettings_GetUserDefaults() addObserver:self
+                                   forKeyPath:XTide_ColorKeys[tidedotcolor]
+                                      options:NSKeyValueObservingOptionNew
+                                      context:&selfContext];
 
 
     NSMenu *searchMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Search Menu", @"Search menu")];
@@ -190,12 +191,12 @@ static XTMapWindowController *selfContext;
         return;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:XTide_ColorKeys[currentdotcolor]
-                                                  context:&selfContext];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self
-                                               forKeyPath:XTide_ColorKeys[tidedotcolor]
-                                                  context:&selfContext];
+    [XTSettings_GetUserDefaults() removeObserver:self
+                                      forKeyPath:XTide_ColorKeys[currentdotcolor]
+                                         context:&selfContext];
+    [XTSettings_GetUserDefaults() removeObserver:self
+                                      forKeyPath:XTide_ColorKeys[tidedotcolor]
+                                         context:&selfContext];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
