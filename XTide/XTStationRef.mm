@@ -10,6 +10,8 @@
 #import "XTStationInt.h"
 #import "XTUtils.h"
 
+dispatch_queue_t stationLoadQueue;
+
 @interface XTStationRef ()
 {
     libxtide::StationRef *mStationRef;
@@ -21,6 +23,15 @@
 
 
 @implementation XTStationRef
+
++ (void)initialize
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+       stationLoadQueue = dispatch_queue_create("com.lrucker.xtide.stationLoadQueue",
+                                                    DISPATCH_QUEUE_CONCURRENT); 
+    });
+}
 
 - (id)initWithStationRef: (libxtide::StationRef *)aStationRef
 {
@@ -48,11 +59,15 @@
  * because HarmonicsFile enforces having only one instance at a time.
  * Theoretically we could load multiple stations in the same file,
  * but that would break down on the Mac app which supports multiple files.
- * TODO: Consider dispatch_sync for loadStation.
+ * TODO: Take out the unix sync from station.cc
  */
 - (XTStation *)loadStation
 {
-    return [[XTStation alloc] initUsingStationRef:mStationRef];
+    __block XTStation *station;
+    dispatch_sync(stationLoadQueue, ^{
+        station = [[XTStation alloc] initUsingStationRef:mStationRef];
+    });
+    return station;
 }
 
 - (id)copyWithZone:(NSZone *)zone

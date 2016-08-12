@@ -35,11 +35,8 @@ public:
    // An empty map tells you nothing about what settings are even
    // available.  A nulled-out map gives you all the metadata (just no
    // data).
+   // We could use Settings.cc, but all we need is the ConfigurablesMap
    Settings();
-
-   // Set the initial user defaults from the table.
-   void setMacDefaults();
-   void applyMacResources();
    
 protected:
    

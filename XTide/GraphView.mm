@@ -105,7 +105,6 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 - (void)awakeFromNib
 {
     self.threshold = 30.0;
-    [self.dataSource setWindowTitleDate:graphdate];
 }
 
 - (BOOL)isFlipped
@@ -126,7 +125,6 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 - (void)setGraphdate:(NSDate*)newdate
 {
     graphdate = newdate;
-    [self.dataSource setWindowTitleDate:graphdate];
     self.needsDisplay = YES;
 }
 
@@ -177,15 +175,24 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
 - (void)drawRect:(NSRect)rect
 {
-    if ([self.dataSource station]) {
-        NSRect frameRect = [self visibleRect];
-        [[NSColor whiteColor] set];
-        NSRectFill(frameRect);
-        XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width + 1
-                                                    ysize:frameRect.size.height + 1];
-        
-        [mygraph drawTides:[self.dataSource station] now:graphdate];
+    if (![self.dataSource station]) {
+        return;
     }
+
+    [NSGraphicsContext saveGraphicsState];
+
+    // Draw the entire bounds, clipping to the visibleRect, which is required for printing
+    // and also because the C++ code draws outside the bounds when it does labels.
+    // It takes a lot of shortcuts - it assumes it's always starting from (0,0).
+    // It also wants to center the station name. Having that on each page might be nice,
+    // but... also a lot of work.
+    NSRect frameRect = [self bounds];
+    NSRectClip([self visibleRect]);
+    XTGraph *mygraph = [[XTGraph alloc] initWithXSize:NSWidth(frameRect)
+                                                ysize:NSHeight(frameRect)];
+    
+    [mygraph drawTides:[self.dataSource station] now:graphdate];
+    [NSGraphicsContext restoreGraphicsState];
 }
 
 - (void)startAtPoint:(CGPoint)firstTouch
@@ -582,4 +589,52 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 {
     return NSMakeSize(NSViewNoInstrinsicMetric, 300);
 }
+
+#pragma mark print
+
+#if 0 // This would be nice, but it doesn't work for scaled printing.
+// Return the number of pages available for printing
+- (BOOL)knowsPageRange:(NSRangePointer)range
+{
+    NSRect bounds = [self bounds];
+    CGFloat printWidth = [self calculatePageSize].width;
+ 
+    range->location = 1;
+    range->length = ceil(NSWidth(bounds) / printWidth);
+    return YES;
+}
+
+- (NSRect)printRect
+{
+    NSPrintInfo *pi = [[NSPrintOperation currentOperation] printInfo];
+    NSSize paperSize = [pi paperSize];
+    CGFloat pageHeight = paperSize.height - [pi topMargin] - [pi bottomMargin];
+    CGFloat pageWidth = paperSize.width - [pi leftMargin] - [pi rightMargin];
+    return NSMakeRect(0, 0, pageWidth, pageHeight);
+}
+
+// Return the drawing rectangle for a particular page number
+- (NSRect)rectForPage:(NSInteger)page
+{
+    NSSize pageSize = [self calculatePageSize];
+    return NSMakeRect( (page-1) * pageSize.width, 0, pageSize.width, pageSize.height );
+}
+
+- (NSSize)calculatePageSize
+{
+    // Obtain the print info object for the current operation
+    NSPrintInfo *pi = [[NSPrintOperation currentOperation] printInfo];
+ 
+    // Calculate the page width in points
+    NSSize paperSize = [pi paperSize];
+    CGFloat pageHeight = paperSize.height - [pi topMargin] - [pi bottomMargin];
+    CGFloat pageWidth = paperSize.width - [pi leftMargin] - [pi rightMargin];
+ 
+    // Convert width to the scaled view
+    CGFloat scale = [[[pi dictionary] objectForKey:NSPrintScalingFactor]
+                    floatValue];
+    return NSMakeSize(pageWidth / scale, pageHeight / scale);
+}
+#endif
+
 @end

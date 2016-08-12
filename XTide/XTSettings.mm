@@ -42,9 +42,6 @@ Settings::Settings () {
     // No way to initialize a map with a literal, so make an array and
     // initialize the map at run time.
     
-    // Switches recognized by X11 are magically removed from the command
-    // line by XtOpenDisplay, so it is not necessary to list them here.
-    
     Configurable cd[] = {
         {"bg", "background", "Background color for text windows and location chooser.", Configurable::settingKind, Configurable::dstrRep, Configurable::colorInterp, false, 0,0,0,bgdefcolor,PredictionValue(),DstrVector(), 0},
         {"fg", "foreground", "Color of text and other notations.", Configurable::settingKind, Configurable::dstrRep, Configurable::colorInterp, false, 0,0,0,fgdefcolor,PredictionValue(),DstrVector(), 0},
@@ -361,29 +358,14 @@ NSMutableDictionary *SettingsDefaultValues()
     return defaultValues;
 }
 
-/*
- *------------------------------------------------------------------------------
- *
- * Settings::setMacDefaults --
- *
- *      Register the NSUserDefaults default values based on the table values.
- *
- * Result:
- *      None
- *
- * Side effects:
- *      None
- *
- *------------------------------------------------------------------------------
- */
-
-void libxtide::Settings::setMacDefaults()
+void XTSettings_SetDefaults(NSDictionary *shortcuts)
 {
     assert(XTSettings_GetUserDefaults() != nil);
     NSMutableDictionary *defaultValues = SettingsDefaultValues();
-    for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
-        Configurable &cfbl = it->second;
-        if (cfbl.kind == Configurable::settingKind) {
+    libxtide::Settings settings = libxtide::Global::settings;
+    for (libxtide::ConfigurablesMap::iterator it = settings.begin(); it != settings.end(); ++it) {
+        libxtide::Configurable &cfbl = it->second;
+        if (cfbl.kind == libxtide::Configurable::settingKind) {
             NSString *key = configurablePrefKey(cfbl);
             if (![defaultValues objectForKey:key]) {
                 id value = valueForConfigurable(cfbl);
@@ -394,14 +376,28 @@ void libxtide::Settings::setMacDefaults()
             }
         }
     }
-    
+ 
+    // See XTSettings_SetShortcutToValue, except this goes into the registered defaults.
+    for (NSString *key in [shortcuts allKeys]) {
+        NSObject *value = [shortcuts objectForKey:key];
+        libxtide::Configurable &cfbl = libxtide::Global::settings[[key UTF8String]];
+
+        NSString *resName = configurablePrefKey(cfbl);
+        setConfigurableToValue(cfbl, value);
+        if ([value isKindOfClass:[COLOR_CLASS class]]) {
+            value = [NSKeyedArchiver archivedDataWithRootObject:value];
+        }
+        [defaultValues setObject:value
+                          forKey:resName];
+    }
+
     // Register the dictionary of defaults
     [XTSettings_GetUserDefaults() registerDefaults:defaultValues];
     
     // Fix any old prefs
-    for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
-        Configurable &cfbl = it->second;
-        if (cfbl.kind == Configurable::settingKind) {
+    for (libxtide::ConfigurablesMap::iterator it = settings.begin(); it != settings.end(); ++it) {
+        libxtide::Configurable &cfbl = it->second;
+        if (cfbl.kind == libxtide::Configurable::settingKind) {
             updateOldPref(cfbl.resourceName.aschar());
         }
     }
@@ -425,13 +421,15 @@ void libxtide::Settings::setMacDefaults()
     for (i = 0; otherPrefs[i] != NULL; i++) {
         updateOldPref(otherPrefs[i]);
     }
+
+    XTSettings_ApplyMacResources();
 }
 
 
 /*
  *------------------------------------------------------------------------------
  *
- * Settings::applyMacResources --
+ * XTSettings_ApplyMacResources --
  *
  *      Update the table values to the NSUserDefaults.
  *
@@ -444,11 +442,12 @@ void libxtide::Settings::setMacDefaults()
  *------------------------------------------------------------------------------
  */
 
-void libxtide::Settings::applyMacResources()
+void XTSettings_ApplyMacResources()
 {
-    for (ConfigurablesMap::iterator it = begin(); it != end(); ++it) {
-        Configurable &cfbl = it->second;
-        if (cfbl.kind == Configurable::settingKind) {
+    libxtide::Settings settings = libxtide::Global::settings;
+    for (libxtide::ConfigurablesMap::iterator it = settings.begin(); it != settings.end(); ++it) {
+        libxtide::Configurable &cfbl = it->second;
+        if (cfbl.kind == libxtide::Configurable::settingKind) {
             setConfigurableFromPref(cfbl);
         }
     }

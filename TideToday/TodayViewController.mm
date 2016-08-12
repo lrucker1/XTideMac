@@ -35,15 +35,16 @@
     static NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.xtide"];
     static CGFloat alpha = 0.4;
 
+    NSDictionary *todayShortcuts =
+        @{@"nc" : [ColorForName(@"deepskyblue") colorWithAlphaComponent:alpha],
+          @"dc" : [ColorForName(@"skyblue") colorWithAlphaComponent:alpha],
+          @"fg" : [ColorForName(@"gray90") colorWithAlphaComponent:alpha],
+          @"gs" : @"l",
+          @"nl" : @(YES)};
+
     RegisterUserDefaults(nil);
     libxtide::Global::mutex_init_harmonics();
-    libxtide::Global::settings.setMacDefaults();
-    libxtide::Global::settings.applyMacResources();
-    // TODO: Refactor Settings so each client can have its own custom defaults.
-    XTSettings_SetShortcutToValue("gs", @"l"); // Line mode
-    XTSettings_SetShortcutToValue("nl", @(YES)); // No labels.
-    XTSettings_SetShortcutToValue("nc", [ColorForName(@"deepskyblue") colorWithAlphaComponent:alpha]); // night color.
-    XTSettings_SetShortcutToValue("dc", [ColorForName(@"skyblue") colorWithAlphaComponent:alpha]); // day color.
+    XTSettings_SetDefaults(todayShortcuts);
     [[XTStationIndex sharedStationIndex] setFavoritesDefaults:defaults];
 }
 

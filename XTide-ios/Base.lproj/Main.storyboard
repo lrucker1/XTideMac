@@ -49,13 +49,13 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="UI9-dR-Zjn"/>
-                                    <barButtonItem image="FavoriteStarFilled" id="O8G-fF-WLy" userLabel="Fav Button Item">
+                                    <barButtonItem image="FavoriteStarOpen" id="O8G-fF-WLy" userLabel="Fav Button Item">
                                         <connections>
                                             <segue destination="AWf-rM-ERa" kind="show" id="DWD-2y-W9C"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="swU-Lr-VcN"/>
-                                    <barButtonItem systemItem="search" id="xW3-Jw-PIJ">
+                                    <barButtonItem systemItem="search" id="xW3-Jw-PIJ" userLabel="Search Item">
                                         <connections>
                                             <segue destination="bgV-e9-ST3" kind="show" id="9Km-gw-6YT"/>
                                         </connections>
@@ -248,10 +248,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FavoriteStarFilled" width="32" height="32"/>
-        <image name="location-arrow" width="24" height="24"/>
+        <image name="FavoriteStarOpen" width="32" height="32"/>
+        <image name="location-arrow" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ELO-VI-bN1"/>
+        <segue reference="CeY-oE-5Yt"/>
     </inferredMetricsTieBreakers>
 </document>

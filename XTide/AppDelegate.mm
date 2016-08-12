@@ -20,6 +20,7 @@
 #import "TideGraphController.h"
 #import "TideDataController.h"
 #import "CalendarController.h"
+#import "TideDataDocument.h"
 
 static NSString * const XTWindow_map = @"map";
 static NSString * const XTWindow_graph = @"graph";
@@ -43,9 +44,11 @@ static NSString * const XTWindow_restorationName = @"name";
 {
     RegisterUserDefaults(nil);
     libxtide::Global::mutex_init_harmonics();
-    libxtide::Global::settings.setMacDefaults();
-    libxtide::Global::settings.applyMacResources();
+    XTSettings_SetDefaults(nil);
     libxtide::Global::setErrorCallback(&DisplayCoreError);
+
+// TODO: do not ship this.
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 }
 
 + (void)restoreWindowWithIdentifier:(NSString *)identifier
@@ -80,7 +83,7 @@ static NSString * const XTWindow_restorationName = @"name";
             AppDelegate *appDelegate = [NSApp delegate];
             XTStationRef *ref = [[XTStationIndex sharedStationIndex] stationRefByName:name];
             if (ref) {
-                window = [appDelegate showTideDataForStation:ref];
+                window = [appDelegate showTideCalendarForStation:ref];
             }
         }
     }
@@ -235,6 +238,5 @@ static NSString * const XTWindow_restorationName = @"name";
 	[tideController showWindow:self];
     return tideController.window;
 }
-
 
 @end

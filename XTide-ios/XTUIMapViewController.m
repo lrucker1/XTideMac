@@ -42,6 +42,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
 @property (strong) CLLocationManager *locationManager;
 @property (strong) XTStationRef *stationRefForWatch;
 @property (strong) NSDate *eventStartDate;
+@property (strong) NSDate *lastEventStartDate;
 @property (strong) NSDate *eventEndDate;
 @property (strong) XTStationRef *currentAnnotation;
 
@@ -222,10 +223,12 @@ regionDidChangeAnimated:(BOOL)animated
         ((MKPinAnnotationView *)returnedAnnotationView).animatesDrop = NO;
         returnedAnnotationView.canShowCallout = YES;
         UIButton *disclosureButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        disclosureButton.accessibilityLabel = NSLocalizedString(@"Show Tides", @"Show Tides button");
         [disclosureButton setImage:[UIImage imageNamed:@"ChartViewTemplate"] forState:UIControlStateNormal];
         returnedAnnotationView.rightCalloutAccessoryView = disclosureButton;
         favoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [favoriteButton setFrame:CGRectMake(0, 0, 32, 32)];
+        favoriteButton.accessibilityLabel = NSLocalizedString(@"Favorite", @"Favorite button");
         [favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarOpen"] forState:UIControlStateNormal];
         [favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarFilled"] forState:UIControlStateSelected];
         returnedAnnotationView.leftCalloutAccessoryView = favoriteButton;
@@ -337,7 +340,11 @@ calloutAccessoryControlTapped:(UIControl *)control
          */
         return;
     }
-    // Always update, even if the station hasn't changed.
+    // Only update if station or last-sent date have changed.
+    if (   (currentRef && [currentRef isEqual:self.stationRefForWatch])
+        && (self.lastEventStartDate && [self.lastEventStartDate isEqual:self.eventStartDate]) ) {
+        return;
+    }
     if (currentRef) {
         self.stationRefForWatch = currentRef;
     }
@@ -579,6 +586,7 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
     NSArray *events = [station generateWatchEventsStart:self.eventStartDate
                                                     end:self.eventEndDate];
     if (events) {
+        self.lastEventStartDate = self.eventStartDate;
         return @{@"events" : events,
                  @"startDate" : self.eventStartDate,
                  @"station" : station.name};

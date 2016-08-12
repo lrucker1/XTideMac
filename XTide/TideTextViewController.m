@@ -16,6 +16,7 @@ static NSArray *prefsKeysOfInterest;
 static NSString * const TideData_startDate = @"startDate";
 static NSString * const TideData_dayRange = @"dayRange";
 static NSString * const TideData_hourRange = @"hourRange";
+static NSString * const TideData_monthRange = @"monthRange";
 
 @interface TideTextViewController ()
 
@@ -51,30 +52,42 @@ static NSString * const TideData_hourRange = @"hourRange";
     }
     [coder encodeInt:[dayStepper intValue] forKey:TideData_dayRange];
     [coder encodeInt:[hourStepper intValue] forKey:TideData_hourRange];
+    [coder encodeInt:[monthStepper intValue] forKey:TideData_monthRange];
     [super encodeRestorableStateWithCoder:coder];
+}
+
+- (NSDate *)defaultStartDate
+{
+    // Standard default is today. Calendar has other ideas.
+    return [NSDate date];
 }
 
 - (void)restoreStateWithCoder:(NSCoder *)coder
 {
-    // If it's nil, use current time.
+    // If it's nil, use default time.
     NSDate *displayDate = [coder decodeObjectForKey:TideData_startDate];
     if (displayDate) {
-        [dateFromPicker setDateValue:displayDate];
         self.customDate = YES;
+    } else {
+        displayDate = [self defaultStartDate];
     }
+    [dateFromPicker setDateValue:displayDate];
     int dayRange = [coder decodeIntForKey:TideData_dayRange];
     int hourRange = [coder decodeIntForKey:TideData_hourRange];
+    int monthRange = [coder decodeIntForKey:TideData_monthRange];
 	[dayStepper setIntValue:dayRange];
 	[hourStepper setIntValue:hourRange];
+	[monthStepper setIntValue:monthRange];
 	[dayField takeIntValueFrom:dayStepper];
 	[hourField takeIntValueFrom:hourStepper];
+	[monthField takeIntValueFrom:monthStepper];
 	
 	[self computeEvents];
 	[self updateLabels];
     [super restoreStateWithCoder:coder];
 }
 
-- (int)defaultDayRange
+- (NSInteger)defaultDayRange
 {
 	return 7;
 }
@@ -96,13 +109,21 @@ static NSString * const TideData_hourRange = @"hourRange";
                                           context:&selfContext];
     }
 	
-	[dayStepper setIntValue:[self defaultDayRange]];
+    [dateFromPicker setDateValue:[self defaultStartDate]];
+	[dayStepper setIntegerValue:[self defaultDayRange]];
+	[monthStepper setIntegerValue:1];
 	[hourStepper setIntValue:0];
 	[dayField takeIntValueFrom:dayStepper];
 	[hourField takeIntValueFrom:hourStepper];
+	[monthField takeIntValueFrom:monthStepper];
 
     [dateFromPicker setTimeZone:[station timeZone]];
     [self returnToNow:nil];
+}
+
+- (NSString *)titleFormat
+{
+    return NSLocalizedString(@"%@ (List)", @"List window title");
 }
 
 // Events and display
@@ -117,7 +138,6 @@ static NSString * const TideData_hourRange = @"hourRange";
     self.customDate = NO;
 	NSDate *timeFrom = [NSDate date];
 	[dateFromPicker setDateValue:timeFrom];
-	[self setWindowTitleDate:timeFrom];
 	[self computeEvents];
 	[self updateLabels];
     [self invalidateRestorableState];
@@ -137,6 +157,7 @@ static NSString * const TideData_hourRange = @"hourRange";
 {
 	[dayField takeIntValueFrom:dayStepper];
 	[hourField takeIntValueFrom:hourStepper];
+	[monthField takeIntValueFrom:monthStepper];
 	[self computeEvents];
     [self invalidateRestorableState];
 }
@@ -146,6 +167,7 @@ static NSString * const TideData_hourRange = @"hourRange";
 {
 	[dayStepper takeIntValueFrom:dayField];
 	[hourStepper takeIntValueFrom:hourField];
+	[monthStepper takeIntValueFrom:monthField];
 	[self computeEvents];
     [self invalidateRestorableState];
 }
@@ -157,10 +179,12 @@ static NSString * const TideData_hourRange = @"hourRange";
 
 - (NSDate *)endDate
 {
-   static int SECONDS_PER_DAY = 24 * 60 * 60;
-   return [[self startDate] dateByAddingTimeInterval:
-                        [dayStepper intValue] * SECONDS_PER_DAY +
-                        [hourStepper intValue] * 60];
+    NSCalendar *currentCalendar = [NSCalendar currentCalendar];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    dateComponents.day = [dayStepper intValue];
+    dateComponents.hour = [hourStepper intValue];
+    dateComponents.month = [monthStepper intValue];
+    return [currentCalendar dateByAddingComponents:dateComponents toDate:[self startDate] options:0];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

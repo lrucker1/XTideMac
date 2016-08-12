@@ -8,8 +8,8 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CalendarController">
             <connections>
                 <outlet property="dateFromPicker" destination="67" id="86"/>
-                <outlet property="dayField" destination="72" id="87"/>
-                <outlet property="dayStepper" destination="71" id="88"/>
+                <outlet property="monthField" destination="72" id="9Yd-NY-vu2"/>
+                <outlet property="monthStepper" destination="71" id="U1g-h0-RN9"/>
                 <outlet property="textView" destination="8" id="22"/>
                 <outlet property="timeZoneFromLabel" destination="65" id="91"/>
                 <outlet property="window" destination="5" id="fWZ-PI-ozw"/>
@@ -56,10 +56,10 @@
                         </scroller>
                     </scrollView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="64">
-                        <rect key="frame" x="0.0" y="0.0" width="347" height="101"/>
+                        <rect key="frame" x="0.0" y="0.0" width="342" height="101"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="72">
-                                <rect key="frame" x="270" y="61" width="36" height="22"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="72" userLabel="Month Field">
+                                <rect key="frame" x="265" y="61" width="36" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="36" id="csc-6i-FvA"/>
                                 </constraints>
@@ -80,22 +80,22 @@
                                 </connections>
                             </textField>
                             <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="71">
-                                <rect key="frame" x="311" y="58" width="19" height="27"/>
-                                <stepperCell key="cell" continuous="YES" alignment="left" maxValue="31" valueWraps="YES" id="77"/>
+                                <rect key="frame" x="306" y="58" width="19" height="27"/>
+                                <stepperCell key="cell" continuous="YES" alignment="left" minValue="1" maxValue="24" doubleValue="1" id="77"/>
                                 <connections>
                                     <action selector="timeStepped:" target="-2" id="94"/>
                                 </connections>
                             </stepper>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="54" translatesAutoresizingMaskIntoConstraints="NO" id="69">
-                                <rect key="frame" x="226" y="64" width="38" height="17"/>
-                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Days:" id="80">
+                                <rect key="frame" x="205" y="64" width="54" height="17"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" alignment="right" title="Months:" id="80">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
                             <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="67">
-                                <rect key="frame" x="63" y="61" width="97" height="27"/>
+                                <rect key="frame" x="63" y="61" width="76" height="27"/>
                                 <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="82">
                                     <font key="font" metaFont="system"/>
                                     <date key="date" timeIntervalSinceReferenceDate="-3092644800">
@@ -109,6 +109,7 @@
                                     </date>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <datePickerElements key="datePickerElements" year="YES" month="YES"/>
                                 </datePickerCell>
                                 <connections>
                                     <action selector="updateStartTime:" target="-2" id="92"/>
@@ -123,7 +124,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="38" translatesAutoresizingMaskIntoConstraints="NO" id="65">
-                                <rect key="frame" x="162" y="64" width="42" height="17"/>
+                                <rect key="frame" x="141" y="64" width="42" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="38" id="zQF-iP-1py"/>
                                 </constraints>

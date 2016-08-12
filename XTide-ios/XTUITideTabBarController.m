@@ -26,6 +26,7 @@
     // Add a "Favorite" button
     self.favoriteButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.favoriteButton.frame = CGRectMake(0, 0, 24, 24);
+    self.favoriteButton.accessibilityLabel = NSLocalizedString(@"Favorite", @"Favorite button");
     [self.favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarOpen"] forState:UIControlStateNormal];
     [self.favoriteButton setImage:[UIImage imageNamed:@"FavoriteStarFilled"] forState:UIControlStateSelected];
     [self.favoriteButton addTarget:self action:@selector(toggleFavorite) forControlEvents:UIControlEventTouchUpInside];

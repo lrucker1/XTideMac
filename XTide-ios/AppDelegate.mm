@@ -27,10 +27,9 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
 {
     static NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.xtide"];
 
-    RegisterUserDefaults(nil);
     libxtide::Global::mutex_init_harmonics();
-    libxtide::Global::settings.setMacDefaults();
-    libxtide::Global::settings.applyMacResources();
+    RegisterUserDefaults(nil);
+    XTSettings_SetDefaults(nil);
     [[XTStationIndex sharedStationIndex] setFavoritesDefaults:defaults];
 }
 

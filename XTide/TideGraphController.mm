@@ -133,6 +133,11 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     [self updateLabels];
 }
 
+- (NSString *)titleFormat
+{
+    return NSLocalizedString(@"%@ (Chart)", @"Chart window title");
+}
+
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
 {
     SEL action = [menuItem action];
@@ -212,6 +217,15 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     [station aspect:val];
     [self.graphView display];
 }
+
+#pragma mark print
+
+- (IBAction)printTideView:(id)sender
+{
+    [[self printOperationWithView:self.graphView] runOperation];
+}
+
+#pragma mark observation
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

@@ -56,8 +56,6 @@
 - (instancetype)initWith:(XTStationRef *)in_stationRef;
 
 - (XTStation*)station;
-// Set the window title to "station name - date"
-- (void)setWindowTitleDate:(NSDate *)date;
 - (void)updateLabels;
 
 // Generate a text representation, even for graphic views
@@ -66,5 +64,7 @@
 - (void)removeObservers;
 
 - (void)popoverDidClose:(NSNotification *)notification;
+
+- (NSPrintOperation *)printOperationWithView:(NSView *)view;
 
 @end

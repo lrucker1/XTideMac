@@ -42,18 +42,18 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
      * willActivate, layout never happens and the contents can't be seen.
      * Provide placeholder info if we don't have contents.
      * It does not seem to be related to which thread we're on.
+     * Oh, fun - sometimes it happens anyway, but only on the watch, not the sim.
      */
+    NSArray *events = @[@{@"desc":NSLocalizedString(@"High Tide", @"High Tide"),
+                          @"level":@" ...",
+                          @"type":@"hightide"},
+                        @{@"desc":NSLocalizedString(@"Low Tide", @"Low Tide"),
+                          @"level":@" ...",
+                          @"type":@"lowtide"}];
+    [self updateContentsFromInfo:@{@"clockEvents":events}];
     NSDictionary *info = [self.watchSession receivedApplicationContext];
     if (info) {
         [self updateContentsFromInfo:info];
-    } else {
-        NSArray *events = @[@{@"desc":NSLocalizedString(@"High Tide", @"High Tide"),
-                              @"level":@" ...",
-                              @"type":@"hightide"},
-                            @{@"desc":NSLocalizedString(@"Low Tide", @"Low Tide"),
-                              @"level":@" ...",
-                              @"type":@"lowtide"}];
-        [self updateContentsFromInfo:@{@"clockEvents":events}];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -134,7 +134,6 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 {
     // Table behaves badly if configured while not active.
     // Set the label so it stops saying "Waiting for iPhone", and then bail.
-    // TODO: file a bug.
     NSString *title = [info objectForKey:@"title"];
     BOOL placeholder = title == nil;
     if (!placeholder) {
@@ -142,7 +141,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     }
 
     // Being on the main thread does not help.
-    NSAssert([NSThread isMainThread], @"is on main thread");
+    //NSAssert([NSThread isMainThread], @"is on main thread");
     NSArray *events = [info objectForKey:@"clockEvents"];
 
     if ([events count] < 2) {

@@ -248,4 +248,11 @@ static NSImage *calendarImage = nil;
     }
 }
 
+#pragma mark print
+
+- (IBAction)printTideView:(id)sender
+{
+    [[self printOperationWithView:tideTableView] runOperation];
+}
+
 @end

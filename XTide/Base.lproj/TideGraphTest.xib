@@ -138,12 +138,6 @@
                 <outlet property="initialFirstResponder" destination="7" id="39"/>
             </connections>
         </window>
-        <customObject id="14" userLabel="TideGraphDocument" customClass="TideGraphDocument">
-            <connections>
-                <outlet property="mycontroller" destination="-2" id="7jV-rQ-Knr"/>
-                <outlet property="window" destination="5" id="16"/>
-            </connections>
-        </customObject>
         <window title="Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="25" userLabel="Sheet">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -263,6 +257,5 @@
                 <outlet property="initialFirstResponder" destination="27" id="37"/>
             </connections>
         </window>
-        <userDefaultsController representsSharedInstance="YES" id="92"/>
     </objects>
 </document>

@@ -39,6 +39,9 @@ extern NSString *XTide_zulu;		// z
 void RegisterUserDefaults(NSUserDefaults *defaults);
 NSUserDefaults *XTSettings_GetUserDefaults();
 
+void XTSettings_SetDefaults(NSDictionary *shortcuts);
+void XTSettings_ApplyMacResources();
+
 /*
  * Use this for the settings values used in CPP, so that they get set before
  * NSUserDefaults fires the change signal.

@@ -24,6 +24,8 @@
 #import "CalendarController.h"
 #import "XTStationRef.h"
 #import "XTStationInt.h"
+#import "PrintPanelAccessoryController.h"
+#import "PrintingTextView.h"
 
 
 @implementation CalendarController
@@ -33,24 +35,32 @@
 	return [super initWithWindowNibName:@"TideCalendar" stationRef:in_stationRef];
 }
 
-- (void)dealloc
+
+- (NSString *)titleFormat
 {
+    return NSLocalizedString(@"%@ (Calendar)", @"Calendar window title");
 }
 
-- (NSInteger)defaultDayRange
+- (NSDate *)defaultStartDate
 {
-	return 30;
+    // Start at the beginning of the month.
+    NSCalendar *currentCalendar = [NSCalendar currentCalendar];
+    NSDate *first = [currentCalendar dateBySettingUnit:NSCalendarUnitDay value:1 ofDate:[NSDate date] options:0];
+    return [currentCalendar startOfDayForDate:first];
 }
 
-- (void)computeEvents
+- (NSAttributedString *)eventsString
 {
 	// Get the calendar HTML
 	NSString *calHTML = [station stationCalendarInfoFromDate:[self startDate]
                                                       toDate:[self endDate]];
-	NSAttributedString *calString =
-		[[NSAttributedString alloc] initWithHTML:[calHTML dataUsingEncoding:NSASCIIStringEncoding]
-									 documentAttributes:NULL];
-	[[textView textStorage] setAttributedString:calString];
+	return [[NSAttributedString alloc] initWithHTML:[calHTML dataUsingEncoding:NSASCIIStringEncoding]
+                                 documentAttributes:NULL];
+}
+
+- (void)computeEvents
+{
+	[[textView textStorage] setAttributedString:[self eventsString]];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem
@@ -63,5 +73,23 @@
     return YES;
 }
 
+#pragma mark print
+
+- (IBAction)printTideView:(id)sender
+{
+    PrintingTextView *printingView = [PrintingTextView new];   // PrintingTextView is a simple subclass of NSTextView. Creating the view this way creates rest of the text system, which it will release when dealloc'ed (since the print panel will be releasing this, we want to hand off the responsibility of release everything)
+    NSLayoutManager *layoutManager = [[printingView textContainer] layoutManager];
+    NSTextStorage *printingTextStorage = [layoutManager textStorage];
+    [printingTextStorage setAttributedString:[self eventsString]];
+    [printingView setLayoutOrientation:[textView layoutOrientation]];
+    [printingView setOriginalSize:[textView frame].size];
+
+    NSPrintOperation *printOp = [self printOperationWithView:printingView];
+    PrintPanelAccessoryController *accessoryController = [[[printOp printPanel] accessoryControllers] lastObject];
+    accessoryController.showsWrappingToFit = YES;
+    [printingView setPrintPanelAccessoryController:accessoryController];
+
+    [printOp runOperation];
+}
 
 @end

@@ -32,6 +32,7 @@
 #import "XTUtils.h"
 #import "PredictionValue.hh"
 #import "Graph.hh"
+#import "PrintPanelAccessoryController.h"
 
 static TideController *selfContext;
 
@@ -104,6 +105,12 @@ static TideController *selfContext;
     [dateFromPicker setMaxDate:TimestampToNSDate(libxtide::Graph::endOfTime)];
     [dateFromPicker setTimeZone:[station timeZone]];
     [self invalidateRestorableState];
+    [[self window] setTitle:[NSString stringWithFormat:[self titleFormat], [stationRef title]]];
+}
+
+- (NSString *)titleFormat
+{
+    return @"%@";
 }
 
 - (void)dealloc
@@ -116,13 +123,6 @@ static TideController *selfContext;
     self.organizer = nil;
 }
 
-// Set the window title to "station name - date"
-- (void)setWindowTitleDate:(NSDate*)date
-{
-    // @lar use app's preferred time format
-    [[self window] setTitle:
-        [NSString stringWithFormat:@"%@ - %@",[stationRef title], date]];
-}
 - (XTStation*)station
 {
     return station;
@@ -133,7 +133,6 @@ static TideController *selfContext;
 {
     NSDate *timeFrom = [dateFromPicker dateValue];
     [timeZoneFromLabel setStringValue:[[station timeZone] abbreviationForDate:timeFrom]];
-    [self setWindowTitleDate:timeFrom];
 }
 
 // Even controllers for non-text views support this, for file save as
@@ -177,6 +176,18 @@ static TideController *selfContext;
 - (IBAction)showCalendarForSelection:(id)sender
 {
     [(AppDelegate *)[NSApp delegate] showTideCalendarForStation:self.stationRef];
+}
+
+#pragma mark printing
+
+- (NSPrintOperation *)printOperationWithView:(NSView *)view
+{
+    NSPrintOperation *printOp = [NSPrintOperation printOperationWithView:view];
+    PrintPanelAccessoryController *accessoryController = [PrintPanelAccessoryController new];
+    NSPrintPanel *printPanel = [printOp printPanel];
+    [printPanel setOptions:[printPanel options] | NSPrintPanelShowsPaperSize | NSPrintPanelShowsOrientation];
+    [printPanel addAccessoryController:accessoryController];
+    return printOp;
 }
 
 #pragma mark sheet
@@ -302,7 +313,7 @@ static TideController *selfContext;
     if (context != &selfContext) {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     } else if ([keyPath isEqualToString:XTide_units]) {
-        libxtide::Global::settings.applyMacResources();
+        XTSettings_ApplyMacResources();
         [self.station updateUnits];
     } else {
         NSAssert(0, @"Unhandled key %@ in %@", keyPath, [self className]);

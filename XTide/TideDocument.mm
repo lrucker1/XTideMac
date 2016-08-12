@@ -29,6 +29,12 @@ NSString *NSCSVPboardType = @"Comma-separated value (CSV) file";
 
 
 @implementation TideDocument
+
++ (BOOL)autosavesDrafts
+{
+    return NO;
+}
+
 // Makes an error object and returns NO for write failures @lar - fix me
 - (BOOL)errorID:(int)err error:(NSError **)outError
 {

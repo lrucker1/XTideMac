@@ -33,6 +33,19 @@
     [self reloadData];
 }
 
+- (IBAction)copy:(id)sender
+{
+    NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
+    [pasteboard clearContents];
+    NSArray *meta = self.arrayController.content;
+    NSMutableArray *lines = [NSMutableArray array];
+    for (NSDictionary *d in meta) {
+        [lines addObject:[NSString stringWithFormat:@"%@\t%@", [d objectForKey:@"name"], [d objectForKey:@"value"]]];
+    }
+    NSString *stringToCopy = [lines componentsJoinedByString:@"\n"];
+    [pasteboard writeObjects:@[stringToCopy]];
+}
+
 //- (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
 //{
 //    CGFloat colWidth = [[[tableView tableColumns] objectAtIndex:1] width];

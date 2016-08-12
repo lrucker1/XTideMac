@@ -105,6 +105,7 @@
  
     UIButton *editCal = [UIButton buttonWithType:UIButtonTypeCustom];
     [editCal setFrame:CGRectMake(0, 0, 32, 32)];
+    editCal.accessibilityLabel = NSLocalizedString(@"Add to calendar", @"Add tide event to calendar");
     [editCal setImage:[UIImage imageNamed:@"editCalendar"] forState:UIControlStateNormal];
     [editCal addTarget:self action:@selector(checkButtonTapped:event:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = editCal;

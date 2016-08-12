@@ -56,6 +56,11 @@
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
+		942F68D11D5E6F2C0004C28D /* PrintPanelAccessoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F68CE1D5E6F2C0004C28D /* PrintPanelAccessoryController.m */; };
+		942F68D21D5E6F2C0004C28D /* PrintingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F68D01D5E6F2C0004C28D /* PrintingTextView.m */; };
+		942F68D41D5E6FEA0004C28D /* TextEditMisc.h in Headers */ = {isa = PBXBuildFile; fileRef = 942F68D31D5E6FEA0004C28D /* TextEditMisc.h */; };
+		942F68D61D5E6FF70004C28D /* TextEditDefaultsKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */; };
+		942F68DC1D5E73850004C28D /* PrintPanelAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 942F68DA1D5E73850004C28D /* PrintPanelAccessory.xib */; };
 		944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944501711D305A3C00203863 /* XTWListInterfaceController.m */; };
 		944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944501731D315E3900203863 /* TideViewsStoryboard.storyboard */; };
 		944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */; };
@@ -468,6 +473,13 @@
 		9419E1801D5169BC0055DEE9 /* ListRowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListRowViewController.h; sourceTree = "<group>"; };
 		9419E1811D5169BC0055DEE9 /* ListRowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListRowViewController.m; sourceTree = "<group>"; };
 		9419E1BD1D51A0ED0055DEE9 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		942F68CD1D5E6F2C0004C28D /* PrintPanelAccessoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintPanelAccessoryController.h; sourceTree = "<group>"; };
+		942F68CE1D5E6F2C0004C28D /* PrintPanelAccessoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintPanelAccessoryController.m; sourceTree = "<group>"; };
+		942F68CF1D5E6F2C0004C28D /* PrintingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintingTextView.h; sourceTree = "<group>"; };
+		942F68D01D5E6F2C0004C28D /* PrintingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintingTextView.m; sourceTree = "<group>"; };
+		942F68D31D5E6FEA0004C28D /* TextEditMisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditMisc.h; sourceTree = "<group>"; };
+		942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditDefaultsKeys.h; sourceTree = "<group>"; };
+		942F68DB1D5E73850004C28D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PrintPanelAccessory.xib; sourceTree = "<group>"; };
 		944501701D305A3C00203863 /* XTWListInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWListInterfaceController.h; sourceTree = "<group>"; };
 		944501711D305A3C00203863 /* XTWListInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWListInterfaceController.m; sourceTree = "<group>"; };
 		944501731D315E3900203863 /* TideViewsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TideViewsStoryboard.storyboard; sourceTree = "<group>"; };
@@ -595,7 +607,7 @@
 		948B185A1D4165D1002378B7 /* RGBGraph.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RGBGraph.cc; path = libxtide/RGBGraph.cc; sourceTree = "<group>"; };
 		948B185B1D4165D1002378B7 /* RGBGraph.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RGBGraph.hh; path = libxtide/RGBGraph.hh; sourceTree = "<group>"; };
 		948B185C1D4165D1002378B7 /* SafeVector.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SafeVector.hh; path = libxtide/SafeVector.hh; sourceTree = "<group>"; };
-		948B185D1D4165D1002378B7 /* Settings.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Settings.cc; path = libxtide/Settings.cc; sourceTree = "<group>"; };
+		948B185D1D4165D1002378B7 /* Settings.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Settings.cc; path = libxtide/Settings.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B185E1D4165D1002378B7 /* Settings.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Settings.hh; path = libxtide/Settings.hh; sourceTree = "<group>"; };
 		948B185F1D4165D1002378B7 /* Skycal.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Skycal.cc; path = libxtide/Skycal.cc; sourceTree = "<group>"; tabWidth = 8; };
 		948B18601D4165D1002378B7 /* Skycal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Skycal.hh; path = libxtide/Skycal.hh; sourceTree = "<group>"; };
@@ -767,9 +779,11 @@
 		94041C561CBF172C003BD343 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				942F68CC1D5E6F1A0004C28D /* Printing */,
 				94041C941CC04016003BD343 /* Map */,
 				946318E51CBC3242001CD859 /* Assets.xcassets */,
 				946318E71CBC3242001CD859 /* MainMenu.xib */,
+				942F68DA1D5E73850004C28D /* PrintPanelAccessory.xib */,
 				94041D6A1CC95069003BD343 /* TideCalendar.xib */,
 				94041CAD1CC06B56003BD343 /* TideGraph.xib */,
 				94041D701CCABB6A003BD343 /* TideGraphTest.xib */,
@@ -792,8 +806,6 @@
 				94041C4E1CBECDE2003BD343 /* PreferenceController.mm */,
 				94041D331CC6D804003BD343 /* DisclaimerController.h */,
 				94041D341CC6D804003BD343 /* DisclaimerController.m */,
-				94041D641CC94E51003BD343 /* CalendarController.h */,
-				94041D651CC94E51003BD343 /* CalendarController.mm */,
 				94041C571CBF173A003BD343 /* TideDocument.h */,
 				94041C581CBF173A003BD343 /* TideDocument.mm */,
 				94041C591CBF173A003BD343 /* TideDataDocument.h */,
@@ -806,6 +818,8 @@
 				94041C871CBF190F003BD343 /* TideGraphController.mm */,
 				94041C8C1CBF1967003BD343 /* TideTextViewController.h */,
 				94041C8D1CBF1967003BD343 /* TideTextViewController.m */,
+				94041D641CC94E51003BD343 /* CalendarController.h */,
+				94041D651CC94E51003BD343 /* CalendarController.mm */,
 				94041C8E1CBF1967003BD343 /* TideDataController.h */,
 				94041C8F1CBF1967003BD343 /* TideDataController.mm */,
 				94041D421CC6EE20003BD343 /* TideTableView.h */,
@@ -880,6 +894,19 @@
 				9419E16A1D512FE20055DEE9 /* MacWidget.entitlements */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		942F68CC1D5E6F1A0004C28D /* Printing */ = {
+			isa = PBXGroup;
+			children = (
+				942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */,
+				942F68D31D5E6FEA0004C28D /* TextEditMisc.h */,
+				942F68CD1D5E6F2C0004C28D /* PrintPanelAccessoryController.h */,
+				942F68CE1D5E6F2C0004C28D /* PrintPanelAccessoryController.m */,
+				942F68CF1D5E6F2C0004C28D /* PrintingTextView.h */,
+				942F68D01D5E6F2C0004C28D /* PrintingTextView.m */,
+			);
+			name = Printing;
 			sourceTree = "<group>";
 		};
 		9452822F1D3F416E00BA9DC0 /* xtideEventKit */ = {
@@ -1317,6 +1344,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94FD65291D51A3ED006C44BA /* libxtide.h in Headers */,
+				942F68D61D5E6FF70004C28D /* TextEditDefaultsKeys.h in Headers */,
+				942F68D41D5E6FEA0004C28D /* TextEditMisc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1669,6 +1698,7 @@
 				94041CA41CC04969003BD343 /* Images.xcassets in Resources */,
 				94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */,
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
+				942F68DC1D5E73850004C28D /* PrintPanelAccessory.xib in Resources */,
 				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
 				94041C7E1CBF1768003BD343 /* blank.png in Resources */,
 				9451F4DD1D445E71006DC606 /* XTStationInfoViewController.xib in Resources */,
@@ -1795,6 +1825,7 @@
 				948B188D1D4165D2002378B7 /* ClientSideFont.cc in Sources */,
 				94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */,
 				948B18A11D4165D2002378B7 /* HarmonicsFile.cc in Sources */,
+				942F68D21D5E6F2C0004C28D /* PrintingTextView.m in Sources */,
 				94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */,
 				948B189F1D4165D2002378B7 /* Graph.cc in Sources */,
 				948B18A91D4165D2002378B7 /* Nullable.cc in Sources */,
@@ -1823,6 +1854,7 @@
 				94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */,
 				948B18CB1D4165D2002378B7 /* Timestamp.cc in Sources */,
 				948B188F1D4165D2002378B7 /* Colors.cc in Sources */,
+				942F68D11D5E6F2C0004C28D /* PrintPanelAccessoryController.m in Sources */,
 				94041C141CBECAD6003BD343 /* XTCalendar.mm in Sources */,
 				948B18B91D4165D2002378B7 /* Skycal.cc in Sources */,
 				94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */,
@@ -2107,6 +2139,14 @@
 				9419E1731D512FE20055DEE9 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		942F68DA1D5E73850004C28D /* PrintPanelAccessory.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				942F68DB1D5E73850004C28D /* Base */,
+			);
+			name = PrintPanelAccessory.xib;
 			sourceTree = "<group>";
 		};
 		9451F4D21D445E2C006DC606 /* XTMapWindow.xib */ = {
@@ -2774,6 +2814,7 @@
 				94FD651F1D51A338006C44BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94FD653D1D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtide" */ = {
 			isa = XCConfigurationList;
@@ -2782,6 +2823,7 @@
 				94FD653F1D51A3EE006C44BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94FD65411D51A3EE006C44BA /* Build configuration list for PBXNativeTarget "libxtideTests" */ = {
 			isa = XCConfigurationList;
@@ -2790,6 +2832,7 @@
 				94FD65431D51A3EE006C44BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

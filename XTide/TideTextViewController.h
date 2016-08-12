@@ -15,6 +15,8 @@
 	IBOutlet NSStepper *hourStepper;
 	IBOutlet NSTextField *dayField;
 	IBOutlet NSTextField *hourField;
+	IBOutlet NSStepper *monthStepper;
+	IBOutlet NSTextField *monthField;
 }
 
 - (IBAction)timeEntry:(id)sender;
