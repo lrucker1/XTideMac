@@ -9,6 +9,12 @@
 #ifndef XTStation_h
 #define XTStation_h
 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
 @class XTTideEventsOrganizer;
 @class XTStationRef;
 @class XTTideEvent;
@@ -23,9 +29,13 @@
 - (NSArray *)stationMetadata;
 - (XTStationRef *)stationRef;
 
-- (NSString *)timeStringFromDate: (NSDate *)date;
+- (NSString *)timeStringFromDate:(NSDate *)date;
 - (NSString *)dayStringFromDate:(NSDate *)date;
 - (NSString *)dateStringFromDate:(NSDate *)date;
+
+- (NSData *)SVGImageWithWidth:(CGFloat)width
+                       height:(CGFloat)height
+                         date:(NSDate *)date;
 
 - (XTTideEvent *)nextMajorEventAfter:(NSDate *)startTime;
 - (void)predictTideEventsStart:(NSDate*)startTime

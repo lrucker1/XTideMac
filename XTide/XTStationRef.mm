@@ -10,6 +10,11 @@
 #import "XTStationInt.h"
 #import "XTUtils.h"
 
+static NSString *refCurrent = NSLocalizedString(@"Reference station, tide currents", @"Reference current station");
+static NSString *subCurrent = NSLocalizedString(@"Subordinate station, tide currents", @"Subordinate current station");
+static NSString *refTide = NSLocalizedString(@"Reference station, tide levels", @"Reference tide station");
+static NSString *subTide = NSLocalizedString(@"Subordinate station, tide levels", @"Subordinate tide station");
+
 dispatch_queue_t stationLoadQueue;
 
 @interface XTStationRef ()
@@ -114,10 +119,6 @@ dispatch_queue_t stationLoadQueue;
 
 - (NSString *)subtitle
 {
-    NSString *refCurrent = NSLocalizedString(@"Reference station, tide currents", @"Reference current station");
-    NSString *subCurrent = NSLocalizedString(@"Subordinate station, tide currents", @"Subordinate current station");
-    NSString *refTide = NSLocalizedString(@"Reference station, tide levels", @"Reference tide station");
-    NSString *subTide = NSLocalizedString(@"Subordinate station, tide levels", @"Subordinate tide station");
     BOOL ref = self.isReferenceStation;
     return self.isCurrent ? (ref ? refCurrent : subCurrent)
                           : (ref ? refTide : subTide);

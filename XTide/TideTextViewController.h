@@ -28,4 +28,7 @@
 - (NSDate *)startDate;
 - (NSDate *)endDate;
 
+// Generate a text representation
+- (NSString*)stringWithIndexes:(NSIndexSet *)rowIndexes form:(char)form mode:(char)mode;
+
 @end

@@ -591,8 +591,8 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 }
 
 #pragma mark print
-
 #if 0 // This would be nice, but it doesn't work for scaled printing.
+
 // Return the number of pages available for printing
 - (BOOL)knowsPageRange:(NSRangePointer)range
 {

@@ -12,9 +12,9 @@
 @import WatchConnectivity;
 @import WatchKit;
 
-//static NSTimeInterval HOUR = 60 * 60;
 // Show predicted complication 30 minutes before the event happens.
 static NSTimeInterval EVENT_OFFSET = -30 * 60;
+static NSTimeInterval HOUR = 60 * 60;
 static NSTimeInterval DAY = 60 * 60 * 24;
 
 @interface ComplicationController ()
@@ -28,13 +28,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 @property (strong) NSDate *lastStartTime;
 @property (strong) NSDate *lastAfterDate;
 @property (strong) NSDate *requestedUpdateDate;
+@property (strong) NSDate *earlyReload;
+@property (strong) NSDate *expirationDate;
 @property (strong) NSMutableArray *replyHandlers;
 @property (strong) NSString *lastStation;
-@property (strong) NSMapTable *earlyReload;
-// Set this when we're asking the phone for an extension.
-// This will trigger an extendTimeline signal once the data arrives,
-// whether it's sendMessage or transferRequest.
-@property BOOL extendRequest;
 
 @end
 
@@ -49,7 +46,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     _tintColor = [UIColor colorWithRed:0x02/255.0 green:0xB0/255.0 blue:0xCB/255.0 alpha:1.0];
 
     _sessionDelegate = [XTSessionDelegate sharedDelegate];
-    _earlyReload = [NSMapTable weakToWeakObjectsMapTable];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(reachabilityChanged:)
                                                  name:XTSessionReachabilityDidChangeNotification
@@ -66,19 +62,15 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     // The asset json file checks whether the width is <=145
     CGRect rect = [WKInterfaceDevice currentDevice].screenBounds;
-    if (rect.size.height == 195.0) {
-        return YES;
-    } else if (rect.size.height == 170.0) {
+    if (rect.size.width <= 145) {
         return NO;
     }
-    // Assume it's big. It'll get scaled.
-    NSLog(@"Unexpected Watch Size %f", rect.size.height);
     return YES;
 }
 
 - (void)reachabilityChanged:(NSNotification *)note
 {
-    if ([WCSession defaultSession].reachable && !self.events) {
+    if ([WCSession defaultSession].reachable && [self needsReload]) {
         [self requestComplicationsWithReplyHandler:nil];
     }
 }
@@ -111,7 +103,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 // The time when the last event should dim, if we don't have any new ones,
 // which should only happen if the phone was out of reach for 24 hours!
-// This may be past latestTimeTravelDate; hopefully it won't complain.
+// This may be past latestTimeTravelDate.
 - (NSDate *)lastEventTime
 {
     // Add the same offset for all families.
@@ -142,9 +134,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 // The last date for which we can supply data.
 - (void)getTimelineEndDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
 {
+    // There are twice as many ring events, which sometimes pushes them over the limit.
+    // With a max of 100 for 2 days, we should never run out of text events.
+    if (self.expirationDate && [self isRingFamily:complication.family]) {
+        handler([self.expirationDate dateByAddingTimeInterval:-EVENT_OFFSET]);
+        return;
+    }
+        
     [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
         if (isReady) {
-            NSDate *date = [self.earlyReload objectForKey:complication];
+            NSDate *date = self.expirationDate;
             if (date) {
                 date = [date dateByAddingTimeInterval:-EVENT_OFFSET];
             } else {
@@ -181,8 +180,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     NSString *station = [reply objectForKey:@"station"];
     if (!station) {
-        // sendMessage doesn't call the callback if it gets a nil reply;
-        // apparently it's assuming it's handling the no-callback version.
         return;
     }
     BOOL stationChange = self.lastStation != nil && ![station isEqualToString:self.lastStation];
@@ -192,10 +189,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         self.requestedUpdateDate = nil;
         self.lastAfterDate = nil;
         self.lastStartTime = nil;
-        self.earlyReload = [NSMapTable weakToWeakObjectsMapTable];
+        self.earlyReload = nil;
     }
     self.lastStation = station;
-    self.extendRequest = NO;
     if (![self processEvents:reply]) {
         return;
     }
@@ -203,7 +199,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // We don't want to reloadTimeline if there are handlers waiting to be called.
     if (stationChange || !forCallback || self.showingPlaceholder) {
         self.showingPlaceholder = NO;
-        self.earlyReload = [NSMapTable weakToWeakObjectsMapTable];
+        self.earlyReload = nil;
         CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
         for (CLKComplication *complication in server.activeComplications) {
             [server reloadTimelineForComplication:complication];
@@ -211,32 +207,41 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
 }
 
+- (NSMutableArray *)validateEvents:(NSArray *)inEvents
+{
+    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+    NSDate *earlyDate = [server earliestTimeTravelDate];
+    NSMutableArray *events = [NSMutableArray array];
+    // Add events that are still valid.
+    for (NSDictionary *oldEvent in inEvents) {
+        if ([[oldEvent objectForKey:@"date"] compare:earlyDate] == NSOrderedDescending) {
+            [events addObject:oldEvent];
+        }
+    }
+    return events;
+}
+
+
 // Update the event array. Return YES if the events have changed.
 - (BOOL)processEvents:(NSDictionary *)reply
 {
     NSArray *newEvents = [reply objectForKey:@"events"];
     NSDate *startDate = [reply objectForKey:@"startDate"];
     if (![self.events count]) {
-        self.events = newEvents;
+        self.events = [NSArray arrayWithArray:[self validateEvents:newEvents]];
         self.lastStartTime = startDate;
         return YES;
     }
 
     if ([startDate isEqualToDate:self.lastStartTime]) {
-        // Same events, do nothing.
-        return NO;
+        // Same events; make sure they're still valid.
+        NSInteger oldCount = [self.events count];
+        self.events = [NSArray arrayWithArray:[self validateEvents:newEvents]];
+        return oldCount != [self.events count];
     }
 
     // Either the date or the station have changed.
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *earlyDate = [server earliestTimeTravelDate];
-    NSMutableArray *events = [NSMutableArray array];
-    // Add events that are still valid.
-    for (NSDictionary *oldEvent in self.events) {
-        if ([[oldEvent objectForKey:@"date"] compare:earlyDate] == NSOrderedDescending) {
-            [events addObject:oldEvent];
-        }
-    }
+    NSMutableArray *events = [self validateEvents:self.events];
     // Add new events that aren't already included.
     for (NSDictionary *newEvent in newEvents) {
         NSUInteger matchIndex = [events indexOfObjectPassingTest:^BOOL(id event, NSUInteger idx, BOOL *stop) {
@@ -266,20 +271,11 @@ static NSTimeInterval DAY = 60 * 60 * 24;
              @"last"  : [date dateByAddingTimeInterval:3 * DAY]};
 }
 
-- (void)requestUserInfo
-{
-    // Cancel any pending requests; they may be out of date
-    NSArray *oldRequests = [self.watchSession outstandingUserInfoTransfers];
-    for (WCSessionUserInfoTransfer *xfer in oldRequests) {
-        [xfer cancel];
-    }
-    self.extendRequest = YES;
-    [self.watchSession transferUserInfo:[self eventRequestDictionary]];
-}
-
+// Do we need to talk to the iPhone?
+// Yes if the data is missing or out of date.
 - (BOOL)needsReload
 {
-    if (self.events == nil || self.lastStartTime == nil || self.extendRequest) {
+    if ([self.events count] == 0 || self.lastStartTime == nil || self.showingPlaceholder) {
         return YES;
     }
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
@@ -289,8 +285,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (void)callReplyHandlers
 {
-    BOOL isReady = self.events != nil;
     @synchronized (self) {
+        BOOL isReady = self.events != nil;
         for (id handler in self.replyHandlers) {
            ((void (^)(BOOL))handler)(isReady);
         }
@@ -315,9 +311,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
 
     if (!self.watchSession.reachable) {
-        //[self requestUserInfo];
         if (replyHandler) {
-            replyHandler(self.events != nil);
+            replyHandler([self.events count] != 0);
         }
         return;
     }
@@ -344,13 +339,12 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                       replyHandler:defaultHandler
                       errorHandler:
         ^(NSError *error) {
-            // If it timed out, do a userInfo request.
-//            if ([error.domain isEqualToString:@"WCErrorDomain"] && error.code == 7012) {
-//                [self requestUserInfo];
-//            }
-            NSLog(@"requestComplicationsWithReplyHandler %@", error);
-            // Call the handlers. We get extra data so there might be something they can use.
-            [self callReplyHandlers];
+            // The timeout "error" is a known bug.
+            if (!([error.domain isEqualToString:@"WCErrorDomain"] && error.code == 7012)) {
+                NSLog(@"requestComplicationsWithReplyHandler %@", error);
+                // Call the handlers. We get extra data so there might be something they can use.
+                [self callReplyHandlers];
+            }
         }];
 }
 
@@ -383,21 +377,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return dict;
 }
 
-- (NSDictionary *)lastEventForFamily:(CLKComplicationFamily)family
-{
-    if ([self isRingFamily:family]) {
-        return [self.events lastObject];
-    }
-    NSDictionary *dict = [self.events lastObject];
-    if ([dict objectForKey:@"ringEvent"]) {
-        if ([self.events count] > 1) {
-            return [self.events objectAtIndex:[self.events count] - 2];
-        }
-        return nil;
-    }
-    return dict;
-}
-
 - (NSArray *)eventsForFamily:(CLKComplicationFamily)family
 {
     if ([self isRingFamily:family]) {
@@ -412,7 +391,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     NSDate *date = [NSDate date];
     NSArray *events = [self eventsForFamily:complication.family];
-    NSDictionary *lastEvent = [self lastEventForFamily:complication.family];
+    NSDictionary *lastEvent = [events lastObject];
     NSDictionary *lastTestedEvent = lastEvent;
     for (NSDictionary *event in events) {
         NSDate *testDate = [event objectForKey:@"date"];
@@ -426,7 +405,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (CLKComplicationTimelineEntry *)getCurrentTimelineEntryForComplication:(CLKComplication *)complication
 {
-    if (!self.events) {
+    if (![self.events count]) {
         return nil;
     }
     NSDictionary *event = [self currentEventForComplication:complication];
@@ -461,7 +440,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                      afterDate:(NSDate *)date
                                          limit:(NSUInteger)limit
 {
-    [self.earlyReload removeObjectForKey:complication];
     NSMutableArray *array = [NSMutableArray array];
     NSUInteger count = 0;
     CLKComplicationFamily family = complication.family;
@@ -472,7 +450,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             [array addObject:[self getEntryforComplication:complication withEvent:event]];
             count++;
             if (count == limit) {
-                [self.earlyReload setObject:testDate forKey:complication];
+                // Reload in a few hours when there will be space.
+                NSDate *reload = [[NSDate date] dateByAddingTimeInterval:HOUR * 6];
+                self.earlyReload = self.earlyReload ? [self.earlyReload earlierDate:reload] : reload;
+                self.expirationDate = self.expirationDate ? [self.expirationDate earlierDate:testDate] : testDate;
                 break;
             }
         }
@@ -485,8 +466,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     // Call the handler with the current timeline entry
     [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
-        if (isReady) {
-            handler([self getCurrentTimelineEntryForComplication:complication]);
+        CLKComplicationTimelineEntry *entry = [self getCurrentTimelineEntryForComplication:complication];
+        if (entry) {
+            handler(entry);
         } else {
             // Icon-style complications use the asset image, but the text one needs text.
             handler([self getEntryforComplication:complication withEvent:nil]);
@@ -501,6 +483,15 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                               withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
 {
     // Call the handler with the timeline entries prior to the given date
+    NSDictionary *last = [self.events lastObject];
+    NSDate *lastDate = [last objectForKey:@"date"];
+    // If we have entries after the given date, load from the cache.
+    // If the watch has been out of reach too long we might not go back all the way to earliest.
+    // That's not an easy check, so having it go gray in the past is acceptable.
+    if (lastDate && [lastDate compare:date] == NSOrderedDescending) {
+        handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
+        return;
+    }
     [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
         if (isReady) {
             handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
@@ -527,9 +518,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 {
     self.lastAfterDate = self.lastAfterDate ? [self.lastAfterDate laterDate:date] : date;
     // Call the handler with the timeline entries after the given date
-    // First, see if we already have enough data.
+    // First, see if we already have enough data. We like having extra.
     NSArray *array = [self getTimelineEntriesForComplication:complication afterDate:date limit:limit];
-    if ([array count] == limit || [self isEntryBeyondLatestDate:[array lastObject]]) {
+    if ([array count] > 0 && ([array count] == limit || [self isEntryBeyondLatestDate:[array lastObject]])) {
         handler(array);
         return;
     }
@@ -548,15 +539,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
 {
     // The server start/end dates are bound by local midnights so reload when they move.
-    // If any complications didn't get enough entries, reload when they run out.
+    // If any complications didn't get enough entries, reload after a few hours so there's
+    // a smaller time period to fill.
     if (    self.requestedUpdateDate == nil
         || [[NSDate date] compare:self.requestedUpdateDate] == NSOrderedDescending) {
         NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:DAY];
         self.requestedUpdateDate = [[NSCalendar currentCalendar] startOfDayForDate:tomorrow];
     }
     NSDate *update = self.requestedUpdateDate;
-    for (NSDate *date in [self.earlyReload objectEnumerator]) {
-        update = [update earlierDate:date];
+    if (self.earlyReload) {
+        update = [self.earlyReload earlierDate:self.requestedUpdateDate];
     }
     handler(update);
 }
@@ -567,22 +559,13 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // We've gone past the requestedUpdateDate to a new day.
     // Something didn't get all the data it needed and needs to be topped up.
     // We don't care which. We're just extending.
+    self.requestedUpdateDate = nil;
+    self.earlyReload = nil;
+    self.expirationDate = nil;
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
     for (CLKComplication *complication in server.activeComplications) {
         [server extendTimelineForComplication:complication];
     }
-    
-    // Our timeline always extends. Unlike the complications, we don't need to reply
-    // immediately; we wait until the data arrives. So we don't pass a callback,
-    // just set a flag.
-    // Get events starting with the last eventTime or now, whichever is earlier, so we aren't
-    // jumping too far into the future.
-//    if (   !self.requestedUpdateDate
-//        || [[NSDate date] compare:self.requestedUpdateDate] == NSOrderedDescending) {
-//        self.extendRequest = YES;
-//        self.lastAfterDate = [[self lastEventTime] earlierDate:[NSDate date]];
-//        [self requestComplicationsWithReplyHandler:nil];
-//    }
 }
 
 - (void)requestedUpdateBudgetExhausted

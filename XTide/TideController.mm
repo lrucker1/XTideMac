@@ -33,8 +33,11 @@
 #import "PredictionValue.hh"
 #import "Graph.hh"
 #import "PrintPanelAccessoryController.h"
+#import "XTSavePanelAccessoryController.h"
 
 static TideController *selfContext;
+NSString *XT_ICalPboardType = @"com.apple.ical.ics";
+NSString *XT_CSVPboardType = @"Comma-separated value (CSV) file";
 
 @interface TideController ()
 
@@ -43,6 +46,8 @@ static TideController *selfContext;
 @property (strong) XTStationRef *stationRef;
 @property (nonatomic, strong) XTStation *station;
 @property BOOL isObserving;
+@property (nonatomic, strong) NSSavePanel             *savePanel;
+@property (nonatomic, strong) XTSavePanelAccessoryController *accessoryVC;
 
 @end
 
@@ -50,7 +55,6 @@ static TideController *selfContext;
 
 @synthesize stationRef;
 @synthesize station;
-@synthesize organizer;
 
 - (instancetype)initWithWindowNibName:(NSString*)nibName stationRef:(XTStationRef *)in_stationRef
 {
@@ -135,33 +139,6 @@ static TideController *selfContext;
     [timeZoneFromLabel setStringValue:[[station timeZone] abbreviationForDate:timeFrom]];
 }
 
-// Even controllers for non-text views support this, for file save as
-- (NSString*)stringWithIndexes:(NSIndexSet *)rowIndexes form:(char)form mode:(char)mode
-{
-    if ([organizer count] == 0)
-        return nil;
-    
-    NSInteger i, first, last;
-    if (rowIndexes == nil) {
-        first = 0;
-        last = [organizer count]-1;
-    }
-    else {
-        first = [rowIndexes firstIndex];
-        last = [rowIndexes lastIndex];
-    }
-    NSMutableString *str = [NSMutableString string];
-    [str appendString:[XTTideEvent descriptionListHeadForm:form mode:mode station:station]];
-    
-    for (i = first; i <= last; i++) {
-        [str appendString:[[organizer objectAtIndex:i] descriptionWithForm:form mode:mode station:station]];
-        if (i < last && form == 't')
-            [str appendString:@"\n"];
-    }
-    [str appendString:[XTTideEvent descriptionListTailForm:form mode:mode station:station]];
-    return str;
-}
-
 
 - (IBAction)showGraphForSelection:(id)sender
 {
@@ -178,6 +155,43 @@ static TideController *selfContext;
     [(AppDelegate *)[NSApp delegate] showTideCalendarForStation:self.stationRef];
 }
 
+#pragma mark export
+
+- (NSArray *)writableTypes
+{
+	return [NSArray arrayWithObjects:@"txt", @"ics", nil];
+}
+
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+{
+    NSAssert(0, @"Not reached");
+    return NO;
+}
+
+- (IBAction)exportFile:(id)sender
+{
+    if (!self.savePanel) {
+        // The accessory changes allowedFileTypes to match the current extension.
+        self.savePanel = [NSSavePanel savePanel];
+        [self.savePanel setAllowedFileTypes:[self writableTypes]];
+    }
+    [self.savePanel setNameFieldStringValue:self.stationRef.title];
+    [self.savePanel setNameFieldLabel:NSLocalizedString(@"Export As:", @"Export As:")];
+    if (!self.accessoryVC) {
+        self.accessoryVC = [[XTSavePanelAccessoryController alloc] init];
+        [self.accessoryVC setSavePanel:self.savePanel];
+    }
+    [self.savePanel setAccessoryView:[[self accessoryVC] view]];
+    [self.savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSError *error;
+            if (![self writeToURL:[self.savePanel URL] ofType:[[self.savePanel URL] pathExtension] error:&error]) {
+                NSLog(@"%@", error);
+            }
+        }
+    }];
+}
+
 #pragma mark printing
 
 - (NSPrintOperation *)printOperationWithView:(NSView *)view
@@ -187,6 +201,7 @@ static TideController *selfContext;
     NSPrintPanel *printPanel = [printOp printPanel];
     [printPanel setOptions:[printPanel options] | NSPrintPanelShowsPaperSize | NSPrintPanelShowsOrientation];
     [printPanel addAccessoryController:accessoryController];
+    [printOp setJobTitle:self.station.name];
     return printOp;
 }
 

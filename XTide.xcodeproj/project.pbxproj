@@ -16,9 +16,6 @@
 		94041C1B1CBECAD6003BD343 /* XTTideEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C131CBECAD6003BD343 /* XTTideEvent.mm */; };
 		94041C211CBECAE6003BD343 /* XTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C1F1CBECAE6003BD343 /* XTUtils.mm */; };
 		94041C4F1CBECDE2003BD343 /* PreferenceController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C4E1CBECDE2003BD343 /* PreferenceController.mm */; };
-		94041C5D1CBF173A003BD343 /* TideDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C581CBF173A003BD343 /* TideDocument.mm */; };
-		94041C5E1CBF173A003BD343 /* TideDataDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5A1CBF173A003BD343 /* TideDataDocument.mm */; };
-		94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C5C1CBF173A003BD343 /* TideGraphDocument.mm */; };
 		94041C7E1CBF1768003BD343 /* blank.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6D1CBF1768003BD343 /* blank.png */; };
 		94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		94041C801CBF1768003BD343 /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
@@ -27,7 +24,7 @@
 		94041C851CBF1906003BD343 /* TideController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C841CBF1906003BD343 /* TideController.mm */; };
 		94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C871CBF190F003BD343 /* TideGraphController.mm */; };
 		94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8A1CBF1938003BD343 /* GraphView.mm */; };
-		94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8D1CBF1967003BD343 /* TideTextViewController.m */; };
+		94041C901CBF1967003BD343 /* TideTextViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8D1CBF1967003BD343 /* TideTextViewController.mm */; };
 		94041C911CBF1967003BD343 /* TideDataController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8F1CBF1967003BD343 /* TideDataController.mm */; };
 		94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CA01CC043D6003BD343 /* XTMapWindowController.m */; };
 		94041CA41CC04969003BD343 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
@@ -61,6 +58,10 @@
 		942F68D41D5E6FEA0004C28D /* TextEditMisc.h in Headers */ = {isa = PBXBuildFile; fileRef = 942F68D31D5E6FEA0004C28D /* TextEditMisc.h */; };
 		942F68D61D5E6FF70004C28D /* TextEditDefaultsKeys.h in Headers */ = {isa = PBXBuildFile; fileRef = 942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */; };
 		942F68DC1D5E73850004C28D /* PrintPanelAccessory.xib in Resources */ = {isa = PBXBuildFile; fileRef = 942F68DA1D5E73850004C28D /* PrintPanelAccessory.xib */; };
+		942F68DF1D5EB48F0004C28D /* PrintingGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F68DE1D5EB48F0004C28D /* PrintingGraphView.m */; };
+		943562E61D628E8D00D73E22 /* XTSavePanelAccessoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 943562E41D628E8D00D73E22 /* XTSavePanelAccessoryController.m */; };
+		943562E71D628E8D00D73E22 /* XTSavePanelAccessoryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 943562E51D628E8D00D73E22 /* XTSavePanelAccessoryController.xib */; };
+		943562EA1D6295DE00D73E22 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 943562E81D62951000D73E22 /* CoreServices.framework */; };
 		944501721D305A3C00203863 /* XTWListInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 944501711D305A3C00203863 /* XTWListInterfaceController.m */; };
 		944501741D315E3900203863 /* TideViewsStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 944501731D315E3900203863 /* TideViewsStoryboard.storyboard */; };
 		944501771D316F1B00203863 /* XTUITideEventsTableViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 944501761D316F1B00203863 /* XTUITideEventsTableViewController.mm */; };
@@ -412,7 +413,7 @@
 		94041C891CBF1938003BD343 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		94041C8A1CBF1938003BD343 /* GraphView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GraphView.mm; sourceTree = "<group>"; };
 		94041C8C1CBF1967003BD343 /* TideTextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideTextViewController.h; sourceTree = "<group>"; };
-		94041C8D1CBF1967003BD343 /* TideTextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TideTextViewController.m; sourceTree = "<group>"; };
+		94041C8D1CBF1967003BD343 /* TideTextViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideTextViewController.mm; sourceTree = "<group>"; };
 		94041C8E1CBF1967003BD343 /* TideDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TideDataController.h; sourceTree = "<group>"; };
 		94041C8F1CBF1967003BD343 /* TideDataController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TideDataController.mm; sourceTree = "<group>"; };
 		94041C921CBF1A4E003BD343 /* XTStation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStation.h; sourceTree = "<group>"; };
@@ -480,6 +481,12 @@
 		942F68D31D5E6FEA0004C28D /* TextEditMisc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditMisc.h; sourceTree = "<group>"; };
 		942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditDefaultsKeys.h; sourceTree = "<group>"; };
 		942F68DB1D5E73850004C28D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PrintPanelAccessory.xib; sourceTree = "<group>"; };
+		942F68DD1D5EB48F0004C28D /* PrintingGraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintingGraphView.h; sourceTree = "<group>"; };
+		942F68DE1D5EB48F0004C28D /* PrintingGraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintingGraphView.m; sourceTree = "<group>"; };
+		943562E31D628E8D00D73E22 /* XTSavePanelAccessoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSavePanelAccessoryController.h; sourceTree = "<group>"; };
+		943562E41D628E8D00D73E22 /* XTSavePanelAccessoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSavePanelAccessoryController.m; sourceTree = "<group>"; };
+		943562E51D628E8D00D73E22 /* XTSavePanelAccessoryController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTSavePanelAccessoryController.xib; sourceTree = "<group>"; };
+		943562E81D62951000D73E22 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		944501701D305A3C00203863 /* XTWListInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTWListInterfaceController.h; sourceTree = "<group>"; };
 		944501711D305A3C00203863 /* XTWListInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTWListInterfaceController.m; sourceTree = "<group>"; };
 		944501731D315E3900203863 /* TideViewsStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TideViewsStoryboard.storyboard; sourceTree = "<group>"; };
@@ -722,6 +729,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943562EA1D6295DE00D73E22 /* CoreServices.framework in Frameworks */,
 				945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -779,7 +787,7 @@
 		94041C561CBF172C003BD343 /* macOS */ = {
 			isa = PBXGroup;
 			children = (
-				942F68CC1D5E6F1A0004C28D /* Printing */,
+				942F68CC1D5E6F1A0004C28D /* Print/Save */,
 				94041C941CC04016003BD343 /* Map */,
 				946318E51CBC3242001CD859 /* Assets.xcassets */,
 				946318E71CBC3242001CD859 /* MainMenu.xib */,
@@ -817,7 +825,7 @@
 				94041C861CBF190F003BD343 /* TideGraphController.h */,
 				94041C871CBF190F003BD343 /* TideGraphController.mm */,
 				94041C8C1CBF1967003BD343 /* TideTextViewController.h */,
-				94041C8D1CBF1967003BD343 /* TideTextViewController.m */,
+				94041C8D1CBF1967003BD343 /* TideTextViewController.mm */,
 				94041D641CC94E51003BD343 /* CalendarController.h */,
 				94041D651CC94E51003BD343 /* CalendarController.mm */,
 				94041C8E1CBF1967003BD343 /* TideDataController.h */,
@@ -896,17 +904,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		942F68CC1D5E6F1A0004C28D /* Printing */ = {
+		942F68CC1D5E6F1A0004C28D /* Print/Save */ = {
 			isa = PBXGroup;
 			children = (
 				942F68D51D5E6FF70004C28D /* TextEditDefaultsKeys.h */,
 				942F68D31D5E6FEA0004C28D /* TextEditMisc.h */,
 				942F68CD1D5E6F2C0004C28D /* PrintPanelAccessoryController.h */,
 				942F68CE1D5E6F2C0004C28D /* PrintPanelAccessoryController.m */,
+				943562E31D628E8D00D73E22 /* XTSavePanelAccessoryController.h */,
+				943562E41D628E8D00D73E22 /* XTSavePanelAccessoryController.m */,
+				943562E51D628E8D00D73E22 /* XTSavePanelAccessoryController.xib */,
+				942F68DD1D5EB48F0004C28D /* PrintingGraphView.h */,
+				942F68DE1D5EB48F0004C28D /* PrintingGraphView.m */,
 				942F68CF1D5E6F2C0004C28D /* PrintingTextView.h */,
 				942F68D01D5E6F2C0004C28D /* PrintingTextView.m */,
 			);
-			name = Printing;
+			name = Print/Save;
 			sourceTree = "<group>";
 		};
 		9452822F1D3F416E00BA9DC0 /* xtideEventKit */ = {
@@ -921,6 +934,7 @@
 		945282A31D40238500BA9DC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				943562E81D62951000D73E22 /* CoreServices.framework */,
 				94FD657F1D51A4D1006C44BA /* CoreLocation.framework */,
 				9419E1BD1D51A0ED0055DEE9 /* CoreLocation.framework */,
 				945282A41D4025DC00BA9DC0 /* EventKit.framework */,
@@ -1700,6 +1714,7 @@
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
 				942F68DC1D5E73850004C28D /* PrintPanelAccessory.xib in Resources */,
 				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
+				943562E71D628E8D00D73E22 /* XTSavePanelAccessoryController.xib in Resources */,
 				94041C7E1CBF1768003BD343 /* blank.png in Resources */,
 				9451F4DD1D445E71006DC606 /* XTStationInfoViewController.xib in Resources */,
 				94041D411CC6EBF0003BD343 /* TideData.xib in Resources */,
@@ -1829,6 +1844,7 @@
 				94041C171CBECAD6003BD343 /* XTStationIndex.mm in Sources */,
 				948B189F1D4165D2002378B7 /* Graph.cc in Sources */,
 				948B18A91D4165D2002378B7 /* Nullable.cc in Sources */,
+				943562E61D628E8D00D73E22 /* XTSavePanelAccessoryController.m in Sources */,
 				94041C151CBECAD6003BD343 /* XTSettings.mm in Sources */,
 				94041C1A1CBECAD6003BD343 /* XTTideEventsOrganizer.mm in Sources */,
 				94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */,
@@ -1846,7 +1862,6 @@
 				948B18A31D4165D2002378B7 /* HarmonicsPath.cc in Sources */,
 				94041D4D1CC7ED5F003BD343 /* SuggestionsWindow.m in Sources */,
 				948B18951D4165D2002378B7 /* Coordinates.cc in Sources */,
-				94041C5F1CBF173A003BD343 /* TideGraphDocument.mm in Sources */,
 				948B18BF1D4165D2002378B7 /* StationIndex.cc in Sources */,
 				948B18991D4165D2002378B7 /* Date.cc in Sources */,
 				945282AD1D403A1F00BA9DC0 /* XTCalendarEventViewController.m in Sources */,
@@ -1859,16 +1874,16 @@
 				948B18B91D4165D2002378B7 /* Skycal.cc in Sources */,
 				94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */,
 				948B18871D4165D2002378B7 /* CalendarFormL.cc in Sources */,
-				94041C5D1CBF173A003BD343 /* TideDocument.mm in Sources */,
 				948B189B1D4165D2002378B7 /* Dstr.cc in Sources */,
 				948B18B71D4165D2002378B7 /* Settings.cc in Sources */,
 				94041C911CBF1967003BD343 /* TideDataController.mm in Sources */,
 				94041D4C1CC7ED5F003BD343 /* RoundedCornersView.m in Sources */,
+				942F68DF1D5EB48F0004C28D /* PrintingGraphView.m in Sources */,
 				94041D351CC6D804003BD343 /* DisclaimerController.m in Sources */,
 				94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */,
 				94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */,
 				948B189D1D4165D2002378B7 /* Global.cc in Sources */,
-				94041C901CBF1967003BD343 /* TideTextViewController.m in Sources */,
+				94041C901CBF1967003BD343 /* TideTextViewController.mm in Sources */,
 				948B18931D4165D2002378B7 /* ConstituentSet.cc in Sources */,
 				948B18CF1D4165D2002378B7 /* Units.cc in Sources */,
 				948B18911D4165D2002378B7 /* Constituent.cc in Sources */,
@@ -1901,7 +1916,6 @@
 				948B187F1D4165D2002378B7 /* Banner.cc in Sources */,
 				948B18B31D4165D2002378B7 /* PredictionValue.cc in Sources */,
 				94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */,
-				94041C5E1CBF173A003BD343 /* TideDataDocument.mm in Sources */,
 				94041D301CC1CDF1003BD343 /* bit_pack.c in Sources */,
 				948B18A71D4165D2002378B7 /* MetaField.cc in Sources */,
 				94041D321CC1CE3E003BD343 /* tide_db.c in Sources */,

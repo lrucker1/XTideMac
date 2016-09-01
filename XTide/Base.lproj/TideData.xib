@@ -381,12 +381,6 @@
             </connections>
             <point key="canvasLocation" x="197.5" y="284"/>
         </window>
-        <customObject id="64" userLabel="TideDataDocument" customClass="TideDataDocument">
-            <connections>
-                <outlet property="mycontroller" destination="-2" id="67"/>
-                <outlet property="window" destination="5" id="65"/>
-            </connections>
-        </customObject>
         <window title="Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="xqh-ge-hRn" userLabel="Sheet">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>

@@ -369,15 +369,26 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 	return DstrToNSString(text_out);
 }
 
+- (NSData *)SVGImageWithWidth:(CGFloat)width
+                       height:(CGFloat)height
+                         date:(NSDate *)date
+{
+    Dstr text_out;
+    libxtide::Timestamp time = libxtide::Timestamp((time_t)[date timeIntervalSince1970]);
+    libxtide::SVGGraph g(width, height);
+    g.drawTides(mStation, time);
+    g.print(text_out);
+    return [DstrToNSString(text_out) dataUsingEncoding:NSUTF8StringEncoding];
+}
 
-- (NSString *)stationCalendarInfoFromDate: (NSDate *)startTime
-											  toDate: (NSDate *)endTime
+- (NSString *)stationCalendarInfoFromDate:(NSDate *)startTime
+                                   toDate:(NSDate *)endTime
 {
 	return [[self loadCalendarFromStart:startTime toEnd:endTime] generateHTML];
 }
 
-- (NSDictionary *)stationCalendarDataFromDate: (NSDate *)startTime
-											      toDate: (NSDate *)endTime
+- (NSDictionary *)stationCalendarDataFromDate:(NSDate *)startTime
+                                       toDate:(NSDate *)endTime
 {
 	return [[self loadCalendarFromStart:startTime toEnd:endTime] generateDataSource];
 }

@@ -9,6 +9,8 @@
 #import "TideTextViewController.h"
 #import "XTSettings.h"
 #import "XTStation.h"
+#import "XTTideEventsOrganizer.h"
+#import "XTTideEvent.h"
 
 static TideTextViewController *selfContext;
 
@@ -186,6 +188,78 @@ static NSString * const TideData_monthRange = @"monthRange";
     dateComponents.month = [monthStepper intValue];
     return [currentCalendar dateByAddingComponents:dateComponents toDate:[self startDate] options:0];
 }
+
+#pragma mark export
+- (NSString*)stringWithIndexes:(NSIndexSet *)rowIndexes form:(char)form mode:(char)mode
+{
+    XTTideEventsOrganizer *organizer = self.organizer;
+    if ([organizer count] == 0) {
+        organizer = [[XTTideEventsOrganizer alloc] init];
+        [station predictTideEventsStart:[self startDate]
+                                    end:[self endDate]
+                              organizer:organizer
+                                 filter:libxtide::Station::noFilter];
+    }
+    
+    NSInteger i, first, last;
+    if (rowIndexes == nil) {
+        first = 0;
+        last = [organizer count]-1;
+    }
+    else {
+        first = [rowIndexes firstIndex];
+        last = [rowIndexes lastIndex];
+    }
+    NSMutableString *str = [NSMutableString string];
+    [str appendString:[XTTideEvent descriptionListHeadForm:form mode:mode station:station]];
+    
+    for (i = first; i <= last; i++) {
+        [str appendString:[[organizer objectAtIndex:i] descriptionWithForm:form mode:mode station:station]];
+        if (i < last && form == 't')
+            [str appendString:@"\n"];
+    }
+    [str appendString:[XTTideEvent descriptionListTailForm:form mode:mode station:station]];
+    return str;
+}
+
+
+- (NSArray *)writableTypes
+{
+	return @[@"ics", @"txt", @"csv"];
+}
+
+// Writes a text file 
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+{
+	char form;
+	if ([typeName isEqualToString:@"txt"])
+		form = 't'; // plain text
+	else if ([typeName isEqualToString:@"ics"])
+		form = 'i'; // iCal format
+	else if ([typeName isEqualToString:@"csv"])
+		form = 'c'; // comma-separated value format
+	else {
+        NSLog(@"Bad type.");
+		return NO;
+    }
+	
+	// Set the form and mode based on typeName
+	NSString *str = [self stringWithIndexes:nil form:form mode:'p'];
+	if (str == nil) {
+        NSLog(@"Could not generate contents.");
+		return NO;
+    }
+	
+	NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+	if (!data) {
+        NSLog(@"Could not generate data.");
+		return NO;
+    }
+
+	return [data writeToURL:absoluteURL options:NSDataWritingAtomic error:outError];
+}
+
+#pragma mark observation
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object

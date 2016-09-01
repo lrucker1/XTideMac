@@ -61,7 +61,8 @@
 /* Override of knowsPageRange: checks printing parameters against the last invocation, and if not the same, resizes the view and relays out the text.  On first invocation, the saved size will be 0,0, which will cause the text to be laid out.
 */
 - (BOOL)knowsPageRange:(NSRangePointer)range {
-    NSSize documentSizeInPage = documentSizeForPrintInfo([self.printPanelAccessoryController representedObject]);
+    NSPrintInfo *printInfo = [self.printPanelAccessoryController representedObject];
+    NSSize documentSizeInPage = documentSizeForPrintInfo(printInfo);
     BOOL wrappingToFit = self.printPanelAccessoryController.wrappingToFit;
     
     if (!NSEqualSizes(previousValueOfDocumentSizeInPage, documentSizeInPage) || (previousValueOfWrappingToFit != wrappingToFit)) {
@@ -72,6 +73,13 @@
         [self setFrame:NSMakeRect(0.0, 0.0, size.width, size.height)];
         [[[self textContainer] layoutManager] setDefaultAttachmentScaling:wrappingToFit ? NSImageScaleProportionallyDown : NSImageScaleNone];
         [self textEditDoForegroundLayoutToCharacterIndex:NSIntegerMax];		// Make sure the whole document is laid out
+        // Do horizontal clip so any stray pixels don't generate a blank page.
+        if (wrappingToFit) {
+            [printInfo setHorizontalPagination:NSClipPagination];
+        } else {
+            [printInfo setHorizontalPagination:NSAutoPagination];
+        }
+
     }
     return [super knowsPageRange:range];
 }

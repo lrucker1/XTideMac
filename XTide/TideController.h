@@ -58,13 +58,13 @@
 - (XTStation*)station;
 - (void)updateLabels;
 
-// Generate a text representation, even for graphic views
-- (NSString*)stringWithIndexes:(NSIndexSet *)rowIndexes form:(char)form mode:(char)mode;
-
 - (void)removeObservers;
 
 - (void)popoverDidClose:(NSNotification *)notification;
 
 - (NSPrintOperation *)printOperationWithView:(NSView *)view;
+
+- (NSArray *)writableTypes;
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError;
 
 @end

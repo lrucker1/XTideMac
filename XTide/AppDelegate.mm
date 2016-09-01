@@ -47,8 +47,9 @@ static NSString * const XTWindow_restorationName = @"name";
     XTSettings_SetDefaults(nil);
     libxtide::Global::setErrorCallback(&DisplayCoreError);
 
-// TODO: do not ship this.
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"NSRecentDocumentsLimit"];
+// do not ship with this on.
+//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSConstraintBasedLayoutVisualizeMutuallyExclusiveConstraints"];
 }
 
 + (void)restoreWindowWithIdentifier:(NSString *)identifier

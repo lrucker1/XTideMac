@@ -252,7 +252,7 @@ static NSImage *calendarImage = nil;
 
 - (IBAction)printTideView:(id)sender
 {
-    [[self printOperationWithView:tideTableView] runOperation];
+    [[self printOperationWithView:tideTableView] runOperationModalForWindow:[tideTableView window] delegate:nil didRunSelector:NULL contextInfo:NULL];
 }
 
 @end

@@ -30,6 +30,8 @@
 #import "XTGraph.h"
 #import "XTUtils.h"
 #import "GraphView.h"
+#import "PrintingGraphView.h"
+#import "PrintPanelAccessoryController.h"
 
 static TideGraphController *selfContext;
 
@@ -218,11 +220,90 @@ static NSString * const TideGraph_displayDate = @"displayDate";
     [self.graphView display];
 }
 
+#pragma mark export
+
+- (NSArray *)writableTypes
+{
+	return @[@"png", @"svg"];
+}
+
+- (BOOL)writePNGWithURL:(NSURL *)fileURL error:(NSError **)outError
+{
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    NSRect offscreenRect = [self.graphView bounds];
+    NSSize size = offscreenRect.size;
+    CGContextRef contextRef = CGBitmapContextCreate(NULL, size.width, size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+    NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithCGContext:contextRef flipped:YES];
+    
+    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    [NSGraphicsContext setCurrentContext:graphicsContext];
+
+    // translate/flip the graphics context (for transforming from CoreGraphics coordinates to default UI coordinates. The Y axis is flipped on regular coordinate systems)
+    CGContextTranslateCTM(contextRef, 0.0, offscreenRect.size.height);
+    CGContextScaleCTM(contextRef, 1.0, -1.0);
+
+    XTGraph *graph = [[XTGraph alloc] initWithXSize:offscreenRect.size.width ysize:offscreenRect.size.height];
+    [graph drawTides:self.station now:self.graphView.graphdate];
+    CGColorSpaceRelease(colorSpace);
+    CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
+    [NSGraphicsContext setCurrentContext:currentContext];
+
+    CFURLRef url = (__bridge CFURLRef)fileURL;
+    CGImageDestinationRef destination = CGImageDestinationCreateWithURL(url, kUTTypePNG, 1, NULL);
+    if (!destination) {
+        NSLog(@"Failed to create CGImageDestination for %@", fileURL);
+        return NO;
+    }
+
+    CGImageDestinationAddImage(destination, imageRef, nil);
+
+    if (!CGImageDestinationFinalize(destination)) {
+        NSLog(@"Failed to write image to %@", fileURL);
+        CFRelease(destination);
+        return NO;
+    }
+
+    CFRelease(destination);
+    return YES;
+}
+
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+{
+	NSData *data = nil;
+	if ([typeName isEqualToString:@"png"]) {
+		return [self writePNGWithURL:absoluteURL error:outError];
+	} else if ([typeName isEqualToString:@"tiff"]) {
+		data = [self.graphView TIFFRepresentation];
+    } else if ([typeName isEqualToString:@"svg"]) {
+        NSSize size = self.graphView.bounds.size;
+        data = [self.station SVGImageWithWidth:size.width
+                                        height:size.height
+                                          date:self.graphView.graphdate];
+    }
+		
+	if (!data) 
+		return NO;
+
+	return [data writeToURL:absoluteURL options:NSDataWritingAtomic error:outError];
+}
+
 #pragma mark print
 
 - (IBAction)printTideView:(id)sender
 {
-    [[self printOperationWithView:self.graphView] runOperation];
+    NSRect bounds = [self.graphView bounds];
+    PrintingGraphView *printingView = [[PrintingGraphView alloc] initWithFrame:bounds date:self.graphView.graphdate];
+    printingView.dataSource = self;
+    [printingView setOriginalSize:bounds.size];
+
+    NSPrintOperation *printOp = [self printOperationWithView:printingView];
+    PrintPanelAccessoryController *accessoryController = [[[printOp printPanel] accessoryControllers] lastObject];
+    accessoryController.showsWrappingToFit = YES;
+    [printingView setPrintPanelAccessoryController:accessoryController];
+    [[printOp printInfo] setHorizontalPagination:NSAutoPagination];
+    [[printOp printInfo] setVerticalPagination:NSAutoPagination];
+
+    [printOp runOperationModalForWindow:[self.graphView window] delegate:nil didRunSelector:NULL contextInfo:NULL];
 }
 
 #pragma mark observation

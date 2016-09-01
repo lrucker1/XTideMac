@@ -73,6 +73,31 @@
     return YES;
 }
 
+#pragma mark export
+
+- (NSArray *)writableTypes
+{
+	return [@[@"html"] arrayByAddingObjectsFromArray:[super writableTypes]];
+}
+
+// Writes a html file 
+- (BOOL)writeToURL:(NSURL *)absoluteURL ofType:(NSString *)typeName error:(NSError **)outError
+{
+    if (![typeName isEqualToString:@"html"]) {
+        return [super writeToURL:absoluteURL ofType:typeName error:outError];
+    }
+	NSString *str = [station stationCalendarInfoFromDate:[self startDate]
+                                                  toDate:[self endDate]];
+
+	
+	NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+	if (!data) {
+		return NO;
+    }
+
+	return [data writeToURL:absoluteURL options:NSDataWritingAtomic error:outError];
+}
+
 #pragma mark print
 
 - (IBAction)printTideView:(id)sender
@@ -89,7 +114,7 @@
     accessoryController.showsWrappingToFit = YES;
     [printingView setPrintPanelAccessoryController:accessoryController];
 
-    [printOp runOperation];
+    [printOp runOperationModalForWindow:[textView window] delegate:nil didRunSelector:NULL contextInfo:NULL];
 }
 
 @end
