@@ -80,6 +80,15 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     [self updateEvents:[note userInfo] forCallback:NO];
 }
 
+- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error
+{
+    if (activationState == WCSessionActivationStateActivated) {
+        if ([self needsReload]) {
+            [self requestComplicationsWithReplyHandler:nil];
+        }
+    }
+}
+
 #pragma mark - Timeline Configuration
 
 // The time to show the event. Show it before the actual prediction by some reasonable offset.
@@ -666,6 +675,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     } else if (family == CLKComplicationFamilyCircularSmall) {
         rectSize = self.isBigWatch ? 36 : 32;
         lineWidth = 2;
+    } else if (family == CLKComplicationFamilyExtraLarge) {
+        rectSize = self.isBigWatch ? 90 : 84;
+        lineWidth = 6;
     } else {
         return nil;
     }
@@ -695,7 +707,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
     CGContextSetLineWidth(context, lineWidth);
 
-    CGRect edgeRect = CGRectInset(rect, 2, 2);
+    CGRect edgeRect = CGRectInset(rect, lineWidth, lineWidth);
     CGContextStrokeEllipseInRect(context, edgeRect);
 
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -725,7 +737,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
     UIBezierPath *arm = [UIBezierPath bezierPath];
     [arm moveToPoint:CGPointZero];
-    [arm addLineToPoint:CGPointMake(0, -(radius - lineWidth - 4))];
+    [arm addLineToPoint:CGPointMake(0, -(radius - (lineWidth * 2.5)))];
     arm.lineWidth = lineWidth;
     arm.lineCapStyle = kCGLineCapRound;
     CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
@@ -734,7 +746,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     [arm stroke];
 
     if (includeRing) {
-        CGRect edgeRect = CGRectInset(rect, 2, 2);
+        CGRect edgeRect = CGRectInset(rect, lineWidth, lineWidth);
         CGContextStrokeEllipseInRect(context, edgeRect);
     }
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -788,6 +800,20 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         template = large;
         }
         break;
+    case CLKComplicationFamilyExtraLarge:
+        {
+        CLKComplicationTemplateExtraLargeStackImage *large =
+            [[CLKComplicationTemplateExtraLargeStackImage alloc] init];
+        large.line1ImageProvider = [self ringImageProviderForEvent:event family:complication.family];
+        if (event) {
+            large.line2TextProvider = [self levelTextProviderForEvent:event];
+        } else {
+            large.line2TextProvider = [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Waiting", @"Waiting for station information")
+                                                                        shortText:@""];
+        }
+        template = large;
+        }
+        break;
     case CLKComplicationFamilyModularSmall:
         {
         CLKComplicationTemplateModularSmallSimpleImage *small =
@@ -812,6 +838,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }
         break;
     case CLKComplicationFamilyUtilitarianSmall:
+    case CLKComplicationFamilyUtilitarianSmallFlat:
         {
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];
@@ -857,6 +884,15 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         template = large;
         }
         break;
+    case CLKComplicationFamilyExtraLarge:
+        {
+        CLKComplicationTemplateExtraLargeStackImage *large =
+            [[CLKComplicationTemplateExtraLargeStackImage alloc] init];
+        large.line1ImageProvider = [self ringImageProviderForEvent:nil family:complication.family];
+        large.line2TextProvider = [self levelTextProviderForEvent:nil];
+        template = large;
+        }
+        break;
     case CLKComplicationFamilyModularSmall:
         {
         CLKComplicationTemplateModularSmallSimpleImage *small =
@@ -875,6 +911,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }
         break;
     case CLKComplicationFamilyUtilitarianSmall:
+    case CLKComplicationFamilyUtilitarianSmallFlat:
         {
         CLKComplicationTemplateUtilitarianSmallFlat *small =
             [[CLKComplicationTemplateUtilitarianSmallFlat alloc] init];

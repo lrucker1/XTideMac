@@ -316,6 +316,23 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self configureLocationTrackingForWatch];
 }
 
+- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(NSError *)error
+{
+    if (activationState == WCSessionActivationStateActivated) {
+        [self configureLocationTrackingForWatch];
+    }
+}
+
+- (void)sessionDidBecomeInactive:(WCSession *)session
+{
+    [self.locationManager stopUpdatingLocation];
+}
+
+- (void)sessionDidDeactivate:(WCSession *)session
+{
+    [self.locationManager stopUpdatingLocation];
+}
+
 - (void)updateTimerFired:(NSTimer *)timer
 {
     if ([self.watchSession isComplicationEnabled]) {

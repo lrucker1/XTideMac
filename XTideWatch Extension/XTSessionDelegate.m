@@ -55,6 +55,10 @@ NSString * const XTSessionUserInfoNotification = @"XTSessionUserInfoNotification
 							  object:self];
 }
 
+- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error
+{
+    // TODO: figure out what they need.
+}
 
 - (void)session:(WCSession *)session didReceiveApplicationContext:(NSDictionary<NSString *,id> *)applicationContext
 {

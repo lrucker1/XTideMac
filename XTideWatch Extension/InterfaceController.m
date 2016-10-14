@@ -177,6 +177,23 @@
     [self endTimer];
 }
 
+- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error
+{
+    if (activationState == WCSessionActivationStateActivated) {
+        // Update from last info so there's something while we wait for the latest update.
+        NSDictionary *info = [self.watchSession receivedApplicationContext];
+        if (info) {
+            [self updateContentsFromInfo:info];
+        }
+        if (self.watchSession.isReachable) {
+            // Calls requestUpdate.
+            [self startTimer];
+        }
+    } else {
+        [self endTimer];
+    }
+}
+
 @end
 
 
