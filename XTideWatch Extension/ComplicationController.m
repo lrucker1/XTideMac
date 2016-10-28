@@ -362,6 +362,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     switch (family) {
         case CLKComplicationFamilyModularSmall:
         case CLKComplicationFamilyCircularSmall:
+        case CLKComplicationFamilyExtraLarge:
             return YES;
         default:
             return NO;
@@ -596,6 +597,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return [CLKSimpleTextProvider textProviderWithText:waiting shortText:waitingShort];
 }
 
+- (CLKSimpleTextProvider *)shortLevelTextProviderForEvent:(NSDictionary * _Nullable)event
+{
+    if (!event) {
+        return [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Level", @"Level placeholder")];
+    }
+    NSString *levelShort = [event objectForKey:@"levelShort"];
+    NSAssert(levelShort, @"has a levelShort");
+    return [CLKSimpleTextProvider textProviderWithText:levelShort];
+}
+
 - (CLKSimpleTextProvider *)levelTextProviderForEvent:(NSDictionary * _Nullable)event
 {
     if (!event) {
@@ -603,6 +614,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
     NSString *level = [event objectForKey:@"level"];
     NSString *levelShort = [event objectForKey:@"levelShort"];
+    NSAssert(level, @"has a level");
+    NSAssert(levelShort, @"has a levelShort");
     return [CLKSimpleTextProvider textProviderWithText:level shortText:levelShort];
 }
 
@@ -614,6 +627,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
     NSString *desc = [event objectForKey:@"desc"];
     NSString *descShort = [event objectForKey:@"descShort"];
+    NSAssert(desc, @"has a desc");
     if (descShort) {
         return [CLKSimpleTextProvider textProviderWithText:desc shortText:descShort];
     }
@@ -676,6 +690,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         rectSize = self.isBigWatch ? 36 : 32;
         lineWidth = 2;
     } else if (family == CLKComplicationFamilyExtraLarge) {
+        // ExtraLargeSimpleImage rectSize = self.isBigWatch ? 203 : 182;
         rectSize = self.isBigWatch ? 90 : 84;
         lineWidth = 6;
     } else {
@@ -805,12 +820,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateExtraLargeStackImage *large =
             [[CLKComplicationTemplateExtraLargeStackImage alloc] init];
         large.line1ImageProvider = [self ringImageProviderForEvent:event family:complication.family];
-        if (event) {
-            large.line2TextProvider = [self levelTextProviderForEvent:event];
-        } else {
-            large.line2TextProvider = [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Waiting", @"Waiting for station information")
-                                                                        shortText:@""];
-        }
+        large.line2TextProvider = [self shortLevelTextProviderForEvent:event];
         template = large;
         }
         break;
@@ -860,6 +870,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         }
         break;
     }
+    // Letting the OS do that means it happens after we've alreadyma
+//    [template performSelector:@selector(validate) withObject:nil];
 
     return [CLKComplicationTimelineEntry entryWithDate:[self timeForEvent:event family:complication.family]
                                   complicationTemplate:template];
@@ -889,7 +901,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         CLKComplicationTemplateExtraLargeStackImage *large =
             [[CLKComplicationTemplateExtraLargeStackImage alloc] init];
         large.line1ImageProvider = [self ringImageProviderForEvent:nil family:complication.family];
-        large.line2TextProvider = [self levelTextProviderForEvent:nil];
+        large.line2TextProvider = [self shortLevelTextProviderForEvent:nil];
         template = large;
         }
         break;

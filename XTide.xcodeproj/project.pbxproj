@@ -147,6 +147,7 @@
 		948B18CD1D4165D2002378B7 /* TTYGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18731D4165D1002378B7 /* TTYGraph.cc */; };
 		948B18CF1D4165D2002378B7 /* Units.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18751D4165D1002378B7 /* Units.cc */; };
 		948B18D91D4165D2002378B7 /* Year.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B187D1D4165D1002378B7 /* Year.cc */; };
+		94C1F7111DC32564005CCC50 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94C1F7101DC32564005CCC50 /* MapKit.framework */; };
 		94CE15CE1D249A510088720D /* AppKitAdditions.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94CE15CC1D249A510088720D /* AppKitAdditions.mm */; };
 		94CE15DB1D24A6650088720D /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DA1D24A6650088720D /* MapKit.framework */; };
 		94CE15DD1D24A6810088720D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DC1D24A6810088720D /* UIKit.framework */; };
@@ -643,6 +644,8 @@
 		948B187C1D4165D1002378B7 /* xmlparser.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = xmlparser.hh; path = libxtide/xmlparser.hh; sourceTree = "<group>"; };
 		948B187D1D4165D1002378B7 /* Year.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Year.cc; path = libxtide/Year.cc; sourceTree = "<group>"; };
 		948B187E1D4165D1002378B7 /* Year.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Year.hh; path = libxtide/Year.hh; sourceTree = "<group>"; };
+		94C1F70F1DC3251B005CCC50 /* XTide.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = XTide.entitlements; sourceTree = "<group>"; };
+		94C1F7101DC32564005CCC50 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		94CE15CB1D249A510088720D /* AppKitAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppKitAdditions.h; path = XTide/AppKitAdditions.h; sourceTree = "<group>"; };
 		94CE15CC1D249A510088720D /* AppKitAdditions.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppKitAdditions.mm; path = XTide/AppKitAdditions.mm; sourceTree = "<group>"; };
 		94CE15DA1D24A6650088720D /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -730,6 +733,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				943562EA1D6295DE00D73E22 /* CoreServices.framework in Frameworks */,
+				94C1F7111DC32564005CCC50 /* MapKit.framework in Frameworks */,
 				945282A51D4025DC00BA9DC0 /* EventKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -934,6 +938,7 @@
 		945282A31D40238500BA9DC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				94C1F7101DC32564005CCC50 /* MapKit.framework */,
 				943562E81D62951000D73E22 /* CoreServices.framework */,
 				94FD657F1D51A4D1006C44BA /* CoreLocation.framework */,
 				9419E1BD1D51A0ED0055DEE9 /* CoreLocation.framework */,
@@ -1073,6 +1078,7 @@
 		946318DE1CBC3242001CD859 /* XTide */ = {
 			isa = PBXGroup;
 			children = (
+				94C1F70F1DC3251B005CCC50 /* XTide.entitlements */,
 				94041C561CBF172C003BD343 /* macOS */,
 				94041C601CBF174F003BD343 /* Resources */,
 				946318E21CBC3242001CD859 /* Supporting Files */,
@@ -1595,6 +1601,16 @@
 					};
 					946318DB1CBC3242001CD859 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 92RP9V4XB5;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.Mac = {
+								enabled = 1;
+							};
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					946318EE1CBC3242001CD859 = {
 						CreatedOnToolsVersion = 7.3;
@@ -2462,7 +2478,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = XTide/XTide.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2480,7 +2499,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = XTide/XTide.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

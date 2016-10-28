@@ -219,6 +219,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     while (next) {
         libxtide::TideEvent previousMaxOrMin = [prev adaptedTideEvent];
         libxtide::TideEvent nextMaxOrMin = [next adaptedTideEvent];
+        Dstr levelPrint;
         if (previousMaxOrMin.eventTime > endTimestamp) {
             break;
         }
@@ -243,20 +244,27 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         libxtide::Interval timeDelta = (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime) / hours;
         currentTime = previousMaxOrMin.eventTime;
          // Add extra ring events on the half-hour.
-        NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(currentTime + (timeDelta/2)),
+        libxtide::Timestamp ringTime = currentTime + (timeDelta/2);
+        libxtide::PredictionValue prediction = mStation->predictTideLevel(ringTime);
+        prediction.print(levelPrint);
+        NSString *level = DstrToNSString(levelPrint);
+        prediction.printnp(levelPrint);
+        NSString *levelShort = DstrToNSString(levelPrint);
+        NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(ringTime),
                                     @"angle"    : @(angle + (arcDelta/2)),
+                                    @"level"    : level,
+                                    @"levelShort" : levelShort,
                                     @"ringEvent" : @(YES)};
         [array addObject:ringEvent];
         NSInteger i = 0;
         for (i = 0; i < hours-1; i++) {
             angle += arcDelta;
             currentTime += timeDelta;
-            Dstr levelPrint;
-            libxtide::PredictionValue prediction = mStation->predictTideLevel(currentTime);
+            prediction = mStation->predictTideLevel(currentTime);
             prediction.print(levelPrint);
-            NSString *level = DstrToNSString(levelPrint);
+            level = DstrToNSString(levelPrint);
             prediction.printnp(levelPrint);
-            NSString *levelShort = DstrToNSString(levelPrint);
+            levelShort = DstrToNSString(levelPrint);
            
             NSDictionary *event = @{@"date"     : TimestampToNSDate(currentTime),
                                     @"angle"    : @(angle),
@@ -267,8 +275,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                     @"next"     : nextShort};
             [array addObject:event];
             // Add extra ring events on the half-hour.
-            NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(currentTime + (timeDelta/2)),
+            ringTime = currentTime + (timeDelta/2);
+            prediction = mStation->predictTideLevel(ringTime);
+            prediction.print(levelPrint);
+            level = DstrToNSString(levelPrint);
+            prediction.printnp(levelPrint);
+            levelShort = DstrToNSString(levelPrint);
+            NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(ringTime),
                                         @"angle"    : @(angle + (arcDelta/2)),
+                                        @"level"    : level,
+                                        @"levelShort" : levelShort,
                                         @"ringEvent" : @(YES)};
             [array addObject:ringEvent];
         }
