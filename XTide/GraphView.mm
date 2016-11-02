@@ -76,7 +76,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 @synthesize lastEvent;
 @synthesize flickTimer;
 
-- (id)initWithFrame:(NSRect)frameRect date:(NSDate*)date
+- (instancetype)initWithFrame:(NSRect)frameRect date:(NSDate*)date
 {
     if ((self = [super initWithFrame:frameRect]) != nil) {
         // Add initialization code here
@@ -86,7 +86,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     return self;
 }
 
-- (id)initWithFrame:(NSRect)frameRect
+- (instancetype)initWithFrame:(NSRect)frameRect
 {
     return [self initWithFrame:frameRect
                           date:[NSDate date]];
@@ -129,16 +129,16 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 }
 
 // Not part of standard XTide; this is here for dragging.
-- (double)offsetTimeForDeltaX: (double)deltaX
+- (CGFloat)offsetTimeForDeltaX: (CGFloat)deltaX
 {
     if ([self.dataSource station]) {
         NSRect frameRect = [self bounds];
         XTGraph *mygraph = [[XTGraph alloc] initWithXSize:frameRect.size.width
                                                     ysize:frameRect.size.height];
         double localDelta = deltaX;
-        self.graphdate = [mygraph offsetStationTime:[self.dataSource station]
-                                                now:graphdate
-                                             deltaX:&localDelta];
+        [self.dataSource syncStartDate:[mygraph offsetStationTime:[self.dataSource station]
+                                                              now:self.graphdate
+                                                           deltaX:&localDelta]];
         if (localDelta != deltaX) {
             NSLog(@"time to bounce %f %f %f", deltaX, localDelta, deltaX - localDelta);
         }
@@ -191,7 +191,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
     XTGraph *mygraph = [[XTGraph alloc] initWithXSize:NSWidth(frameRect)
                                                 ysize:NSHeight(frameRect)];
     
-    [mygraph drawTides:[self.dataSource station] now:graphdate];
+    [mygraph drawTides:[self.dataSource station] now:self.graphdate];
     [NSGraphicsContext restoreGraphicsState];
 }
 
@@ -311,7 +311,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
                                   fromView:nil];
     NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
                                    fromView:nil];
-    double deltaX = lastTouch.x - movedTouch.x;
+    CGFloat deltaX = lastTouch.x - movedTouch.x;
     [self offsetTimeForDeltaX:deltaX];
     
     [self moveToPoint:movedTouch withEvent:theEvent];
@@ -324,7 +324,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
                                   fromView:nil];
     NSPoint movedTouch = [self convertPoint:[theEvent locationInWindow]
                                    fromView:nil];
-    double deltaX = lastTouch.x - movedTouch.x;
+    CGFloat deltaX = lastTouch.x - movedTouch.x;
     [self offsetTimeForDeltaX:deltaX];
     [self releaseAtPoint:movedTouch];
 }

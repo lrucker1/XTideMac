@@ -55,14 +55,14 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
 /* Convience initializer that removes the syleMask and backing parameters since they are static values for this class.
 */
 - (id)initWithContentRect:(NSRect)contentRect defer:(BOOL)flag {
-    return [self initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:YES];
+    return [self initWithContentRect:contentRect styleMask:NSWindowStyleMaskBorderless backing:NSBackingStoreBuffered defer:YES];
 }
 
 /*  We still need to override the NSWindow designated initializer to properly setup our custom window. This allows us to set the class of a window in IB to SuggestionWindow and still get the correct properties (borderless and transparent).
 */
 - (id)initWithContentRect:(NSRect)contentRect styleMask:(NSUInteger)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag {
     // Regardless of what is passed via the styleMask paramenter, always create a NSBorderlessWindowMask window
-    self = [super initWithContentRect:contentRect styleMask:NSBorderlessWindowMask backing:bufferingType defer:flag];
+    self = [super initWithContentRect:contentRect styleMask:NSWindowStyleMaskBorderless backing:bufferingType defer:flag];
     if (self) {
         // This window always has a shadow and is transparent. Force those setting here.
         [self setHasShadow:YES];

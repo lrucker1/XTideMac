@@ -32,6 +32,7 @@
 #import "GraphView.h"
 #import "PrintingGraphView.h"
 #import "PrintPanelAccessoryController.h"
+#import "XTGraphTouchBarView.h"
 
 static TideGraphController *selfContext;
 
@@ -216,7 +217,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 {
     [super hideOptionSheet:sender];
     double val = [aspectValueText doubleValue];
-    [station aspect:val];
+    station.aspect = val;
     [self.graphView display];
 }
 
@@ -287,6 +288,19 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 	return [data writeToURL:absoluteURL options:NSDataWritingAtomic error:outError];
 }
 
+#pragma mark touchbar
+
+- (NSDate *)startDate
+{
+    return self.graphView.graphdate;
+}
+
+- (void)syncStartDate:(NSDate *)date
+{
+    [self.graphView setGraphdate:date];
+    [super syncStartDate:date];
+}
+
 #pragma mark print
 
 - (IBAction)printTideView:(id)sender
@@ -321,6 +335,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
         });
     } else if ([keyPath isEqualToString:TideGraph_graphdate]) {
         [dateFromPicker setDateValue:self.graphView.graphdate];
+        self.touchBarView.graphdate = self.graphView.graphdate;
     } else {
         NSAssert(0, @"Unhandled key %@ in %@", keyPath, [self className]);
     }

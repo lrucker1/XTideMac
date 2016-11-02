@@ -347,7 +347,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
    mStation->markLevel.makeNull();
 }
 
-- (void)aspect: (double)anAspect
+- (void)setAspect: (double)anAspect
 {
    mStation->aspect = anAspect;
 }

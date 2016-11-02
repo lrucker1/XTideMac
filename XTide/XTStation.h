@@ -21,6 +21,8 @@
 
 @interface XTStation : NSObject
 
+@property double aspect;
+
 + (NSArray *)unitsPrefMap;
 
 - (NSString *)name;

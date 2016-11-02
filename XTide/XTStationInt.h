@@ -31,8 +31,6 @@
 - (XTCalendar *)loadCalendarFromStart: (NSDate *)startDate
 								toEnd: (NSDate *)endDate;
 
-- (double)aspect;
-- (void)aspect: (double)anAspect;
 - (libxtide::PredictionValue)markLevel;
 - (void)markLevel: (libxtide::PredictionValue)aPredictionValue;
 - (void)clearMarkLevel;

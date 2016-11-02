@@ -23,11 +23,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class XTGraphTouchBarView;
 @class XTStationRef;
 @class XTStation;
 @class XTTideEventsOrganizer;
 
-@interface TideController : NSWindowController <NSWindowDelegate, NSPopoverDelegate>
+@interface TideController : NSWindowController <NSWindowDelegate, NSPopoverDelegate, NSTouchBarDelegate>
 {
 	XTStationRef *stationRef;
 	XTStation *station;
@@ -43,6 +44,7 @@
 }
 
 @property (readwrite, retain) XTTideEventsOrganizer *organizer;
+@property (strong) XTGraphTouchBarView *touchBarView;
 
 - (IBAction)showPopoverAction:(id)sender;
 - (IBAction)showGraphForSelection:(id)sender;
@@ -57,6 +59,7 @@
 
 - (XTStation*)station;
 - (void)updateLabels;
+- (void)syncStartDate:(NSDate *)date;
 
 - (void)removeObservers;
 

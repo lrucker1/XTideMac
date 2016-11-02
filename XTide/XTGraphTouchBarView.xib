@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaDFRPlugin" version="7104"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11542"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+        <capability name="the Touch Bar" message="Use a version of macOS with Touch Bar support." minToolsVersion="8.1" minSystemVersion="10.12.1" requiredIntegratedClassName="NSTouchBar"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe">
+            <rect key="frame" x="0.0" y="0.0" width="480" height="49"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <touchBar key="touchBar" id="wwn-N2-KBv">
+                <touchBarItems>
+                    <touchBarItem id="U9y-dA-JGc">
+                        <viewController key="viewController" id="tGQ-bn-FB0">
+                            <button key="view" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4XG-Ls-478">
+                                <rect key="frame" x="0.0" y="0.0" width="72" height="30"/>
+                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="i2X-Hg-9Ee">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                        </viewController>
+                    </touchBarItem>
+                    <touchBarItem id="Lcv-j9-lna">
+                        <viewController key="viewController" id="1rg-Sf-cX0">
+                            <view key="view" translatesAutoresizingMaskIntoConstraints="NO" id="IIz-RS-Sgq">
+                                <rect key="frame" x="0.0" y="0.0" width="880" height="38"/>
+                            </view>
+                        </viewController>
+                    </touchBarItem>
+                </touchBarItems>
+            </touchBar>
+            <point key="canvasLocation" x="132" y="42.5"/>
+        </customView>
+    </objects>
+</document>

@@ -155,7 +155,7 @@ Copyright (C) 2012 Apple Inc. All Rights Reserved.
     NSAccessibilityPostNotification(NSAccessibilityUnignoredDescendant(suggestionWindow),  NSAccessibilityCreatedNotification);
     
     // setup auto cancellation if the user clicks outside the suggestion window and parent text field. Note: this is a local event monitor and will only catch clicks in windows that belong to this application. We use another technique below to catch clicks in other application windows.
-    _localMouseDownEventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSOtherMouseDown handler:^(NSEvent *event) {
+    _localMouseDownEventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSEventMaskLeftMouseDown|NSEventMaskRightMouseDown|NSEventTypeOtherMouseDown handler:^(NSEvent *event) {
         // If the mouse event is in the suggestion window, then there is nothing to do.
         if ([event window] != suggestionWindow) {
             if ([event window] == parentWindow) {

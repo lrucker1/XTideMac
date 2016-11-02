@@ -73,6 +73,14 @@
     return YES;
 }
 
+#pragma mark touchbar
+
+// This shows one month at a time; scrolling a touchbar makes no sense here.
+- (NSTouchBar *)makeTouchBar
+{
+    return nil;
+}
+
 #pragma mark export
 
 - (NSArray *)writableTypes

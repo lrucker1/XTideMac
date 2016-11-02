@@ -58,7 +58,7 @@ typedef struct TouchInfo {
 @property (readwrite, assign, nonatomic) IBOutlet TideController *dataSource;
 @property (readwrite, retain, nonatomic) NSDate *graphdate;
 
-- (id)initWithFrame:(NSRect)frameRect date:(NSDate*)date;
+- (instancetype)initWithFrame:(NSRect)frameRect date:(NSDate*)date;
 - (NSData *)PDFRepresentation;
 - (NSData *)TIFFRepresentation;
 

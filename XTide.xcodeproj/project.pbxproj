@@ -53,6 +53,8 @@
 		940BAA8E1D2CAE4200E1C11B /* XTSessionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */; };
 		9410B4721D2E10A900B40F43 /* svgTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 9410B4711D2E10A900B40F43 /* svgTest.svg */; };
 		9410B4741D2E1BFC00B40F43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE161C1D287E6A0088720D /* Assets.xcassets */; };
+		9418941C1DC8108500C2C670 /* XTGraphTouchBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9418941B1DC8108500C2C670 /* XTGraphTouchBarView.m */; };
+		9418941E1DC9741400C2C670 /* XTGraphTouchBarView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9418941D1DC9741400C2C670 /* XTGraphTouchBarView.xib */; };
 		942F68D11D5E6F2C0004C28D /* PrintPanelAccessoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F68CE1D5E6F2C0004C28D /* PrintPanelAccessoryController.m */; };
 		942F68D21D5E6F2C0004C28D /* PrintingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 942F68D01D5E6F2C0004C28D /* PrintingTextView.m */; };
 		942F68D41D5E6FEA0004C28D /* TextEditMisc.h in Headers */ = {isa = PBXBuildFile; fileRef = 942F68D31D5E6FEA0004C28D /* TextEditMisc.h */; };
@@ -464,6 +466,9 @@
 		940BAA8C1D2CAE4200E1C11B /* XTSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTSessionDelegate.h; sourceTree = "<group>"; };
 		940BAA8D1D2CAE4200E1C11B /* XTSessionDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTSessionDelegate.m; sourceTree = "<group>"; };
 		9410B4711D2E10A900B40F43 /* svgTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = svgTest.svg; sourceTree = "<group>"; };
+		9418941A1DC8108400C2C670 /* XTGraphTouchBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTGraphTouchBarView.h; sourceTree = "<group>"; };
+		9418941B1DC8108500C2C670 /* XTGraphTouchBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTGraphTouchBarView.m; sourceTree = "<group>"; };
+		9418941D1DC9741400C2C670 /* XTGraphTouchBarView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XTGraphTouchBarView.xib; sourceTree = "<group>"; };
 		9419E1661D512FE20055DEE9 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		9419E16A1D512FE20055DEE9 /* MacWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MacWidget.entitlements; sourceTree = "<group>"; };
 		9419E16B1D512FE20055DEE9 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
@@ -836,10 +841,13 @@
 				94041C8F1CBF1967003BD343 /* TideDataController.mm */,
 				94041D421CC6EE20003BD343 /* TideTableView.h */,
 				94041D431CC6EE20003BD343 /* TideTableView.m */,
+				9418941A1DC8108400C2C670 /* XTGraphTouchBarView.h */,
+				9418941B1DC8108500C2C670 /* XTGraphTouchBarView.m */,
 				94041C891CBF1938003BD343 /* GraphView.h */,
 				94041C8A1CBF1938003BD343 /* GraphView.mm */,
 				94041D731CCC2908003BD343 /* XTStationInfoViewController.h */,
 				94041D741CCC2909003BD343 /* XTStationInfoViewController.m */,
+				9418941D1DC9741400C2C670 /* XTGraphTouchBarView.xib */,
 				9451F4DF1D445E71006DC606 /* XTStationInfoViewController.xib */,
 				9451F4E21D445E77006DC606 /* XTStationInfoPopoverViewController.xib */,
 				9451F4E51D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib */,
@@ -1740,6 +1748,7 @@
 				94041C801CBF1768003BD343 /* toolbar-list.png in Resources */,
 				94041CB51CC1943C003BD343 /* Preferences.xib in Resources */,
 				9451F4E01D445E77006DC606 /* XTStationInfoPopoverViewController.xib in Resources */,
+				9418941E1DC9741400C2C670 /* XTGraphTouchBarView.xib in Resources */,
 				946318E91CBC3242001CD859 /* MainMenu.xib in Resources */,
 				9451F4D31D445E33006DC606 /* libxtide.strings in Resources */,
 				945828D51D1E07C800972E1C /* Credits.html in Resources */,
@@ -1933,6 +1942,7 @@
 				948B18B31D4165D2002378B7 /* PredictionValue.cc in Sources */,
 				94041D6F1CC98A71003BD343 /* XTApplication.m in Sources */,
 				94041D301CC1CDF1003BD343 /* bit_pack.c in Sources */,
+				9418941C1DC8108500C2C670 /* XTGraphTouchBarView.m in Sources */,
 				948B18A71D4165D2002378B7 /* MetaField.cc in Sources */,
 				94041D321CC1CE3E003BD343 /* tide_db.c in Sources */,
 			);
@@ -2431,7 +2441,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.12;
 			};
 			name = Debug;
 		};
@@ -2470,7 +2480,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.12;
 			};
 			name = Release;
 		};

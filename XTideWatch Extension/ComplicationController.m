@@ -587,7 +587,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (CGFloat)angleForEvent:(NSDictionary *)event
 {
-    return [[event objectForKey:@"angle"] floatValue];
+    NSNumber *number = [event objectForKey:@"angle"];
+    return number ? [number floatValue] : -1;
 }
 
 - (CLKSimpleTextProvider *)noEventTextProvider
@@ -696,7 +697,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     } else {
         return nil;
     }
-    CGFloat angle = [self angleForEvent:event]; // Zero for placeholders with nil events.
+    CGFloat angle = [self angleForEvent:event]; // -1 for placeholders with nil events.
     UIImage *ring = [self ringWithRectSize:rectSize lineWidth:lineWidth];
     UIImage *hand = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:NO];
     UIImage *bgImage = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:YES];
@@ -733,7 +734,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 - (UIImage *)handWithRectSize:(CGFloat)rectSize
                     lineWidth:(CGFloat)lineWidth
-                        angle:(CGFloat)radians
+                        angle:(CGFloat)radians  // -1 for placeholder with no angle data
                   includeRing:(BOOL)includeRing
 {
     CGFloat dotInset = (rectSize - lineWidth * 2) / 2;
@@ -750,15 +751,17 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
-    UIBezierPath *arm = [UIBezierPath bezierPath];
-    [arm moveToPoint:CGPointZero];
-    [arm addLineToPoint:CGPointMake(0, -(radius - (lineWidth * 2.5)))];
-    arm.lineWidth = lineWidth;
-    arm.lineCapStyle = kCGLineCapRound;
-    CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
-    position = CGAffineTransformRotate(position, radians);
-    [arm applyTransform:position];
-    [arm stroke];
+    if (radians >= 0) {
+        UIBezierPath *arm = [UIBezierPath bezierPath];
+        [arm moveToPoint:CGPointZero];
+        [arm addLineToPoint:CGPointMake(0, -(radius - (lineWidth * 2.5)))];
+        arm.lineWidth = lineWidth;
+        arm.lineCapStyle = kCGLineCapRound;
+        CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
+        position = CGAffineTransformRotate(position, radians);
+        [arm applyTransform:position];
+        [arm stroke];
+    }
 
     if (includeRing) {
         CGRect edgeRect = CGRectInset(rect, lineWidth, lineWidth);

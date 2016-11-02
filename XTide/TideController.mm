@@ -34,10 +34,13 @@
 #import "Graph.hh"
 #import "PrintPanelAccessoryController.h"
 #import "XTSavePanelAccessoryController.h"
+#import "XTGraphTouchBarView.h"
 
 static TideController *selfContext;
 NSString *XT_ICalPboardType = @"com.apple.ical.ics";
 NSString *XT_CSVPboardType = @"Comma-separated value (CSV) file";
+static NSTouchBarItemIdentifier CustomViewIdentifier = @"com.lrucker.xtide.touchGraph";
+static NSTouchBarItemIdentifier NowButtonIdentifier = @"com.lrucker.xtide.nowButton";
 
 @interface TideController ()
 
@@ -48,6 +51,7 @@ NSString *XT_CSVPboardType = @"Comma-separated value (CSV) file";
 @property BOOL isObserving;
 @property (nonatomic, strong) NSSavePanel             *savePanel;
 @property (nonatomic, strong) XTSavePanelAccessoryController *accessoryVC;
+@property (strong) NSCustomTouchBarItem *customViewItem;
 
 @end
 
@@ -153,6 +157,62 @@ NSString *XT_CSVPboardType = @"Comma-separated value (CSV) file";
 - (IBAction)showCalendarForSelection:(id)sender
 {
     [(AppDelegate *)[NSApp delegate] showTideCalendarForStation:self.stationRef];
+}
+
+#pragma mark touchbar
+
+- (NSDate *)startDate
+{
+    NSAssert(0, @"Subclass must implement");
+    return [NSDate date];
+}
+
+- (void)syncStartDate:(NSDate *)date
+{
+    [self.touchBarView setGraphdate:date];
+}
+
+- (void)refreshDate:(id)sender
+{
+    [self syncStartDate:[NSDate date]];
+}
+
+- (NSTouchBar *)makeTouchBar
+{
+    NSTouchBar *bar = [[NSTouchBar alloc] init];
+    bar.delegate = self;
+    
+    // Set the default ordering of items.
+    bar.defaultItemIdentifiers =
+        @[NowButtonIdentifier, CustomViewIdentifier, NSTouchBarItemIdentifierOtherItemsProxy];
+    
+    return bar;
+}
+
+- (nullable NSTouchBarItem *)touchBar:(NSTouchBar *)touchBar makeItemForIdentifier:(NSTouchBarItemIdentifier)identifier
+{
+    if ([identifier isEqualToString:NowButtonIdentifier]) {
+        NSButton *button = [NSButton buttonWithImage:[NSImage imageNamed:NSImageNameTouchBarRefreshTemplate]
+                                              target:self
+                                              action:@selector(refreshDate:)];
+        NSCustomTouchBarItem *item = [[NSCustomTouchBarItem alloc] initWithIdentifier:NowButtonIdentifier];
+        item.view = button;
+        return item;
+    } else if ([identifier isEqualToString:CustomViewIdentifier]) {
+        self.touchBarView = [[XTGraphTouchBarView alloc] initWithFrame:NSZeroRect
+                                                                  date:[self startDate]
+                                                            stationRef:self.stationRef];
+        self.touchBarView.dataSource = self;
+        
+            self.touchBarView.allowedTouchTypes = NSTouchTypeMaskDirect;
+    
+        _customViewItem = [[NSCustomTouchBarItem alloc] initWithIdentifier:CustomViewIdentifier];
+        self.customViewItem.view = self.touchBarView;
+
+        return self.customViewItem;
+    }
+    
+    return nil;
 }
 
 #pragma mark export

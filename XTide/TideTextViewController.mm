@@ -11,6 +11,7 @@
 #import "XTStation.h"
 #import "XTTideEventsOrganizer.h"
 #import "XTTideEvent.h"
+#import "XTGraphTouchBarView.h"
 
 static TideTextViewController *selfContext;
 
@@ -134,6 +135,16 @@ static NSString * const TideData_monthRange = @"monthRange";
 	NSLog(@"subclass must implement");
 }
 
+- (void)syncStartDate:(NSDate *)date
+{
+    self.customDate = YES;
+	NSDate *timeFrom = date;
+	[dateFromPicker setDateValue:timeFrom];
+	[self computeEvents];
+	[self updateLabels];
+    [self invalidateRestorableState];
+    [super syncStartDate:date];
+}
 
 - (IBAction)returnToNow:(id)sender
 {
@@ -151,6 +162,7 @@ static NSString * const TideData_monthRange = @"monthRange";
 {
 	[self computeEvents];
 	[self updateLabels];
+    [self.touchBarView setGraphdate:[self startDate]];
     [self invalidateRestorableState];
 }
 
