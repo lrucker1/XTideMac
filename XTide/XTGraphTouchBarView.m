@@ -64,7 +64,8 @@
     // Draw the entire bounds, clipping to the visibleRect
     // because the C++ code takes a lot of shortcuts - it assumes it's always starting from (0,0).
     NSRect frameRect = [self bounds];
-    NSRectClip([self visibleRect]);
+    NSBezierPath *clipPath = [NSBezierPath bezierPathWithRoundedRect:[self visibleRect] xRadius:6 yRadius:6];
+    [clipPath setClip];
     XTGraph *mygraph = [self graphForFrame:frameRect];
     
     [mygraph drawTides:self.station now:self.graphdate];
