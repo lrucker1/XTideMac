@@ -402,6 +402,12 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     NSDate *date = [NSDate date];
     NSArray *events = [self eventsForFamily:complication.family];
     NSDictionary *lastEvent = [events lastObject];
+    // Make sure it's still valid. Give it half an hour for normal events, 15 minutes for rings.
+    NSTimeInterval endOffset = [self isRingFamily:complication.family] ? HOUR / 4 : HOUR / 2;
+    NSDate *lastDateEnd = [[lastEvent objectForKey:@"date"] dateByAddingTimeInterval:endOffset];
+    if ([lastDateEnd compare:date] == NSOrderedAscending) {
+        return nil;
+    }
     NSDictionary *lastTestedEvent = lastEvent;
     for (NSDictionary *event in events) {
         NSDate *testDate = [event objectForKey:@"date"];
@@ -539,6 +545,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         if (isReady) {
             handler ([self getTimelineEntriesForComplication:complication afterDate:date limit:limit]);
         } else {
+            
             handler(nil);
         }
     }];
@@ -568,13 +575,13 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // Two reasons to hit this:
     // We've gone past the requestedUpdateDate to a new day.
     // Something didn't get all the data it needed and needs to be topped up.
-    // We don't care which. We're just extending.
+    // We don't care which. We'll just reload, because the last item may be a placeholder.
     self.requestedUpdateDate = nil;
     self.earlyReload = nil;
     self.expirationDate = nil;
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
     for (CLKComplication *complication in server.activeComplications) {
-        [server extendTimelineForComplication:complication];
+        [server reloadTimelineForComplication:complication];
     }
 }
 

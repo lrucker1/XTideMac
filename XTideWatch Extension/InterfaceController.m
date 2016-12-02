@@ -110,7 +110,17 @@
     NSData *data = [info objectForKey:@"clockImage"];
     NSString *axString = [self axDescriptionFromInfo:info];
     if (data) {
+#if 0
         [self.group setBackgroundImageData:data];
+#else
+        CGFloat width = [[info objectForKey:@"width"] floatValue];
+        CGRect bounds = [[WKInterfaceDevice currentDevice] screenBounds];
+        if (bounds.size.width == width) {
+            [self.group setBackgroundImageData:data];
+        } else {
+            [self requestImage];
+        }
+#endif
     }
     if (axString) {
         [self.group setAccessibilityLabel:axString];
