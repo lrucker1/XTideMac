@@ -33,7 +33,7 @@
 + (void)initialize
 {
     static NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.xtide"];
-    static CGFloat alpha = 0.4;
+    static CGFloat alpha = 0.6;
 
     NSDictionary *todayShortcuts =
         @{@"nc" : [ColorForName(@"deepskyblue") colorWithAlphaComponent:alpha],
