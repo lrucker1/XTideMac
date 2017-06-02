@@ -1637,7 +1637,7 @@
 						DevelopmentTeam = 92RP9V4XB5;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
