@@ -416,14 +416,14 @@ wrong with the informal time specification, such as referring to a\n\
 point in time that does not exist (like February 30th).  It may also\n\
 mean that the requested time is outside of the Unix epoch, which only\n\
 reliably includes the years from 1970 through 2037.  For the workaround,\n\
-see http://www.flaterco.com/xtide/time_t.html.";
+see https://flaterco.com/xtide/time_t.html.";
     break;
   case Error::TIMESTAMP_OVERFLOW:
     text_out += "TIMESTAMP_OVERFLOW\n\
 A timestamp operation resulted in a value that was outside of the\n\
 supported epoch.  The Unix epoch only reliably includes the years from\n\
 1970 through 2037.  For the workaround, see\n\
-http://www.flaterco.com/xtide/time_t.html.";
+https://flaterco.com/xtide/time_t.html.";
     break;
   case Error::YEAR_NOT_IN_TABLE:
     text_out += "YEAR_NOT_IN_TABLE\n\
@@ -441,7 +441,7 @@ Please refer to the documentation for usage of /etc/xtide.conf.";
     text_out += "NO_HFILE_IN_PATH\n\
 A search path for harmonics files was provided, but no harmonics files were\n\
 found anywhere in that path.  You might need to download a harmonics file\n\
-from http://www.flaterco.com/xtide/files.html.";
+from https://flaterco.com/xtide/files.html.";
     break;
   case Error::IMPOSSIBLE_CONVERSION:
     text_out += "IMPOSSIBLE_CONVERSION\n\
@@ -802,7 +802,7 @@ This agreement governs the use of the Software and any updates to the Software, 
  4. Limitation of Remedies and Liability. To the maximum extent permitted by applicable law, Red Hat or any Red Hat authorized dealer will not be liable to Client for any incidental or consequential damages, including lost profits or lost savings arising out of the use or inability to use the Software, even if Red Hat or such dealer has been advised of the possibility of such damages. 
 
  5. General. If any provision of this agreement is held to be unenforceable, that shall not affect the enforceability of the remaining provisions. This agreement shall be governed by the laws of the State of North Carolina and of the United States, without regard to any conflict of laws provisions, except that the United Nations Convention on the International Sale of Goods shall not apply.
-Copyright � 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
+Copyright © 2007-2011 Red Hat, Inc. All rights reserved. LIBERATION is a trademark of Red Hat, Inc.
 */
 
 #ifndef NO_INITIALIZER_LISTS

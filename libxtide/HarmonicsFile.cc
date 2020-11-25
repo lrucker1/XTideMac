@@ -33,6 +33,7 @@ namespace libxtide {
 
 static bool haveInstance = false;
 
+
 HarmonicsFile::HarmonicsFile (const Dstr &filename):
   _filename(filename) {
 
@@ -55,7 +56,7 @@ HarmonicsFile::HarmonicsFile (const Dstr &filename):
         Dstr details (filename);
         details += " is apparently not a TCD file.\n\
 We do not use harmonics.txt or offsets.xml anymore.  Please see\n\
-http://www.flaterco.com/xtide/files.html for a link to the current data.";
+https://flaterco.com/xtide/files.html for a link to the current data.";
         Global::barf (Error::CORRUPT_HARMONICS_FILE, details);
       }
       fclose (fp);
@@ -91,7 +92,7 @@ const Dstr &HarmonicsFile::versionString() {
 
 // libtcd's open_tide_db is called each time a HarmonicsFile is
 // created.  Intentionally, there is no matching call to
-// close_tide_db.  See http://www.flaterco.com/xtide/tcd_notes.html
+// close_tide_db.  See https://flaterco.com/xtide/tcd_notes.html
 // and XTide changelog for version 2.6.3.
 
 HarmonicsFile::~HarmonicsFile() {

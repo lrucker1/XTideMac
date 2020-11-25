@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment version="101000" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="TideGraphController">
@@ -25,7 +26,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="148" y="464" width="678" height="390"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="678" height="390"/>
@@ -38,10 +39,10 @@
                         </connections>
                     </customView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="zCa-6t-w6u">
-                        <rect key="frame" x="201" y="-2" width="277" height="63"/>
+                        <rect key="frame" x="199" y="-2" width="281" height="63"/>
                         <subviews>
                             <datePicker verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="72">
-                                <rect key="frame" x="63" y="20" width="162" height="27"/>
+                                <rect key="frame" x="65" y="20" width="164" height="27"/>
                                 <datePickerCell key="cell" borderStyle="bezel" alignment="left" id="80">
                                     <font key="font" metaFont="system"/>
                                     <date key="date" timeIntervalSinceReferenceDate="-3092644800">
@@ -63,7 +64,7 @@
                                 </connections>
                             </datePicker>
                             <textField verticalHuggingPriority="750" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89">
-                                <rect key="frame" x="230" y="22" width="29" height="17"/>
+                                <rect key="frame" x="234" y="22" width="29" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="b4r-kW-DDS"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="25" id="j6u-Gl-570"/>
@@ -75,7 +76,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="97">
-                                <rect key="frame" x="20" y="18" width="35" height="25"/>
+                                <rect key="frame" x="19" y="19" width="39" height="25"/>
                                 <buttonCell key="cell" type="squareTextured" title="Now" bezelStyle="texturedSquare" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="98">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -98,7 +99,7 @@
                         </constraints>
                     </customView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="40">
-                        <rect key="frame" x="576" y="13" width="88" height="32"/>
+                        <rect key="frame" x="583" y="13" width="82" height="32"/>
                         <buttonCell key="cell" type="push" title="Options" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="77">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -108,7 +109,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="itf-UH-9WI">
-                        <rect key="frame" x="14" y="13" width="111" height="32"/>
+                        <rect key="frame" x="13" y="13" width="105" height="32"/>
                         <buttonCell key="cell" type="push" title="Tide Events" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="4C1-y1-l0G">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -137,18 +138,19 @@
                 <outlet property="delegate" destination="-2" id="101"/>
                 <outlet property="initialFirstResponder" destination="7" id="39"/>
             </connections>
+            <point key="canvasLocation" x="-33" y="104"/>
         </window>
         <window title="Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="25" userLabel="Sheet">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="324" y="539" width="368" height="134"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <view key="contentView" id="26">
                 <rect key="frame" x="0.0" y="0.0" width="368" height="134"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="155" y="91" width="50" height="22"/>
+                        <rect key="frame" x="155" y="90" width="50" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="SUq-8z-SCB"/>
                             <constraint firstAttribute="height" constant="22" id="i2V-FV-4yP"/>
@@ -159,7 +161,7 @@
                                 <decimal key="maximum" value="NaN"/>
                             </numberFormatter>
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
@@ -167,7 +169,7 @@
                         </connections>
                     </textField>
                     <button translatesAutoresizingMaskIntoConstraints="NO" id="34">
-                        <rect key="frame" x="18" y="93" width="131" height="18"/>
+                        <rect key="frame" x="18" y="92" width="129" height="18"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="127" id="Qce-xt-tZo"/>
                         </constraints>
@@ -177,7 +179,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="35">
-                        <rect key="frame" x="295" y="13" width="59" height="32"/>
+                        <rect key="frame" x="302" y="13" width="53" height="32"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" inset="2" id="83">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -187,7 +189,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                        <rect key="frame" x="155" y="49" width="50" height="22"/>
+                        <rect key="frame" x="155" y="48" width="50" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1.00" drawsBackground="YES" id="84">
                             <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0.00" negativeFormat="-#,##0.00" thousandSeparator="," id="52">
                                 <attributedString key="attributedStringForZero">
@@ -197,7 +199,7 @@
                                 <decimal key="maximum" value="10"/>
                             </numberFormatter>
                             <font key="font" metaFont="system"/>
-                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                         <connections>
@@ -205,7 +207,7 @@
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                        <rect key="frame" x="99" y="52" width="51" height="17"/>
+                        <rect key="frame" x="99" y="51" width="51" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Aspect:" usesSingleLineMode="YES" id="85">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -213,7 +215,7 @@
                         </textFieldCell>
                     </textField>
                     <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53">
-                        <rect key="frame" x="217" y="90" width="134" height="26"/>
+                        <rect key="frame" x="217" y="87" width="134" height="29"/>
                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="station default" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="86">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -238,6 +240,8 @@
                     <constraint firstItem="34" firstAttribute="baseline" secondItem="53" secondAttribute="baseline" id="AHd-Mv-cG8"/>
                     <constraint firstItem="35" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="8" symbolic="YES" id="Buy-1P-CLl"/>
                     <constraint firstItem="34" firstAttribute="top" secondItem="26" secondAttribute="top" constant="25" id="DQV-pN-Rm8"/>
+                    <constraint firstItem="49" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="26" secondAttribute="leading" constant="20" symbolic="YES" id="Jyg-ys-KRc"/>
+                    <constraint firstItem="35" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="26" secondAttribute="leading" constant="20" symbolic="YES" id="NOO-JJ-Azs"/>
                     <constraint firstItem="48" firstAttribute="baseline" secondItem="49" secondAttribute="baseline" id="ViY-rD-AW0"/>
                     <constraint firstItem="34" firstAttribute="leading" secondItem="26" secondAttribute="leading" constant="20" symbolic="YES" id="ZEc-Ro-z80"/>
                     <constraint firstItem="48" firstAttribute="trailing" secondItem="27" secondAttribute="trailing" id="aD9-5P-UUK"/>
@@ -256,6 +260,7 @@
                 <outlet property="delegate" destination="-2" id="38"/>
                 <outlet property="initialFirstResponder" destination="27" id="37"/>
             </connections>
+            <point key="canvasLocation" x="-547" y="467"/>
         </window>
     </objects>
 </document>

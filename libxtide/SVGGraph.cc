@@ -199,26 +199,36 @@ void SVGGraph::drawHorizontalLineS (double xlo, double xhi, double y,
 }
 
 
+// Funny how SVG needs HTML escaping when the HTML did not.
+// Testing with Chrome produces failures with & and < but not >.
+static void escapeChars (Dstr &s) {
+  s.repstr ("&", "&amp;");
+  s.repstr ("<", "&lt;");
+}
+
+
 void SVGGraph::centerStringSxPy (double x, int y, const Dstr &s) {
+  Dstr esc_s(s);
+  escapeChars(esc_s);
   SVG += "<text x=\"";
   SVG += x;
   SVG += "\" y=\"";
   SVG += y + SVGfontBaselineAdjust;
-  SVG += "\" class=\"fg";
   SVG += "\" text-anchor=\"middle\">";
-  SVG += s;
+  SVG += esc_s;
   SVG += "</text>\n";
 }
 
 
 void SVGGraph::rightJustifyStringS (double x, double y, const Dstr &s) {
+  Dstr esc_s(s);
+  escapeChars(esc_s);
   SVG += "<text x=\"";
   SVG += x;
   SVG += "\" y=\"";
   SVG += y + SVGfontBaselineAdjust;
-  SVG += "\" class=\"fg";
   SVG += "\" text-anchor=\"end\">";
-  SVG += s;
+  SVG += esc_s;
   SVG += "</text>\n";
 }
 

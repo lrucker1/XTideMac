@@ -37,10 +37,10 @@ extern NSString *XTide_zulu;		// z
 
 
 void RegisterUserDefaults(NSUserDefaults *defaults);
-NSUserDefaults *XTSettings_GetUserDefaults();
+NSUserDefaults *XTSettings_GetUserDefaults(void);
 
 void XTSettings_SetDefaults(NSDictionary *shortcuts);
-void XTSettings_ApplyMacResources();
+void XTSettings_ApplyMacResources(void);
 
 /*
  * Use this for the settings values used in CPP, so that they get set before
@@ -50,7 +50,7 @@ void XTSettings_SetShortcutToValue(const char *shortcut, id value);
 
 id XTSettings_ObjectForKey(NSString *key);
 
-NSArray *XTSettings_GetHarmonicsURLsFromPrefs();
+NSArray *XTSettings_GetHarmonicsURLsFromPrefs(void);
 
 #ifdef  __cplusplus
 }

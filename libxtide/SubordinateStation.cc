@@ -1,4 +1,4 @@
-// $Id: SubordinateStation.cc 5748 2014-10-11 19:38:53Z flaterco $
+// $Id: SubordinateStation.cc 7306 2020-06-28 00:24:42Z flaterco $
 
 /*  SubordinateStation  Station with offsets.
 
@@ -243,7 +243,7 @@ void SubordinateStation::finishTideEvent (TideEvent &te) {
 			       = Station::predictTideLevel (te.eventTime);
       if (te.isMinCurrentEvent()) {
 	// Handling of min currents is questionable; see
-	// http://www.flaterco.com/xtide/mincurrents.html
+	// https://flaterco.com/xtide/mincurrents.html
 	if (_offsets.ebbBegins().isNull())
 	  te.eventTime += _offsets.minTimeAdd();
 	else
@@ -262,7 +262,7 @@ void SubordinateStation::finishTideEvent (TideEvent &te) {
 			       = Station::predictTideLevel (te.eventTime);
       if (te.isMinCurrentEvent()) {
 	// Handling of min currents is questionable; see
-	// http://www.flaterco.com/xtide/mincurrents.html
+	// https://flaterco.com/xtide/mincurrents.html
 	if (_offsets.floodBegins().isNull())
 	  te.eventTime += _offsets.maxTimeAdd();
 	else

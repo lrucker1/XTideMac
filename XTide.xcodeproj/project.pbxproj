@@ -133,7 +133,6 @@
 		948B18AF1D4165D2002378B7 /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18531D4165D1002378B7 /* Offsets.cc */; };
 		948B18B11D4165D2002378B7 /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18551D4165D1002378B7 /* PixelatedGraph.cc */; };
 		948B18B31D4165D2002378B7 /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18571D4165D1002378B7 /* PredictionValue.cc */; };
-		948B18B51D4165D2002378B7 /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185A1D4165D1002378B7 /* RGBGraph.cc */; };
 		948B18B71D4165D2002378B7 /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185D1D4165D1002378B7 /* Settings.cc */; };
 		948B18B91D4165D2002378B7 /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185F1D4165D1002378B7 /* Skycal.cc */; };
 		948B18BB1D4165D2002378B7 /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18611D4165D1002378B7 /* Speed.cc */; };
@@ -212,7 +211,6 @@
 		94FD65601D51A428006C44BA /* Offsets.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18531D4165D1002378B7 /* Offsets.cc */; };
 		94FD65611D51A428006C44BA /* PixelatedGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18551D4165D1002378B7 /* PixelatedGraph.cc */; };
 		94FD65621D51A428006C44BA /* PredictionValue.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18571D4165D1002378B7 /* PredictionValue.cc */; };
-		94FD65631D51A428006C44BA /* RGBGraph.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185A1D4165D1002378B7 /* RGBGraph.cc */; };
 		94FD65641D51A428006C44BA /* Settings.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185D1D4165D1002378B7 /* Settings.cc */; };
 		94FD65651D51A428006C44BA /* Skycal.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B185F1D4165D1002378B7 /* Skycal.cc */; };
 		94FD65661D51A428006C44BA /* Speed.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18611D4165D1002378B7 /* Speed.cc */; };
@@ -1598,7 +1596,7 @@
 		946318D41CBC3242001CD859 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1220;
 				ORGANIZATIONNAME = "Lee Ann Rucker";
 				TargetAttributes = {
 					945828DB1D248BF300972E1C = {
@@ -1673,7 +1671,7 @@
 			};
 			buildConfigurationList = 946318D71CBC3242001CD859 /* Build configuration list for PBXProject "XTide" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -1886,7 +1884,6 @@
 				94041C181CBECAD6003BD343 /* XTStationRef.mm in Sources */,
 				946318E41CBC3242001CD859 /* main.m in Sources */,
 				948B18AD1D4165D2002378B7 /* NullablePredictionValue.cc in Sources */,
-				948B18B51D4165D2002378B7 /* RGBGraph.cc in Sources */,
 				948B18AF1D4165D2002378B7 /* Offsets.cc in Sources */,
 				94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */,
 				94041C191CBECAD6003BD343 /* XTStation.mm in Sources */,
@@ -2027,7 +2024,6 @@
 				94FD654B1D51A428006C44BA /* CalendarFormH.cc in Sources */,
 				94FD65481D51A428006C44BA /* Banner.cc in Sources */,
 				94FD654E1D51A428006C44BA /* CalendarFormT.cc in Sources */,
-				94FD65631D51A428006C44BA /* RGBGraph.cc in Sources */,
 				94FD654A1D51A428006C44BA /* CalendarFormC.cc in Sources */,
 				94FD65451D51A428006C44BA /* bit_pack.c in Sources */,
 				94FD65621D51A428006C44BA /* PredictionValue.cc in Sources */,
@@ -2314,7 +2310,7 @@
 				);
 				HEADER_SEARCH_PATHS = libxtide;
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2339,7 +2335,7 @@
 				);
 				HEADER_SEARCH_PATHS = libxtide;
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2356,7 +2352,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTide-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2371,7 +2367,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTide-iosTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2386,7 +2382,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTide-iosUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2400,7 +2396,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "XTide-iosUITests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-iosUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2414,6 +2410,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2423,14 +2420,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2466,6 +2466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -2475,14 +2476,17 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -2515,6 +2519,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
+				ENABLE_HARDENED_RUNTIME = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2536,6 +2541,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
+				ENABLE_HARDENED_RUNTIME = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
 				INFOPLIST_FILE = XTide/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -2688,7 +2694,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TideToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2705,7 +2711,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TideToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2720,7 +2726,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2729,7 +2735,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = libxtide/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2746,7 +2752,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2755,7 +2761,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = libxtide/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2774,7 +2780,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = libxtideTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2788,7 +2794,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = libxtideTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.libxtideTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

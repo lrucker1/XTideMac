@@ -117,6 +117,7 @@ namespace Global {
   // Client-side font used in RGBGraph.
   extern ClientSide::Font graphFont;
 
+
   // Functions.
 
   // Init harmonics file mutex. Only one harmonics file instance can exist at a time, even for the same file.

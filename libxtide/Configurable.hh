@@ -1,4 +1,4 @@
-// $Id: Configurable.hh 5748 2014-10-11 19:38:53Z flaterco $
+// $Id: Configurable.hh 7306 2020-06-28 00:24:42Z flaterco $
 
 /*  Configurable:  A setting or a switch.
 
@@ -36,12 +36,12 @@ struct Configurable {
 
 
   // Settings are those configurables enumerated at
-  // http://www.flaterco.com/xtide/settings.html, which have
+  // https://flaterco.com/xtide/settings.html, which have
   // representations as preprocessor defines, X resources, xtide.xml
   // attributes, and command line switches.
 
   // Switches are those configurables enumerated at
-  // http://www.flaterco.com/xtide/tty.html, which are not available
+  // https://flaterco.com/xtide/tty.html, which are not available
   // in any form except command line switches.
 
   // Switches recognized by X11 are magically removed from the command
