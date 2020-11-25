@@ -28,7 +28,6 @@
 		94041C911CBF1967003BD343 /* TideDataController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8F1CBF1967003BD343 /* TideDataController.mm */; };
 		94041CA11CC043D6003BD343 /* XTMapWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CA01CC043D6003BD343 /* XTMapWindowController.m */; };
 		94041CA41CC04969003BD343 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA31CC04969003BD343 /* Images.xcassets */; };
-		94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
 		94041CAF1CC06B56003BD343 /* TideGraph.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041CAD1CC06B56003BD343 /* TideGraph.xib */; };
 		94041CB51CC1943C003BD343 /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94041CB31CC1943C003BD343 /* Preferences.xib */; };
 		94041CB71CC1AD70003BD343 /* XTColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94041CB61CC1AD70003BD343 /* XTColorUtils.m */; };
@@ -171,6 +170,8 @@
 		94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE162A1D2882250088720D /* WatchConnectivity.framework */; };
 		94CE16301D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
 		94CE16311D28B8560088720D /* StateImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94CE162F1D28B8560088720D /* StateImages.xcassets */; };
+		94CE5408256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94CE5406256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd */; };
+		94CE540A256DD3EC0088535F /* harmonics-dwf-20191229-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94CE5406256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd */; };
 		94FD65111D51A338006C44BA /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9419E1661D512FE20055DEE9 /* NotificationCenter.framework */; };
 		94FD65151D51A338006C44BA /* TodayViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94FD65141D51A338006C44BA /* TodayViewController.mm */; };
 		94FD65181D51A338006C44BA /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94FD65161D51A338006C44BA /* MainInterface.storyboard */; };
@@ -241,7 +242,6 @@
 		94FD65801D51A4D1006C44BA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD657F1D51A4D1006C44BA /* CoreLocation.framework */; };
 		94FD65811D51A52A006C44BA /* libxtide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FD65261D51A3ED006C44BA /* libxtide.framework */; };
 		94FD65821D51A72B006C44BA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CE15DC1D24A6810088720D /* UIKit.framework */; };
-		94FD65861D52B5C6006C44BA /* harmonics-dwf-20151227-free.tcd in Resources */ = {isa = PBXBuildFile; fileRef = 94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */; };
 		94FD658B1D52C4B8006C44BA /* XTTodayGraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FD658A1D52C4B8006C44BA /* XTTodayGraphView.m */; };
 		94FD658C1D52E2ED006C44BA /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
 		94FD65911D53E497006C44BA /* UIView_UIViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FD658F1D53C7D2006C44BA /* UIView_UIViewAdditions.m */; };
@@ -684,6 +684,7 @@
 		94CE161E1D287E6A0088720D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94CE162A1D2882250088720D /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		94CE162F1D28B8560088720D /* StateImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = StateImages.xcassets; path = XTide/StateImages.xcassets; sourceTree = "<group>"; };
+		94CE5406256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "harmonics-dwf-20191229-free.tcd"; sourceTree = "<group>"; };
 		94FD65101D51A338006C44BA /* TideToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TideToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		94FD65131D51A338006C44BA /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
 		94FD65141D51A338006C44BA /* TodayViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TodayViewController.mm; sourceTree = "<group>"; };
@@ -1028,6 +1029,7 @@
 				94041CA31CC04969003BD343 /* Images.xcassets */,
 				94CE162F1D28B8560088720D /* StateImages.xcassets */,
 				94041CA51CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd */,
+				94CE5406256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd */,
 				94041C6D1CBF1768003BD343 /* blank.png */,
 				9451F4D61D445E33006DC606 /* libxtide.strings */,
 				94041C6E1CBF1768003BD343 /* toolbar-graph.png */,
@@ -1062,6 +1064,7 @@
 				94CE160D1D287E690088720D /* XTideWatch Extension */,
 				94FD658D1D53C76E006C44BA /* Additions */,
 				946318DD1CBC3242001CD859 /* Products */,
+				94CE5405256DCC200088535F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1317,6 +1320,14 @@
 				94CE160F1D287E690088720D /* PushNotificationPayload.apns */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94CE5405256DCC200088535F /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				948353BB1CBC42FB0026F08A /* libxtide */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		94FD65121D51A338006C44BA /* TideToday */ = {
@@ -1736,6 +1747,7 @@
 				94041CA41CC04969003BD343 /* Images.xcassets in Resources */,
 				94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */,
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
+				94CE5408256DD3DD0088535F /* harmonics-dwf-20191229-free.tcd in Resources */,
 				942F68DC1D5E73850004C28D /* PrintPanelAccessory.xib in Resources */,
 				94041D3B1CC6D92D003BD343 /* Disclaimer.xib in Resources */,
 				943562E71D628E8D00D73E22 /* XTSavePanelAccessoryController.xib in Resources */,
@@ -1753,7 +1765,6 @@
 				9451F4D31D445E33006DC606 /* libxtide.strings in Resources */,
 				945828D51D1E07C800972E1C /* Credits.html in Resources */,
 				9451F4D01D445E2C006DC606 /* XTMapWindow.xib in Resources */,
-				94041CA61CC04DE8003BD343 /* harmonics-dwf-20151227-free.tcd in Resources */,
 				9451F4E31D445E7C006DC606 /* XTStationInfoPopoverViewControllerVibrant.xib in Resources */,
 				94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */,
 				94041D721CCABB6A003BD343 /* TideGraphTest.xib in Resources */,
@@ -1809,7 +1820,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94FD65861D52B5C6006C44BA /* harmonics-dwf-20151227-free.tcd in Resources */,
+				94CE540A256DD3EC0088535F /* harmonics-dwf-20191229-free.tcd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2499,7 +2510,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2520,7 +2531,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

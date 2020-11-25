@@ -174,7 +174,7 @@ static NSString * const XTWindow_restorationName = @"name";
 - (IBAction)showDisclaimer:(id)sender
 {
 	// Also show it when requested
-	if (!self.preferenceController) {
+	if (!self.disclaimerController) {
         self.disclaimerController = [[DisclaimerController alloc] init];
     }
     [self.disclaimerController showWindow: self];

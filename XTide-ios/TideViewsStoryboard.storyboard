@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="98Y-kp-qY3">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="98Y-kp-qY3">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Tide Tab Bar Controller-->
@@ -13,7 +17,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="HgC-kr-gby">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="SFd-AG-GpC" kind="relationship" relationship="viewControllers" id="Yji-hR-hq1"/>
@@ -34,21 +38,21 @@
                         <viewControllerLayoutGuide type="bottom" id="456-N0-Oop"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mAA-w9-EdV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbQ-CI-Bsn">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nbQ-CI-Bsn">
                                 <rect key="frame" x="20" y="0.0" width="560" height="551"/>
                                 <subviews>
-                                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
+                                    <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="551"/>
-                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                                        <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
                                             <outlet property="delegate" destination="mTB-Xe-Z3M" id="i8Q-c8-CBk"/>
                                         </connections>
                                     </webView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="nbQ-CI-Bsn" secondAttribute="leading" id="FcF-NC-MJv"/>
                                     <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="nbQ-CI-Bsn" secondAttribute="top" id="HVb-94-4VT"/>
@@ -57,7 +61,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="nbQ-CI-Bsn" firstAttribute="trailing" secondItem="mAA-w9-EdV" secondAttribute="trailingMargin" id="KFz-Kz-q0m"/>
                             <constraint firstItem="nbQ-CI-Bsn" firstAttribute="top" secondItem="mAA-w9-EdV" secondAttribute="topMargin" id="hM5-4Z-hxr"/>
@@ -83,14 +87,14 @@
                         <viewControllerLayoutGuide type="bottom" id="AzM-gt-pDc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="v31-hN-OmU">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKZ-aW-q9I" customClass="XTUIGraphView">
-                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                                <rect key="frame" x="-4" y="20" width="383" height="598"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
-                                        <rect key="frame" x="520" y="435" width="48" height="48"/>
+                                        <rect key="frame" x="303" y="502" width="48" height="48"/>
                                         <accessibility key="accessibilityConfiguration" label="Return to current time"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgA-SB-lfY"/>
@@ -102,14 +106,14 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="9t3-Uv-sho" secondAttribute="bottom" constant="48" id="lju-a2-FGt"/>
                                     <constraint firstAttribute="trailing" secondItem="9t3-Uv-sho" secondAttribute="trailing" constant="32" id="pVv-Zl-YIu"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="VKZ-aW-q9I" firstAttribute="top" secondItem="ZRW-AH-aLB" secondAttribute="bottom" id="FV7-6N-BgA"/>
                             <constraint firstItem="AzM-gt-pDc" firstAttribute="top" secondItem="VKZ-aW-q9I" secondAttribute="bottom" priority="750" id="HQc-T3-2kB"/>
@@ -131,29 +135,29 @@
             <objects>
                 <tableViewController storyboardIdentifier="TideListView" id="fH8-IZ-LIr" customClass="XTUITideEventsTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ra1-eO-g58">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="TideEvent" textLabel="ffT-SS-nJu" detailTextLabel="ifd-LV-JXe" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="yHZ-cf-OTE">
-                                <rect key="frame" x="0.0" y="28" width="600" height="57"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yHZ-cf-OTE" id="4Ko-gD-eqp">
-                                    <rect key="frame" x="0.0" y="0.0" width="553" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="328" height="56.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ffT-SS-nJu">
-                                            <rect key="frame" x="15" y="11" width="32" height="20"/>
+                                            <rect key="frame" x="16" y="12" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ifd-LV-JXe">
-                                            <rect key="frame" x="15" y="31" width="41" height="14"/>
+                                            <rect key="frame" x="16" y="31.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>

@@ -350,6 +350,7 @@ regionDidChangeAnimated:(BOOL)animated
         [[rightButton cell] setToolTip:NSLocalizedString(@"List", @"Tide list Button") forSegment:1];
         [rightButton setTarget:self];
         [rightButton setAction:@selector(tideInfoAction:)];
+        [rightButton sizeToFit];
         returnedAnnotationView.rightCalloutAccessoryView = rightButton;
 
         // add a detail disclosure button to the callout which will open an info popover

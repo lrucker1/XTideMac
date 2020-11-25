@@ -188,7 +188,7 @@ static NSString *versionKey = @"version";
     [openPanel setAllowedFileTypes:@[@"tcd"]];
     openPanel.allowsMultipleSelection = YES;
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             [harmonicsFileArray addObjects:[self objectsForURLs:[openPanel URLs]]];
         }
     }];
