@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="101100" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +43,7 @@
                         <rect key="frame" x="-8" y="-10" width="589" height="305"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="289" id="BPp-Uf-g70"/>
-                            <constraint firstAttribute="width" constant="575" id="GjP-cC-5cs"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="575" id="GjP-cC-5cs"/>
                         </constraints>
                         <font key="font" metaFont="system"/>
                         <tabViewItems>
@@ -166,6 +165,7 @@
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="123" secondAttribute="trailing" constant="20" symbolic="YES" id="EBy-aR-kLz"/>
                                         <constraint firstItem="123" firstAttribute="top" secondItem="121" secondAttribute="bottom" constant="6" symbolic="YES" id="HLG-zI-Ww1"/>
                                         <constraint firstItem="Wmi-f7-wPc" firstAttribute="leading" secondItem="192" secondAttribute="leading" id="Hlx-sX-C5K"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="192" secondAttribute="trailing" constant="20" symbolic="YES" id="Im8-nb-ncW"/>
                                         <constraint firstItem="197" firstAttribute="top" secondItem="Wmi-f7-wPc" secondAttribute="bottom" constant="8" symbolic="YES" id="NH7-ML-CkD"/>
                                         <constraint firstAttribute="trailing" secondItem="197" secondAttribute="trailing" constant="20" symbolic="YES" id="NJF-mx-V4Z"/>
                                         <constraint firstItem="216" firstAttribute="top" secondItem="104" secondAttribute="top" constant="13" id="NMO-ZE-hEn"/>
@@ -372,7 +372,7 @@
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="127">
                                             <rect key="frame" x="78" y="228" width="188" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="184" id="Baw-5a-BiC"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="184" id="Baw-5a-BiC"/>
                                             </constraints>
                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Daytime background" usesSingleLineMode="YES" id="229">
                                                 <font key="font" metaFont="system"/>
@@ -777,6 +777,7 @@ Gw
                 <constraints>
                     <constraint firstItem="102" firstAttribute="leading" secondItem="6" secondAttribute="leading" constant="-1" id="0vO-fE-2nF"/>
                     <constraint firstItem="102" firstAttribute="top" secondItem="6" secondAttribute="top" constant="12" symbolic="YES" id="a8c-J4-slL"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="102" secondAttribute="trailing" constant="-1" id="rja-B7-VoS"/>
                 </constraints>
             </view>
             <connections>

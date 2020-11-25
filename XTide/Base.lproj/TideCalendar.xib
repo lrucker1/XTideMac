@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="101000" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CalendarController">
@@ -21,7 +21,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="453" y="474" width="613" height="435"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="461" height="259"/>
             <view key="contentView" id="6">
                 <rect key="frame" x="0.0" y="0.0" width="613" height="435"/>
@@ -33,15 +33,13 @@
                             <rect key="frame" x="1" y="1" width="596" height="324"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <textView editable="NO" importsGraphics="NO" horizontallyResizable="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" usesFontPanel="YES" verticallyResizable="YES" spellingCorrection="YES" smartInsertDelete="YES" id="8">
+                                <textView editable="NO" importsGraphics="NO" horizontallyResizable="YES" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" usesRuler="YES" spellingCorrection="YES" smartInsertDelete="YES" id="8">
                                     <rect key="frame" x="0.0" y="-14" width="596" height="324"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <size key="minSize" width="596" height="324"/>
                                     <size key="maxSize" width="10000000" height="10000000"/>
                                     <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="596" height="324"/>
-                                    <size key="maxSize" width="10000000" height="10000000"/>
                                 </textView>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,7 +124,7 @@
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="38" translatesAutoresizingMaskIntoConstraints="NO" id="65">
                                 <rect key="frame" x="141" y="64" width="42" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="38" id="zQF-iP-1py"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="38" id="zQF-iP-1py"/>
                                 </constraints>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="TZF" id="84">
                                     <font key="font" metaFont="system"/>
@@ -149,6 +147,7 @@
                             <constraint firstItem="66" firstAttribute="leading" secondItem="64" secondAttribute="leading" constant="20" symbolic="YES" id="3VY-ts-ynN"/>
                             <constraint firstItem="72" firstAttribute="baseline" secondItem="69" secondAttribute="baseline" id="5b8-zT-cxZ"/>
                             <constraint firstAttribute="bottom" secondItem="TZN-dh-v65" secondAttribute="bottom" constant="20" symbolic="YES" id="5g6-HE-BiY"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TZN-dh-v65" secondAttribute="trailing" constant="20" symbolic="YES" id="9Ks-Mz-QlE"/>
                             <constraint firstItem="65" firstAttribute="baseline" secondItem="67" secondAttribute="baseline" id="BKo-Ws-RjU"/>
                             <constraint firstItem="TZN-dh-v65" firstAttribute="top" secondItem="67" secondAttribute="bottom" constant="20" symbolic="YES" id="FkD-Mu-487"/>
                             <constraint firstItem="71" firstAttribute="top" secondItem="72" secondAttribute="top" id="RV8-ku-ffU"/>

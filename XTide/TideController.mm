@@ -243,7 +243,7 @@ static NSTouchBarItemIdentifier NowButtonIdentifier = @"com.lrucker.xtide.nowBut
     }
     [self.savePanel setAccessoryView:[[self accessoryVC] view]];
     [self.savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSError *error;
             if (![self writeToURL:[self.savePanel URL] ofType:[[self.savePanel URL] pathExtension] error:&error]) {
                 NSLog(@"%@", error);
