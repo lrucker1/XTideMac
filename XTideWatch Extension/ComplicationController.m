@@ -17,11 +17,34 @@ static NSTimeInterval EVENT_OFFSET = -30 * 60;
 static NSTimeInterval HOUR = 60 * 60;
 static NSTimeInterval DAY = 60 * 60 * 24;
 
+// We use "Simple" for complications that just draw an image, "Stack" otherwise - that's the area for the stack's image. The watch handles text layout.
+// Dimensions are Simple unless specified otherwise.
+static CGFloat circularSmall[3] = {32, 36, 40};
+//static CGFloat extraLarge[3] = {182, 203, 224};
+static CGFloat extraLargeStack[3] = {84, 90, 102}; // Stack
+static CGFloat modularSmall[3] = {52, 58, 64};
+static CGFloat graphicCorner[3] = {-1, 40, 44};
+static CGFloat graphicCircular[3] = {-1, 84, 94};
+static CGFloat graphicBezel[3] = {-1, 84, 94};
+//static CGFloat graphicExtraLarge[3] = {206, 240, 264};
+static CGFloat graphicExtraLargeStack[3] = {206, 240, 264};
+//static CGFloat graphicRectWidth[3] = {-1, 300, 342};
+//static CGFloat graphicRectHeight[3] = {-1, 94, 108};
+
+// 38mm: (0.0, 0.0, 136.0, 170.0)
+// 42mm: (0.0, 0.0, 156.0, 195.0)
+
+typedef enum XTWatchSize {
+    XTWatchSize_small,
+    XTWatchSize_medium,
+    XTWatchSize_large
+} XTWatchSize;
+
 @interface ComplicationController ()
 
 @property (strong) NSArray *events;
 @property (nonatomic) WCSession* watchSession;
-@property BOOL isBigWatch;
+@property XTWatchSize watchSize;
 @property BOOL showingPlaceholder;
 @property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) UIColor *tintColor;
@@ -40,7 +63,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (instancetype)init
 {
     self = [super init];
-    _isBigWatch = [self isBigWatchCheck];
+    _watchSize = [self watchSizeCheck];
     _watchSession = [WCSession defaultSession];
     // 02B0CB
     _tintColor = [UIColor colorWithRed:0x02/255.0 green:0xB0/255.0 blue:0xCB/255.0 alpha:1.0];
@@ -58,14 +81,20 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 }
 
 
-- (BOOL)isBigWatchCheck
+- (XTWatchSize)watchSizeCheck
 {
     // The asset json file checks whether the width is <=145
+// 38mm: (0.0, 0.0, 136.0, 170.0)
+// 42mm: (0.0, 0.0, 156.0, 195.0)
+// 44mm: ((x = 0, y = 0), size = (width = 184, height = 224))
     CGRect rect = [WKInterfaceDevice currentDevice].screenBounds;
     if (rect.size.width <= 145) {
-        return NO;
+        return XTWatchSize_small;
     }
-    return YES;
+    if (rect.size.width <= 156) {
+        return XTWatchSize_medium;
+    }
+    return XTWatchSize_large;
 }
 
 - (void)reachabilityChanged:(NSNotification *)note
@@ -78,6 +107,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (void)didReceiveUserInfo:(NSNotification *)note
 {
     [self updateEvents:[note userInfo] forCallback:NO];
+    [self scheduleNextComplicationBackgroundRefreshTask];
 }
 
 - (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error
@@ -112,32 +142,12 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 // The time when the last event should dim, if we don't have any new ones,
 // which should only happen if the phone was out of reach for 24 hours!
-// This may be past latestTimeTravelDate.
 - (NSDate *)lastEventTime
 {
     // Add the same offset for all families.
     NSDictionary *event = [self.events lastObject];
     NSDate *date = [event objectForKey:@"date"];
     return [date dateByAddingTimeInterval:-EVENT_OFFSET];
-}
-
-
-- (void)getSupportedTimeTravelDirectionsForComplication:(CLKComplication *)complication withHandler:(void(^)(CLKComplicationTimeTravelDirections directions))handler
-{
-    handler(CLKComplicationTimeTravelDirectionForward|CLKComplicationTimeTravelDirectionBackward);
-}
-
-- (void)getTimelineStartDateForComplication:(CLKComplication *)complication withHandler:(void(^)(NSDate * __nullable date))handler
-{
-    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
-        if (isReady) {
-            handler([self firstEventTimeForFamily:complication.family]);
-        } else {
-            // Show the placeholder contents forever, or until the user picks a station.
-            // It won't ask for anything else if you return "now"
-            handler([[CLKComplicationServer sharedInstance] earliestTimeTravelDate]);
-        }
-    }];
 }
 
 // The last date for which we can supply data.
@@ -160,9 +170,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
             }
             handler(date);
         } else {
-            // Show the placeholder contents forever, or until the user picks a station.
-            // Once it has a start and end date, it'll ask for Current and use it forever.
-            handler([[CLKComplicationServer sharedInstance] latestTimeTravelDate]);
+            // Give it a date in the future to let it know that we can do that.
+            handler([NSDate dateWithTimeIntervalSinceNow:DAY]);
         }
     }];
 }
@@ -205,7 +214,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         return;
     }
 
-    // We don't want to reloadTimeline if there are handlers waiting to be called.
     if (stationChange || !forCallback || self.showingPlaceholder) {
         self.showingPlaceholder = NO;
         self.earlyReload = nil;
@@ -213,13 +221,17 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         for (CLKComplication *complication in server.activeComplications) {
             [server reloadTimelineForComplication:complication];
         }
+    } else {
+        CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
+        for (CLKComplication *complication in server.activeComplications) {
+            [server extendTimelineForComplication:complication];
+        }
     }
 }
 
 - (NSMutableArray *)validateEvents:(NSArray *)inEvents
 {
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *earlyDate = [server earliestTimeTravelDate];
+    NSDate *earlyDate = [NSDate date];
     NSMutableArray *events = [NSMutableArray array];
     // Add events that are still valid.
     for (NSDictionary *oldEvent in inEvents) {
@@ -234,11 +246,12 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 // Update the event array. Return YES if the events have changed.
 - (BOOL)processEvents:(NSDictionary *)reply
 {
-    NSArray *newEvents = [reply objectForKey:@"events"];
-    NSDate *startDate = [reply objectForKey:@"startDate"];
+    NSArray *newEvents = reply[@"events"];
+    NSDate *startDate = reply[@"startDate"];
     if (![self.events count]) {
         self.events = [NSArray arrayWithArray:[self validateEvents:newEvents]];
         self.lastStartTime = startDate;
+        self.lastAfterDate = reply[@"endDate"] ?: [NSDate date];
         return YES;
     }
 
@@ -267,16 +280,15 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:YES];
     self.events = [events sortedArrayUsingDescriptors:@[descriptor]];
     self.lastStartTime = startDate;
+//    [self scheduleNextComplicationBackgroundRefreshTask];
     return YES;
 }
 
 - (NSDictionary *)eventRequestDictionary
 {
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-
-    NSDate *date = self.lastAfterDate ? self.lastAfterDate : [server earliestTimeTravelDate];
+    NSDate *date = [NSDate date];
     return @{@"kind"  : @"requestEvents",
-             @"first" : date,
+             @"first" : [date dateByAddingTimeInterval:-2 * HOUR],
              @"last"  : [date dateByAddingTimeInterval:3 * DAY]};
 }
 
@@ -287,9 +299,9 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     if ([self.events count] == 0 || self.lastStartTime == nil || self.showingPlaceholder) {
         return YES;
     }
-    CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
-    NSDate *date = self.lastAfterDate ? self.lastAfterDate : [server earliestTimeTravelDate];
-    return [self.lastStartTime compare:date] == NSOrderedAscending;
+//    NSDate *date = self.lastAfterDate ? self.lastAfterDate : [NSDate date];
+//    return [self.lastStartTime compare:date] == NSOrderedAscending;
+    return YES;
 }
 
 - (void)callReplyHandlers
@@ -363,6 +375,10 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         case CLKComplicationFamilyModularSmall:
         case CLKComplicationFamilyCircularSmall:
         case CLKComplicationFamilyExtraLarge:
+        case CLKComplicationFamilyGraphicCorner:
+        case CLKComplicationFamilyGraphicBezel:
+        case CLKComplicationFamilyGraphicCircular:
+        case CLKComplicationFamilyGraphicExtraLarge:
             return YES;
         default:
             return NO;
@@ -405,18 +421,20 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // Make sure it's still valid. Give it half an hour for normal events, 15 minutes for rings.
     NSTimeInterval endOffset = [self isRingFamily:complication.family] ? HOUR / 4 : HOUR / 2;
     NSDate *lastDateEnd = [[lastEvent objectForKey:@"date"] dateByAddingTimeInterval:endOffset];
+    // if lastEvent.date < now, we need new events.
     if ([lastDateEnd compare:date] == NSOrderedAscending) {
         return nil;
     }
-    NSDictionary *lastTestedEvent = lastEvent;
+    NSDictionary *lastTestedEvent = [self.events firstObject];
     for (NSDictionary *event in events) {
         NSDate *testDate = [event objectForKey:@"date"];
+        // if event.date > now, return the one just before it.
         if ([testDate compare:date] == NSOrderedDescending) {
             return lastTestedEvent;
         }
         lastTestedEvent = event;
     }
-    return lastEvent;
+    return lastTestedEvent;
 }
 
 - (CLKComplicationTimelineEntry *)getCurrentTimelineEntryForComplication:(CLKComplication *)complication
@@ -431,26 +449,26 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return nil;
 }
 
-- (NSArray *)getTimelineEntriesForComplication:(CLKComplication *)complication
-                                    beforeDate:(NSDate *)date
-                                         limit:(NSUInteger)limit
-{
-    NSMutableArray *array = [NSMutableArray array];
-    NSUInteger count = 0;
-    CLKComplicationFamily family = complication.family;
-    NSArray *events = [self eventsForFamily:complication.family];
-    for (NSDictionary *event in [events reverseObjectEnumerator]) {
-        NSDate *testDate = [self timeForEvent:event family:family];
-        if ([testDate compare:date] == NSOrderedAscending) {
-            [array insertObject:[self getEntryforComplication:complication withEvent:event] atIndex:0];
-            count++;
-            if (count == limit) {
-                break;
-            }
-        }
-    }
-    return array;
-}
+//- (NSArray *)getTimelineEntriesForComplication:(CLKComplication *)complication
+//                                    beforeDate:(NSDate *)date
+//                                         limit:(NSUInteger)limit
+//{
+//    NSMutableArray *array = [NSMutableArray array];
+//    NSUInteger count = 0;
+//    CLKComplicationFamily family = complication.family;
+//    NSArray *events = [self eventsForFamily:complication.family];
+//    for (NSDictionary *event in [events reverseObjectEnumerator]) {
+//        NSDate *testDate = [self timeForEvent:event family:family];
+//        if ([testDate compare:date] == NSOrderedAscending) {
+//            [array insertObject:[self getEntryforComplication:complication withEvent:event] atIndex:0];
+//            count++;
+//            if (count == limit) {
+//                break;
+//            }
+//        }
+//    }
+//    return array;
+//}
 
 - (NSArray *)getTimelineEntriesForComplication:(CLKComplication *)complication
                                      afterDate:(NSDate *)date
@@ -494,40 +512,6 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 }
 
 - (void)getTimelineEntriesForComplication:(CLKComplication *)complication
-                               beforeDate:(NSDate *)date
-                                    limit:(NSUInteger)limit
-                              withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
-{
-    // Call the handler with the timeline entries prior to the given date
-    NSDictionary *last = [self.events lastObject];
-    NSDate *lastDate = [last objectForKey:@"date"];
-    // If we have entries after the given date, load from the cache.
-    // If the watch has been out of reach too long we might not go back all the way to earliest.
-    // That's not an easy check, so having it go gray in the past is acceptable.
-    if (lastDate && [lastDate compare:date] == NSOrderedDescending) {
-        handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
-        return;
-    }
-    [self requestComplicationsWithReplyHandler:^(BOOL isReady) {
-        if (isReady) {
-            handler([self getTimelineEntriesForComplication:complication beforeDate:date limit:limit]);
-        } else {
-            handler(nil);
-        }
-    }];
-}
-
-- (BOOL)isEntryBeyondLatestDate:(CLKComplicationTimelineEntry *)entry
-{
-    if (!entry) {
-        return NO;
-    }
-    NSDate *latest = [[CLKComplicationServer sharedInstance] latestTimeTravelDate];
-    return [entry.date compare:latest] == NSOrderedDescending;
-}
-
-
-- (void)getTimelineEntriesForComplication:(CLKComplication *)complication
                                 afterDate:(NSDate *)date
                                     limit:(NSUInteger)limit
                               withHandler:(void(^)(NSArray<CLKComplicationTimelineEntry *> * __nullable entries))handler
@@ -536,7 +520,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     // Call the handler with the timeline entries after the given date
     // First, see if we already have enough data. We like having extra.
     NSArray *array = [self getTimelineEntriesForComplication:complication afterDate:date limit:limit];
-    if ([array count] > 0 && ([array count] == limit || [self isEntryBeyondLatestDate:[array lastObject]])) {
+    if ([array count] == limit) {
         handler(array);
         return;
     }
@@ -553,41 +537,61 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 #pragma mark Update Scheduling
 
-- (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
-{
+- (void)scheduleNextComplicationBackgroundRefreshTask {
+
+    NSDictionary *backgroundRefreshUserInfo = @{@"reason": @"Background Complication Refresh"};
     // The server start/end dates are bound by local midnights so reload when they move.
     // If any complications didn't get enough entries, reload after a few hours so there's
     // a smaller time period to fill.
     if (    self.requestedUpdateDate == nil
         || [[NSDate date] compare:self.requestedUpdateDate] == NSOrderedDescending) {
-        NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:DAY];
-        self.requestedUpdateDate = [[NSCalendar currentCalendar] startOfDayForDate:tomorrow];
+        self.requestedUpdateDate = [[NSCalendar currentCalendar] startOfDayForDate:[NSDate date]];
     }
-    NSDate *update = self.requestedUpdateDate;
-    if (self.earlyReload) {
-        update = [self.earlyReload earlierDate:self.requestedUpdateDate];
-    }
-    handler(update);
+
+    //scheduling the refresh
+    [[WKExtension sharedExtension] scheduleBackgroundRefreshWithPreferredDate:self.requestedUpdateDate userInfo:backgroundRefreshUserInfo scheduledCompletion:^(NSError *error){
+
+        if (error == nil) {
+            [self handleRequestedUpdate];
+        } else {
+            NSLog(@"unable to schedule background refresh task, error:%@", error);
+        }
+    }];
 }
 
-- (void)requestedUpdateDidBegin
+//- (void)getNextRequestedUpdateDateWithHandler:(void(^)(NSDate * __nullable updateDate))handler
+//{
+//    // The server start/end dates are bound by local midnights so reload when they move.
+//    // If any complications didn't get enough entries, reload after a few hours so there's
+//    // a smaller time period to fill.
+//    if (    self.requestedUpdateDate == nil
+//        || [[NSDate date] compare:self.requestedUpdateDate] == NSOrderedDescending) {
+//        NSDate *tomorrow = [NSDate dateWithTimeIntervalSinceNow:DAY];
+//        self.requestedUpdateDate = [[NSCalendar currentCalendar] startOfDayForDate:tomorrow];
+//    }
+//    NSDate *update = self.requestedUpdateDate;
+//    if (self.earlyReload) {
+//        update = [self.earlyReload earlierDate:self.requestedUpdateDate];
+//    }
+//    handler(update);
+//}
+
+- (void)handleRequestedUpdate
 {
-    // Two reasons to hit this:
-    // We've gone past the requestedUpdateDate to a new day.
-    // Something didn't get all the data it needed and needs to be topped up.
-    // We don't care which. We'll just reload, because the last item may be a placeholder.
     self.requestedUpdateDate = nil;
     self.earlyReload = nil;
     self.expirationDate = nil;
     CLKComplicationServer *server = [CLKComplicationServer sharedInstance];
     for (CLKComplication *complication in server.activeComplications) {
-        [server reloadTimelineForComplication:complication];
+        [server extendTimelineForComplication:complication];
     }
 }
 
-- (void)requestedUpdateBudgetExhausted
-{
-    NSLog(@"requestedUpdateBudgetExhausted");
+- (void)handleBackgroundTasks:(NSSet <WKRefreshBackgroundTask *> *)backgroundTasks {
+    for (WKRefreshBackgroundTask *task in backgroundTasks) {
+        [self handleRequestedUpdate];
+        [task setTaskCompletedWithSnapshot:NO];
+    }
 }
 
 #pragma mark - Entry generator
@@ -642,8 +646,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return [CLKSimpleTextProvider textProviderWithText:desc];
 }
 
-- (CLKImageProvider *)utilImageProviderForEvent:(NSDictionary * _Nullable)event
-{
+- (UIImage *)utilImageForEvent:(NSDictionary * _Nullable)event {
     // Only interpolated events have a "isRising" entry. Look in "type" for the icon name.
     UIImage *image = nil;
     if (event) {
@@ -659,9 +662,30 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     } else {
         image = [UIImage imageNamed:@"hightide"];
     }
+    return image;
+}
+
+- (CLKImageProvider *)utilImageProviderForEvent:(NSDictionary * _Nullable)event
+{
+    // Only interpolated events have a "isRising" entry. Look in "type" for the icon name.
+    UIImage *image = [self utilImageForEvent:event];
     if (image) {
         CLKImageProvider *imageProvider = [CLKImageProvider imageProviderWithOnePieceImage:image];
         imageProvider.tintColor = self.tintColor;
+        imageProvider.accessibilityLabel = [self imageAccessibilityLabelForEvent:event];
+        return imageProvider;
+    }
+    NSLog(@"no image for event %@", event);
+    return nil;
+}
+
+
+- (CLKFullColorImageProvider *)utilFullColorImageProviderForEvent:(NSDictionary * _Nullable)event
+API_AVAILABLE(watchos(5.0)) {
+    // Only interpolated events have a "isRising" entry. Look in "type" for the icon name.
+    UIImage *image = [self utilImageForEvent:event];
+    if (image) {
+        CLKFullColorImageProvider *imageProvider = [CLKFullColorImageProvider providerWithFullColorImage:image];
         imageProvider.accessibilityLabel = [self imageAccessibilityLabelForEvent:event];
         return imageProvider;
     }
@@ -690,18 +714,38 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                          family:(CLKComplicationFamily)family
 
 {
-    CGFloat rectSize = 0;
+    CGFloat rectSize = -1;
     CGFloat lineWidth = 4;
     if (family == CLKComplicationFamilyModularSmall) {
-        rectSize = self.isBigWatch ? 58 : 52;
+        rectSize = modularSmall[self.watchSize];
     } else if (family == CLKComplicationFamilyCircularSmall) {
-        rectSize = self.isBigWatch ? 36 : 32;
+        rectSize = circularSmall[self.watchSize];
         lineWidth = 2;
     } else if (family == CLKComplicationFamilyExtraLarge) {
-        // ExtraLargeSimpleImage rectSize = self.isBigWatch ? 203 : 182;
-        rectSize = self.isBigWatch ? 90 : 84;
+        rectSize = extraLargeStack[self.watchSize];
         lineWidth = 6;
     } else {
+        if (@available(watchOS 5.0, *)) {
+            if (family == CLKComplicationFamilyGraphicCorner) {
+                rectSize = graphicCorner[self.watchSize];
+            } else if (family == CLKComplicationFamilyGraphicCircular) {
+                rectSize = graphicCircular[self.watchSize];
+            } else if (family == CLKComplicationFamilyGraphicBezel) {
+                rectSize = graphicBezel[self.watchSize];
+            }
+        }
+    }
+    // else
+    if (rectSize < 0) {
+        if (@available(watchOS 7.0, *)) {
+            if (family == CLKComplicationFamilyGraphicExtraLarge) {
+                rectSize = graphicExtraLargeStack[self.watchSize];
+                lineWidth = 6;
+            }
+        }
+    }
+    if (rectSize < 0) {
+        // Not set or not supported.
         return nil;
     }
     CGFloat angle = [self angleForEvent:event]; // -1 for placeholders with nil events.
@@ -714,20 +758,69 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return imageProvider;
 }
 
+- (CLKFullColorImageProvider *)ringFullColorImageProviderForEvent:(NSDictionary * _Nullable)event
+                                                           family:(CLKComplicationFamily)family
+
+API_AVAILABLE(watchos(5.0))
+{
+    if (@available(watchOS 5.0, *)) {
+        CGFloat rectSize = -1;
+        CGFloat lineWidth = 2;
+        CGFloat inset = lineWidth + 4;
+        if (family == CLKComplicationFamilyGraphicCorner) {
+            rectSize = graphicCorner[self.watchSize];
+        } else if (family == CLKComplicationFamilyGraphicCircular) {
+            rectSize = graphicCircular[self.watchSize];
+        } else if (family == CLKComplicationFamilyGraphicBezel) {
+            rectSize = graphicBezel[self.watchSize];
+        } else if (@available(watchOS 7.0, *)) {
+            if (family == CLKComplicationFamilyGraphicExtraLarge) {
+                rectSize = graphicExtraLargeStack[self.watchSize];
+                lineWidth = 6;
+                inset = 10;
+            }
+        }
+        if (rectSize < 0) {
+            // Not set or not supported.
+            return nil;
+        }
+        CGFloat angle = [self angleForEvent:event]; // -1 for placeholders with nil events.
+        UIImage *colorImage = [self handWithRectSize:rectSize lineWidth:lineWidth angle:angle includeRing:YES inset:inset color:[UIColor redColor] ringColor:[UIColor redColor]];
+        CLKFullColorImageProvider *imageProvider = nil;
+        if (@available(watchOS 6.0, *)) {
+            imageProvider = [CLKFullColorImageProvider providerWithFullColorImage:colorImage tintedImageProvider:[self ringImageProviderForEvent:event family:family]];
+        } else {
+            imageProvider = [CLKFullColorImageProvider providerWithFullColorImage:colorImage];
+        }
+        imageProvider.accessibilityLabel = [self imageAccessibilityLabelForEvent:event];
+        return imageProvider;
+    } else {
+        return nil;
+    }
+}
+
 
 - (UIImage *)utilitarianIsRising:(BOOL)isRising
 {
     return [UIImage imageNamed:isRising ? @"upArrowImage" : @"downArrowImage"];
 }
 
+- (void)drawRingInContext:(CGContextRef)context
+             withRectSize:(CGFloat)rectSize
+                lineWidth:(CGFloat)lineWidth
+                    color:(UIColor *)color
+{
+}
+
 - (UIImage *)ringWithRectSize:(CGFloat)rectSize
                     lineWidth:(CGFloat)lineWidth
+                        color:(UIColor *)color
 {
     CGRect rect = CGRectMake(0, 0, rectSize, rectSize);
     UIGraphicsBeginImageContext(rect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [color CGColor]);
     CGContextSetLineWidth(context, lineWidth);
 
     CGRect edgeRect = CGRectInset(rect, lineWidth, lineWidth);
@@ -739,29 +832,48 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return image;
 }
 
+- (UIImage *)ringWithRectSize:(CGFloat)rectSize
+                    lineWidth:(CGFloat)lineWidth
+{
+    return [self ringWithRectSize:rectSize lineWidth:lineWidth color:[UIColor blackColor]];
+}
+
 - (UIImage *)handWithRectSize:(CGFloat)rectSize
                     lineWidth:(CGFloat)lineWidth
                         angle:(CGFloat)radians  // -1 for placeholder with no angle data
                   includeRing:(BOOL)includeRing
+                        inset:(CGFloat)inset
+                        color:(UIColor *)color
+                    ringColor:(UIColor *)ringColor
 {
+    CGRect outerRect = CGRectMake(0, 0, rectSize, rectSize);
+    CGRect rect = CGRectInset(outerRect, inset, inset);
+    CGFloat adjustedInset = lineWidth + inset;  
+
     CGFloat dotInset = (rectSize - lineWidth * 2) / 2;
-    CGRect rect = CGRectMake(0, 0, rectSize, rectSize);
-    UIGraphicsBeginImageContext(rect.size);
+    UIGraphicsBeginImageContext(outerRect.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
 
-    CGContextSetFillColorWithColor(context, [[UIColor blackColor] CGColor]);
-    CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
+    // Debugging
+    if (inset > 0) {
+//        CGContextSetFillColorWithColor(context, [(includeRing ? [UIColor lightGrayColor] : [UIColor magentaColor]) CGColor]);
+        CGContextSetFillColorWithColor(context, [self.tintColor CGColor]);
+        CGContextFillRect(context, rect);
+    }
+
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextSetStrokeColorWithColor(context, [color CGColor]);
     CGFloat radius = rectSize / 2;
     CGPoint center = CGPointMake(radius, radius);
     CGContextSetLineWidth(context, lineWidth);
 
-    CGRect dotRect = CGRectInset(rect, dotInset, dotInset);
+    CGRect dotRect = CGRectInset(outerRect, dotInset, dotInset);
     CGContextFillEllipseInRect(context, dotRect);
 
     if (radians >= 0) {
         UIBezierPath *arm = [UIBezierPath bezierPath];
         [arm moveToPoint:CGPointZero];
-        [arm addLineToPoint:CGPointMake(0, -(radius - (lineWidth * 2.5)))];
+        [arm addLineToPoint:CGPointMake(0, -(radius - (adjustedInset * 2.5)))];
         arm.lineWidth = lineWidth;
         arm.lineCapStyle = kCGLineCapRound;
         CGAffineTransform position = CGAffineTransformMakeTranslation(center.x, center.y);
@@ -771,13 +883,24 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
 
     if (includeRing) {
-        CGRect edgeRect = CGRectInset(rect, lineWidth, lineWidth);
+        CGContextSetFillColorWithColor(context, [ringColor CGColor]);
+        CGContextSetStrokeColorWithColor(context, [ringColor CGColor]);
+        CGContextSetLineWidth(context, adjustedInset);
+        CGRect edgeRect = CGRectInset(rect, adjustedInset, adjustedInset);
         CGContextStrokeEllipseInRect(context, edgeRect);
     }
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     return image;
+}
+
+- (UIImage *)handWithRectSize:(CGFloat)rectSize
+                    lineWidth:(CGFloat)lineWidth
+                        angle:(CGFloat)radians  // -1 for placeholder with no angle data
+                  includeRing:(BOOL)includeRing
+{
+    return [self handWithRectSize:rectSize lineWidth:lineWidth angle:radians includeRing:includeRing inset:0 color:[UIColor blackColor] ringColor:[UIColor blackColor]];
 }
 
 - (CLKTextProvider *)dateProviderForEvent:(NSDictionary * _Nullable)event
@@ -879,6 +1002,56 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         template = small;
         }
         break;
+    case CLKComplicationFamilyGraphicCorner:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCornerTextImage *graphic =
+                [[CLKComplicationTemplateGraphicCornerTextImage alloc] init];
+            graphic.imageProvider = [self ringFullColorImageProviderForEvent:event family:complication.family];
+            graphic.textProvider = [self levelTextProviderForEvent:event];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicBezel:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCircularImage *circularTemplate =
+                [[CLKComplicationTemplateGraphicCircularImage alloc] init];
+            circularTemplate.imageProvider = [self ringFullColorImageProviderForEvent:event family:complication.family];
+            CLKComplicationTemplateGraphicBezelCircularText *graphic =
+                [[CLKComplicationTemplateGraphicBezelCircularText alloc] init];
+            graphic.circularTemplate = circularTemplate;
+            graphic.textProvider = [self levelTextProviderForEvent:event];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicCircular:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCircularImage *graphic =
+                [[CLKComplicationTemplateGraphicCircularImage alloc] init];
+            graphic.imageProvider = [self ringFullColorImageProviderForEvent:event family:complication.family];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicRectangular:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicRectangularStandardBody *large =
+                [[CLKComplicationTemplateGraphicRectangularStandardBody alloc] init];
+            large.headerImageProvider = [self utilFullColorImageProviderForEvent:event];
+            if (event) {
+                large.headerTextProvider = [self descTextProviderForEvent:event];
+                large.body1TextProvider = [self levelTextProviderForEvent:event];
+                large.body2TextProvider = [self dateProviderForEvent:event];
+            } else {
+                large.headerTextProvider = [self noEventTextProvider];
+                large.body1TextProvider =
+                    [CLKSimpleTextProvider textProviderWithText:NSLocalizedString(@"Waiting for station information", @"Waiting for station information")];
+                // body1 will overflow into body2 if it needs to.
+            }
+            template = large;
+        }
+        break;
+    case CLKComplicationFamilyGraphicExtraLarge:
+//TODO
+        break;
     }
     // Letting the OS do that means it happens after we've alreadyma
 //    [template performSelector:@selector(validate) withObject:nil];
@@ -889,8 +1062,8 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 
 #pragma mark - Placeholder Templates
 
-- (void)getPlaceholderTemplateForComplication:(CLKComplication *)complication
-                                  withHandler:(void(^)(CLKComplicationTemplate * __nullable complicationTemplate))handler
+- (void)getLocalizableSampleTemplateForComplication:(CLKComplication *)complication
+                                        withHandler:(void(^)(CLKComplicationTemplate * __nullable complicationTemplate))handler
 {
     // This method will be called once per supported complication, and the results will be cached
     CLKComplicationTemplate *template = nil;
@@ -949,6 +1122,49 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         small.imageProvider = [self ringImageProviderForEvent:nil family:complication.family];
         template = small;
         }
+        break;
+    case CLKComplicationFamilyGraphicCorner:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCornerTextImage *graphic =
+            [[CLKComplicationTemplateGraphicCornerTextImage alloc] init];
+            graphic.imageProvider = [self ringFullColorImageProviderForEvent:nil family:complication.family];
+            graphic.textProvider = [self levelTextProviderForEvent:nil];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicBezel:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCircularImage *circularTemplate =
+                [[CLKComplicationTemplateGraphicCircularImage alloc] init];
+            circularTemplate.imageProvider = [self ringFullColorImageProviderForEvent:nil family:complication.family];
+            CLKComplicationTemplateGraphicBezelCircularText *graphic =
+                [[CLKComplicationTemplateGraphicBezelCircularText alloc] init];
+            graphic.circularTemplate = circularTemplate;
+            graphic.textProvider = [self levelTextProviderForEvent:nil];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicCircular:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicCircularImage *graphic =
+                [[CLKComplicationTemplateGraphicCircularImage alloc] init];
+            graphic.imageProvider = [self ringFullColorImageProviderForEvent:nil family:complication.family];
+            template = graphic;
+        }
+        break;
+    case CLKComplicationFamilyGraphicRectangular:
+        if (@available(watchOS 5.0, *)) {
+            CLKComplicationTemplateGraphicRectangularStandardBody *large =
+                [[CLKComplicationTemplateGraphicRectangularStandardBody alloc] init];
+            large.headerTextProvider = [self descTextProviderForEvent:nil];
+            large.headerImageProvider = [self utilFullColorImageProviderForEvent:nil];
+            large.body1TextProvider = [self levelTextProviderForEvent:nil];
+            large.body2TextProvider = [self dateProviderForEvent:nil];
+            template = large;
+        }
+        break;
+    case CLKComplicationFamilyGraphicExtraLarge:
+//TODO
         break;
     }
     handler(template);

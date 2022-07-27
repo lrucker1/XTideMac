@@ -106,14 +106,6 @@
     [super viewWillAppear:animated];
 }
 
-- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets
-{
-    // Fill the whole space.
-    defaultMarginInsets.left = 0;
-    defaultMarginInsets.bottom = 0;
-    return defaultMarginInsets;
-}
-
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
     // Perform any setup necessary in order to update the view.
     

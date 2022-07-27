@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
-        <plugIn identifier="com.apple.MapKitIBPlugin" version="10117"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.MapKitIBPlugin" version="20037"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="XTMapWindowController">
@@ -16,15 +18,15 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <window title="Stations" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" unifiedTitleAndToolbar="YES" fullSizeContentView="YES"/>
+        <window title="Stations" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="476" height="294"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="476" height="294"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="476" height="294"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <mapView mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hGL-xZ-hWR">
                         <rect key="frame" x="0.0" y="0.0" width="476" height="294"/>
@@ -40,7 +42,7 @@
                     <constraint firstItem="hGL-xZ-hWR" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="omR-AW-3Ps"/>
                 </constraints>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="9BDE8081-2084-48B0-AF46-7260F8F61929" autosavesConfiguration="NO" displayMode="iconAndLabel" sizeMode="regular" id="sBD-vz-TP1">
+            <toolbar key="toolbar" implicitIdentifier="9BDE8081-2084-48B0-AF46-7260F8F61929" displayMode="iconAndLabel" sizeMode="regular" id="sBD-vz-TP1">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="8277903F-F499-4E4B-BF22-EAFD4B6CF372" label="Custom View" paletteLabel="Custom View" id="4rZ-7E-2H3" userLabel="Search">
                         <nil key="toolTip"/>
@@ -78,6 +80,13 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="125AD0B0-E821-48CD-916B-529973954AED" label="Other Stations" paletteLabel="Other Stations" tag="-1" image="lighthouse" bordered="YES" id="lDJ-TP-NAZ">
+                        <size key="minSize" width="32" height="25"/>
+                        <size key="maxSize" width="32" height="25"/>
+                        <connections>
+                            <action selector="showOtherStations:" target="-2" id="Nhs-Ao-FmJ"/>
+                        </connections>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="4rZ-7E-2H3"/>
@@ -90,7 +99,7 @@
             </connections>
             <point key="canvasLocation" x="314" y="384"/>
         </window>
-        <popover id="hF7-Y4-079">
+        <popover id="hF7-Y4-079" userLabel="Station Info Popover">
             <connections>
                 <outlet property="contentViewController" destination="NNf-AP-Ubv" id="RtY-b7-nd9"/>
             </connections>
@@ -103,25 +112,24 @@
         </viewController>
         <arrayController id="tdJ-RN-mSD"/>
         <customView id="9fa-DC-Ekc">
-            <rect key="frame" x="0.0" y="0.0" width="481" height="437"/>
+            <rect key="frame" x="0.0" y="0.0" width="481" height="435"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MKm-U6-Rq9">
-                    <rect key="frame" x="6" y="32" width="468" height="398"/>
+                    <rect key="frame" x="6" y="30" width="468" height="398"/>
                     <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ALY-jy-BkV">
                         <rect key="frame" x="0.0" y="0.0" width="468" height="398"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="MIm-l7-zWf">
-                                <rect key="frame" x="0.0" y="0.0" width="468" height="0.0"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="frame" x="0.0" y="0.0" width="498" height="398"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="key" editable="NO" width="128.4765625" minWidth="40" maxWidth="1000" id="9NT-6x-Bvy">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Name">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -132,12 +140,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="qoq-KB-Fjf">
-                                                <rect key="frame" x="1" y="1" width="128" height="17"/>
+                                            <tableCellView misplaced="YES" id="qoq-KB-Fjf">
+                                                <rect key="frame" x="11" y="1" width="134" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="juR-xk-q5T">
-                                                        <rect key="frame" x="0.0" y="0.0" width="127" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="133" height="16"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="SRk-7H-1Sj">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -162,7 +170,6 @@
                                     </tableColumn>
                                     <tableColumn identifier="value" width="334.4013671875" minWidth="37.4013671875" maxWidth="1000" id="dLk-gR-VXf">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Value">
-                                            <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.33333299" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableHeaderCell>
@@ -173,12 +180,12 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
-                                            <tableCellView id="UeD-Tl-lP9">
-                                                <rect key="frame" x="132" y="1" width="334" height="17"/>
+                                            <tableCellView misplaced="YES" id="UeD-Tl-lP9">
+                                                <rect key="frame" x="147.5" y="1" width="339" height="17"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dnq-Zs-oPU">
-                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="17"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="338" height="16"/>
                                                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Table View Cell" id="FEZ-TG-1Ek">
                                                             <font key="font" metaFont="system"/>
                                                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -226,7 +233,7 @@
                     </scroller>
                 </scrollView>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zX6-Yt-Fe2">
-                    <rect key="frame" x="425" y="0.0" width="54" height="28"/>
+                    <rect key="frame" x="424" y="-1" width="56" height="27"/>
                     <buttonCell key="cell" type="push" title="Done" bezelStyle="rounded" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="dlb-rU-3bg">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="smallSystem"/>
@@ -244,10 +251,11 @@
                 <constraint firstItem="zX6-Yt-Fe2" firstAttribute="trailing" secondItem="MKm-U6-Rq9" secondAttribute="trailing" id="m9e-TS-cpg"/>
                 <constraint firstItem="zX6-Yt-Fe2" firstAttribute="top" secondItem="MKm-U6-Rq9" secondAttribute="bottom" constant="8" id="wIo-3L-bD0"/>
             </constraints>
-            <point key="canvasLocation" x="346.5" y="501.5"/>
+            <point key="canvasLocation" x="597" y="564"/>
         </customView>
     </objects>
     <resources>
-        <image name="location-arrow" width="24" height="24"/>
+        <image name="lighthouse" width="30" height="30"/>
+        <image name="location-arrow" width="16" height="16"/>
     </resources>
 </document>

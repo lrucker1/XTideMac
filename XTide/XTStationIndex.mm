@@ -247,18 +247,18 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
     NSArray *harmonicsFiles = [[NSBundle bundleForClass:[self class]] pathsForResourcesOfType:@"tcd" inDirectory:nil];
     // Load files and read the version info.
     NSMutableArray *info = [NSMutableArray array];
-    if (![XTSettings_GetUserDefaults() boolForKey:XTide_ignoreResourceHarmonics]) {
-        for (NSString *harmonicsFile in harmonicsFiles) {
+    BOOL useResource = ![XTSettings_GetUserDefaults() boolForKey:XTide_ignoreResourceHarmonics];
+    for (NSString *harmonicsFile in harmonicsFiles) {
+        if (useResource) {
             [self loadHarmonicsFile:harmonicsFile];
-            [info addObject:[self versionFromHarmonicsFile:harmonicsFile]];
         }
+        [info addObject:[self versionFromHarmonicsFile:harmonicsFile]];
     }
+    self.resourceTCDVersion = [info componentsJoinedByString:@"\n"];
     NSArray *urls = XTSettings_GetHarmonicsURLsFromPrefs();
     for (NSURL *url in urls) {
         [self loadHarmonicsFile:[url path]];
-        [info addObject:[self versionFromHarmonicsFile:[url path]]];
     }
-    self.resourceTCDVersion = [info componentsJoinedByString:@"\n"];
 }
 
 
@@ -386,7 +386,7 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
 - (XTStationRef *)stationRefByName: (NSString *)name
 {
     libxtide::StationRef *ref = mStationIndex->getStationRefByName([name UTF8String]);
-    return [[XTStationRef alloc] initWithStationRef:ref];
+    return ref == NULL ? nil : [[XTStationRef alloc] initWithStationRef:ref];
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "XTMapWindowController.h"
 #import "XTStationInfoViewController.h"
+#import "XTStationListWindowController.h"
 #import "AppDelegate.h"
 #import "XTStation.h"
 #import "XTStationIndex.h"
@@ -25,11 +26,14 @@ static XTMapWindowController *selfContext;
 
 @property (copy) NSArray *refStations;
 @property (copy) NSArray *subStations;
+@property (copy) NSArray *otherStations;
+
 @property (retain) NSColor *currentDotColor;
 @property (retain) NSColor *tideDotColor;
 @property BOOL showingSubStations;
 @property BOOL searchingSubStations;
 @property (retain, nonatomic) SuggestionsWindowController *suggestionsController;
+@property (retain, nonatomic) XTStationListWindowController *otherWindowController;
 @property (retain) id<MKAnnotation> suggestion;
 @property (assign) BOOL editing;
 @property (strong) IBOutlet NSPopover *stationPopover;    // popover to display station info
@@ -89,15 +93,22 @@ static XTMapWindowController *selfContext;
     }
     NSMutableArray *refs = [NSMutableArray array];
     NSMutableArray *subs = [NSMutableArray array];
+    NSMutableArray *other = [NSMutableArray array];
     for (XTStationRef *station in stationRefArray) {
-        if (station.isReferenceStation) {
-            [refs addObject:station];
+        if (station.isAnnotation) {
+            if (station.isReferenceStation) {
+                [refs addObject:station];
+            } else {
+                [subs addObject:station];
+            }
         } else {
-            [subs addObject:station];
+            [other addObject:station];
+            NSLog(@"station \"%@\" is not a valid map annotation ", station);
         }
     }
     self.refStations = refs;
     self.subStations = subs;
+    self.otherStations = other;
     [self.mapView addAnnotations:refs];
     [self updateSubStations];
     if (self.mapsLoadObserver) {
@@ -191,6 +202,8 @@ static XTMapWindowController *selfContext;
         return;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
+    [self.otherWindowController.window close];
+    self.otherWindowController = nil;
     [XTSettings_GetUserDefaults() removeObserver:self
                                       forKeyPath:XTide_ColorKeys[currentdotcolor]
                                          context:&selfContext];
@@ -266,6 +279,15 @@ static XTMapWindowController *selfContext;
             [self.mapView setCenterCoordinate:loc.coordinate animated:YES];
         }
     }
+}
+
+- (IBAction)showOtherStations:(id)sender
+{
+    if (self.otherWindowController == nil) {
+        self.otherWindowController = [[XTStationListWindowController alloc] init];
+    }
+    [self.otherWindowController showWindow:nil];
+    self.otherWindowController.arrayController.content = self.otherStations;
 }
 
 - (IBAction)showGraphForSelection:(id)sender
@@ -371,16 +393,9 @@ regionDidChangeAnimated:(BOOL)animated
     [[rightButton cell] setRepresentedObject:annotation];
     NSButton *leftButton = (NSButton *)returnedAnnotationView.leftCalloutAccessoryView;
     [[leftButton cell] setRepresentedObject:annotation];
-    // 10_11: pinTintColor
-    if ([returnedAnnotationView respondsToSelector:@selector(pinTintColor)]) {
-        ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor =
-                ref.isCurrent ? self.currentDotColor
-                              : self.tideDotColor;
-    } else {
-        ((MKPinAnnotationView *)returnedAnnotationView).pinColor =
-                ref.isCurrent ? MKPinAnnotationColorRed
-                              : MKPinAnnotationColorGreen;
-    }
+    ((MKPinAnnotationView *)returnedAnnotationView).pinTintColor =
+            ref.isCurrent ? self.currentDotColor
+                          : self.tideDotColor;
     return returnedAnnotationView;
 }
 

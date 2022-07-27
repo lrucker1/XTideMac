@@ -40,6 +40,9 @@ dispatch_queue_t stationLoadQueue;
 
 - (id)initWithStationRef: (libxtide::StationRef *)aStationRef
 {
+    if (aStationRef == NULL) {
+        return nil;
+    }
     if ((self = [super init])) {
         mStationRef = aStationRef;
         self.title = DstrToNSString(mStationRef->name);
@@ -99,6 +102,10 @@ dispatch_queue_t stationLoadQueue;
 
 #pragma mark MKAnnotation
 
+- (BOOL)isAnnotation {
+    return mStationRef->coordinates.isNull() == false;
+}
+
 - (CLLocationCoordinate2D)coordinate
 {
     libxtide::Coordinates coordinates = mStationRef->coordinates;
@@ -149,11 +156,13 @@ dispatch_queue_t stationLoadQueue;
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ %@ %f %f",
+	Dstr text_out;
+	mStationRef->coordinates.print(text_out);
+
+    return [NSString stringWithFormat:@"%@ %@ %@",
             [self title],
             [self type],
-            mStationRef->coordinates.lat(),
-            mStationRef->coordinates.lng()];
+            DstrToNSString(text_out)];
 }
 
 @end

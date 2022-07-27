@@ -101,10 +101,14 @@ static NSString * const XTMap_RegionKey = @"map.region";
     NSMutableArray *refs = [NSMutableArray array];
     NSMutableArray *subs = [NSMutableArray array];
     for (XTStationRef *station in stationRefArray) {
-        if (station.isReferenceStation) {
-            [refs addObject:station];
+        if (station.isAnnotation) {
+            if (station.isReferenceStation) {
+                [refs addObject:station];
+            } else {
+                [subs addObject:station];
+            }
         } else {
-            [subs addObject:station];
+            NSLog(@"station \"%@\" is not a valid map annotation ", station);
         }
     }
     self.stationRefForWatch = [self findClosestStationRef];
@@ -591,11 +595,9 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         return [NSDictionary dictionary];
     }
 #if 1 // Change to 0 to test watch behavior with no data.
-    // Calendar complications run for 3 days from start of "yesterday"
-    // We return 24 hours extra to allow for comm lags.
+    // Return 4 days, starting "now". Time travel is gone; we don't need the past.
     if (!self.eventStartDate) {
-        NSDate *yesterday = [NSDate dateWithTimeIntervalSinceNow:-DAY];
-        self.eventStartDate = [[NSCalendar currentCalendar] startOfDayForDate:yesterday];
+        self.eventStartDate = [[NSCalendar currentCalendar] startOfDayForDate:[NSDate date]];
     }
     if (!self.eventEndDate) {
         self.eventEndDate = [self.eventStartDate dateByAddingTimeInterval:DAY * 4];
@@ -606,6 +608,7 @@ didReceiveUserInfo:(NSDictionary<NSString *, id> *)userInfo
         self.lastEventStartDate = self.eventStartDate;
         return @{@"events" : events,
                  @"startDate" : self.eventStartDate,
+                 @"endDate" : self.eventEndDate,
                  @"station" : station.name};
     }
 #endif

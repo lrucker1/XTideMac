@@ -203,7 +203,7 @@ static void setConfigurableToValue(libxtide::Configurable &cfbl,
                 break;
             }
             if ([value isKindOfClass:[NSData class]]) {
-                value = [NSKeyedUnarchiver unarchiveObjectWithData:value];
+                value = [NSKeyedUnarchiver unarchivedObjectOfClass:[COLOR_CLASS class] fromData:value error:nil];
             }
             if ([value isKindOfClass:[COLOR_CLASS class]]) {
                 NSString *colorString = ColorToRGBString(value);
@@ -385,7 +385,7 @@ void XTSettings_SetDefaults(NSDictionary *shortcuts)
         NSString *resName = configurablePrefKey(cfbl);
         setConfigurableToValue(cfbl, value);
         if ([value isKindOfClass:[COLOR_CLASS class]]) {
-            value = [NSKeyedArchiver archivedDataWithRootObject:value];
+            value = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:NO error:nil];
         }
         [defaultValues setObject:value
                           forKey:resName];
@@ -472,7 +472,7 @@ void XTSettings_SetShortcutToValue(const char *shortcut, id value)
     // CPP update has to happen before NSUserDefaults change fires, so applyMacResources is too late.
     setConfigurableToValue(cfbl, value);
     if ([value isKindOfClass:[COLOR_CLASS class]]) {
-        value = [NSKeyedArchiver archivedDataWithRootObject:value];
+        value = [NSKeyedArchiver archivedDataWithRootObject:value requiringSecureCoding:NO error:nil];
     }
     [XTSettings_GetUserDefaults() setObject:value forKey:resName];
 }

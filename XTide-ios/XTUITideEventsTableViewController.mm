@@ -22,6 +22,7 @@
 @property (nonatomic, strong) EKCalendar *defaultCalendar;
 @property NSDate *startDate;
 @property NSDate *endDate;
+@property NSDate *baseDate;
 
 @end
 
@@ -55,6 +56,11 @@
     [self reloadContent];
 }
 
+- (void)updateDate:(NSDate *)date {
+    self.baseDate = date;
+    [self reloadContent];
+}
+
 - (IBAction)reloadContent:(id)sender
 {
     [self reloadContent];
@@ -68,8 +74,13 @@
     }
 	XTTideEventsOrganizer *tempOrganizer =
       [[XTTideEventsOrganizer alloc] init];
-    self.startDate = [[NSDate date] dateByAddingTimeInterval:-60 * 60];
-    self.endDate = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 7];
+    if (self.baseDate) {
+        self.startDate = [self.baseDate dateByAddingTimeInterval:-60 * 60];
+        self.endDate = [self.baseDate dateByAddingTimeInterval:60 * 60 * 24 * 7];
+    } else {
+        self.startDate = [[NSDate date] dateByAddingTimeInterval:-60 * 60];
+        self.endDate = [NSDate dateWithTimeIntervalSinceNow:60 * 60 * 24 * 7];
+    }
     [self.station predictTideEventsStart:self.startDate
                                      end:self.endDate
                                organizer:tempOrganizer

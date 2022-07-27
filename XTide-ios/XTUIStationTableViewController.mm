@@ -50,7 +50,7 @@
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
     self.searchController.delegate = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO; // default is YES
+    self.searchController.obscuresBackgroundDuringPresentation = NO; // default is YES
     self.searchController.searchBar.delegate = self; // so we can monitor text changes + others
     
     // Search is now just presenting a view controller. As such, normal view controller

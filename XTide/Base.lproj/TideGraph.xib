@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment version="101000" identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -150,7 +150,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="27">
-                        <rect key="frame" x="155" y="90" width="50" height="22"/>
+                        <rect key="frame" x="154" y="90" width="50" height="22"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="SUq-8z-SCB"/>
                             <constraint firstAttribute="height" constant="22" id="i2V-FV-4yP"/>
@@ -168,11 +168,8 @@
                             <outlet property="nextKeyView" destination="48" id="50"/>
                         </connections>
                     </textField>
-                    <button translatesAutoresizingMaskIntoConstraints="NO" id="34">
-                        <rect key="frame" x="18" y="92" width="129" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="127" id="Qce-xt-tZo"/>
-                        </constraints>
+                    <button horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34">
+                        <rect key="frame" x="18" y="92" width="128" height="18"/>
                         <buttonCell key="cell" type="check" title="Show mark level:" bezelStyle="regularSquare" imagePosition="left" alignment="right" inset="2" id="82">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
@@ -189,7 +186,7 @@
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                        <rect key="frame" x="155" y="48" width="50" height="21"/>
+                        <rect key="frame" x="154" y="48" width="50" height="21"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="1.00" drawsBackground="YES" id="84">
                             <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0.00" negativeFormat="-#,##0.00" thousandSeparator="," id="52">
                                 <attributedString key="attributedStringForZero">
@@ -207,7 +204,7 @@
                         </connections>
                     </textField>
                     <textField horizontalHuggingPriority="750" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="49">
-                        <rect key="frame" x="99" y="51" width="51" height="16"/>
+                        <rect key="frame" x="98" y="51" width="51" height="16"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="right" title="Aspect:" usesSingleLineMode="YES" id="85">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -215,7 +212,7 @@
                         </textFieldCell>
                     </textField>
                     <comboBox verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="53">
-                        <rect key="frame" x="217" y="87" width="134" height="29"/>
+                        <rect key="frame" x="216" y="87" width="135" height="29"/>
                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="station default" drawsBackground="YES" completes="NO" numberOfVisibleItems="3" id="86">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>

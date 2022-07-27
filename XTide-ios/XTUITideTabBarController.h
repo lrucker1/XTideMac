@@ -13,10 +13,16 @@
 @protocol XTUITideView
 
 - (void)updateStation: (XTStation *)station;
+@optional
+- (void)updateDate: (NSDate *)date;
 
 @end
 
 
-@interface XTUITideTabBarController : UITabBarController <XTUITideView, UITabBarControllerDelegate>
+@interface XTUITideTabBarController : UITabBarController <XTUITideView, UITabBarControllerDelegate, UIPopoverPresentationControllerDelegate>
+
+@property (nonatomic, strong) IBOutlet UIViewController *datePickerViewController;
+
+- (void)dismissDatePicker:(UIViewController *)datePicker;
 
 @end

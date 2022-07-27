@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="98Y-kp-qY3">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="98Y-kp-qY3">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,12 +20,12 @@
                     <connections>
                         <segue destination="SFd-AG-GpC" kind="relationship" relationship="viewControllers" id="Yji-hR-hq1"/>
                         <segue destination="fH8-IZ-LIr" kind="relationship" relationship="viewControllers" id="5EE-nh-eXS"/>
-                        <segue destination="mTB-Xe-Z3M" kind="relationship" relationship="viewControllers" id="BrI-33-fAO"/>
+                        <segue destination="mTB-Xe-Z3M" kind="relationship" relationship="viewControllers" id="1k6-Mj-fGz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xel-Yp-AUb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2003" y="-80"/>
+            <point key="canvasLocation" x="-3348" y="38"/>
         </scene>
         <!--Station Info-->
         <scene sceneID="4Xa-iw-78e">
@@ -41,23 +39,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nbQ-CI-Bsn">
-                                <rect key="frame" x="20" y="0.0" width="560" height="551"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nbQ-CI-Bsn">
+                                <rect key="frame" x="16" y="0.0" width="343" height="618"/>
                                 <subviews>
-                                    <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OA5-f2-Hl7">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="551"/>
-                                        <color key="backgroundColor" red="0.28958413004875183" green="0.31462949514389038" blue="0.32950475811958313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="mTB-Xe-Z3M" id="i8Q-c8-CBk"/>
-                                        </connections>
-                                    </webView>
+                                    <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Co-0O-zqe">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="618"/>
+                                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <wkWebViewConfiguration key="configuration">
+                                            <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                            <wkPreferences key="preferences"/>
+                                        </wkWebViewConfiguration>
+                                    </wkWebView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="OA5-f2-Hl7" firstAttribute="leading" secondItem="nbQ-CI-Bsn" secondAttribute="leading" id="FcF-NC-MJv"/>
-                                    <constraint firstItem="OA5-f2-Hl7" firstAttribute="top" secondItem="nbQ-CI-Bsn" secondAttribute="top" id="HVb-94-4VT"/>
-                                    <constraint firstAttribute="trailing" secondItem="OA5-f2-Hl7" secondAttribute="trailing" id="bW3-ul-rhy"/>
-                                    <constraint firstAttribute="bottom" secondItem="OA5-f2-Hl7" secondAttribute="bottom" id="hIe-uc-b2e"/>
+                                    <constraint firstItem="2Co-0O-zqe" firstAttribute="top" secondItem="nbQ-CI-Bsn" secondAttribute="top" id="7rG-Rz-CH7"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Co-0O-zqe" secondAttribute="trailing" id="gAd-Nd-FVh"/>
+                                    <constraint firstItem="2Co-0O-zqe" firstAttribute="leading" secondItem="nbQ-CI-Bsn" secondAttribute="leading" id="nXb-at-T52"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Co-0O-zqe" secondAttribute="bottom" id="v1e-9s-8Ak"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -71,12 +70,12 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Station Info" image="lighthouse" id="JbQ-LH-poU"/>
                     <connections>
-                        <outlet property="webView" destination="OA5-f2-Hl7" id="ovY-aP-QKD"/>
+                        <outlet property="webView" destination="2Co-0O-zqe" id="OHV-bJ-mFD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gdV-Wp-Yac" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1635" y="160"/>
+            <point key="canvasLocation" x="-1351" y="151"/>
         </scene>
         <!--Chart-->
         <scene sceneID="nCb-DB-lnj">
@@ -91,10 +90,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VKZ-aW-q9I" customClass="XTUIGraphView">
-                                <rect key="frame" x="-4" y="20" width="383" height="598"/>
+                                <rect key="frame" x="-4" y="0.0" width="383" height="618"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
-                                        <rect key="frame" x="303" y="502" width="48" height="48"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9t3-Uv-sho">
+                                        <rect key="frame" x="303" y="522" width="48" height="48"/>
                                         <accessibility key="accessibilityConfiguration" label="Return to current time"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="MgA-SB-lfY"/>
@@ -140,14 +139,14 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="TideEvent" textLabel="ffT-SS-nJu" detailTextLabel="ifd-LV-JXe" rowHeight="57" style="IBUITableViewCellStyleSubtitle" id="yHZ-cf-OTE">
-                                <rect key="frame" x="0.0" y="28" width="375" height="57"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yHZ-cf-OTE" id="4Ko-gD-eqp">
-                                    <rect key="frame" x="0.0" y="0.0" width="328" height="56.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="338.5" height="57"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ffT-SS-nJu">
-                                            <rect key="frame" x="16" y="12" width="31.5" height="19.5"/>
+                                            <rect key="frame" x="16" y="9" width="31.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -169,18 +168,84 @@
                             <outlet property="delegate" destination="fH8-IZ-LIr" id="CUy-aX-a8I"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="List" image="ListViewTemplate" id="rYm-Js-mNV"/>
+                    <tabBarItem key="tabBarItem" title="List" image="ListViewTemplate" id="WBt-Z4-24t"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gk5-Is-MLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="eGP-On-F44">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="900" y="233"/>
+        </scene>
+        <!--Choose Date-->
+        <scene sceneID="LeV-ag-ezA">
+            <objects>
+                <viewController storyboardIdentifier="DatePicker" id="FyD-DQ-LWc" customClass="XTUIDatePickerViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fml-Lq-L8B"/>
+                        <viewControllerLayoutGuide type="bottom" id="etx-RG-5dQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lv8-fd-Irs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="84A-kf-lfy">
+                                <rect key="frame" x="0.0" y="8" width="375" height="612"/>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="FyD-DQ-LWc" eventType="valueChanged" id="BXr-9g-pTY"/>
+                                </connections>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJT-Yr-SOW">
+                                <rect key="frame" x="300" y="628" width="59" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Done"/>
+                                <connections>
+                                    <action selector="dismissDatePicker" destination="FyD-DQ-LWc" eventType="touchUpInside" id="rdB-Va-xXQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yUM-O9-7ak">
+                                <rect key="frame" x="16" y="628" width="148" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Show Current Time"/>
+                                <connections>
+                                    <action selector="resetToNow" destination="FyD-DQ-LWc" eventType="touchUpInside" id="BcI-HN-4jx"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="yUM-O9-7ak" firstAttribute="leading" secondItem="lv8-fd-Irs" secondAttribute="leadingMargin" id="CAZ-zL-4eB"/>
+                            <constraint firstItem="84A-kf-lfy" firstAttribute="top" secondItem="fml-Lq-L8B" secondAttribute="bottom" constant="8" symbolic="YES" id="D0N-ch-Vau"/>
+                            <constraint firstItem="84A-kf-lfy" firstAttribute="leading" secondItem="lv8-fd-Irs" secondAttribute="leading" id="PHO-Nh-pfm"/>
+                            <constraint firstAttribute="trailing" secondItem="84A-kf-lfy" secondAttribute="trailing" id="XNO-En-cnl"/>
+                            <constraint firstItem="pJT-Yr-SOW" firstAttribute="top" secondItem="84A-kf-lfy" secondAttribute="bottom" constant="8" symbolic="YES" id="l7G-b5-UMa"/>
+                            <constraint firstItem="etx-RG-5dQ" firstAttribute="top" secondItem="pJT-Yr-SOW" secondAttribute="bottom" constant="8" symbolic="YES" id="oR4-WF-NuC"/>
+                            <constraint firstItem="pJT-Yr-SOW" firstAttribute="centerY" secondItem="yUM-O9-7ak" secondAttribute="centerY" id="wzA-Ks-2s7"/>
+                            <constraint firstItem="pJT-Yr-SOW" firstAttribute="trailing" secondItem="lv8-fd-Irs" secondAttribute="trailingMargin" id="zuS-97-uWz"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Choose Date" image="calendar.badge.clock" catalog="system" id="Udf-NY-5Q7"/>
+                    <connections>
+                        <outlet property="dateFromPicker" destination="84A-kf-lfy" id="r48-Ba-PBa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bID-N8-7jV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2167" y="501"/>
         </scene>
     </scenes>
     <resources>
         <image name="ChartViewTemplate" width="16" height="16"/>
         <image name="ListViewTemplate" width="16" height="16"/>
         <image name="ReturnToNow" width="32" height="32"/>
+        <image name="calendar.badge.clock" catalog="system" width="128" height="108"/>
         <image name="chartButtonBackgroundTemplate" width="48" height="48"/>
         <image name="lighthouse" width="30" height="30"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

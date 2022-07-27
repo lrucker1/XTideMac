@@ -16,7 +16,7 @@ typedef struct TouchInfo {
     NSTimeInterval time; // all relative to the 1970 GMT epoch
 } TouchInfo;
 
-@interface XTUIGraphView : UIVisualEffectView
+@interface XTUIGraphView : UIView
 {
     TouchInfo *history;
     NSUInteger historyCount;
@@ -36,5 +36,6 @@ typedef struct TouchInfo {
 @property BOOL hasCustomDate;
 
 - (void)returnToNow;
+- (void)stopMotion;
 
 @end

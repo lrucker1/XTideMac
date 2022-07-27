@@ -226,11 +226,11 @@ const Timestamp Station::findZero (Timestamp tl,
 
     if ((ft = scale * (this->*f)(t,0,marklev)).val() == 0.0)
         return t;             /* Exact zero */
-    else if (ft.val() > 0.0)
-        tr = t, fr = ft;
-    else
-        tl = t, fl = ft;
-
+    else if (ft.val() > 0.0) {
+        tr = t; fr = ft;
+    } else {
+        tl = t; fl = ft;
+    }
     fp = scale * (this->*f)(t,1,marklev);
   }
 
@@ -329,7 +329,7 @@ void Station::nextMaxMin (Timestamp t, TideEvent &tideEvent_out) {
       return;
     }
 
-    t_left = t_right, f_left = f_right;
+    t_left = t_right; f_left = f_right;
   }
 }
 

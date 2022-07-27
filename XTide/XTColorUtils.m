@@ -171,7 +171,11 @@ ColorForKey(NSString *key)
         NSLog(@"ColorForKey: Unexpected type %@ %@", key, colorAsData);
         return [COLOR_CLASS redColor];
     }
-    COLOR_CLASS *color = [NSKeyedUnarchiver unarchiveObjectWithData:colorAsData];
-   
+    COLOR_CLASS *color = [NSKeyedUnarchiver unarchivedObjectOfClass:[COLOR_CLASS class] fromData:colorAsData error:nil];
+    if (color == nil) {
+        NSLog(@"ColorForKey: Failed to unarchive %@ %@", key, colorAsData);
+        return [COLOR_CLASS redColor];
+    }
+
 	return color;
 }

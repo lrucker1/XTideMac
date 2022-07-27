@@ -76,14 +76,14 @@
     return YES;
 }
 
-// Override to support editing the table view.
+// Override to support editing the table view. See Apple doc.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         XTStationRef *ref = [self.favoritesArray objectAtIndex:[indexPath row]];
-        // Delete the row from the data source
+        // Delete the row from the data source, update the array after table animation.
         [[XTStationIndex sharedStationIndex] removeFavorite:ref];
-        self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteStationRefs];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        self.favoritesArray = [[XTStationIndex sharedStationIndex] favoriteStationRefs];
     }
 }
 

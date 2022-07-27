@@ -355,10 +355,20 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 - (NSTimeZone *)timeZone
 {
    char *tzName = mStation->timezone.aschar();
-	//  Apparently these are the strings NSTimeZone groks, except they start with a ':'
-   return [NSTimeZone timeZoneWithName:
+	// Apparently these are the strings NSTimeZone groks, except they start with a ':'
+   NSTimeZone *ret = [NSTimeZone timeZoneWithName:
 				[NSString stringWithCString:&tzName[1] 
-                                   encoding:NSISOLatin1StringEncoding]];
+                                           encoding:NSISOLatin1StringEncoding]];
+    // Custom tcd files may just use the name.
+    if (ret == nil) {
+        ret = [NSTimeZone timeZoneWithName:
+				[NSString stringWithCString:tzName
+                                           encoding:NSISOLatin1StringEncoding]];
+    }
+    if (ret == nil) {
+        ret = [NSTimeZone systemTimeZone];
+    }
+    return ret;
 }
 
 - (libxtide::PredictionValue)minLevel {return mStation->minLevelHeuristic();}

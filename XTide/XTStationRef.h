@@ -18,5 +18,6 @@
 - (BOOL)isReferenceStation;
 - (CLLocation *)location;
 - (BOOL)isCurrent;
+- (BOOL)isAnnotation;
 
 @end

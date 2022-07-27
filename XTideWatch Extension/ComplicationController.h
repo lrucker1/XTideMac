@@ -7,8 +7,9 @@
 //
 
 #import <ClockKit/ClockKit.h>
+#import <WatchKit/WatchKit.h>
 @import WatchConnectivity;
 
-@interface ComplicationController : NSObject <CLKComplicationDataSource, WCSessionDelegate>
+@interface ComplicationController : NSObject <CLKComplicationDataSource, WCSessionDelegate, WKExtensionDelegate>
 
 @end

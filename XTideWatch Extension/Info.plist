@@ -32,6 +32,9 @@
 		<string>CLKComplicationFamilyUtilitarianSmall</string>
 		<string>CLKComplicationFamilyUtilitarianLarge</string>
 		<string>CLKComplicationFamilyCircularSmall</string>
+        <string>CLKComplicationFamilyGraphicCorner</string>
+        <string>CLKComplicationFamilyGraphicCircular</string>
+        <string>CLKComplicationFamilyGraphicBezel</string>
 	</array>
 	<key>NSExtension</key>
 	<dict>

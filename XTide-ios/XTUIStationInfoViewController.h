@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "XTUITideTabBarController.h"
+@import WebKit;
 
-@interface XTUIStationInfoViewController : UIViewController <XTUITideView, UIWebViewDelegate>
+@interface XTUIStationInfoViewController : UIViewController <XTUITideView>
 
-@property IBOutlet UIWebView *webView;
+@property IBOutlet WKWebView *webView;
 
 @end

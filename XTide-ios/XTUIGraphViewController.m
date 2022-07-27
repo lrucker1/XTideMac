@@ -32,6 +32,15 @@ static XTUIGraphViewController *selfContext;
     [gv setNeedsDisplay];
 }
 
+- (void)updateDate:(NSDate *)date {
+    XTUIGraphView *gv = self.graphView;
+    [gv stopMotion];
+    gv.graphdate = date;
+    gv.hasCustomDate = YES;
+    [gv setNeedsDisplay];
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -59,10 +68,10 @@ static XTUIGraphViewController *selfContext;
 {
     self.favoriteButton.selected = !self.favoriteButton.selected;
     if (self.favoriteButton.selected) {
-//        [[XTStationIndex sharedStationIndex] addFavorite:annotation];
+        //        [[XTStationIndex sharedStationIndex] addFavorite:annotation];
     }
     else {
-//        [[XTStationIndex sharedStationIndex] removeFavorite:annotation];
+        //        [[XTStationIndex sharedStationIndex] removeFavorite:annotation];
     }
 }
 
