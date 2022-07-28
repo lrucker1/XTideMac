@@ -103,8 +103,6 @@
 		946DAF771D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
 		946DAF821D3C150700B16FB2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF801D3C150700B16FB2 /* EventKit.framework */; };
 		946DAF831D3C150700B16FB2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF811D3C150700B16FB2 /* EventKitUI.framework */; };
-		946DF87D2891B99400FE71F9 /* XTStationListWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DF87B2891B99400FE71F9 /* XTStationListWindowController.m */; };
-		946DF87E2891B99400FE71F9 /* XTStationListWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 946DF87C2891B99400FE71F9 /* XTStationListWindowController.xib */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
 		948B181A1D4165C0002378B7 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18151D4165C0002378B7 /* Amplitude.cc */; };
 		948B181B1D4165C0002378B7 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18171D4165C0002378B7 /* Angle.cc */; };
@@ -551,9 +549,6 @@
 		946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+NSDate_XTWAdditions.m"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.m"; sourceTree = SOURCE_ROOT; };
 		946DAF801D3C150700B16FB2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		946DAF811D3C150700B16FB2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
-		946DF87A2891B99400FE71F9 /* XTStationListWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTStationListWindowController.h; sourceTree = "<group>"; };
-		946DF87B2891B99400FE71F9 /* XTStationListWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTStationListWindowController.m; sourceTree = "<group>"; };
-		946DF87C2891B99400FE71F9 /* XTStationListWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XTStationListWindowController.xib; sourceTree = "<group>"; };
 		948353BB1CBC42FB0026F08A /* libxtide */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libxtide; path = "/Users/lrucker/Microcode/XTideCocoa_2.15/libpng-1.6.21/../xtide-2.15.1/libxtide"; sourceTree = "<absolute>"; };
 		948355031CBC44660026F08A /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-1.6.21/png.h"; sourceTree = "<group>"; };
 		948355051CBC448F0026F08A /* tcd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tcd.h; path = "../libtcd-2.2.7/tcd.h"; sourceTree = "<group>"; };
@@ -882,9 +877,6 @@
 			children = (
 				94041C9F1CC043D6003BD343 /* XTMapWindowController.h */,
 				94041CA01CC043D6003BD343 /* XTMapWindowController.m */,
-				946DF87A2891B99400FE71F9 /* XTStationListWindowController.h */,
-				946DF87B2891B99400FE71F9 /* XTStationListWindowController.m */,
-				946DF87C2891B99400FE71F9 /* XTStationListWindowController.xib */,
 				94041D451CC7ED5F003BD343 /* SuggestionsWindowController.h */,
 				94041D461CC7ED5F003BD343 /* SuggestionsWindowController.m */,
 				94041D471CC7ED5F003BD343 /* RoundedCornersView.h */,
@@ -1788,7 +1780,6 @@
 				948353BC1CBC42FB0026F08A /* libxtide in Resources */,
 				9451F4D71D445E5D006DC606 /* XTPrefFlagsViewController.xib in Resources */,
 				94FDF97528907BBE00639AE9 /* harmonics-dwf-20220109-free.tcd in Resources */,
-				946DF87E2891B99400FE71F9 /* XTStationListWindowController.xib in Resources */,
 				94CE16301D28B8560088720D /* StateImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1963,7 +1954,6 @@
 				94041D661CC94E51003BD343 /* CalendarController.mm in Sources */,
 				948B18D91D4165D2002378B7 /* Year.cc in Sources */,
 				948B18971D4165D2002378B7 /* CurrentBearing.cc in Sources */,
-				946DF87D2891B99400FE71F9 /* XTStationListWindowController.m in Sources */,
 				948B18C51D4165D2002378B7 /* SVGGraph.cc in Sources */,
 				94041C4F1CBECDE2003BD343 /* PreferenceController.mm in Sources */,
 				948B18BD1D4165D2002378B7 /* Station.cc in Sources */,

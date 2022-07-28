@@ -8,7 +8,6 @@
 
 #import "XTMapWindowController.h"
 #import "XTStationInfoViewController.h"
-#import "XTStationListWindowController.h"
 #import "AppDelegate.h"
 #import "XTStation.h"
 #import "XTStationIndex.h"
@@ -33,15 +32,53 @@ static XTMapWindowController *selfContext;
 @property BOOL showingSubStations;
 @property BOOL searchingSubStations;
 @property (retain, nonatomic) SuggestionsWindowController *suggestionsController;
-@property (retain, nonatomic) XTStationListWindowController *otherWindowController;
 @property (retain) id<MKAnnotation> suggestion;
 @property (assign) BOOL editing;
 @property (strong) IBOutlet NSPopover *stationPopover;    // popover to display station info
 @property (strong) IBOutlet XTStationInfoViewController *stationInfoViewController;
 @property (retain) id mapsLoadObserver;
-
+@property (strong) IBOutlet NSPopover *otherStationsPopover; // popover for stations that aren't on the map
+- (void)showInfoForStation:(XTStationRef *)ref onButton:(NSButton *)button;
 
 @end
+
+@interface XTStationListTableCellView : NSTableCellView
+
+@end
+
+@implementation XTStationListTableCellView
+
+
+- (IBAction)stationInfoAction:(id)sender
+{
+    // user clicked the Info button
+    //
+    if (![sender isKindOfClass:[NSButton class]]) {
+        NSBeep();
+        return;
+    }
+    NSButton *button = (NSButton *)sender;
+    XTMapWindowController *wc = button.window.parentWindow.windowController;
+    [wc showInfoForStation:self.objectValue onButton:button];
+}
+
+- (IBAction)tideInfoAction:(id)sender
+{
+    if (![sender isKindOfClass:[NSSegmentedControl class]]) {
+        NSBeep();
+        return;
+    }
+    NSSegmentedControl *button = (NSSegmentedControl *)sender;
+    XTStationRef *ref = (XTStationRef *)self.objectValue;
+    if ([button selectedSegment] == 0) {
+        [(AppDelegate *)[NSApp delegate] showTideGraphForStation:ref];
+    } else {
+        [(AppDelegate *)[NSApp delegate] showTideDataForStation:ref];
+    }
+}
+
+@end
+
 
 @implementation XTMapWindowController
 
@@ -103,7 +140,6 @@ static XTMapWindowController *selfContext;
             }
         } else {
             [other addObject:station];
-            NSLog(@"station \"%@\" is not a valid map annotation ", station);
         }
     }
     self.refStations = refs;
@@ -202,8 +238,7 @@ static XTMapWindowController *selfContext;
         return;
     NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
     [nc removeObserver:self];
-    [self.otherWindowController.window close];
-    self.otherWindowController = nil;
+    [self.otherStationsPopover close];
     [XTSettings_GetUserDefaults() removeObserver:self
                                       forKeyPath:XTide_ColorKeys[currentdotcolor]
                                          context:&selfContext];
@@ -279,15 +314,6 @@ static XTMapWindowController *selfContext;
             [self.mapView setCenterCoordinate:loc.coordinate animated:YES];
         }
     }
-}
-
-- (IBAction)showOtherStations:(id)sender
-{
-    if (self.otherWindowController == nil) {
-        self.otherWindowController = [[XTStationListWindowController alloc] init];
-    }
-    [self.otherWindowController showWindow:nil];
-    self.otherWindowController.arrayController.content = self.otherStations;
 }
 
 - (IBAction)showGraphForSelection:(id)sender
@@ -399,7 +425,49 @@ regionDidChangeAnimated:(BOOL)animated
     return returnedAnnotationView;
 }
 
-#pragma mark stationInfo
+#pragma mark popovers
+
+- (BOOL)popoverShouldDetach:(NSPopover *)popover {
+    return popover == self.otherStationsPopover;
+}
+
+- (IBAction)showOtherStations:(id)sender
+{
+    if (![sender isKindOfClass:[NSButton class]]) {
+        NSBeep();
+        return;
+    }
+    if ([self.stationPopover isShown]) {
+        [self.stationPopover close];
+    }
+    if ([self.otherStationsPopover isShown]) {
+        [self.otherStationsPopover close];
+        return;
+    }
+    NSButton *button = (NSButton *)sender;
+
+    // configure the preferred position of the popover
+    NSRectEdge prefEdge = NSRectEdgeMaxY;
+
+    [self.otherStationsPopover showRelativeToRect:[button bounds] ofView:sender preferredEdge:prefEdge];
+}
+
+
+- (void)showInfoForStation:(XTStationRef *)ref onButton:(NSButton *)button
+{
+    if ([self.stationPopover isShown]) {
+        [self.stationPopover close];
+        return;
+    }
+
+    // configure the preferred position of the popover
+    NSRectEdge prefEdge = NSRectEdgeMaxY;
+
+    self.stationInfoViewController.representedObject = ref;
+    [self.stationInfoViewController reloadData];
+    [self.stationPopover showRelativeToRect:[button bounds] ofView:button preferredEdge:prefEdge];
+}
+
 
 - (IBAction)stationInfoAction:(id)sender
 {
@@ -409,21 +477,12 @@ regionDidChangeAnimated:(BOOL)animated
         NSBeep();
         return;
     }
-    if ([self.stationPopover isShown]) {
-        [self.stationPopover close];
-        return;
-    }
     NSButton *button = (NSButton *)sender;
-    
-    // configure the preferred position of the popover
-    NSRectEdge prefEdge = NSRectEdgeMaxY;
-    
     XTStationRef *ref = (XTStationRef *)[[button cell] representedObject];
-    self.stationInfoViewController.representedObject = ref;
-    [self.stationInfoViewController reloadData];
-    [self.stationPopover showRelativeToRect:[button bounds] ofView:sender preferredEdge:prefEdge];
+    [self showInfoForStation:ref onButton:button];
 }
 
+// Done button.
 - (IBAction)closePopover:(id)sender
 {
     [self.stationPopover close];
