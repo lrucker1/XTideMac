@@ -408,7 +408,7 @@ regionDidChangeAnimated:(BOOL)animated
         [leftButton setTarget:self];
         [leftButton setAction:@selector(stationInfoAction:)];
         [leftButton setBordered:NO];
-        [leftButton setButtonType:NSMomentaryChangeButton];
+        [leftButton setButtonType:NSButtonTypeMomentaryChange];
         returnedAnnotationView.leftCalloutAccessoryView = leftButton;
     }
     else {

@@ -277,7 +277,7 @@
             </constraints>
             <point key="canvasLocation" x="597" y="564"/>
         </customView>
-        <view misplaced="YES" id="S1N-i4-Yaa">
+        <view id="S1N-i4-Yaa">
             <rect key="frame" x="0.0" y="0.0" width="479" height="261"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>

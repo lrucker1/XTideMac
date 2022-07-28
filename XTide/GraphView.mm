@@ -168,9 +168,9 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 {
     NSData *pdf = [self PDFRepresentation];
     NSPasteboard *pboard = [NSPasteboard generalPasteboard];
-    [pboard declareTypes:[NSArray arrayWithObjects:NSTIFFPboardType, NSPDFPboardType, nil] owner:nil];
-    [pboard setData:[self TIFFRepresentationWithPDF:pdf] forType:NSTIFFPboardType];
-    [pboard setData:pdf forType:NSPDFPboardType];
+    [pboard declareTypes:[NSArray arrayWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePDF, nil] owner:nil];
+    [pboard setData:[self TIFFRepresentationWithPDF:pdf] forType:NSPasteboardTypeTIFF];
+    [pboard setData:pdf forType:NSPasteboardTypePDF];
 }
 
 - (void)drawRect:(NSRect)rect
@@ -587,7 +587,7 @@ NSString * const TideViewTouchesBeganNotification = @"TideViewTouchesBegan";
 
 - (NSSize)intrinsicContentSize
 {
-    return NSMakeSize(NSViewNoInstrinsicMetric, 300);
+    return NSMakeSize(NSViewNoIntrinsicMetric, 300);
 }
 
 #pragma mark print

@@ -103,8 +103,8 @@ static NSString *versionKey = @"version";
 {
     self.useStandardHarmonics = ![XTSettings_GetUserDefaults() boolForKey:XTide_ignoreResourceHarmonics];
     NSArray *urls = XTSettings_GetHarmonicsURLsFromPrefs();
-    [harmonicsFileArray removeObjects:[harmonicsFileArray arrangedObjects]];
-    [harmonicsFileArray addObjects:[self objectsForURLs:urls]];
+    [self.harmonicsFileArray removeObjects:[self.harmonicsFileArray arrangedObjects]];
+    [self.harmonicsFileArray addObjects:[self objectsForURLs:urls]];
 }
 
 - (IBAction)changeColor:(id)sender
@@ -189,7 +189,7 @@ static NSString *versionKey = @"version";
     openPanel.allowsMultipleSelection = YES;
     [openPanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         if (result == NSModalResponseOK) {
-            [harmonicsFileArray addObjects:[self objectsForURLs:[openPanel URLs]]];
+            [self.harmonicsFileArray addObjects:[self objectsForURLs:[openPanel URLs]]];
         }
     }];
 }
@@ -199,9 +199,9 @@ static NSString *versionKey = @"version";
 // -------------------------------------------------------------------------------
 - (IBAction)remove:(id)sender
 {
-    NSIndexSet *selections = [harmonicsFileArray selectionIndexes];
+    NSIndexSet *selections = [self.harmonicsFileArray selectionIndexes];
     if ([selections count]) {
-        [harmonicsFileArray removeObjectsAtArrangedObjectIndexes:selections];
+        [self.harmonicsFileArray removeObjectsAtArrangedObjectIndexes:selections];
     }
 }
 
@@ -210,7 +210,7 @@ static NSString *versionKey = @"version";
 {
     [XTSettings_GetUserDefaults() setBool:!self.useStandardHarmonics forKey:XTide_ignoreResourceHarmonics];
     NSMutableArray *array = [NSMutableArray array];
-    for (NSDictionary *tableData in [harmonicsFileArray arrangedObjects]) {
+    for (NSDictionary *tableData in [self.harmonicsFileArray arrangedObjects]) {
         NSURL *url = [tableData objectForKey:urlKey];
         if (url) {
             NSData *bookmarkData = [url bookmarkDataWithOptions:NSURLBookmarkCreationMinimalBookmark

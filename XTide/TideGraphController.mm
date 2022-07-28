@@ -178,7 +178,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
 {
     [self.graphView stopMotion];
     [self nowTimerFireMethod:nil];
-    [nowButton setState:NSOnState];
+    [nowButton setState:NSControlStateValueOn];
     self.nowTimer =
         [NSTimer scheduledTimerWithTimeInterval:60
                                          target:self
@@ -199,7 +199,7 @@ static NSString * const TideGraph_displayDate = @"displayDate";
         [nowTimer invalidate];
         self.nowTimer = nil;
     }
-    [nowButton setState:NSOffState];
+    [nowButton setState:NSControlStateValueOff];
 }
 
 - (IBAction)returnToNow:(id)sender

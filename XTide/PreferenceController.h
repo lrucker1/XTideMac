@@ -44,11 +44,12 @@
 
 	IBOutlet NSTextField *harmonicsInfoField;
 	IBOutlet NSTextField *resourceHarmonicsInfoField;
-	IBOutlet NSArrayController *harmonicsFileArray;
-	
+
 	IBOutlet NSComboBox *popup_combo;
 	IBOutlet NSSlider *slider_opacity;
 }
+
+@property IBOutlet NSArrayController *harmonicsFileArray;
 
 @property BOOL useStandardHarmonics;
 

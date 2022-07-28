@@ -154,8 +154,8 @@ static NSImage *calendarImage = nil;
 	if (str == nil)
 		return NO;
 		
-	[pboard declareTypes: [NSArray arrayWithObject:NSStringPboardType] owner:self];		
-	[pboard setString:str forType:NSStringPboardType];
+    [pboard declareTypes: [NSArray arrayWithObject:NSPasteboardTypeString] owner:self];		
+    [pboard setString:str forType:NSPasteboardTypeString];
 	return YES;
 }
 

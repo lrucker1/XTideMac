@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -38,11 +38,11 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="213" height="107"/>
             <view key="contentView" misplaced="YES" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="558" height="301"/>
+                <rect key="frame" x="0.0" y="0.0" width="573" height="301"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tabView horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="102">
-                        <rect key="frame" x="-7" y="-10" width="572" height="305"/>
+                        <rect key="frame" x="-7" y="-10" width="587" height="305"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="289" id="BPp-Uf-g70"/>
                         </constraints>
@@ -634,7 +634,7 @@ Gw
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn width="498" minWidth="40" maxWidth="1000" id="Xde-4X-WWb">
+                                                            <tableColumn width="469" minWidth="40" maxWidth="1000" id="Xde-4X-WWb">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -647,11 +647,11 @@ Gw
                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                 <prototypeCellViews>
                                                                     <tableCellView id="8Jb-id-Hfz">
-                                                                        <rect key="frame" x="1" y="1" width="507" height="46"/>
+                                                                        <rect key="frame" x="1" y="1" width="478" height="46"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <subviews>
                                                                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6T0-W0-tUs">
-                                                                                <rect key="frame" x="6" y="29" width="495" height="16"/>
+                                                                                <rect key="frame" x="6" y="29" width="466" height="16"/>
                                                                                 <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" placeholderString="Unknown" id="Y9A-Jb-8xh">
                                                                                     <font key="font" metaFont="system"/>
                                                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -662,7 +662,7 @@ Gw
                                                                                 </connections>
                                                                             </textField>
                                                                             <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c5D-k6-pMV">
-                                                                                <rect key="frame" x="16" y="8" width="481" height="20"/>
+                                                                                <rect key="frame" x="16" y="8" width="452" height="20"/>
                                                                                 <pathCell key="cell" controlSize="small" selectable="YES" alignment="left" id="xb8-Du-Fad">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <url key="url" string="file://localhost/Applications/"/>
@@ -794,7 +794,9 @@ Gw
         </window>
         <userDefaultsController representsSharedInstance="YES" id="253"/>
         <viewController id="kcH-Bh-vLH" customClass="XTPrefFlagsViewController"/>
-        <arrayController objectClassName="NSURL" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="o8h-xY-GcE" userLabel="Harmonics File Array Controller"/>
+        <arrayController objectClassName="NSURL" selectsInsertedObjects="NO" avoidsEmptySelection="NO" id="o8h-xY-GcE" userLabel="Harmonics File Array Controller">
+            <classReference key="objectClass" className="NSURL"/>
+        </arrayController>
     </objects>
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>

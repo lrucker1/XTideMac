@@ -282,10 +282,10 @@ static NSTouchBarItemIdentifier NowButtonIdentifier = @"com.lrucker.xtide.nowBut
             }
             [markUnitsCombo selectItemAtIndex:index];
         }
-        [showMarkCheckbox setState:NSOnState];
+        [showMarkCheckbox setState:NSControlStateValueOn];
     }
     else {
-        [showMarkCheckbox setState:NSOffState];
+        [showMarkCheckbox setState:NSControlStateValueOff];
     }
     [[self window] beginSheet:markSheet completionHandler:nil];
 }
@@ -299,7 +299,7 @@ static NSTouchBarItemIdentifier NowButtonIdentifier = @"com.lrucker.xtide.nowBut
     [NSApp endSheet:markSheet returnCode:1];
     
     // Get the options
-    if ([showMarkCheckbox state] == NSOnState) {
+    if ([showMarkCheckbox state] == NSControlStateValueOn) {
         NSInteger index = [markUnitsCombo indexOfSelectedItem];
         if (index < 0 || index >= 3) {
             index = 0;

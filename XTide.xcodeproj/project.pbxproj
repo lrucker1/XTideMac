@@ -20,7 +20,6 @@
 		94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6E1CBF1768003BD343 /* toolbar-graph.png */; };
 		94041C801CBF1768003BD343 /* toolbar-list.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C6F1CBF1768003BD343 /* toolbar-list.png */; };
 		94041C811CBF1768003BD343 /* toolbar-calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 94041C701CBF1768003BD343 /* toolbar-calendar.png */; };
-		94041C821CBF1768003BD343 /* lh128.icns in Resources */ = {isa = PBXBuildFile; fileRef = 94041C711CBF1768003BD343 /* lh128.icns */; };
 		94041C851CBF1906003BD343 /* TideController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C841CBF1906003BD343 /* TideController.mm */; };
 		94041C881CBF190F003BD343 /* TideGraphController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C871CBF190F003BD343 /* TideGraphController.mm */; };
 		94041C8B1CBF1938003BD343 /* GraphView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 94041C8A1CBF1938003BD343 /* GraphView.mm */; };
@@ -1752,7 +1751,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94041C821CBF1768003BD343 /* lh128.icns in Resources */,
 				94041CA41CC04969003BD343 /* Images.xcassets in Resources */,
 				94041C7F1CBF1768003BD343 /* toolbar-graph.png in Resources */,
 				946318E61CBC3242001CD859 /* Assets.xcassets in Resources */,
@@ -2467,7 +2465,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -2517,7 +2515,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 			};
@@ -2530,7 +2528,7 @@
 				CODE_SIGN_ENTITLEMENTS = XTide/XTide.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 302.2;
+				CURRENT_PROJECT_VERSION = 303;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
@@ -2540,7 +2538,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -2553,7 +2552,7 @@
 				CODE_SIGN_ENTITLEMENTS = XTide/XTide.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 302.2;
+				CURRENT_PROJECT_VERSION = 303;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				ENABLE_HARDENED_RUNTIME = YES;
 				"HEADER_SEARCH_PATHS[arch=*]" = libxtide;
@@ -2563,7 +2562,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lrucker.XTide;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
