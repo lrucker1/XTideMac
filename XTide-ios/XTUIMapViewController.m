@@ -73,13 +73,17 @@ static NSString * const XTMap_RegionKey = @"map.region";
 
     [self loadStations];
     if (!self.refStations) {
-        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XTideMapsLoadedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XStationIndexDidLoadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [self loadStations];
         }];
     }
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(defaultsChanged:)
                                                  name:XTStationIndexFavoritesChangedNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(stationsWillReload:)
+                                                 name:XStationIndexWillReloadNotification
                                                object:nil];
 }
 
@@ -107,8 +111,7 @@ static NSString * const XTMap_RegionKey = @"map.region";
             } else {
                 [subs addObject:station];
             }
-        } else {
-            NSLog(@"station \"%@\" is not a valid map annotation ", station);
+            // else ignore it; they can use Search to get to it.
         }
     }
     self.stationRefForWatch = [self findClosestStationRef];
@@ -452,6 +455,16 @@ calloutAccessoryControlTapped:(UIControl *)control
 }
 
 #pragma mark watch
+
+- (void)stationsWillReload:(NSNotification *)notification
+{
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    self.refStations = nil;
+    self.subStations = nil;
+    self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XStationIndexDidLoadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        [self loadStations];
+    }];
+}
 
 - (void)defaultsChanged:(NSNotification *)notification
 {

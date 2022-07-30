@@ -9,13 +9,12 @@
 #import <UIKit/UIKit.h>
 
 
-extern NSString * XTideMapsLoadedNotification;
-
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, retain) NSArray *stationRefArray;
 
+- (void)loadStationIndexes;
 
 @end
 

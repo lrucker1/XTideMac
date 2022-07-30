@@ -91,20 +91,24 @@ static NSString * const XTWindow_restorationName = @"name";
     completionHandler(window, nil);
 }
 
-- (void)applicationWillFinishLaunching:(NSNotification *)aNotification
-{
-    self.windowControllers = [NSMutableSet set];
+- (void)loadStationIndexes {
     // loading/processing stations might take a while -- do it asynchronously
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.stationRefArray = [[XTStationIndex sharedStationIndex] stationRefArray];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"XTideMapsLoadedNotification" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:XStationIndexDidLoadNotification object:self];
 #if DEBUG_GENERATE_WATCH_IMAGE
             [self createWatchImage];
 #endif
         });
     });
+}
+
+- (void)applicationWillFinishLaunching:(NSNotification *)aNotification
+{
+    self.windowControllers = [NSMutableSet set];
+    [self loadStationIndexes];
 }
 
 #if DEBUG_GENERATE_WATCH_IMAGE

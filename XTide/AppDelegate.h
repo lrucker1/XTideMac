@@ -15,6 +15,7 @@
 
 - (IBAction)showStationMap: (id)sender;
 - (IBAction)showDisclaimer:(id)sender;
+- (void)loadStationIndexes;
 
 - (NSWindow *)showTideGraphForStation:(XTStationRef *)ref;
 - (NSWindow *)showTideDataForStation:(XTStationRef *)ref;

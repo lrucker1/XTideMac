@@ -12,8 +12,6 @@
 #import "XTSettings.h"
 #import "XTStationIndex.h"
 
-NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
-
 @interface AppDelegate ()
 
 @property (readwrite, retain) NSArray *stationRefArray;
@@ -33,18 +31,21 @@ NSString * XTideMapsLoadedNotification = @"XTideMapsLoadedNotification";
     [[XTStationIndex sharedStationIndex] setFavoritesDefaults:defaults];
 }
 
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+// TODO: Move this to XTStationIndex in both AppDelegates
+- (void)loadStationIndexes {
     // loading/processing stations might take a while -- do it in the background.
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.stationRefArray = [[XTStationIndex sharedStationIndex] stationRefArray];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:XTideMapsLoadedNotification object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:XStationIndexDidLoadNotification object:self];
         });
     });
+}
 
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [self loadStationIndexes];
     return YES;
 }
 

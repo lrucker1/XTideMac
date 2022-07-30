@@ -22,6 +22,8 @@ static NSString *XTStationClosestFavoriteKey = @"closestFavorite";
 
 NSString * const XTStationIndexStationsReloadedNotification = @"XTStationIndexStationsReloadedNotification";
 NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFavoritesChangedNotification";
+NSString * const XStationIndexWillReloadNotification = @"XStationIndexWillReloadNotification";
+NSString * const XStationIndexDidLoadNotification = @"XStationIndexDidLoadNotification";
 
 @interface XTStationIndex ()
 {
@@ -261,6 +263,12 @@ NSString * const XTStationIndexFavoritesChangedNotification = @"XTStationIndexFa
     }
 }
 
+- (void)reloadHarmonicsFiles {
+    [[NSNotificationCenter defaultCenter] postNotificationName:XStationIndexWillReloadNotification object:self];
+    mStationIndex = new libxtide::StationIndex();
+    self.stationRefArray = nil;
+    [self loadHarmonicsFiles];
+}
 
 - (NSArray *)buildStationRefArray
 {

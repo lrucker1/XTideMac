@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HgL-HJ-wUA">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HgL-HJ-wUA">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,7 +13,7 @@
             <objects>
                 <navigationController id="HgL-HJ-wUA" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="acL-kS-8gE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -59,6 +57,12 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="swU-Lr-VcN"/>
+                                    <barButtonItem image="folder" catalog="system" id="M7z-aS-754">
+                                        <connections>
+                                            <segue destination="E6G-lv-KHd" kind="show" id="CTl-4N-dDq"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Lk7-gg-ueH"/>
                                     <barButtonItem systemItem="search" id="xW3-Jw-PIJ" userLabel="Search Item">
                                         <connections>
                                             <segue destination="bgV-e9-ST3" kind="show" id="9Km-gw-6YT"/>
@@ -117,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lbk-5h-RhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="470" y="-227"/>
+            <point key="canvasLocation" x="193" y="-448"/>
         </scene>
         <!--TideViewsStoryboard-->
         <scene sceneID="j75-NZ-SqO">
@@ -137,10 +141,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavoriteInfo" textLabel="POr-qC-XHQ" detailTextLabel="xdj-Fq-5xQ" style="IBUITableViewCellStyleSubtitle" id="WZu-Qh-d3i">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WZu-Qh-d3i" id="wXM-fn-bMW">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POr-qC-XHQ">
@@ -179,7 +183,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No favorite stations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrK-ZB-K2d">
-                            <rect key="frame" x="226" y="11" width="149" height="21"/>
+                            <rect key="frame" x="226" y="11.5" width="148" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -200,7 +204,7 @@
                     </variation>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1212" y="-15"/>
+            <point key="canvasLocation" x="1817" y="-97"/>
         </scene>
         <!--Station Table View Controller-->
         <scene sceneID="1mW-Fe-qbr">
@@ -212,10 +216,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StationInfo" textLabel="7ty-3p-PcT" detailTextLabel="wbv-hA-QVL" style="IBUITableViewCellStyleSubtitle" id="97s-bV-vXG">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="97s-bV-vXG" id="SYF-Uq-OdS">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="350.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ty-3p-PcT">
@@ -249,12 +253,135 @@
             </objects>
             <point key="canvasLocation" x="1258" y="-267"/>
         </scene>
+        <!--Harmonics File View Controller-->
+        <scene sceneID="nvn-Xq-HwD">
+            <objects>
+                <viewController id="E6G-lv-KHd" customClass="XTUIHarmonicsFileViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ksd-Hx-yJv"/>
+                        <viewControllerLayoutGuide type="bottom" id="xOm-Xs-OXK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3pb-zj-pcz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MEF-Hs-I86">
+                                <rect key="frame" x="24" y="8" width="51" height="31"/>
+                                <connections>
+                                    <action selector="toggleUseStandardFiles:" destination="E6G-lv-KHd" eventType="touchUpInside" id="xY9-pm-vb5"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="No harmonics file available" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqw-ze-mbN">
+                                <rect key="frame" x="81" y="47" width="269" height="16"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1kT-pA-5OI">
+                                <rect key="frame" x="0.0" y="84.5" width="375" height="514.5"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="harmonicsCell" textLabel="bXJ-Lh-hsj" style="IBUITableViewCellStyleDefault" id="p7u-bu-NZ5">
+                                        <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p7u-bu-NZ5" id="cPx-4V-RTX">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bXJ-Lh-hsj">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="E6G-lv-KHd" id="rlU-A7-Wb8"/>
+                                    <outlet property="delegate" destination="E6G-lv-KHd" id="yDL-zH-U8h"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7k-Bz-pM3">
+                                <rect key="frame" x="270" y="620" width="76" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Add File"/>
+                                <connections>
+                                    <action selector="openImportDocumentPicker:" destination="E6G-lv-KHd" eventType="touchUpInside" id="P2a-8a-eBV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0U-gb-7po">
+                                <rect key="frame" x="20" y="620" width="122" height="39"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Apply Changes"/>
+                                <connections>
+                                    <action selector="applyHarmonics:" destination="E6G-lv-KHd" eventType="touchUpInside" id="9xQ-0b-Ib2"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add or remove additional harmonics files here:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhR-63-dMy">
+                                <rect key="frame" x="20" y="88" width="335" height="17"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use default station harmonics file" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zzs-hQ-MeN">
+                                <rect key="frame" x="81" y="13" width="254" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zzs-hQ-MeN" firstAttribute="leading" secondItem="MEF-Hs-I86" secondAttribute="trailing" constant="8" symbolic="YES" id="22q-TH-fei"/>
+                            <constraint firstItem="Zzs-hQ-MeN" firstAttribute="leading" secondItem="MEF-Hs-I86" secondAttribute="trailing" constant="8" symbolic="YES" id="23Z-Pl-1o7"/>
+                            <constraint firstAttribute="trailing" secondItem="1kT-pA-5OI" secondAttribute="trailing" id="2ta-jm-o8Y"/>
+                            <constraint firstItem="MEF-Hs-I86" firstAttribute="top" secondItem="Ksd-Hx-yJv" secondAttribute="bottom" constant="8" symbolic="YES" id="2xr-Rb-diF"/>
+                            <constraint firstItem="xOm-Xs-OXK" firstAttribute="top" secondItem="1kT-pA-5OI" secondAttribute="bottom" constant="68" id="9z2-7d-DYp"/>
+                            <constraint firstItem="1kT-pA-5OI" firstAttribute="top" secondItem="BhR-63-dMy" secondAttribute="bottom" constant="-20.5" id="BmQ-R7-SYj"/>
+                            <constraint firstItem="xOm-Xs-OXK" firstAttribute="top" secondItem="O0U-gb-7po" secondAttribute="bottom" constant="8" symbolic="YES" id="D9M-zk-2Jt"/>
+                            <constraint firstItem="e7k-Bz-pM3" firstAttribute="bottom" secondItem="O0U-gb-7po" secondAttribute="bottom" id="HXP-7X-npY"/>
+                            <constraint firstItem="BhR-63-dMy" firstAttribute="top" secondItem="Bqw-ze-mbN" secondAttribute="bottom" constant="25" id="HoJ-ak-DtF"/>
+                            <constraint firstItem="e7k-Bz-pM3" firstAttribute="top" secondItem="1kT-pA-5OI" secondAttribute="bottom" constant="21" id="JQ2-aP-PjS"/>
+                            <constraint firstItem="e7k-Bz-pM3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="O0U-gb-7po" secondAttribute="trailing" constant="8" symbolic="YES" id="KvL-Dh-6GN"/>
+                            <constraint firstItem="O0U-gb-7po" firstAttribute="leading" secondItem="3pb-zj-pcz" secondAttribute="leading" constant="20" symbolic="YES" id="Nfl-YW-2uS"/>
+                            <constraint firstItem="Bqw-ze-mbN" firstAttribute="leading" secondItem="Zzs-hQ-MeN" secondAttribute="leading" id="O9K-AJ-CAp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="e7k-Bz-pM3" secondAttribute="trailing" constant="13" id="SRi-u8-QNy"/>
+                            <constraint firstItem="1kT-pA-5OI" firstAttribute="leading" secondItem="3pb-zj-pcz" secondAttribute="leading" id="b4E-xD-9tx"/>
+                            <constraint firstItem="MEF-Hs-I86" firstAttribute="leading" secondItem="3pb-zj-pcz" secondAttribute="leadingMargin" constant="8" id="dHw-FM-yiF"/>
+                            <constraint firstItem="xOm-Xs-OXK" firstAttribute="top" secondItem="e7k-Bz-pM3" secondAttribute="bottom" constant="8" symbolic="YES" id="gBQ-HM-mra"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Bqw-ze-mbN" secondAttribute="trailing" constant="9" id="gpC-Ym-zgN"/>
+                            <constraint firstAttribute="trailing" secondItem="BhR-63-dMy" secondAttribute="trailing" constant="20" symbolic="YES" id="n9x-Ur-n06"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zzs-hQ-MeN" secondAttribute="trailing" constant="24" id="o2z-jx-NrE"/>
+                            <constraint firstItem="Bqw-ze-mbN" firstAttribute="top" secondItem="MEF-Hs-I86" secondAttribute="bottom" constant="8" symbolic="YES" id="r0D-ic-sRf"/>
+                            <constraint firstItem="BhR-63-dMy" firstAttribute="leading" secondItem="3pb-zj-pcz" secondAttribute="leading" constant="20" symbolic="YES" id="s9w-AX-Bu5"/>
+                            <constraint firstItem="Zzs-hQ-MeN" firstAttribute="centerY" secondItem="MEF-Hs-I86" secondAttribute="centerY" id="tSy-9T-xKl"/>
+                            <constraint firstItem="e7k-Bz-pM3" firstAttribute="top" secondItem="O0U-gb-7po" secondAttribute="top" id="wKE-MK-IlB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="94E-OH-KvJ"/>
+                    <connections>
+                        <outlet property="harmonicsFileLabel" destination="Bqw-ze-mbN" id="erc-Dw-L3K"/>
+                        <outlet property="tableView" destination="1kT-pA-5OI" id="ri4-PW-wUK"/>
+                        <outlet property="useResourceFilesSwitch" destination="MEF-Hs-I86" id="VwP-zo-hiH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fv6-cV-ZwP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1140" y="-813"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="ELO-VI-bN1"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="FavoriteStarOpen" width="32" height="32"/>
+        <image name="folder" catalog="system" width="128" height="97"/>
         <image name="location-arrow" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="CeY-oE-5Yt"/>
-    </inferredMetricsTieBreakers>
 </document>

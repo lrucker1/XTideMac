@@ -102,6 +102,8 @@
 		946DAF771D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */; };
 		946DAF821D3C150700B16FB2 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF801D3C150700B16FB2 /* EventKit.framework */; };
 		946DAF831D3C150700B16FB2 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DAF811D3C150700B16FB2 /* EventKitUI.framework */; };
+		946DF8822893432300FE71F9 /* XTUIHarmonicsFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946DF8812893432300FE71F9 /* XTUIHarmonicsFileViewController.m */; };
+		946DF8842893477500FE71F9 /* FileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 946DF8832893477400FE71F9 /* FileProvider.framework */; };
 		948353BC1CBC42FB0026F08A /* libxtide in Resources */ = {isa = PBXBuildFile; fileRef = 948353BB1CBC42FB0026F08A /* libxtide */; };
 		948B181A1D4165C0002378B7 /* Amplitude.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18151D4165C0002378B7 /* Amplitude.cc */; };
 		948B181B1D4165C0002378B7 /* Angle.cc in Sources */ = {isa = PBXBuildFile; fileRef = 948B18171D4165C0002378B7 /* Angle.cc */; };
@@ -548,6 +550,9 @@
 		946DAF761D3B5F0500B16FB2 /* NSDate+NSDate_XTWAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+NSDate_XTWAdditions.m"; path = "XTideWatch Extension/NSDate+NSDate_XTWAdditions.m"; sourceTree = SOURCE_ROOT; };
 		946DAF801D3C150700B16FB2 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		946DAF811D3C150700B16FB2 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
+		946DF8802893432300FE71F9 /* XTUIHarmonicsFileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XTUIHarmonicsFileViewController.h; sourceTree = "<group>"; };
+		946DF8812893432300FE71F9 /* XTUIHarmonicsFileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XTUIHarmonicsFileViewController.m; sourceTree = "<group>"; };
+		946DF8832893477400FE71F9 /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.5.sdk/System/Library/Frameworks/FileProvider.framework; sourceTree = DEVELOPER_DIR; };
 		948353BB1CBC42FB0026F08A /* libxtide */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libxtide; path = "/Users/lrucker/Microcode/XTideCocoa_2.15/libpng-1.6.21/../xtide-2.15.1/libxtide"; sourceTree = "<absolute>"; };
 		948355031CBC44660026F08A /* png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = png.h; path = "../libpng-1.6.21/png.h"; sourceTree = "<group>"; };
 		948355051CBC448F0026F08A /* tcd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tcd.h; path = "../libtcd-2.2.7/tcd.h"; sourceTree = "<group>"; };
@@ -713,6 +718,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				946DF8842893477500FE71F9 /* FileProvider.framework in Frameworks */,
 				94CE162B1D2882250088720D /* WatchConnectivity.framework in Frameworks */,
 				946DAF821D3C150700B16FB2 /* EventKit.framework in Frameworks */,
 				94D19FFE256F606900514626 /* WebKit.framework in Frameworks */,
@@ -951,6 +957,7 @@
 		945282A31D40238500BA9DC0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				946DF8832893477400FE71F9 /* FileProvider.framework */,
 				94D19FFD256F606900514626 /* WebKit.framework */,
 				94C1F7101DC32564005CCC50 /* MapKit.framework */,
 				943562E81D62951000D73E22 /* CoreServices.framework */,
@@ -991,6 +998,8 @@
 				9445017E1D31A7DE00203863 /* XTUIStationInfoViewController.m */,
 				9445017A1D318FE600203863 /* XTUITideTabBarController.h */,
 				9445017B1D318FE600203863 /* XTUITideTabBarController.m */,
+				946DF8802893432300FE71F9 /* XTUIHarmonicsFileViewController.h */,
+				946DF8812893432300FE71F9 /* XTUIHarmonicsFileViewController.m */,
 				94CE15E51D24DFBD0088720D /* XTUIGraphView.h */,
 				94CE15E61D24DFBD0088720D /* XTUIGraphView.m */,
 				944501781D31874C00203863 /* XTUIGraphViewController.xib */,
@@ -1850,6 +1859,7 @@
 				94FDF9792890883500639AE9 /* XTUIDatePickerViewController.m in Sources */,
 				945828E31D248BF300972E1C /* AppDelegate.mm in Sources */,
 				94CE15F41D26E6740088720D /* XTUIStationTableViewController.mm in Sources */,
+				946DF8822893432300FE71F9 /* XTUIHarmonicsFileViewController.m in Sources */,
 				9445017C1D318FE600203863 /* XTUITideTabBarController.m in Sources */,
 				94FD657E1D51A48F006C44BA /* XTTideEvent+EventKit.mm in Sources */,
 				94CE15F71D272F2E0088720D /* XTUIFavoritesTableViewController.m in Sources */,
@@ -2312,6 +2322,7 @@
 				CODE_SIGN_ENTITLEMENTS = "XTide-ios/XTide-ios.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2322,6 +2333,7 @@
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2337,6 +2349,7 @@
 				CODE_SIGN_ENTITLEMENTS = "XTide-ios/XTide-ios.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2347,6 +2360,7 @@
 				INFOPLIST_FILE = "XTide-ios/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2625,12 +2639,14 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -2647,12 +2663,14 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "XTideWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp.watchkitextension";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE = "";
@@ -2670,9 +2688,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				IBSC_MODULE = XTideWatch_Extension;
 				INFOPLIST_FILE = XTideWatch/Info.plist;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2689,9 +2709,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 92RP9V4XB5;
 				IBSC_MODULE = XTideWatch_Extension;
 				INFOPLIST_FILE = XTideWatch/Info.plist;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2709,9 +2731,11 @@
 				CODE_SIGN_ENTITLEMENTS = TideToday/TideToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				INFOPLIST_FILE = TideToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2726,9 +2750,11 @@
 				CODE_SIGN_ENTITLEMENTS = TideToday/TideToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 6;
 				INFOPLIST_FILE = TideToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lrucker.XTide-ios.TideToday";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

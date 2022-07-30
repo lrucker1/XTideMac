@@ -18,7 +18,7 @@
 #import "SVGGraph.hh"
 #endif
 
-#define IOS_ICONS 0
+#define IOS_ICONS 1
 
 @implementation XTStationRef (MacOSAdditions)
 
@@ -62,6 +62,9 @@
 //      "San Francisco, San Francisco Bay, California"
 // 38mm: (0.0, 0.0, 136.0, 170.0)
 // 42mm: (0.0, 0.0, 156.0, 195.0)
+// 40mm: 324x394 (162x197)
+// 44mm: 368x448 (184x224)
+// 45mm: 396x484
 //
 // XXX: This is the hackiest code I've written in a long time.
 // But it's just a one-shot image generator, not user-facing, so it's good enough.
@@ -90,7 +93,23 @@
                                      rect:CGRectMake(0, 0, 156 * scale, 195 * scale)
                                      date:date];
     }
- 
+
+    fileLoc = [@"~/watchBackground40@2x.png" stringByExpandingTildeInPath];
+    if (fileLoc) {
+        [self createWatchPlaceholderImage:fileLoc
+                                     rect:CGRectMake(0, 0, 324, 394)
+                                     date:date];
+    }
+
+
+    fileLoc = [@"~/watchBackground44@2x.png" stringByExpandingTildeInPath];
+    if (fileLoc) {
+        [self createWatchPlaceholderImage:fileLoc
+                                     rect:CGRectMake(0, 0, 368, 448)
+                                     date:date];
+    }
+
+
     fileLoc = [@"~/icon512@2x.png" stringByExpandingTildeInPath];
     if (fileLoc) {
         [self createWatchPlaceholderImage:fileLoc

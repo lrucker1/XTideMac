@@ -11,6 +11,8 @@
 
 extern NSString * const XTStationIndexStationsReloadedNotification;
 extern NSString * const XTStationIndexFavoritesChangedNotification;
+extern NSString * const XStationIndexWillReloadNotification;
+extern NSString * const XStationIndexDidLoadNotification;
 
 @class XTStation;
 @class XTStationRef;
@@ -25,6 +27,7 @@ extern NSString * const XTStationIndexFavoritesChangedNotification;
 + (void)releaseSharedStationIndex;
 
 - (void)loadHarmonicsFiles;
+- (void)reloadHarmonicsFiles;
 - (XTStationRef *)stationRefByName: (NSString *)name;
 - (NSString *)harmonicsFileIDs;
 - (NSString *)versionFromHarmonicsFile:(NSString *)filePath;

@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "ReturnToNow@2x-1.png",
       "idiom" : "watch",
       "scale" : "2x"
     },
     {
-      "filename" : "ReturnToNow@2x.png",
       "idiom" : "watch",
       "scale" : "2x",
       "screen-width" : "<=145"

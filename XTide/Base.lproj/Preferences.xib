@@ -37,12 +37,12 @@
             <rect key="contentRect" x="253" y="470" width="573" height="301"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1055"/>
             <value key="minSize" type="size" width="213" height="107"/>
-            <view key="contentView" misplaced="YES" id="6">
-                <rect key="frame" x="0.0" y="0.0" width="573" height="301"/>
+            <view key="contentView" id="6">
+                <rect key="frame" x="0.0" y="0.0" width="558" height="301"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <tabView horizontalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="102">
-                        <rect key="frame" x="-7" y="-10" width="587" height="305"/>
+                        <rect key="frame" x="-7" y="-10" width="572" height="305"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="289" id="BPp-Uf-g70"/>
                         </constraints>

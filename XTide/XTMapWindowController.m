@@ -164,7 +164,7 @@ static XTMapWindowController *selfContext;
     [self updateColors];
     [self loadStations];
     if (!self.refStations) {
-        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:@"XTideMapsLoadedNotification" object:nil queue:nil usingBlock:^(NSNotification *note) {
+        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XStationIndexDidLoadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [self loadStations];
         }];
     }

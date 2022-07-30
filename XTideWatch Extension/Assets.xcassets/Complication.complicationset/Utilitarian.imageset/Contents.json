@@ -1,20 +1,25 @@
 {
   "images" : [
     {
-      "idiom" : "watch",
       "filename" : "hightide38UtilNC@2x.png",
-      "screen-width" : "<=145",
-      "scale" : "2x"
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : "<=145"
+    },
+    {
+      "filename" : "hightide42UtilNC@2x.png",
+      "idiom" : "watch",
+      "scale" : "2x",
+      "screen-width" : ">145"
     },
     {
       "idiom" : "watch",
-      "filename" : "hightide42UtilNC@2x.png",
-      "screen-width" : ">145",
-      "scale" : "2x"
+      "scale" : "2x",
+      "screen-width" : ">183"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

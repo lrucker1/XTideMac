@@ -29,10 +29,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    // Uses the AppDelegate stationIndexes, so it does not need to listen for reloads.
     [self loadStations];
     if (!self.stationRefArray) {
-        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XTideMapsLoadedNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
+        self.mapsLoadObserver = [[NSNotificationCenter defaultCenter] addObserverForName:XStationIndexDidLoadNotification object:nil queue:nil usingBlock:^(NSNotification *note) {
             [self loadStations];
         }];
     }

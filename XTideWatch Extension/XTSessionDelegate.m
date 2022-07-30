@@ -68,7 +68,8 @@ NSString * const XTSessionUserInfoNotification = @"XTSessionUserInfoNotification
                             userInfo:applicationContext];
 }
 
-
+// Warning Always test Watch Connectivity data transfers on paired devices
+// The system doesn’t call the session:didReceiveUserInfo: method in Simulator.
 - (void)session:(WCSession *)session didReceiveUserInfo:(NSDictionary<NSString *,id> *)userInfo
 {
     [[NSNotificationCenter defaultCenter]
