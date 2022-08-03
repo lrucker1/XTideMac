@@ -128,29 +128,33 @@ static XTMapWindowController *selfContext;
     if (!stationRefArray) {
         return;
     }
-    NSMutableArray *refs = [NSMutableArray array];
-    NSMutableArray *subs = [NSMutableArray array];
-    NSMutableArray *other = [NSMutableArray array];
-    for (XTStationRef *station in stationRefArray) {
-        if (station.isAnnotation) {
-            if (station.isReferenceStation) {
-                [refs addObject:station];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *refs = [NSMutableArray array];
+        NSMutableArray *subs = [NSMutableArray array];
+        NSMutableArray *other = [NSMutableArray array];
+        for (XTStationRef *station in stationRefArray) {
+            if (station.isAnnotation) {
+                if (station.isReferenceStation) {
+                    [refs addObject:station];
+                } else {
+                    [subs addObject:station];
+                }
             } else {
-                [subs addObject:station];
+                [other addObject:station];
             }
-        } else {
-            [other addObject:station];
         }
-    }
-    self.refStations = refs;
-    self.subStations = subs;
-    self.otherStations = other;
-    [self.mapView addAnnotations:refs];
-    [self updateSubStations];
-    if (self.mapsLoadObserver) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self.mapsLoadObserver];
-        self.mapsLoadObserver = nil;
-    }
+        self.refStations = refs;
+        self.subStations = subs;
+        self.otherStations = other;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.mapView addAnnotations:refs];
+            [self updateSubStations];
+            if (self.mapsLoadObserver) {
+                [[NSNotificationCenter defaultCenter] removeObserver:self.mapsLoadObserver];
+                self.mapsLoadObserver = nil;
+            }
+        });
+    });
 }
 
 - (void)windowDidLoad
@@ -230,7 +234,6 @@ static XTMapWindowController *selfContext;
     [searchCell setSearchMenuTemplate:searchMenu];
     [searchCell setRecentsAutosaveName:@"Map"];
 }
-
 
 - (void)windowWillClose:(NSNotification*)note
 {

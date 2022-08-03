@@ -9,6 +9,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="XTMapWindowController">
             <connections>
+                <outlet property="mapView" destination="hGL-xZ-hWR" id="Ak8-jB-Ix3"/>
                 <outlet property="otherStationsPopover" destination="0lE-d7-KxX" id="ath-8Z-Iaq"/>
                 <outlet property="searchField" destination="ITR-Vb-S8C" id="tyk-16-VQr"/>
                 <outlet property="stationInfoViewController" destination="NNf-AP-Ubv" id="fwi-WL-U5F"/>
@@ -204,7 +205,7 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <prototypeCellViews>
                                             <tableCellView id="UeD-Tl-lP9">
-                                                <rect key="frame" x="147.5" y="1" width="339" height="16"/>
+                                                <rect key="frame" x="147" y="1" width="339" height="16"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" allowsExpansionToolTips="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dnq-Zs-oPU">

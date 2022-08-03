@@ -125,13 +125,13 @@ static NSString * const XTWindow_restorationName = @"name";
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Once only, show the disclaimer window at startup...
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:XTide_showdisclaimer]) {
-        [self showDisclaimer:nil];
-    }
     // Only if no windows were restored
     if ([[NSApp windows] count] == 0) {
         [self showStationMap:nil];
+    }
+    // Once only, show the disclaimer window at startup...
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:XTide_showdisclaimer]) {
+        [self showDisclaimer:nil];
     }
 }
 
