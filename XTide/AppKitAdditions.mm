@@ -40,7 +40,7 @@
 
 @implementation XTStation (MacOSAdditions)
 
-#if DEBUG_GENERATE_WATCH_IMAGE
+#if DEBUG
 
 #if SVG_EXPERIMENT
 - (NSData *)SVGClockImageWithWidth:(CGFloat)width

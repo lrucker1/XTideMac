@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17506" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="20037" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="20006"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -12,15 +12,10 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <group width="1" height="1" alignment="left" id="K5x-kA-VLs">
-                            <items>
-                                <label alignment="center" text="Waiting for iPhone…" textAlignment="center" numberOfLines="3" id="JE5-s4-4ZM"/>
-                            </items>
-                        </group>
+                        <group width="1" height="1" alignment="left" id="K5x-kA-VLs"/>
                     </items>
                     <connections>
                         <outlet property="group" destination="K5x-kA-VLs" id="4qh-h9-4g9"/>
-                        <outlet property="noStationLabel" destination="JE5-s4-4ZM" id="9J7-dS-EcB"/>
                         <segue destination="zqN-mK-pxc" kind="relationship" relationship="nextPage" id="esY-hJ-BcT"/>
                     </connections>
                 </controller>
@@ -64,11 +59,17 @@
                                 </tableRow>
                             </items>
                         </table>
+                        <button width="1" alignment="left" hidden="YES" title="Debug!" id="uS9-eQ-QIV">
+                            <connections>
+                                <action selector="forceUpdate" destination="zqN-mK-pxc" id="Xec-uX-YDD"/>
+                            </connections>
+                        </button>
                         <label width="1" alignment="left" verticalAlignment="bottom" text="Waiting for iPhone…" numberOfLines="2" id="Deh-LK-Nis">
                             <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                         </label>
                     </items>
                     <connections>
+                        <outlet property="debugButton" destination="uS9-eQ-QIV" id="0Mg-Ga-q8N"/>
                         <outlet property="eventTable" destination="gV9-b4-bzO" id="gF6-uL-lKA"/>
                         <outlet property="stationLabel" destination="Deh-LK-Nis" id="Aoe-8a-ldL"/>
                     </connections>

@@ -24,8 +24,10 @@ class Dstr;
 namespace libxtide {
 
 class Settings;
+#if USE_HARMONICS
 class StationIndex;
 class StationRef;
+#endif
 class Interval;
 
 
@@ -120,11 +122,13 @@ namespace Global {
 
   // Functions.
 
+#if USE_HARMONICS
   // Init harmonics file mutex. Only one harmonics file instance can exist at a time, even for the same file.
   // Wrappers used so they can be stubbed out if pthreads aren't supported. 
   void mutex_init_harmonics();
   void mutex_lock_harmonics();
   void mutex_unlock_harmonics();
+#endif
 
   // Initialize codeset from locale.  If TERM is vt100 or vt102, set
   // degreeSign accordingly.
@@ -149,8 +153,10 @@ namespace Global {
   // Read and retain xtide.conf on first need.
   const Dstr &getXtideConf (unsigned lineNo);
 
+#if USE_HARMONICS
   // Root station index is built on first access.
   StationIndex &stationIndex();
+#endif
 
   // Don't know where else to put this:  already three different classes
   // need this sanity check, not counting Settings.

@@ -8,8 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "XTStationInt.h"
+#if USE_HARMONICS
 #import "XTStationRefInt.h"
 #import "XTCalendar.h"
+#else
+#import "StationRef.hh"
+#endif
+#import "XTGraph.h"
 #import "XTSettings.h"
 #import "XTTideEvent.h"
 #import "XTTideEventsOrganizer.h"
@@ -17,10 +22,72 @@
 #import "PredictionValue.hh"
 #import "Graph.hh"
 #import "SVGGraph.hh"
+#import "SubordinateStation.hh"
+#import "Coordinates.hh"
+#import "ConstituentSet.hh"
+#import "Offsets.hh"
+#import "CurrentBearing.hh"
 
 static NSArray *unitsPrefMap = nil;
 static NSTimeInterval DAY = 60 * 60 * 24;
 
+namespace libxtide {
+
+#if USE_HARMONICS == 0
+const Dstr gFilename("");
+
+float* get_float_array(NSArray *eqArray) {
+    NSInteger count = [eqArray count];
+    float *eqOut = (float *) calloc (count, sizeof (float));
+    for (NSInteger i = 0; i < count; i++) {
+        eqOut[i] = [eqArray[i] floatValue];
+    }
+    return eqOut;
+}
+
+// Get constituents from a TIDE_RECORD, adjusting if needed.
+static const libxtide::ConstituentSet getConstituents (NSDictionary *dict) {
+    //  assert (rec.header.record_type == REFERENCE_STATION);
+
+    NSArray *conArray = dict[@"constituents"];
+
+    Units::PredictionUnits amp_units = (Units::PredictionUnits)[dict[@"units"] intValue];
+    SafeVector<libxtide::Constituent> constituents;
+
+    // Null constituents should not be in the dictionary.
+    int startYear = [dict[@"startYear"] intValue];
+    int numberOfYears = [dict[@"numberOfYears"] intValue];
+    int datum_offset = [dict[@"datumOffset"] intValue];
+    for (NSDictionary *con in conArray) {
+        float *equilibriums = get_float_array(con[@"equilibriums"]);
+        float *nodeFactors = get_float_array(con[@"nodeFactors"]);
+        constituents.push_back (
+                                Constituent ([con[@"speed"] doubleValue],
+                                             startYear,
+                                             numberOfYears,
+                                             equilibriums,
+                                             nodeFactors,
+                                             Amplitude (amp_units, [con[@"amplitude"] doubleValue]),
+                                             [con[@"phase"] floatValue]));
+        free(equilibriums);
+        free(nodeFactors);
+
+    }
+//    assert (!constituents.empty());
+
+    PredictionValue datum (Units::flatten(amp_units), datum_offset);
+
+    // We got the Constituents from a ConstituentSet, the adjustments have already happened. TODO: no-op that code?
+    ConstituentSet cs (constituents, datum, SimpleOffsets());
+
+    Dstr u (Global::settings["u"].s);
+    if (u != "x")
+        cs.setUnits (Units::parse (u));
+
+    return cs;
+}
+#endif
+}
 
 @implementation XTStation
 
@@ -32,6 +99,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 	return unitsPrefMap;
 }
 
+#if USE_HARMONICS
 - (id)initUsingStationRef: (libxtide::StationRef *)aStationRef
 {
     if ((self = [super init])) {
@@ -43,11 +111,103 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     }
     return self;
 }
+#else
+- (instancetype)initUsingDictionary:(NSDictionary *)dict
+{
+    if ((self = [super init])) {
+/*
+           const Dstr &name_,
+           const Coordinates &coordinates,
+           const Dstr &timezone,
+           const ConstituentSet &constituents,
+           const Dstr &note_,
+           CurrentBearing minCurrentBearing_,
+           CurrentBearing maxCurrentBearing_,
+           const MetaFieldVector &metadata);
+
+ */
+        NSString *name = dict[@"name"];
+        NSArray *conArray = dict[@"constituents"];
+        if ([conArray count] == 0 || name == nil) {
+            return nil;
+        }
+
+        NSNumber *latObj = dict[@"lat"];
+        NSNumber *lngObj = dict[@"lng"];
+        libxtide::Coordinates coordinates = libxtide::Coordinates();
+        if (latObj != nil && lngObj != nil) {
+            double lat = [latObj doubleValue];
+            double lng = [lngObj doubleValue];
+            coordinates = libxtide::Coordinates(lat, lng);
+        }
+        NSString *timezone = dict[@"timezone"];
+
+        libxtide::CurrentBearing minCurrentBearing, maxCurrentBearing;
+        libxtide::MetaFieldVector metadata;
+
+        mStationRef = new libxtide::StationRef(libxtide::gFilename, 0, [name asDstr], coordinates, [timezone asDstr], [dict[@"isRef"] boolValue], [dict[@"isCurrent"] boolValue]);
+        NSDictionary *hoDict = dict[@"hairyOffsets"];
+        if (hoDict == nil) {
+            mStation = new libxtide::Station([name asDstr],
+                                   *mStationRef,
+                                   libxtide::getConstituents(dict),
+                                   Dstr(),
+                                   minCurrentBearing,
+                                   maxCurrentBearing,
+                                   metadata
+            );
+        } else {
+            int maxTimeAdd = [hoDict[@"maxTimeAdd"] intValue];
+            int minTimeAdd = [hoDict[@"minTimeAdd"] intValue];
+            double maxLevelMultiply = [hoDict[@"maxLevelMultiply"] doubleValue];
+            double minLevelMultiply = [hoDict[@"minLevelMultiply"] doubleValue];
+            NSDictionary *maxLevel = hoDict[@"maxLevelAdd"];
+            int maxLU = [maxLevel[@"units"] intValue];
+            double maxLevelAdd = [maxLevel[@"value"] doubleValue];
+
+            NSDictionary *minLevel = hoDict[@"minLevelAdd"];
+            int minLU = [minLevel[@"units"] intValue];
+            double minLevelAdd = [minLevel[@"value"] doubleValue];
+
+            NSNumber *floodObj = hoDict[@"floodBegins"];
+            NSNumber *ebbObj = hoDict[@"ebbBegins"];
+
+            libxtide::HairyOffsets ho (
+                    libxtide::SimpleOffsets (libxtide::Interval(maxTimeAdd),
+                                             libxtide::PredictionValue((libxtide::Units::PredictionUnits)maxLU, maxLevelAdd),
+                                             maxLevelMultiply),
+                    libxtide::SimpleOffsets (libxtide::Interval(minTimeAdd),
+                                             libxtide::PredictionValue((libxtide::Units::PredictionUnits)minLU, minLevelAdd),
+                                             minLevelMultiply),
+                    floodObj == nil ? libxtide::NullableInterval() : libxtide::NullableInterval(libxtide::Interval([floodObj intValue])),
+                    ebbObj == nil ? libxtide::NullableInterval() : libxtide::NullableInterval(libxtide::Interval([ebbObj intValue])));
+            mStation = new libxtide::SubordinateStation([name asDstr],
+                                   *mStationRef,
+                                   libxtide::getConstituents(dict),
+                                   Dstr(),
+                                   minCurrentBearing,
+                                   maxCurrentBearing,
+                                   metadata,
+                                   ho
+            );
+        }
+
+        if (!mStation) {
+            return nil;
+        }
+        [self updateUnits];
+    }
+    return self;
+}
+#endif
 
 - (void)dealloc
 {
    // Created and owned by self.
    delete mStation;
+#if USE_HARMONICS == 0
+    delete mStationRef;
+#endif
 }
 
 - (NSString *)name
@@ -55,11 +215,13 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return DstrToNSString(mStation->name);
 }
 
+#if USE_HARMONICS
 - (XTStationRef *)stationRef
 {
     libxtide::StationRef &ref = (libxtide::StationRef &)mStation->getStationRef();
     return [[XTStationRef alloc] initWithStationRef:&ref];
 }
+#endif
 
 - (void)updateUnits
 {
@@ -188,6 +350,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
  */
 - (NSArray *)generateWatchEventsStart:(NSDate *)startTime
                                   end:(NSDate *)endTime
+                          includeRing:(BOOL)includeRing
 {
     XTTideEventsOrganizer *organizer = [self populateOrganizerForWatchEventsStart:startTime end:endTime];
     libxtide::Timestamp currentTime = libxtide::Timestamp((time_t)[startTime timeIntervalSince1970]);
@@ -243,29 +406,16 @@ static NSTimeInterval DAY = 60 * 60 * 24;
         NSDictionary *nextShort = [next eventShortDictionary];
         libxtide::Interval timeDelta = (nextMaxOrMin.eventTime - previousMaxOrMin.eventTime) / hours;
         currentTime = previousMaxOrMin.eventTime;
-         // Add extra ring events on the half-hour.
-        libxtide::Timestamp ringTime = currentTime + (timeDelta/2);
-        libxtide::PredictionValue prediction = mStation->predictTideLevel(ringTime);
-        prediction.print(levelPrint);
-        NSString *level = DstrToNSString(levelPrint);
-        prediction.printnp(levelPrint);
-        NSString *levelShort = DstrToNSString(levelPrint);
-        NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(ringTime),
-                                    @"angle"    : @(angle + (arcDelta/2)),
-                                    @"level"    : level,
-                                    @"levelShort" : levelShort,
-                                    @"ringEvent" : @(YES)};
-        [array addObject:ringEvent];
         NSInteger i = 0;
         for (i = 0; i < hours-1; i++) {
             angle += arcDelta;
             currentTime += timeDelta;
-            prediction = mStation->predictTideLevel(currentTime);
+            libxtide::PredictionValue prediction = mStation->predictTideLevel(currentTime);
             prediction.print(levelPrint);
-            level = DstrToNSString(levelPrint);
+            NSString *level = DstrToNSString(levelPrint);
             prediction.printnp(levelPrint);
-            levelShort = DstrToNSString(levelPrint);
-           
+            NSString *levelShort = DstrToNSString(levelPrint);
+
             NSDictionary *event = @{@"date"     : TimestampToNSDate(currentTime),
                                     @"angle"    : @(angle),
                                     @"level"    : level,
@@ -274,26 +424,31 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                     @"isRising" : @(isRising),
                                     @"next"     : nextShort};
             [array addObject:event];
-            // Add extra ring events on the half-hour.
-            ringTime = currentTime + (timeDelta/2);
-            prediction = mStation->predictTideLevel(ringTime);
-            prediction.print(levelPrint);
-            level = DstrToNSString(levelPrint);
-            prediction.printnp(levelPrint);
-            levelShort = DstrToNSString(levelPrint);
-            NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(ringTime),
-                                        @"angle"    : @(angle + (arcDelta/2)),
-                                        @"level"    : level,
-                                        @"levelShort" : levelShort,
-                                        @"ringEvent" : @(YES)};
-            [array addObject:ringEvent];
+            // Add extra ring events every 5 minutes.
+            if (includeRing) {
+                libxtide::Interval ringOffset = 0;
+                libxtide::Interval ringDelta = 5 * 60;
+                for (ringOffset = 0; ringOffset < timeDelta; ringOffset = ringOffset + ringDelta) {
+                    libxtide::Timestamp ringTime = currentTime + ringOffset;
+                    prediction = mStation->predictTideLevel(ringTime);
+                    prediction.print(levelPrint);
+                    level = DstrToNSString(levelPrint);
+                    prediction.printnp(levelPrint);
+                    levelShort = DstrToNSString(levelPrint);
+                    NSDictionary *ringEvent = @{@"date"     : TimestampToNSDate(ringTime),
+                                                @"angle"    : @(angle + (arcDelta/2)),
+                                                @"level"    : level,
+                                                @"levelShort" : levelShort,
+                                                @"ringEvent" : @(YES)};
+                    [array addObject:ringEvent];
+                }
+            }
         }
         prev = next;
         next = [enumerator nextObject];
     }
     return array;
 }
-
 
 - (void)predictTideEventsStart:(NSDate *)startTime
                            end:(NSDate *)endTime
@@ -407,6 +562,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
     return [DstrToNSString(text_out) dataUsingEncoding:NSUTF8StringEncoding];
 }
 
+#if USE_HARMONICS
 - (NSString *)stationCalendarInfoFromDate:(NSDate *)startTime
                                    toDate:(NSDate *)endTime
 {
@@ -426,6 +582,7 @@ static NSTimeInterval DAY = 60 * 60 * 24;
                                      startTime:startTime
                                        endTime:endTime];
 }
+#endif
 
 - (NSArray *)stationMetadata
 {
@@ -453,4 +610,151 @@ static NSTimeInterval DAY = 60 * 60 * 24;
 	return infoDict;
 }
 
+#if USE_HARMONICS
+- (NSDictionary *)stationValuesDictionary {
+    XTStationRef *ref = self.stationRef;
+    NSMutableDictionary *dict = [ref stationRefValuesDictionary];
+    dict[@"name"] = [self name];
+    libxtide::ConstituentSet consSet = mStation->getConstituentSet();
+    dict[@"units"] = @(consSet.predictUnits());
+    libxtide::SafeVector<libxtide::Constituent> cons = consSet.getConstituents();
+    NSMutableArray *consArray = [NSMutableArray array];
+    unsigned long length = cons.size();
+    int startYear = cons[0].firstValidYear().val();
+    int endYear = cons[0].lastValidYear().val();
+    dict[@"startYear"] = @(startYear);
+    dict[@"numberOfYears"] = @(endYear - startYear);
+    dict[@"datumOffset"] = @(consSet.datum().val());
+
+    for (int i=0;i<length;++i) {
+        NSMutableDictionary *conObj = [NSMutableDictionary dictionary];
+        double speedRPS = cons[i].speed.radiansPerSecond();
+        conObj[@"speed"] = @(speedRPS / M_PI * 648000.0); // Constituent initializer expects degreesPerHour
+        conObj[@"amplitude"] = @(cons[i].amplitude.val());
+        conObj[@"phase"] = @(-cons[i].phase.getDegrees()); // Constituent initializer has negated the degrees; undo that.
+
+        NSMutableArray *anglesArray = [NSMutableArray array];
+        NSMutableArray *nodesArray = [NSMutableArray array];
+        libxtide::SafeVector<libxtide::Angle> angles = cons[i].getEquilibriums();
+        libxtide::SafeVector<double> nods = cons[i].getNodeFactors();
+
+        for (libxtide::SafeVector<libxtide::Angle>::size_type i = 0; i < angles.size(); i++) {
+           [anglesArray addObject:@(angles[i].getDegrees())];
+        }
+
+        for (libxtide::SafeVector<double>::size_type i = 0; i < nods.size(); i++) {
+            [nodesArray addObject:@(nods[i])];
+        }
+        conObj[@"equilibriums"] = anglesArray;
+        conObj[@"nodeFactors"] = nodesArray;
+        [consArray addObject:conObj];
+    }
+    if (mStation->isSubordinateStation()) {
+        libxtide::SubordinateStation *subStation = dynamic_cast<libxtide::SubordinateStation*>(mStation);
+        if (subStation) {
+            libxtide::HairyOffsets ho = subStation->getOffsets();
+            NSMutableDictionary *hoDict = [NSMutableDictionary dictionary];
+            [hoDict addEntriesFromDictionary:@{@"maxTimeAdd":@(ho.maxTimeAdd().s()),
+                                               @"maxLevelMultiply":@(ho.maxLevelMultiply()),
+                                               @"minTimeAdd":@(ho.minTimeAdd().s()),
+                                               @"minLevelMultiply":@(ho.minLevelMultiply())}];
+            // @"maxLevelAdd":@(ho.maxLevelAdd()),
+            // @"minLevelAdd":@(ho.minLevelAdd()),
+            [hoDict setObject:@{@"units":@(ho.maxLevelAdd().Units()), @"value":@(ho.maxLevelAdd().val())} forKey:@"maxLevelAdd"];
+            [hoDict setObject:@{@"units":@(ho.minLevelAdd().Units()), @"value":@(ho.minLevelAdd().val())} forKey:@"minLevelAdd"];
+            libxtide::NullableInterval floodBegins = ho.floodBegins();
+            libxtide::NullableInterval ebbBegins = ho.ebbBegins();
+            if (!floodBegins.isNull()) {
+                [hoDict setObject:@(floodBegins.s()) forKey:@"floodBegins"];
+            }
+            if (!ebbBegins.isNull()) {
+                [hoDict setObject:@(ebbBegins.s()) forKey:@"ebbBegins"];
+            }
+            dict[@"hairyOffsets"] = hoDict;
+        }
+    }
+    dict[@"constituents"] = consArray;
+    return dict;
+}
+#endif
+
+#if TARGET_OS_IPHONE
+- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
+                               ysize:(CGFloat)ysize
+                               scale:(CGFloat)scale
+{
+    CGRect rect = CGRectMake(0, 0, xsize, ysize);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
+
+    XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
+    XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];
+    [graph drawTides:self now:[NSDate date] organizer:organizer];
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return @{@"clockImage" : image,
+             @"clockEvents": [organizer eventsAsDictionary],
+             @"title" : self.name
+    };
+}
+
+// TODO: You know I want to do this to the Mac app icon...
+- (NSDictionary *)iconInfoWithSize:(CGFloat)size
+                             scale:(CGFloat)scale
+                           forDate:(NSDate *)date
+{
+    CGRect rect = CGRectMake(0, 0, size, size);
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
+
+    XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
+    XTGraph *graph = [[XTGraph alloc] initIconModeWithXSize:size ysize:size scale:scale];
+    [graph drawTides:self now:date organizer:organizer];
+
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return @{@"iconImage" : image,
+             @"title" : self.name
+    };
+}
+
+#else
+- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
+                               ysize:(CGFloat)ysize
+                               scale:(CGFloat)scale
+{
+    CGRect offscreenRect = CGRectMake(0, 0, xsize, ysize);
+    NSSize size = offscreenRect.size;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGContextRef contextRef = CGBitmapContextCreate(NULL, size.width, size.height, 8, 0, colorSpace, kCGImageAlphaPremultipliedLast);
+    NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithCGContext:contextRef flipped:YES];
+
+    NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
+    [NSGraphicsContext setCurrentContext:graphicsContext];
+
+    // translate/flip the graphics context (for transforming from CoreGraphics coordinates to default UI coordinates. The Y axis is flipped on regular coordinate systems)
+    CGContextTranslateCTM(contextRef, 0.0, offscreenRect.size.height);
+    CGContextScaleCTM(contextRef, 1.0, -1.0);
+
+    XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
+    XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];
+    [graph drawTides:self now:[NSDate date] organizer:organizer];
+
+    CGColorSpaceRelease(colorSpace);
+    CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
+    [NSGraphicsContext setCurrentContext:currentContext];
+
+    NSImage *image = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
+
+    return @{@"clockImage" : image,
+             @"clockEvents": [organizer eventsAsDictionary] };
+}
+
+- (NSDictionary *)iconInfoWithSize:(CGFloat)size
+                             scale:(CGFloat)scale
+                           forDate:(NSDate *)date
+{
+// TODO: You know I want to do this to the Mac app icon...
+    return nil;
+}
+#endif
 @end

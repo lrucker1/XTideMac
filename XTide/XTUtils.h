@@ -20,3 +20,9 @@ NSDate *
 TimestampToNSDate(const libxtide::Timestamp t);
 
 void DisplayCoreError(const Dstr &errorDstr, libxtide::Error::ErrType fatality);
+
+@interface NSString (DStr)
+
+- (Dstr)asDstr;
+
+@end

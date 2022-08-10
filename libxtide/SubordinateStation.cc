@@ -29,7 +29,7 @@ SubordinateStation::SubordinateStation (const Dstr &name_,
                                         const ConstituentSet &constituents,
                                         const Dstr &note_,
                                         CurrentBearing minCurrentBearing_,
-					CurrentBearing maxCurrentBearing_,
+                                        CurrentBearing maxCurrentBearing_,
                                         const MetaFieldVector &metadata,
                                         const HairyOffsets &offsets):
   Station (name_,

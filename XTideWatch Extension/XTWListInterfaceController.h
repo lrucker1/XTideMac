@@ -13,6 +13,7 @@
 
 @property IBOutlet WKInterfaceLabel *stationLabel;
 @property IBOutlet WKInterfaceTable *eventTable;
+@property IBOutlet WKInterfaceButton *debugButton;
 
 @end
 

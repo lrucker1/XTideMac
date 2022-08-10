@@ -391,7 +391,12 @@ void Graph::drawTides (Station *station,
     Timestamp startTime (nominalStartTime -
                          increment * startPosition(labelWidth));
     Timestamp endTime (startTime + increment * _xSize);
+#if USE_HARMONICS
     Timestamp currentTime ((time_t)time(NULL));
+#else
+    // Tick the icon at the requested time, not "now". Watch complications generate them for the future.
+    Timestamp currentTime = _style == icon ? nominalStartTime : ((time_t)time(NULL));
+#endif
 
     bool showlabels = Global::settings["nl"].c != 'y';
 

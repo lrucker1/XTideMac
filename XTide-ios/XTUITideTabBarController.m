@@ -99,6 +99,7 @@
     [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
+#if USE_HARMONICS
 - (IBAction)toggleFavorite
 {
     self.favoriteButton.selected = !self.favoriteButton.selected;
@@ -110,6 +111,7 @@
         [[XTStationIndex sharedStationIndex] removeFavorite:ref];
     }
 }
+#endif
 
 -(UIModalPresentationStyle)adaptivePresentationStyleForPresentationController:(UIPresentationController *)controller {
     return UIModalPresentationPopover;

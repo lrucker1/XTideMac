@@ -7,16 +7,13 @@
 //
 
 #import "XTWListInterfaceController.h"
-#import "InterfaceController.h"
 #import "XTSessionDelegate.h"
+#import "InterfaceController.h"
 #import "NSDate+NSDate_XTWAdditions.h"
 
-static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 
 @interface XTWListInterfaceController ()
 
-@property (nonatomic) WCSession *watchSession;
-@property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) NSTimer *timer;
 @property (strong) NSDate *fireDate;
 @property BOOL isActive;
@@ -31,10 +28,6 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
 - (void)awakeWithContext:(id)context
 {
     [super awakeWithContext:context];
-
-    self.sessionDelegate = [XTSessionDelegate sharedDelegate];
-    self.watchSession = [WCSession defaultSession];
-
 
     [self setTitle:NSLocalizedString(@"Min/Max", @"Title: Min/Max page")];
     /*
@@ -51,82 +44,69 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
                           @"level":@" ...",
                           @"type":@"lowtide"}];
     [self updateContentsFromInfo:@{@"clockEvents":events}];
-    NSDictionary *info = [self.watchSession receivedApplicationContext];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(didReceiveUserInfo:)
+                                                 name:XTSessionUserInfoNotification
+                                               object:nil];
+#if DEBUG
+    self.debugButton.hidden = NO;
+#endif
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:XTSessionUserInfoNotification
+                                                  object:nil];
+}
+
+#if DEBUG
+- (IBAction)forceUpdate {
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:XTSessionUserInfoNotification
+        object:self];}
+#endif
+
+- (void)didReceiveUserInfo:(NSNotification *)note
+{
+    [[XTSessionDelegate sharedDelegate] requestUpdate];
+    NSDictionary *info = [[XTSessionDelegate sharedDelegate] info];
+
     if (info) {
         [self updateContentsFromInfo:info];
     }
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reachabilityChanged:)
-                                                 name:XTSessionReachabilityDidChangeNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveApplicationContext:)
-                                                 name:XTSessionAppContextNotification
-                                               object:nil];
-
-
-    // TODO: Might want this to apply to complications.
-    [self addMenuItemWithImageNamed:@"ReturnToNow"
-                              title:NSLocalizedString(@"Update Info", @"update the chart and list")
-                             action:@selector(requestUpdate)];
 }
 
-// This timer runs even when the watch is not reachable so the contents will dim when we pass them.
-- (void)startTimer
-{
-    if (self.timer || !self.fireDate) {
-        return;
+- (BOOL)contentsNeedUpdate:(NSDictionary *)info {
+    if (info == nil) {
+        return YES;
     }
-    // Set the repeat for 6 hours. We'll update it when we get new data.
-    self.timer = [[NSTimer alloc] initWithFireDate:self.fireDate
-                                          interval:DEFAULT_TIMEOUT
-                                            target:self
-                                          selector:@selector(requestUpdate)
-                                          userInfo:nil
-                                           repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
-}
+    NSArray *events = [info objectForKey:@"clockEvents"];
 
-- (void)requestUpdate
-{
-    if (!self.watchSession.reachable) {
-        NSDictionary *info = [self.watchSession receivedApplicationContext];
-        if (info) {
-            [self updateContentsFromInfo:info];
+    if ([events count] < 2) {
+        return YES;
+    }
+
+    __block BOOL result = NO;
+    [events enumerateObjectsUsingBlock:^(NSDictionary *event, NSUInteger idx, BOOL *stop) {
+        NSDate *date = [event objectForKey:@"date"];
+        if (date && ([date compare:[NSDate date]] == NSOrderedAscending)) {
+            result = YES;
+            *stop = YES;
         }
-        return;
-    }
-
-    [self.sessionDelegate requestUpdate];
+    }];
+    return result;
 }
 
-- (void)updateTimer
-{
-    if (!self.watchSession.isReachable) {
-        return;
+- (void)willActivate {
+    // This method is called when watch view controller is about to be visible to user
+    NSDictionary *info = [[XTSessionDelegate sharedDelegate] info];
+    if ([self contentsNeedUpdate:info]) {
+        [[XTSessionDelegate sharedDelegate] requestUpdate];
+        info = [[XTSessionDelegate sharedDelegate] info];
     }
-    if (self.timer) {
-        if (![self.timer.fireDate isEqual:self.fireDate]) {
-            self.timer.fireDate = self.fireDate;
-        }
-    } else {
-        [self startTimer];
-    }
-}
-
-- (void)endTimer
-{
-    [self.timer invalidate];
-    self.timer = nil;
-}
-
-- (void)reachabilityChanged:(NSNotification *)note
-{
-    if (self.watchSession.reachable) {
-        [self startTimer];
-    } else {
-        [self endTimer];
+    if (info) {
+        [self updateContentsFromInfo:info];
     }
 }
 
@@ -149,25 +129,11 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     }
     // If it's the same date and station, it's the same data.
     NSInteger numberOfRows = [self.eventTable numberOfRows];
-    if (self.isActive) {
-        NSDate *nextFire = [[[events firstObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
-        // Set a timer to go off after the next minmax event, unless it's in the past.
-        // Then try the last minmax so we can dim it.
-        // Finally give it the default timeout.
-        if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
-            nextFire = [[[events lastObject] objectForKey:@"date"] dateByAddingTimeInterval:60];
-            if ([nextFire compare:[NSDate date]] == NSOrderedAscending) {
-                nextFire = [NSDate dateWithTimeIntervalSinceNow:DEFAULT_TIMEOUT];
-            }
-        }
-        self.fireDate = nextFire;
-        [self updateTimer];
-    }
     if (numberOfRows != 2) {
         // Don't change unnecessarily; it flickers.
         [self.eventTable setNumberOfRows:[events count] withRowType:@"listRow"];
     }
-    
+
     [events enumerateObjectsUsingBlock:^(NSDictionary *event, NSUInteger idx, BOOL *stop) {
         XTWListTableRowController *row = [self.eventTable rowControllerAtIndex:idx];
 
@@ -182,6 +148,7 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
         if (date && ([date compare:[NSDate date]] == NSOrderedAscending)) {
             // Dim everything when the date is in the past.
             // Doc says setTextColor:nil resets; it doesn't. rdar://27389249
+            // Shouldn't happen now that we're doing the computations here.
             color = [UIColor darkGrayColor];
         }
 //        [row.descLabel setTextColor:color];
@@ -194,35 +161,4 @@ static NSTimeInterval DEFAULT_TIMEOUT = 6 * 60 * 60;
     [self.eventTable scrollToRowAtIndex:0];
 }
 
-- (void)didReceiveApplicationContext:(NSNotification *)note
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self updateContentsFromInfo:[note userInfo]];
-    });
-}
-
-- (void)willActivate
-{
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
-    self.isActive = YES;
-    NSDictionary *info = [self.watchSession receivedApplicationContext];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    }
-    [self.sessionDelegate requestUpdate];
-    [self startTimer];
-}
-
-- (void)didDeactivate
-{
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
-    self.isActive = NO;
-    [self endTimer];
-}
-
 @end
-
-
-

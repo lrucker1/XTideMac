@@ -30,7 +30,7 @@ public:
   // except for amplitude.  in_phase is negated on input to produce -k'.
   Constituent (double speed_degreesPerHour,
                int32_t startYear,
-	       uint32_t numberOfYears,
+	           uint32_t numberOfYears,
                const float *args_degrees,
                const float *nodes,
                Amplitude amplitude_,
@@ -47,6 +47,9 @@ public:
 
   const Year firstValidYear() const;
   const Year lastValidYear()  const;
+
+  const SafeVector<Angle> & getEquilibriums() {return args;};
+  const SafeVector<double> & getNodeFactors() {return nods;};
 
 protected:
 

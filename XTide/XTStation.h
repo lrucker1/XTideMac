@@ -9,6 +9,10 @@
 #ifndef XTStation_h
 #define XTStation_h
 
+#ifndef USE_HARMONICS // Because we obviously have not included a .hh file
+#define USE_HARMONICS 1
+#endif
+
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #else
@@ -16,7 +20,9 @@
 #endif
 
 @class XTTideEventsOrganizer;
+#if USE_HARMONICS
 @class XTStationRef;
+#endif
 @class XTTideEvent;
 
 @interface XTStation : NSObject
@@ -29,7 +35,9 @@
 - (NSTimeZone *)timeZone;
 - (NSString *)stationInfoAsHTML;
 - (NSArray *)stationMetadata;
+#if USE_HARMONICS
 - (XTStationRef *)stationRef;
+#endif
 
 - (NSString *)timeStringFromDate:(NSDate *)date;
 - (NSString *)dayStringFromDate:(NSDate *)date;
@@ -52,7 +60,20 @@
 
 // Return the tide events as an IPC compliant dictionary for a watch.
 - (NSArray *)generateWatchEventsStart:(NSDate*)startTime
-                                  end:(NSDate*)endTime;
+                                  end:(NSDate*)endTime
+                          includeRing:(BOOL)includeRing;
+
+- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
+                               ysize:(CGFloat)ysize
+                               scale:(CGFloat)scale;
+
+- (NSDictionary *)iconInfoWithSize:(CGFloat)size
+                             scale:(CGFloat)scale
+                           forDate:(NSDate *)date;
+                             
+#if USE_HARMONICS
+- (NSDictionary *)stationValuesDictionary;
+#endif
 
 @end
 

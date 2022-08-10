@@ -1,15 +1,12 @@
 //
 //  ComplicationController.h
-//  XTideWatch Extension
+//  WatchTide WatchKit Extension
 //
-//  Created by Lee Ann Rucker on 7/2/16.
-//  Copyright © 2016 Lee Ann Rucker. All rights reserved.
+//  Created by Lee Ann Rucker on 8/4/22.
 //
 
 #import <ClockKit/ClockKit.h>
-#import <WatchKit/WatchKit.h>
-@import WatchConnectivity;
 
-@interface ComplicationController : NSObject <CLKComplicationDataSource, WCSessionDelegate, WKExtensionDelegate>
+@interface ComplicationController : NSObject <CLKComplicationDataSource>
 
 @end

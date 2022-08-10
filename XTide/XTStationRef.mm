@@ -145,13 +145,13 @@ dispatch_queue_t stationLoadQueue;
 // For sorting
 - (NSNumber*)latitude
 {
-    return [NSNumber numberWithDouble:mStationRef->coordinates.lat()];
+    return self.isAnnotation ? [NSNumber numberWithDouble:mStationRef->coordinates.lat()] : 0;
 }
 
 // For sorting
 - (NSNumber*)longitude
 {
-    return [NSNumber numberWithDouble:mStationRef->coordinates.lng()];
+    return self.isAnnotation ? [NSNumber numberWithDouble:mStationRef->coordinates.lng()] : 0;
 }
 
 - (NSString *)description
@@ -163,6 +163,19 @@ dispatch_queue_t stationLoadQueue;
             [self title],
             [self type],
             DstrToNSString(text_out)];
+}
+
+- (NSMutableDictionary *)stationRefValuesDictionary {
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+    if (self.isAnnotation) {
+        dict[@"lat"] = @(mStationRef->coordinates.lat());
+        dict[@"lng"] = @(mStationRef->coordinates.lng());
+    }
+    dict[@"timezone"] = DstrToNSString(mStationRef->timezone);
+    dict[@"isCurrent"] = @(mStationRef->isCurrent);
+    dict[@"isRef"] = @(mStationRef->isReferenceStation);
+
+    return dict;
 }
 
 @end

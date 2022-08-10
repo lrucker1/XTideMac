@@ -107,13 +107,10 @@ ColorToRGBString(COLOR_CLASS *color)
     }
 #else
     // This could use try/catch, but then you'll hit this a lot with exception breakpoints on.
-    NSString *spaceName = [color colorSpaceName];
-    if (    [spaceName isEqualToString:NSCalibratedRGBColorSpace]
-         || [spaceName isEqualToString:NSDeviceRGBColorSpace]) {
-       [color getRed:&r green:&g blue:&b alpha:NULL];
-    } else {
+    if ([[color colorSpace] colorSpaceModel] == NSColorSpaceModelGray) {
         return ColorToGrayString(color);
     }
+    [color getRed:&r green:&g blue:&b alpha:NULL];
 #endif
     return [NSString stringWithFormat:(NSString *)fmt1, (int)(r * 255.0), (int)(g * 255.0), (int)(b * 255.0)];
 }

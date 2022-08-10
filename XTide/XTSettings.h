@@ -25,7 +25,6 @@ extern NSString *XTide_harmonicsFiles;
 // XTSettings
 extern NSString *XTide_gaspect;		// ga
 extern NSString *XTide_extralines;	// el
-extern NSString *XTide_flatearth;	// fe
 extern NSString *XTide_toplines;	// tl
 extern NSString *XTide_nofill;		// nf
 extern NSString *XTide_eventmask;	// em

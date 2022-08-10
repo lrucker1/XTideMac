@@ -65,6 +65,8 @@ public:
   // margin."  tideDerivativeMax(0) == maxAmplitude() * 1.1
   const Amplitude tideDerivativeMax (unsigned deriv) const;
 
+  SafeVector<Constituent> & getConstituents() {return _constituents;};
+
 protected:
 
   SafeVector<Constituent> _constituents;

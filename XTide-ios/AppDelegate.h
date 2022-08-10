@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <WatchConnectivity/WatchConnectivity.h>
+#import <CoreLocation/CoreLocation.h>
 
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate, WCSessionDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (readonly, retain) NSArray *stationRefArray;

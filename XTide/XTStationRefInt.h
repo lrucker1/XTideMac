@@ -17,6 +17,7 @@
 @interface XTStationRef ()
 
 - (id)initWithStationRef: (libxtide::StationRef *)aStationRef;
+- (NSMutableDictionary *)stationRefValuesDictionary;
 
 @end
 

@@ -98,9 +98,6 @@ static NSString * const XTWindow_restorationName = @"name";
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [[NSNotificationCenter defaultCenter] postNotificationName:XStationIndexDidLoadNotification object:self];
-#if DEBUG_GENERATE_WATCH_IMAGE
-            [self createWatchImage];
-#endif
         });
     });
 }
@@ -111,15 +108,19 @@ static NSString * const XTWindow_restorationName = @"name";
     [self loadStationIndexes];
 }
 
-#if DEBUG_GENERATE_WATCH_IMAGE
-- (void)createWatchImage
+#if DEBUG
+- (IBAction)generateStuff:(id)sender
 {
     XTStationRef *ref = [[XTStationIndex sharedStationIndex] stationRefByName:@"San Francisco, San Francisco Bay, California"];
     if (!ref) {
         NSLog(@"Couldn't find station");
         return;
     }
-    [[ref loadStation] createWatchPlaceholderImages];
+    XTStation *station = [ref loadStation];
+//    [station createWatchPlaceholderImages];
+    [[station stationValuesDictionary] writeToFile:[@"~/defaultStation.xml" stringByExpandingTildeInPath] atomically:NO];
+    NSLog(@"Saved to %@", [@"~/defaultStation.xml" stringByExpandingTildeInPath]);
+    
 }
 #endif
 
@@ -133,6 +134,14 @@ static NSString * const XTWindow_restorationName = @"name";
     if (![[NSUserDefaults standardUserDefaults] boolForKey:XTide_showdisclaimer]) {
         [self showDisclaimer:nil];
     }
+#if DEBUG
+    NSMenu *debugMenu = [[NSMenu alloc] initWithTitle:@"Debug"];
+    NSMenuItem *debugItem = [[NSMenuItem alloc] initWithTitle:@"Debug" action:nil keyEquivalent:@""];
+    [debugItem setSubmenu:debugMenu];
+    [debugMenu addItemWithTitle:@"Generate Stuff" action:@selector(generateStuff:) keyEquivalent:@""];
+    [[NSApp mainMenu] addItem:debugItem];
+
+#endif
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication

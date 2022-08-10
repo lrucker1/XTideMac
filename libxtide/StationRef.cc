@@ -26,6 +26,7 @@ namespace libxtide {
 
 // Only one harmonics file instance can exist at a time, even for the same file.
 // Multi-threaded apps can cause multiple instances.
+#if USE_HARMONICS
 Station * const StationRef::load() const {
   Global::mutex_lock_harmonics();
   HarmonicsFile *h = new HarmonicsFile(harmonicsFileName);
@@ -34,6 +35,7 @@ Station * const StationRef::load() const {
   Global::mutex_unlock_harmonics();
   return s;
 }
+#endif
 
 
 StationRef::StationRef (const Dstr &harmonicsFileName_,

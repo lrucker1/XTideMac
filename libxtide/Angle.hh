@@ -34,6 +34,8 @@ public:
 
   void operator-= (Angle a);
 
+  double getDegrees() {return radians * 180.0 / M_PI;};
+
 protected:
 
   double radians;

@@ -51,7 +51,7 @@ public:
   // See HarmonicsFile::getStation.
   Station (const Dstr &name_,
            const StationRef &stationRef,
-	   const ConstituentSet &constituents,
+	       const ConstituentSet &constituents,
            const Dstr &note_,
            CurrentBearing minCurrentBearing_,
            CurrentBearing maxCurrentBearing_,
@@ -198,6 +198,9 @@ public:
 	const MetaFieldVector metadata();
     const StationRef & getStationRef() {return _stationRef;};
 
+    ConstituentSet getConstituentSet() {return _constituents;};
+    virtual const bool isSubordinateStation();
+
 protected:
 
   const StationRef &    _stationRef;
@@ -210,8 +213,6 @@ protected:
   // These will remain zero for reference stations.
   Interval minimumTimeOffset; // Most negative, or least positive.
   Interval maximumTimeOffset; // Most positive, or least negative.
-
-  virtual const bool isSubordinateStation();
 
   // These two return true if the offset is known OR is not needed
   // (i.e., it's a reference station or the offsets are simple).

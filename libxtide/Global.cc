@@ -121,7 +121,9 @@ FILE *Global::PNGFile = NULL;
 
 static bool _disclaimerDisabled;
 static Dstr disclaimerFileName;
+#if USE_HARMONICS
 static StationIndex *_stationIndex = NULL;
+#endif
 #ifdef HAVE_SYSLOG_H
 static bool daemonMode = false;
 #endif
@@ -159,7 +161,7 @@ static void initDisclaimer() {
   }
 }
 
-
+#if USE_HARMONICS
 void Global::mutex_init_harmonics() {
   pthread_mutex_init(&harmonicsMutex, NULL);
 }
@@ -171,6 +173,7 @@ void Global::mutex_lock_harmonics() {
 void Global::mutex_unlock_harmonics() {
   pthread_mutex_unlock(&harmonicsMutex);
 }
+#endif
 
 void Global::initTerm() {
   if (codeset.isNull()) {
@@ -267,6 +270,7 @@ const Dstr &Global::getXtideConf (unsigned lineNo) {
 }
 
 
+#if USE_HARMONICS
 StationIndex &Global::stationIndex () {
   if (!_stationIndex) {
     Dstr unparsedHfilePath (getenv ("HFILE_PATH"));
@@ -339,7 +343,7 @@ StationIndex &Global::stationIndex () {
   }
   return *_stationIndex;
 }
-
+#endif
 
 void Global::setDaemonMode() {
 #ifdef HAVE_SYSLOG_H

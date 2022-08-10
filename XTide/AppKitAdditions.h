@@ -11,8 +11,6 @@
 #import "XTStationRef.h"
 #import "XTStation.h"
 
-#define DEBUG_GENERATE_WATCH_IMAGE 0
-
 @interface XTStationRef (MacOSAdditions)
 
 - (NSImage *)stationDot;
@@ -22,7 +20,7 @@
 
 @interface XTStation (MacOSAdditions)
 
-#if DEBUG_GENERATE_WATCH_IMAGE
+#if DEBUG
 // Generate icon and watch background images.
 - (void)createWatchPlaceholderImages;
 #endif

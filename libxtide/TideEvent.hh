@@ -21,6 +21,8 @@
 
 namespace libxtide {
 
+class Station;
+
 class TideEvent {
 public:
 

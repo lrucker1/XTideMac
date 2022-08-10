@@ -305,17 +305,17 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e7k-Bz-pM3">
-                                <rect key="frame" x="270" y="620" width="76" height="39"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Add File"/>
+                                <rect key="frame" x="290" y="620" width="56" height="39"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Add File"/>
                                 <connections>
                                     <action selector="openImportDocumentPicker:" destination="E6G-lv-KHd" eventType="touchUpInside" id="P2a-8a-eBV"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0U-gb-7po">
-                                <rect key="frame" x="20" y="620" width="122" height="39"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Apply Changes"/>
+                                <rect key="frame" x="20" y="620" width="104" height="39"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Apply Changes"/>
                                 <connections>
                                     <action selector="applyHarmonics:" destination="E6G-lv-KHd" eventType="touchUpInside" id="9xQ-0b-Ib2"/>
                                 </connections>
@@ -374,7 +374,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ELO-VI-bN1"/>
+        <segue reference="CeY-oE-5Yt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="FavoriteStarOpen" width="32" height="32"/>

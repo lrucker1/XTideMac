@@ -56,3 +56,12 @@ void DisplayCoreError(const Dstr &errorDstr, libxtide::Error::ErrType fatality)
    [alert runModal];
 #endif
 }
+
+
+@implementation NSString (DStr)
+
+- (Dstr)asDstr {
+    return Dstr([self cStringUsingEncoding:NSISOLatin1StringEncoding]);
+}
+
+@end

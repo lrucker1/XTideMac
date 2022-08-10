@@ -11,9 +11,8 @@
 
 @import WatchConnectivity;
 
-@interface InterfaceController : WKInterfaceController <WCSessionDelegate>
+@interface InterfaceController : WKInterfaceController
 
 @property IBOutlet WKInterfaceGroup *group;
-@property IBOutlet WKInterfaceLabel *noStationLabel;
 
 @end

@@ -48,6 +48,9 @@
 #include <stdint.h>
 #endif
 
+#ifndef USE_HARMONICS
+#define USE_HARMONICS 1
+#endif
 
 /*
   "Inevitably, the programmed validity checks of the defensive
@@ -210,7 +213,9 @@ namespace libxtide {
 #include "StationRef.hh"
 #include "Constituent.hh"
 #include "ConstituentSet.hh"
+#if USE_HARMONICS
 #include "StationIndex.hh"
+#endif
 #include "TideEvent.hh"
 #include "TideEventsOrganizer.hh"
 #include "Station.hh"

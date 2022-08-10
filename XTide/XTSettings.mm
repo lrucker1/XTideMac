@@ -20,7 +20,6 @@ static NSUserDefaults *userDefaults;
 
 NSString *XTide_gaspect = @"XTide_gaspect";
 NSString *XTide_extralines = @"XTide_extralines";
-NSString *XTide_flatearth = @"XTide_flatearth";
 NSString *XTide_toplines = @"XTide_toplines";
 NSString *XTide_nofill = @"XTide_nofill";
 NSString *XTide_infer = @"XTide_infer";

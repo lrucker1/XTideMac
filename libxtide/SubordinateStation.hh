@@ -29,7 +29,7 @@ public:
                       const ConstituentSet &constituents,
                       const Dstr &note_,
                       CurrentBearing minCurrentBearing_,
-		      CurrentBearing maxCurrentBearing_,
+                      CurrentBearing maxCurrentBearing_,
                       const MetaFieldVector &metadata,
                       const HairyOffsets &offsets);
 
@@ -48,6 +48,9 @@ public:
                           TideEventsOrganizer &organizer,
                           TideEventsFilter filter = noFilter);
 
+  const bool isSubordinateStation();
+  HairyOffsets getOffsets() {return _offsets;};
+
 protected:
 
   const HairyOffsets _offsets;
@@ -59,7 +62,6 @@ protected:
   PredictionValue uncleftp, uncrightp, subleftp, subrightp;
   Units::PredictionUnits cacheUnits;
 
-  const bool isSubordinateStation();
   const bool haveFloodBegins();
   const bool haveEbbBegins();
 

@@ -85,7 +85,11 @@ Station * const Station::clone() const {
 
 
 Station * const Station::reload() const {
+#if USE_HARMONICS
   Station *s = _stationRef.load();
+#else
+  Station *s = new Station (*this);
+#endif
   s->markLevel = markLevel;
   if (!markLevel.isNull())
     if (markLevel.Units() != s->predictUnits())
@@ -712,7 +716,7 @@ void Station::finishTideEvent (TideEvent &te) {
     te.eventLevel = predictTideLevel (te.eventTime);
 }
 
-
+#if USE_HARMONICS
 // Legal forms are c, h, i, l, or t, but c does nothing.
 // LaTeX has a catch-22 so that this has to be empty if firstpage.
 // Possibly the concept of document header should be factored out
@@ -1070,7 +1074,7 @@ void Station::calendarMode (Dstr &text_out,
     text_out += temp;
   }
 }
-
+#endif // USE_HARMONICS
 
 void Station::rareModes (Dstr &text_out,
                          Timestamp startTime,
@@ -1093,7 +1097,7 @@ void Station::rareModes (Dstr &text_out,
   }
 }
 
-
+#if USE_HARMONICS
 void Station::bannerMode (Dstr &text_out,
                           Timestamp startTime,
                           Timestamp endTime) {
@@ -1107,7 +1111,7 @@ void Station::bannerMode (Dstr &text_out,
   banner->print (temp);
   text_out += temp;
 }
-
+#endif
 
 void Station::graphMode (Dstr &text_out,
                          Timestamp startTime,
@@ -1186,6 +1190,7 @@ void Station::print (Dstr &text_out,
                      Timestamp endTime,
 		     Mode::Mode mode,
                      Format::Format form) {
+#if USE_HARMONICS
   switch (mode) {
   case Mode::about:
     if (form != Format::text && form != Format::HTML)
@@ -1280,6 +1285,7 @@ void Station::print (Dstr &text_out,
       Global::barf (Error::BAD_MODE, details);
     }
   }
+#endif
 }
 
 }

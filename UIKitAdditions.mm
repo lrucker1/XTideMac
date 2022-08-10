@@ -42,28 +42,6 @@
 
 @implementation XTStation (iOSAdditions)
 
-- (NSDictionary *)clockInfoWithXSize:(CGFloat)xsize
-                               ysize:(CGFloat)ysize
-                               scale:(CGFloat)scale
-{
-    CGRect rect = CGRectMake(0, 0, xsize, ysize);
-    UIGraphicsBeginImageContextWithOptions(rect.size, YES, scale);
-    
-    XTTideEventsOrganizer *organizer = [[XTTideEventsOrganizer alloc] init];
-    XTGraph *graph = [[XTGraph alloc] initClockModeWithXSize:xsize ysize:ysize scale:scale];
-    [graph drawTides:self now:[NSDate date] organizer:organizer];
-
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    NSData *data = UIImagePNGRepresentation(image);
-
-    return @{@"clockImage" : data,
-             @"clockEvents": [organizer eventsAsDictionary],
-             @"title" : self.name,
-             @"width" : @(xsize),
-             @"height" : @(ysize) };
-}
-
 - (NSAttributedString *)stationInfo
 {
 	return [[NSAttributedString alloc] initWithData:[[self stationInfoAsHTML] dataUsingEncoding:NSUTF8StringEncoding]

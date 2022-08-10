@@ -99,6 +99,16 @@ static NSTouchBarItemIdentifier NowButtonIdentifier = @"com.lrucker.xtide.nowBut
     self.isObserving = NO;
 }
 
+#if DEBUG
+- (IBAction)generateStuff:(id)sender
+{
+    XTStation *station = [self station];
+    [[station stationValuesDictionary] writeToFile:[@"~/debugStation.xml" stringByExpandingTildeInPath] atomically:NO];
+    NSLog(@"Saved to %@", [@"~/debugStation.xml" stringByExpandingTildeInPath]);
+
+}
+#endif
+
 - (void)windowWillClose:(NSNotification*)note
 {
     // TODO: Find out why this is called a second time at termination.
