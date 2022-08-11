@@ -57,7 +57,7 @@ static const libxtide::ConstituentSet getConstituents (NSDictionary *dict) {
     // Null constituents should not be in the dictionary.
     int startYear = [dict[@"startYear"] intValue];
     int numberOfYears = [dict[@"numberOfYears"] intValue];
-    int datum_offset = [dict[@"datumOffset"] intValue];
+    float datum_offset = [dict[@"datumOffset"] floatValue];
     for (NSDictionary *con in conArray) {
         float *equilibriums = get_float_array(con[@"equilibriums"]);
         float *nodeFactors = get_float_array(con[@"nodeFactors"]);
@@ -77,7 +77,7 @@ static const libxtide::ConstituentSet getConstituents (NSDictionary *dict) {
 
     PredictionValue datum (Units::flatten(amp_units), datum_offset);
 
-    // We got the Constituents from a ConstituentSet, the adjustments have already happened. TODO: no-op that code?
+    // We got the Constituents from a ConstituentSet, the adjustments have already happened.
     ConstituentSet cs (constituents, datum, SimpleOffsets());
 
     Dstr u (Global::settings["u"].s);

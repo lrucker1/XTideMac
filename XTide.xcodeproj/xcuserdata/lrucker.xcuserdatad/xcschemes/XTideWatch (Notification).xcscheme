@@ -89,8 +89,10 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "XTideWatch Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/XTide">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "94CE15FC1D287E690088720D"
@@ -98,7 +100,7 @@
             BlueprintName = "XTideWatch"
             ReferencedContainer = "container:XTide.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -108,8 +110,10 @@
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "8"
       notificationPayloadFile = "XTideWatch Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/XTide">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "94CE15FC1D287E690088720D"
@@ -117,7 +121,16 @@
             BlueprintName = "XTideWatch"
             ReferencedContainer = "container:XTide.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "94CE15FC1D287E690088720D"
+            BuildableName = "XTideWatch.app"
+            BlueprintName = "XTideWatch"
+            ReferencedContainer = "container:XTide.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

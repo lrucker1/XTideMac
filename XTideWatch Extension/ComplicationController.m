@@ -262,6 +262,10 @@ typedef enum XTColorDialMode {
         // Call the handler with the current timeline entry
         CLKComplicationTimelineEntry *entry = [self getCurrentTimelineEntryForComplication:complication];
         if (entry) {
+            // It's the current entry. If it's a future event, we still want it now.
+            if ([entry.date compare:[NSDate now]] == NSOrderedAscending) {
+                entry.date = [NSDate now];
+            }
             handler(entry);
         } else {
             // Icon-style complications use the asset image, but the text one needs text.
