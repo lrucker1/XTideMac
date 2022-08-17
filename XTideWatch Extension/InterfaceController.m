@@ -1,88 +1,47 @@
 //
 //  InterfaceController.m
-//  XTideWatch Extension
+//  WatchTide WatchKit Extension
 //
-//  Created by Lee Ann Rucker on 7/2/16.
-//  Copyright © 2016 Lee Ann Rucker. All rights reserved.
+//  Created by Lee Ann Rucker on 8/4/22.
 //
 
 #import "InterfaceController.h"
 #import "XTSessionDelegate.h"
 #import "NSDate+NSDate_XTWAdditions.h"
 
-@interface InterfaceController()
+@interface InterfaceController ()
 
-@property (nonatomic) WCSession *watchSession;
-@property (nonatomic) XTSessionDelegate *sessionDelegate;
 @property (strong) NSTimer *timer;
-
 @end
 
 
 @implementation InterfaceController
 
-- (void)awakeWithContext:(id)context
-{
+- (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
-    // Configure interface objects here.
-    self.sessionDelegate = [XTSessionDelegate sharedDelegate];
-    self.watchSession = [WCSession defaultSession];
-
-    NSDictionary *info = [self.watchSession receivedApplicationContext];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    } else {
-        [self.group setBackgroundImageNamed:@"watchBackground"];
-        [self.sessionDelegate requestUpdate];
-    }
-    BOOL noStation = (!info && !self.watchSession.isReachable);
-    [self.noStationLabel setHidden:!noStation];
-    [self setTitle:NSLocalizedString(@"Forecast", @"Title: Chart forecast page")];
-
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(reachabilityChanged:)
-                                                 name:XTSessionReachabilityDidChangeNotification
+                                             selector:@selector(didReceiveUserInfo:)
+                                                 name:XTSessionUserInfoNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(didReceiveApplicationContext:)
-                                                 name:XTSessionAppContextNotification
-                                               object:nil];
-
-
-    [self addMenuItemWithImageNamed:@"ReturnToNow"
-                              title:NSLocalizedString(@"Update Info", @"update the chart and list")
-                             action:@selector(requestImage)];
+    [self setTitle:NSLocalizedString(@"Tides", @"Title: Tides page")];
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:XTSessionReachabilityDidChangeNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:XTSessionAppContextNotification
+                                                    name:XTSessionUserInfoNotification
                                                   object:nil];
 }
 
-- (void)startTimer
+
+- (void)didReceiveUserInfo:(NSNotification *)note
 {
-    if (self.timer) {
-        return;
-    }
     [self requestImage];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:60
-                                                  target:self
-                                                selector:@selector(requestImage)
-                                                userInfo:nil
-                                                 repeats:YES];
-    self.timer.tolerance = 10;
 }
 
-- (void)endTimer
-{
-    [self.timer invalidate];
-    self.timer = nil;
+- (void)willActivate {
+    [self requestImage];
+    [self startTimer];
 }
 
 // The AX string will be local time even though the image shows station time.
@@ -103,105 +62,34 @@
     return @"";
 }
 
-
-- (void)updateContentsFromInfo:(NSDictionary *)info
+- (void)requestImage
 {
-    [self.noStationLabel setHidden:YES];
-    NSData *data = [info objectForKey:@"clockImage"];
-    NSString *axString = [self axDescriptionFromInfo:info];
-    if (data) {
-#if 0
-        [self.group setBackgroundImageData:data];
-#else
-        CGFloat width = [[info objectForKey:@"width"] floatValue];
-        CGRect bounds = [[WKInterfaceDevice currentDevice] screenBounds];
-        if (bounds.size.width == width) {
-            [self.group setBackgroundImageData:data];
-        } else {
-            [self requestImage];
-        }
-#endif
-    }
+    [[XTSessionDelegate sharedDelegate] requestUpdate];
+    // This method is called when watch view controller is about to be visible to user
+    self.group.backgroundImage = [[XTSessionDelegate sharedDelegate] image];;
+    NSString *axString = [self axDescriptionFromInfo:[[XTSessionDelegate sharedDelegate] info]];
     if (axString) {
         [self.group setAccessibilityLabel:axString];
     }
 }
 
+- (void)didDeactivate {
+    // This method is called when watch view controller is no longer visible
+    [self.timer invalidate];
+    self.timer = nil;
+}
 
-- (void)requestImage
+- (void)startTimer
 {
-    if (!self.watchSession.reachable) {
+    if (self.timer) {
         return;
     }
-
-    [self.sessionDelegate requestUpdate];
-}
-
-- (void)reachabilityChanged:(NSNotification *)note
-{
-    if (self.watchSession.reachable) {
-        [self startTimer];
-    } else {
-        [self endTimer];
-    }
-}
-
-- (void)didReceiveApplicationContext:(NSNotification *)note
-{
-    NSDictionary *applicationContext = [note userInfo];
-    NSData *data = [applicationContext objectForKey:@"clockImage"];
-    if (data) {
-        [self updateContentsFromInfo:applicationContext];
-    } else {
-        [self requestImage];
-    }
-}
-
-- (void)imageUpdated:(NSNotification *)note
-{
-    NSDictionary *reply = [note userInfo];
-    if (reply) {
-        [self updateContentsFromInfo:reply];
-    }
-}
-
-- (void)willActivate
-{
-    // This method is called when watch view controller is about to be visible to user
-    [super willActivate];
-    // Update from last info so there's something while we wait for the latest update.
-    NSDictionary *info = [self.watchSession receivedApplicationContext];
-    if (info) {
-        [self updateContentsFromInfo:info];
-    }
-    if (self.watchSession.isReachable) {
-        // Calls requestUpdate.
-        [self startTimer];
-    }
-}
-
-- (void)didDeactivate
-{
-    // This method is called when watch view controller is no longer visible
-    [super didDeactivate];
-    [self endTimer];
-}
-
-- (void)session:(WCSession *)session activationDidCompleteWithState:(WCSessionActivationState)activationState error:(nullable NSError *)error
-{
-    if (activationState == WCSessionActivationStateActivated) {
-        // Update from last info so there's something while we wait for the latest update.
-        NSDictionary *info = [self.watchSession receivedApplicationContext];
-        if (info) {
-            [self updateContentsFromInfo:info];
-        }
-        if (self.watchSession.isReachable) {
-            // Calls requestUpdate.
-            [self startTimer];
-        }
-    } else {
-        [self endTimer];
-    }
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:60
+                                                  target:self
+                                                selector:@selector(requestImage)
+                                                userInfo:nil
+                                                 repeats:YES];
+    self.timer.tolerance = 10;
 }
 
 @end
