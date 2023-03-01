@@ -17,6 +17,7 @@
 @property (readonly, retain) NSArray *stationRefArray;
 
 - (void)loadStationIndexes;
+- (void)addHarmonicsFiles:(NSArray *)urls;
 
 @end
 

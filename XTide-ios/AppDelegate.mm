@@ -96,6 +96,31 @@ static const CLLocationDistance kUserLocMovement = 5000; // meters
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if ([[url pathExtension] isEqualToString:@"tcd"]) {
+        [self addHarmonicsFiles:@[url]];
+        return YES;
+    }
+    return NO;
+}
+
+- (void)addHarmonicsFiles:(NSArray *)urls {
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSURL *url in urls) {
+        if (url) {
+            NSData *bookmarkData = [url bookmarkDataWithOptions:NSURLBookmarkCreationMinimalBookmark
+                                 includingResourceValuesForKeys:nil
+                                                  relativeToURL:nil
+                                                          error:NULL];
+            if (bookmarkData) {
+                [array addObject:bookmarkData];
+            }
+        }
+    }
+    [XTSettings_GetUserDefaults() setObject:array forKey:XTide_harmonicsFiles];
+    [[XTStationIndex sharedStationIndex] reloadHarmonicsFiles];
+    [self loadStationIndexes];
+}
 
 - (void)defaultsChanged:(NSNotification *)notification
 {

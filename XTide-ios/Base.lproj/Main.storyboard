@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HgL-HJ-wUA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HgL-HJ-wUA">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -141,10 +141,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="FavoriteInfo" textLabel="POr-qC-XHQ" detailTextLabel="xdj-Fq-5xQ" style="IBUITableViewCellStyleSubtitle" id="WZu-Qh-d3i">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WZu-Qh-d3i" id="wXM-fn-bMW">
-                                    <rect key="frame" x="0.0" y="0.0" width="350.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="POr-qC-XHQ">
@@ -216,10 +216,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StationInfo" textLabel="7ty-3p-PcT" detailTextLabel="wbv-hA-QVL" style="IBUITableViewCellStyleSubtitle" id="97s-bV-vXG">
-                                <rect key="frame" x="0.0" y="44.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="97s-bV-vXG" id="SYF-Uq-OdS">
-                                    <rect key="frame" x="0.0" y="0.0" width="350.5" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="348.5" height="44"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7ty-3p-PcT">
@@ -272,17 +272,17 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="248" text="No harmonics file available" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bqw-ze-mbN">
-                                <rect key="frame" x="81" y="47" width="269" height="16"/>
+                                <rect key="frame" x="81" y="47" width="269" height="19.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1kT-pA-5OI">
-                                <rect key="frame" x="0.0" y="84.5" width="375" height="514.5"/>
+                                <rect key="frame" x="0.0" y="134" width="375" height="465"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="harmonicsCell" textLabel="bXJ-Lh-hsj" style="IBUITableViewCellStyleDefault" id="p7u-bu-NZ5">
-                                        <rect key="frame" x="0.0" y="44.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p7u-bu-NZ5" id="cPx-4V-RTX">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -321,7 +321,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add or remove additional harmonics files here:" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BhR-63-dMy">
-                                <rect key="frame" x="20" y="88" width="335" height="17"/>
+                                <rect key="frame" x="20" y="91.5" width="335" height="42.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -340,7 +340,7 @@
                             <constraint firstAttribute="trailing" secondItem="1kT-pA-5OI" secondAttribute="trailing" id="2ta-jm-o8Y"/>
                             <constraint firstItem="MEF-Hs-I86" firstAttribute="top" secondItem="Ksd-Hx-yJv" secondAttribute="bottom" constant="8" symbolic="YES" id="2xr-Rb-diF"/>
                             <constraint firstItem="xOm-Xs-OXK" firstAttribute="top" secondItem="1kT-pA-5OI" secondAttribute="bottom" constant="68" id="9z2-7d-DYp"/>
-                            <constraint firstItem="1kT-pA-5OI" firstAttribute="top" secondItem="BhR-63-dMy" secondAttribute="bottom" constant="-20.5" id="BmQ-R7-SYj"/>
+                            <constraint firstItem="1kT-pA-5OI" firstAttribute="top" secondItem="BhR-63-dMy" secondAttribute="bottom" id="BmQ-R7-SYj"/>
                             <constraint firstItem="xOm-Xs-OXK" firstAttribute="top" secondItem="O0U-gb-7po" secondAttribute="bottom" constant="8" symbolic="YES" id="D9M-zk-2Jt"/>
                             <constraint firstItem="e7k-Bz-pM3" firstAttribute="bottom" secondItem="O0U-gb-7po" secondAttribute="bottom" id="HXP-7X-npY"/>
                             <constraint firstItem="BhR-63-dMy" firstAttribute="top" secondItem="Bqw-ze-mbN" secondAttribute="bottom" constant="25" id="HoJ-ak-DtF"/>
@@ -374,11 +374,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CeY-oE-5Yt"/>
+        <segue reference="ELO-VI-bN1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="FavoriteStarOpen" width="32" height="32"/>
-        <image name="folder" catalog="system" width="128" height="97"/>
+        <image name="folder" catalog="system" width="128" height="96"/>
         <image name="location-arrow" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

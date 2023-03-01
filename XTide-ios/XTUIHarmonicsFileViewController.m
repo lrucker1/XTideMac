@@ -87,18 +87,10 @@ static NSString *versionKey = @"version";
     for (NSDictionary *tableData in self.harmonicsFileArray) {
         NSURL *url = [tableData objectForKey:urlKey];
         if (url) {
-            NSData *bookmarkData = [url bookmarkDataWithOptions:NSURLBookmarkCreationMinimalBookmark
-                                 includingResourceValuesForKeys:nil
-                                                  relativeToURL:nil
-                                                          error:NULL];
-            if (bookmarkData) {
-                [array addObject:bookmarkData];
-            }
+            [array addObject:url];
         }
     }
-    [XTSettings_GetUserDefaults() setObject:array forKey:XTide_harmonicsFiles];
-    [[XTStationIndex sharedStationIndex] reloadHarmonicsFiles];
-    [(AppDelegate *)[[UIApplication sharedApplication] delegate] loadStationIndexes];
+    [(AppDelegate *)[[UIApplication sharedApplication] delegate] addHarmonicsFiles:array];
 }
 
 - (IBAction)openImportDocumentPicker:(id)sender {
