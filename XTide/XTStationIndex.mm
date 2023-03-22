@@ -6,6 +6,7 @@
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
+#include <sys/stat.h>
 #import "libxtide.hh"
 #import "StationIndex.hh"
 #import "HarmonicsFile.hh"
@@ -239,9 +240,13 @@ NSString * const XStationIndexDidLoadNotification = @"XStationIndexDidLoadNotifi
 
 - (NSString *)versionFromHarmonicsFile:(NSString *)filePath
 {
-    Dstr dname([filePath UTF8String]);
-    libxtide::HarmonicsFile hf(dname);
-    return DstrToNSString(hf.versionString());
+    struct stat s;
+    if (stat ([filePath UTF8String], &s) == 0) {
+        Dstr dname([filePath UTF8String]);
+        libxtide::HarmonicsFile hf(dname);
+        return DstrToNSString(hf.versionString());
+    }
+    return @"";
 }
 
 - (void)loadHarmonicsFiles

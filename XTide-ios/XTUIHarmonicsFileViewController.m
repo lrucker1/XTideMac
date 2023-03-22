@@ -33,6 +33,7 @@ static NSString *versionKey = @"version";
     [self readHarmonicsFromPrefs];
 }
 
+// WARNING! We may have no version if we've tried to get the info before the file has been vetted by Sandbox.
 - (NSMutableArray *)objectsForURLs:(NSArray *)urls
 {
     NSMutableArray *array = [NSMutableArray array];
@@ -68,7 +69,16 @@ static NSString *versionKey = @"version";
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"harmonicsCell"];
     NSDictionary *data = [self.harmonicsFileArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = data[versionKey];
+    NSString *label = data[versionKey];
+    if ([label length] == 0) {
+        // Maybe we've gotten past the sandbox?
+        label = [[XTStationIndex sharedStationIndex] versionFromHarmonicsFile:[data[urlKey] path]];
+        if ([label length] == 0) {
+            // Nope. Fallback time.
+            label = [data[urlKey] lastPathComponent];
+        }
+    }
+    cell.textLabel.text = label;
     return cell;
 }
 
@@ -95,7 +105,7 @@ static NSString *versionKey = @"version";
 
 - (IBAction)openImportDocumentPicker:(id)sender {
     UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"xtide.tcd"]
-                                                                                                            inMode:UIDocumentPickerModeOpen];
+                                                                                                            inMode:UIDocumentPickerModeImport];
     documentPicker.delegate = self;
     documentPicker.modalPresentationStyle = UIModalPresentationFormSheet;
     [self presentViewController:documentPicker animated:YES completion:nil];
@@ -103,8 +113,11 @@ static NSString *versionKey = @"version";
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller
 didPickDocumentsAtURLs:(NSArray<NSURL *> *)urls {
-    [self.harmonicsFileArray addObjectsFromArray:[self objectsForURLs:urls]];
-    [self.tableView reloadData];
-    [self applyHarmonics:nil];
+    // Give it time to be Sandbox-approved. Who knows, it could happen.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.harmonicsFileArray addObjectsFromArray:[self objectsForURLs:urls]];
+        [self.tableView reloadData];
+        [self applyHarmonics:nil];
+    });
 }
 @end

@@ -48,23 +48,26 @@ HarmonicsFile::HarmonicsFile (const Dstr &filename):
 
   // Do some sanity checks before invoking libtcd.  (open_tide_db just
   // returns false regardless of what the problem was.)
-  {
-    FILE *fp = fopen (filename.aschar(), "rb");
-    if (fp) {
-      char c = fgetc (fp);
-      if (c != '[') {
-        Dstr details (filename);
-        details += " is apparently not a TCD file.\n\
+      {
+          FILE *fp = fopen (filename.aschar(), "rb");
+          if (fp) {
+              char c = fgetc (fp);
+              if (c != '[') {
+                  Dstr details (filename);
+                  details += " is apparently not a TCD file.\n\
 We do not use harmonics.txt or offsets.xml anymore.  Please see\n\
 https://flaterco.com/xtide/files.html for a link to the current data.";
-        Global::barf (Error::CORRUPT_HARMONICS_FILE, details);
+                  Global::barf (Error::CORRUPT_HARMONICS_FILE, details);
+              }
+              fclose (fp);
+          } else {
+              // This should never happen.  We statted this file in Global.cc.
+              // This can totally happen; Apple Sandbox can keep us from reading a file before it's approved, esp if we don't go through Global.cc
+                 Dstr details (filename);
+                  details += " could not be opened at this time. Please report this bug and describe how you were trying to open it.";
+                  Global::barf (Error::CANT_OPEN_FILE, details);
+          }
       }
-      fclose (fp);
-    } else {
-      // This should never happen.  We statted this file in Global.cc.
-      Global::cantOpenFile (filename, Error::fatal);
-    }
-  }
 
   if (!open_tide_db (_filename.aschar())) {
     Dstr details (_filename);

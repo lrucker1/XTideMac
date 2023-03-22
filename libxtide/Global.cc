@@ -650,8 +650,8 @@ void Global::barf (Error::TideError err,
     snakeBit = true;
   if (_errorCallback)
     (*_errorCallback) (message, fatality);
-  if (fatality == Error::fatal)
-    exit (-1);
+//  if (fatality == Error::fatal)
+//    exit (-1);
 }
 
 
